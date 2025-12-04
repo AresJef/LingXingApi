@@ -56,7 +56,7 @@ class Products(PageOffestAndLength):
         if v is None:
             return None
         dt = utils.validate_datetime(v, False, "产品时间 %s" % info.field_name)
-        return dt.seconds()
+        return dt.toseconds()
 
 
 class EnableDisableProducts(Parameter):
