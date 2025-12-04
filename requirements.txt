@@ -1,6 +1,6 @@
 # Package requirements
 aiohttp>=3.8.4
-cytimes>=2.1.1
+cytimes>=3.0.1
 numpy>=1.25.2
 orjson>=3.10.2
 pycryptodome>=3.23.0
