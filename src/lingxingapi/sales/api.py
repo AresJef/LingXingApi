@@ -131,7 +131,7 @@ class SalesAPI(BaseAPI):
                     # 商品标题 [原字段 'item_name']
                     "title": "Pr*******",
                     # 商品略缩图链接 [原字段 'small_image_url']
-                    "thunbnail_url": "https://m.*******.jpg",
+                    "thumbnail_url": "https://m.*******.jpg",
                     # 产品类型 (1: 普通产品, 2: 多属性产品) [原字段 'store_type']
                     "product_type": 1,
                     # 商品价格的货币代码
@@ -1677,7 +1677,7 @@ class SalesAPI(BaseAPI):
                             # 商品 ASIN 链接
                             "asin_url": "",
                             # 商品略缩图链接 [原字段 'small_image_url']
-                            "thunbnail_url": "https://image.distributetop.com/******.jpg",
+                            "thumbnail_url": "https://image.distributetop.com/******.jpg",
                             # 商品标题 [原字段 'item_name']
                             "title": "Product Title",
                             # 售后类型 (如: "退款", "退货", "换货") [原字段 'after_type']
@@ -1843,7 +1843,7 @@ class SalesAPI(BaseAPI):
                             # 商品标题 [原字段 'item_name']
                             "title": "Product Title",
                             # 商品略缩图链接 [原字段 'small_image_url']
-                            "thunbnail_url": "https://image.distributetop.com/****.jpg",
+                            "thumbnail_url": "https://image.distributetop.com/****.jpg",
                             # 订单商品总数量 [原字段 'quantity']
                             "order_qty": 1,
                         },
@@ -1962,7 +1962,7 @@ class SalesAPI(BaseAPI):
                             # 商品标题 [原字段 'item_name']
                             "title": "Product Title",
                             # 商品略缩图链接 [原字段 'small_image_url']
-                            "thunbnail_url": "https://image.distributetop.com/****.jpg",
+                            "thumbnail_url": "https://image.distributetop.com/****.jpg",
                             # 订单商品总数量 [原字段 'quantity']
                             "order_qty": 1,
                             # 订单商品已发货数量 [原字段 'shipped_quantity']
@@ -3108,7 +3108,7 @@ class SalesAPI(BaseAPI):
                     # 商品链接
                     "asin_url": "https://www.amazon.ca/dp/B0********",
                     # 商品略缩图链接 [原字段 'small_image_url']
-                    "thunbnail_url": "https://m.media-amazon.com/images/I/7***.jpg",
+                    "thumbnail_url": "https://m.media-amazon.com/images/I/7***.jpg",
                     # 促销活动叠加数量 [原字段 'promotion_combo_num']
                     "promotion_stacks": 2,
                     # 货币符号

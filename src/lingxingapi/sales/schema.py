@@ -103,7 +103,7 @@ class Listing(BaseModel):
     # 商品标题 [原字段 'item_name']
     title: str = Field(validation_alias="item_name")
     # 商品略缩图链接 [原字段 'small_image_url']
-    thunbnail_url: str = Field(validation_alias="small_image_url")
+    thumbnail_url: str = Field(validation_alias="small_image_url")
     # 产品类型 (1: 普通产品, 2: 多属性产品) [原字段 'store_type']
     product_type: int = Field(validation_alias="store_type")
     # 商品价格的货币代码
@@ -751,7 +751,7 @@ class AfterSalesOrderItem(BaseModel):
     # 商品 ASIN 链接
     asin_url: str
     # 商品略缩图链接 [原字段 'small_image_url']
-    thunbnail_url: str = Field(validation_alias="small_image_url")
+    thumbnail_url: str = Field(validation_alias="small_image_url")
     # 商品标题 [原字段 'item_name']
     title: str = Field(validation_alias="item_name")
     # 售后类型 (如: "退款", "退货", "换货") [原字段 'after_type']
@@ -867,7 +867,7 @@ class McfOrderItem(BaseModel):
     # 商品标题 [原字段 'item_name']
     title: str = Field(validation_alias="item_name")
     # 商品略缩图链接 [原字段 'small_image_url']
-    thunbnail_url: str = Field(validation_alias="small_image_url")
+    thumbnail_url: str = Field(validation_alias="small_image_url")
     # 订单商品总数量 [原字段 'quantity']
     order_qty: int = Field(validation_alias="quantity")
 
@@ -926,7 +926,7 @@ class McfOrderDetailItem(BaseModel):
     # 商品标题 [原字段 'item_name']
     title: str = Field(validation_alias="item_name")
     # 商品略缩图链接 [原字段 'small_image_url']
-    thunbnail_url: str = Field(validation_alias="small_image_url")
+    thumbnail_url: str = Field(validation_alias="small_image_url")
     # 订单商品总数量 [原字段 'quantity']
     order_qty: int = Field(validation_alias="quantity")
     # 订单商品已发货数量 [原字段 'shipped_quantity']
@@ -1684,7 +1684,7 @@ class PromotionOnListing(BaseModel):
     # 商品链接
     asin_url: str
     # 商品略缩图链接 [原字段 'small_image_url']
-    thunbnail_url: str = Field(validation_alias="small_image_url")
+    thumbnail_url: str = Field(validation_alias="small_image_url")
     # 促销活动叠加数量 [原字段 'promotion_combo_num']
     promotion_stacks: IntOrNone2Zero = Field(validation_alias="promotion_combo_num")
     # 货币符号

@@ -479,7 +479,7 @@ class WarehouseAPI(BaseAPI):
                     # 商品品牌名称 [原字段 'product_brand_text']
                     "brand_name": "",
                     # 商品略缩图链接 [原字段 'small_image_url']
-                    "thunbnail_url": "https://image.distributetop.com/****.jpg",
+                    "thumbnail_url": "https://image.distributetop.com/****.jpg",
                     # 商品配送方式
                     "fulfillment_channel": "AMAZON_EU",
                     # 库存共享类型 [原字段 'share_type']
@@ -751,7 +751,7 @@ class WarehouseAPI(BaseAPI):
                     # 产品图片链接 [原字段 'pic_url']
                     "image_url": "",
                     # 产品略缩图链接 [原字段 'small_image_url']
-                    "thunbnail_url": "https://m.media-amazon.com/images/I/41yXqZiD0JL._SL75_.jpg",
+                    "thumbnail_url": "https://m.media-amazon.com/images/I/41yXqZiD0JL._SL75_.jpg",
                     # 产品负责人列表 [原字段 'asin_principal_list']
                     "operators": [],
                     # 商品属性列表 [原字段 'attribute']

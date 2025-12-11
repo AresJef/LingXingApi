@@ -440,7 +440,7 @@ class AwdInventoryItem(BaseModel):
     # 产品图片链接 [原字段 'pic_url']
     image_url: str = Field(validation_alias="pic_url")
     # 产品略缩图链接 [原字段 'small_image_url']
-    thunbnail_url: str = Field(validation_alias="small_image_url")
+    thumbnail_url: str = Field(validation_alias="small_image_url")
     # 产品负责人列表 [原字段 'asin_principal_list']
     operators: list = Field(validation_alias="asin_principal_list")
     # 商品属性列表 [原字段 'attribute']
