@@ -90,7 +90,7 @@ class ProductAPI(BaseAPI):
                     "status": 1,
                     # 产品状态描述 [原字段 'status_text']
                     "status_desc": "在售",
-                    # 创建时间 (北京之间, 时间戳) [原字段 'create_time']
+                    # 创建时间 (北京时间, 时间戳) [原字段 'create_time']
                     "create_time_ts": 1753330296,
                     # 更新时间 (北京时间, 时间戳) [原字段 'update_time']
                     "update_time_ts": 1753330796,
