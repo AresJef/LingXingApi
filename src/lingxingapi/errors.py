@@ -46,6 +46,10 @@ class ServerError(RequestError):
     """Raised when the API server deos not return proper response."""
 
 
+class InternalServerError(ServerError):
+    """Raised when the API server returns a 500 error."""
+
+
 # Authrization
 class AuthorizationError(RequestError):
     """Raised when the API server returns a 4xx error related to authorization."""

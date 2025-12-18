@@ -32,9 +32,15 @@ class BaseAPI:
         app_secret: str,
         app_cipher: EcbMode,
         timeout: int | float,
+        ignore_timeout: bool,
+        ignore_timeout_wait: int | float,
+        ignore_timeout_retry: int,
         ignore_api_limit: bool,
         ignore_api_limit_wait: int | float,
         ignore_api_limit_retry: int,
+        ignore_internal_server_error: bool,
+        ignore_internal_server_error_wait: int | float,
+        ignore_internal_server_error_retry: int,
     ) -> None:
         """领星 API 基础类, 提供公共方法和属性供子类继承使用
 
@@ -42,20 +48,48 @@ class BaseAPI:
         请勿直接实例化此类
 
         :param app_id `<'str'>`: 应用ID, 用于鉴权
+
         :param app_secret `<'str'>`: 应用密钥, 用于鉴权
+
         :param app_cipher `<'EcbMode'>`: 基于 appId 创建的 AES-ECB 加密器
+
         :param timeout `<'int/float'>`: 请求超时 (单位: 秒)
+
+        :param ignore_timeout `<'bool'>`: 是否忽略请求超时错误
+
+            - 如果设置为 `True`, 则在遇到请求超时错误时不会抛出异常, 而是会等待
+              `ignore_timeout_wait` 秒后重试请求, 重试次数不超过 `ignore_timeout_retry`
+            - 如果设置为 `False`, 则在遇到请求超时错误时直接抛出 `ApiTimeoutError` 异常
+
+        :param ignore_timeout_wait `<'int/float'>`: 忽略请求超时错误时的等待时间 (单位: 秒),
+            仅在 `ignore_timeout` 为 `True` 时生效
+
+        :param ignore_timeout_retry `<'int'>`: 忽略请求超时错误时的最大重试次数,
+            仅在 `ignore_timeout` 为 `True` 时生效, 若设置为 `-1` 则表示无限重试
+
         :param ignore_api_limit `<'bool'>`: 是否忽略 API 限流错误
 
             - 如果设置为 `True`, 则在遇到限流错误时不会抛出异常, 而是会等待
               `ignore_api_limit_wait` 秒后重试请求, 重试次数不超过 `ignore_api_limit_retry`
             - 如果设置为 `False`, 则在遇到限流错误时直接抛出 `ApiLimitError` 异常
 
-        :param ignore_api_limit_wait `<'float'>`: 忽略 API 限流错误时的等待时间 (单位: 秒),
+        :param ignore_api_limit_wait `<'int/float'>`: 忽略 API 限流错误时的等待时间 (单位: 秒),
             仅在 `ignore_api_limit` 为 `True` 时生效
 
         :param ignore_api_limit_retry `<'int'>`: 忽略 API 限流错误时的最大重试次数,
             仅在 `ignore_api_limit` 为 `True` 时生效, 若设置为 `-1` 则表示无限重试
+
+        :param ignore_internal_server_error `<'bool'>`: 是否忽略服务器内部错误 (500错误码, 仅限 Internal Server Error 类型)
+
+            - 如果设置为 `True`, 则在遇到服务器内部错误时不会抛出异常, 而是会等待
+              `ignore_internal_server_error_wait` 秒后重试请求, 重试次数不超过 `ignore_internal_server_error_retry`
+            - 如果设置为 `False`, 则在遇到服务器内部错误时直接抛出 `InternalServerError` 异常
+
+        :param ignore_internal_server_error_wait `<'int/float'>`: 忽略服务器内部错误时的等待时间 (单位: 秒),
+            仅在 `ignore_internal_server_error` 为 `True` 时生效
+
+        :param ignore_internal_server_error_retry `<'int'>`: 忽略服务器内部错误时的最大重试次数,
+            仅在 `ignore_internal_server_error` 为 `True` 时生效, 若设置为 `-1` 则表示无限重试
         """
         # API 凭证
         self._app_id: str = app_id
@@ -63,11 +97,28 @@ class BaseAPI:
         self._app_cipher: EcbMode = app_cipher
         # HTTP 会话
         self._timeout: ClientTimeout = timeout
-        # API 限流
+        # 错误处理
+        # . 请求超时
+        self._ignore_timeout: bool = ignore_timeout
+        self._ignore_timeout_wait: float = ignore_timeout_wait
+        self._ignore_timeout_retry: int = ignore_timeout_retry
+        self._infinite_timeout_retry: bool = ignore_timeout_retry == -1
+        # . API 限流
         self._ignore_api_limit: bool = ignore_api_limit
         self._ignore_api_limit_wait: float = ignore_api_limit_wait
         self._ignore_api_limit_retry: int = ignore_api_limit_retry
         self._infinite_retry: bool = ignore_api_limit_retry == -1
+        # . 服务器内部错误 (500错误码, 仅限 Internal Server Error 类型)
+        self._ignore_internal_server_error: bool = ignore_internal_server_error
+        self._ignore_internal_server_error_wait: float = (
+            ignore_internal_server_error_wait
+        )
+        self._ignore_internal_server_error_retry: int = (
+            ignore_internal_server_error_retry
+        )
+        self._infinite_internal_server_error_retry: bool = (
+            ignore_internal_server_error_retry == -1
+        )
 
     async def __aenter__(self) -> Self:
         """进入 API 客户端异步上下文管理器
@@ -212,15 +263,34 @@ class BaseAPI:
                     )
             # fmt: off
             except errors.ApiLimitError as err:
-                if self._ignore_api_limit and (self._infinite_retry or retry_count < self._ignore_api_limit_retry):
+                if (
+                        self._ignore_api_limit 
+                        and (self._infinite_retry or retry_count < self._ignore_api_limit_retry)
+                ):
                     await _aio_sleep(self._ignore_api_limit_wait)
                     retry_count += 1
                     continue
                 raise err
+            except errors.InternalServerError as err:
+                if (
+                        self._ignore_internal_server_error 
+                        and (self._infinite_internal_server_error_retry or retry_count < self._ignore_internal_server_error_retry)
+                ):
+                    await _aio_sleep(self._ignore_internal_server_error_wait)
+                    retry_count += 1
+                    continue
+                raise err
             except TimeoutError as err:
+                if (
+                        self._ignore_timeout 
+                        and (self._infinite_timeout_retry or retry_count < self._ignore_timeout_retry)
+                ):
+                    await _aio_sleep(self._ignore_timeout_wait)
+                    retry_count += 1
+                    continue
                 raise errors.ApiTimeoutError("领星 API 请求超时", url, self._timeout) from err
             except ClientConnectorError as err:
-                raise errors.ServerError("领星 API 服务器无响应, 若无网络问题, 请检查账号 ID 白名单设置", url, err) from err
+                raise errors.ServerError("领星 API 服务器无响应, 若无网络问题, 请检查账号 IP 白名单设置", url, err) from err
             # fmt: on
 
     async def _request_with_sign(
@@ -272,7 +342,7 @@ class BaseAPI:
                 headers=headers,
                 extract_data=extract_data,
             )
-        except errors.AccessTokenExpiredError:
+        except errors.TokenExpiredError:
             await self._UpdateToken()  # 刷新 Access Token
             return await self._request_with_sign(method, url, params, body)
 
@@ -330,7 +400,15 @@ class BaseAPI:
                     "请求速率过高导致被限流拦截", url, data, code
                 )
             # 其他错误码
-            if errno in (400, 405, 500):
+            if errno in (400, 405):
+                raise errors.InvalidApiUrlError(
+                    "请求 url 或 params 不正确", url, data, code
+                )
+            if errno == 500:
+                if data.get("message") == "Internal Server Error":
+                    raise errors.InternalServerError(
+                        "领星 API 服务器发生内部错误", url, data, code
+                    )
                 raise errors.InvalidApiUrlError(
                     "请求 url 或 params 不正确", url, data, code
                 )

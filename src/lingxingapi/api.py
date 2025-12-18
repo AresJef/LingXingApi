@@ -34,25 +34,59 @@ class API(BaseAPI):
         app_id: str,
         app_secret: str,
         timeout: int | float = 60,
+        ignore_timeout: bool = False,
+        ignore_timeout_wait: int | float = 0.2,
+        ignore_timeout_retry: int = 10,
         ignore_api_limit: bool = False,
         ignore_api_limit_wait: int | float = 0.2,
-        ignore_api_limit_retry: int = 60,
+        ignore_api_limit_retry: int = 10,
+        ignore_internal_server_error: bool = False,
+        ignore_internal_server_error_wait: int | float = 0.2,
+        ignore_internal_server_error_retry: int = 10,
     ) -> None:
         """初始化领星 API 客户端
 
         :param app_id `<'str'>`: 应用ID, 用于鉴权
+
         :param app_secret `<'str'>`: 应用密钥, 用于鉴权
+
         :param timeout `<'int/float'>`: 请求超时 (单位: 秒), 默认为 60
+
+        :param ignore_timeout `<'bool'>`: 是否忽略请求超时错误, 默认为 `False`,
+
+            - 如果设置为 `True`, 则在请求超时时不会抛出异常, 而是会等待
+              `ignore_timeout_wait` 秒后重试请求, 重试次数不超过 `ignore_timeout_retry`
+            - 如果设置为 `False`, 则在请求超时时会抛出 `ApiTimeoutError` 异常
+
+        :param ignore_timeout_wait `<'int/float'>`: 忽略请求超时时的等待时间 (单位: 秒),
+            默认为 `0.2` 秒, 仅在 `ignore_timeout` 为 `True` 时生效
+
+        :param ignore_timeout_retry `<'int'>`: 忽略请求超时时的最大重试次数,
+            默认为 `10`, 仅在 `ignore_timeout` 为 `True` 时生效, 若设置为 `-1` 则表示无限重试
+
         :param ignore_api_limit `<'bool'>`: 是否忽略 API 限流错误, 默认为 `False`,
 
             - 如果设置为 `True`, 则在遇到限流错误时不会抛出异常, 而是会等待
               `ignore_api_limit_wait` 秒后重试请求, 重试次数不超过 `ignore_api_limit_retry`
             - 如果设置为 `False`, 则在遇到限流错误时会抛出 `ApiLimitError` 异常
 
-        :param ignore_api_limit_wait `<'float'>`: 忽略 API 限流错误时的等待时间 (单位: 秒),
+        :param ignore_api_limit_wait `<'int/float'>`: 忽略 API 限流错误时的等待时间 (单位: 秒),
             默认为 `0.2` 秒, 仅在 `ignore_api_limit` 为 `True` 时生效
+
         :param ignore_api_limit_retry `<'int'>`: 忽略 API 限流错误时的最大重试次数,
-            默认为 `60`, 仅在 `ignore_api_limit` 为 `True` 时生效, 若设置为 `-1` 则表示无限重试
+            默认为 `10`, 仅在 `ignore_api_limit` 为 `True` 时生效, 若设置为 `-1` 则表示无限重试
+
+        :param ignore_internal_server_error `<'bool'>`: 是否忽略服务器内部错误 (500错误码, 仅限 Internal Server Error 类型), 默认为 `False`,
+
+            - 如果设置为 `True`, 则在遇到服务器内部错误时不会抛出异常, 而是会等待
+              `ignore_internal_server_error_wait` 秒后重试请求, 重试次数不超过 `ignore_internal_server_error_retry`
+            - 如果设置为 `False`, 则在遇到服务器内部错误时会抛出 `InternalServerError` 异常
+
+        :param ignore_internal_server_error_wait `<'int/float'>`: 忽略服务器内部错误时的等待时间 (单位: 秒),
+            默认为 `0.2` 秒, 仅在 `ignore_internal_server_error` 为 `True` 时生效
+
+        :param ignore_internal_server_error_retry `<'int'>`: 忽略服务器内部错误时的最大重试次数,
+            默认为 `10`, 仅在 `ignore_internal_server_error` 为 `True` 时生效, 若设置为 `-1` 则表示无限重试
         """
         # 验证参数
         # . API 凭证
@@ -63,6 +97,21 @@ class API(BaseAPI):
                 "请求超时必须为正整数或浮点数, 而非 %r" % (timeout,)
             )
         timeout: ClientTimeout = ClientTimeout(total=timeout)
+        # 错误处理
+        # . 请求超时
+        ignore_timeout: bool = bool(ignore_timeout)
+        if not isinstance(ignore_timeout_wait, (float, int)) or ignore_timeout_wait < 0:
+            raise errors.ApiSettingsError(
+                "忽略请求超时时的等待时间必须为非负整数或浮点数, 而非 %r"
+                % (ignore_timeout_wait,)
+            )
+        ignore_timeout_wait: float = float(ignore_timeout_wait)
+        if not isinstance(ignore_timeout_retry, int) or ignore_timeout_retry < -1:
+            raise errors.ApiSettingsError(
+                "忽略请求超时时的最大重试次数必须为正整数或 -1, 而非 %r"
+                % (ignore_timeout_retry,)
+            )
+        ignore_timeout_retry: int = ignore_timeout_retry
         # . API 限流
         ignore_api_limit: bool = bool(ignore_api_limit)
         if (
@@ -80,16 +129,43 @@ class API(BaseAPI):
                 % (ignore_api_limit_retry,)
             )
         ignore_api_limit_retry: int = ignore_api_limit_retry
-
+        # . 服务器内部错误 (500错误码, 仅限 Internal Server Error 类型)
+        ignore_internal_server_error: bool = bool(ignore_internal_server_error)
+        if (
+            not isinstance(ignore_internal_server_error_wait, (float, int))
+            or ignore_internal_server_error_wait < 0
+        ):
+            raise errors.ApiSettingsError(
+                "忽略服务器内部错误时的等待时间必须为非负整数或浮点数, 而非 %r"
+                % (ignore_internal_server_error_wait,)
+            )
+        ignore_internal_server_error_wait: float = float(
+            ignore_internal_server_error_wait
+        )
+        if (
+            not isinstance(ignore_internal_server_error_retry, int)
+            or ignore_internal_server_error_retry < -1
+        ):
+            raise errors.ApiSettingsError(
+                "忽略服务器内部错误时的最大重试次数必须为正整数或 -1, 而非 %r"
+                % (ignore_internal_server_error_retry,)
+            )
+        ignore_internal_server_error_retry: int = ignore_internal_server_error_retry
         # 初始化
         kwargs = {
             "app_id": app_id,
             "app_secret": app_secret,
             "app_cipher": app_cipher,
             "timeout": timeout,
+            "ignore_timeout": ignore_timeout,
+            "ignore_timeout_wait": ignore_timeout_wait,
+            "ignore_timeout_retry": ignore_timeout_retry,
             "ignore_api_limit": ignore_api_limit,
             "ignore_api_limit_wait": ignore_api_limit_wait,
             "ignore_api_limit_retry": ignore_api_limit_retry,
+            "ignore_internal_server_error": ignore_internal_server_error,
+            "ignore_internal_server_error_wait": ignore_internal_server_error_wait,
+            "ignore_internal_server_error_retry": ignore_internal_server_error_retry,
         }
         super().__init__(**kwargs)
         self._basic: BasicAPI = BasicAPI(**kwargs)
