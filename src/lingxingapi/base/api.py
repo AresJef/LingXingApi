@@ -156,7 +156,7 @@ class BaseAPI:
             try:
                 await self._RefreshToken(BaseAPI._refresh_token)
                 return None
-            except errors.RefreshTokenExpiredError:
+            except errors.TokenExpiredError:
                 pass
         # 如果不存在 refresh token, 则重新获取 access token
         await self._AccessToken()
