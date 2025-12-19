@@ -4,7 +4,13 @@ from typing_extensions import Self
 from asyncio import sleep as _aio_sleep
 from orjson import loads as _orjson_loads
 from Crypto.Cipher._mode_ecb import EcbMode
-from aiohttp import TCPConnector, ClientSession, ClientConnectorError, ClientTimeout
+from aiohttp import (
+    TCPConnector,
+    ClientSession,
+    ClientConnectorError,
+    ClientTimeout,
+    ServerDisconnectedError,
+)
 from lingxingapi import utils, errors
 from lingxingapi.base import route, schema
 
@@ -270,6 +276,8 @@ class BaseAPI:
                     await _aio_sleep(self._ignore_api_limit_wait)
                     retry_count += 1
                     continue
+                if retry_count > 0:
+                    err.add_note("retry attemps: %d" % retry_count)
                 raise err
             except errors.InternalServerError as err:
                 if (
@@ -279,8 +287,10 @@ class BaseAPI:
                     await _aio_sleep(self._ignore_internal_server_error_wait)
                     retry_count += 1
                     continue
+                if retry_count > 0:
+                    err.add_note("retry attemps: %d" % retry_count)
                 raise err
-            except TimeoutError as err:
+            except (TimeoutError, ServerDisconnectedError) as err:
                 if (
                         self._ignore_timeout 
                         and (self._infinite_timeout_retry or retry_count < self._ignore_timeout_retry)
@@ -288,7 +298,10 @@ class BaseAPI:
                     await _aio_sleep(self._ignore_timeout_wait)
                     retry_count += 1
                     continue
-                raise errors.ApiTimeoutError("领星 API 请求超时", url, self._timeout) from err
+                err.add_note("timeout: %s" % self._timeout)
+                if retry_count > 0:
+                    err.add_note("retry attemps: %d" % retry_count)
+                raise errors.ApiTimeoutError("领星 API 请求超时", url, str(err)) from err
             except ClientConnectorError as err:
                 raise errors.ServerError("领星 API 服务器无响应, 若无网络问题, 请检查账号 IP 白名单设置", url, err) from err
             # fmt: on
