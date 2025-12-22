@@ -47,6 +47,9 @@ class BaseAPI:
         ignore_internal_server_error: bool,
         ignore_internal_server_error_wait: int | float,
         ignore_internal_server_error_retry: int,
+        ignore_internet_connection: bool,
+        ignore_internet_connection_wait: int | float,
+        ignore_internet_connection_retry: int,
     ) -> None:
         """领星 API 基础类, 提供公共方法和属性供子类继承使用
 
@@ -124,6 +127,13 @@ class BaseAPI:
         )
         self._infinite_internal_server_error_retry: bool = (
             ignore_internal_server_error_retry == -1
+        )
+        # . 无法链接互联网
+        self._ignore_internet_connection: bool = ignore_internet_connection
+        self._ignore_internet_connection_wait: float = ignore_internet_connection_wait
+        self._ignore_internet_connection_retry: int = ignore_internet_connection_retry
+        self._infinite_internet_connection_retry: bool = (
+            ignore_internet_connection_retry == -1
         )
 
     async def __aenter__(self) -> Self:
@@ -277,7 +287,7 @@ class BaseAPI:
                     retry_count += 1
                     continue
                 if retry_count > 0:
-                    err.add_note("retry attemps: %d" % retry_count)
+                    err.add_note("请求重试: %d" % retry_count)
                 raise err
             except errors.InternalServerError as err:
                 if (
@@ -288,9 +298,23 @@ class BaseAPI:
                     retry_count += 1
                     continue
                 if retry_count > 0:
-                    err.add_note("retry attemps: %d" % retry_count)
+                    err.add_note("请求重试: %d" % retry_count)
                 raise err
             except (TimeoutError, ServerDisconnectedError) as err:
+                # 无法链接互联网
+                if not await utils.check_internet_tcp():
+                    if (
+                        self._ignore_internet_connection 
+                        and (self._infinite_internet_connection_retry or retry_count < self._ignore_internet_connection_retry)
+                    ):
+                        await _aio_sleep(self._ignore_internet_connection_wait)
+                        retry_count += 1
+                        continue
+                    exc = errors.InternetConnectionError("无法链接互联网, 请检查网络连接", url, str(err))
+                    if retry_count > 0:
+                        exc.add_note("请求重试: %d" % retry_count)
+                    raise exc from err
+                # 请求超时
                 if (
                         self._ignore_timeout 
                         and (self._infinite_timeout_retry or retry_count < self._ignore_timeout_retry)
@@ -298,11 +322,26 @@ class BaseAPI:
                     await _aio_sleep(self._ignore_timeout_wait)
                     retry_count += 1
                     continue
-                err.add_note("timeout: %s" % self._timeout)
+                exc = errors.ApiTimeoutError("领星 API 请求超时", url, str(err))
+                exc.add_note("超时时间: %s" % self._timeout)
                 if retry_count > 0:
-                    err.add_note("retry attemps: %d" % retry_count)
-                raise errors.ApiTimeoutError("领星 API 请求超时", url, str(err)) from err
+                    exc.add_note("请求重试: %d" % retry_count)
+                raise exc from err
             except ClientConnectorError as err:
+                # 无法链接互联网
+                if not await utils.check_internet_tcp():
+                    if (
+                        self._ignore_internet_connection 
+                        and (self._infinite_internet_connection_retry or retry_count < self._ignore_internet_connection_retry)
+                    ):
+                        await _aio_sleep(self._ignore_internet_connection_wait)
+                        retry_count += 1
+                        continue
+                    exc = errors.InternetConnectionError("无法链接互联网, 请检查网络连接", url, str(err))
+                    if retry_count > 0:
+                        exc.add_note("请求重试: %d" % retry_count)
+                    raise exc from err
+                # Server 无响应
                 raise errors.ServerError("领星 API 服务器无响应, 若无网络问题, 请检查账号 IP 白名单设置", url, err) from err
             # fmt: on
 

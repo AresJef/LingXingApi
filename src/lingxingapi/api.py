@@ -43,6 +43,9 @@ class API(BaseAPI):
         ignore_internal_server_error: bool = False,
         ignore_internal_server_error_wait: int | float = 0.2,
         ignore_internal_server_error_retry: int = 10,
+        ignore_internet_connection: bool = False,
+        ignore_internet_connection_wait: int | float = 10,
+        ignore_internet_connection_retry: int = 10,
     ) -> None:
         """初始化领星 API 客户端
 
@@ -87,6 +90,18 @@ class API(BaseAPI):
 
         :param ignore_internal_server_error_retry `<'int'>`: 忽略服务器内部错误时的最大重试次数,
             默认为 `10`, 仅在 `ignore_internal_server_error` 为 `True` 时生效, 若设置为 `-1` 则表示无限重试
+
+        :param ignore_internet_connection `<'bool'>`: 是否忽略无法链接互联网的错误, 默认为 `False`,
+
+            - 如果设置为 `True`, 则在无法链接互联网时不会抛出异常, 而是会等待
+              `ignore_internet_connection_wait` 秒后重试请求, 重试次数不超过 `ignore_internet_connection_retry`
+            - 如果设置为 `False`, 则在无法链接互联网时会抛出 `InternetConnectionError` 异常
+
+        :param ignore_internet_connection_wait `<'int/float'>`: 忽略无法链接互联网时的等待时间 (单位: 秒),
+            默认为 `10` 秒, 仅在 `ignore_internet_connection` 为 `True` 时生效
+
+        :param ignore_internet_connection_retry `<'int'>`: 忽略无法链接互联网时的最大重试次数,
+            默认为 `10`, 仅在 `ignore_internet_connection` 为 `True` 时生效, 若设置为 `-1` 则表示无限重试
         """
         # 验证参数
         # . API 凭证
@@ -151,6 +166,26 @@ class API(BaseAPI):
                 % (ignore_internal_server_error_retry,)
             )
         ignore_internal_server_error_retry: int = ignore_internal_server_error_retry
+        # . 无法链接互联网
+        ignore_internet_connection: bool = bool(ignore_internet_connection)
+        if (
+            not isinstance(ignore_internet_connection_wait, (float, int))
+            or ignore_internet_connection_wait < 0
+        ):
+            raise errors.ApiSettingsError(
+                "忽略无法链接互联网时的等待时间必须为非负整数或浮点数, 而非 %r"
+                % (ignore_internet_connection_wait,)
+            )
+        ignore_internet_connection_wait: float = float(ignore_internet_connection_wait)
+        if (
+            not isinstance(ignore_internet_connection_retry, int)
+            or ignore_internet_connection_retry < -1
+        ):
+            raise errors.ApiSettingsError(
+                "忽略无法链接互联网时的最大重试次数必须为正整数或 -1, 而非 %r"
+                % (ignore_internet_connection_retry,)
+            )
+        ignore_internet_connection_retry: int = ignore_internet_connection_retry
         # 初始化
         kwargs = {
             "app_id": app_id,
@@ -166,6 +201,9 @@ class API(BaseAPI):
             "ignore_internal_server_error": ignore_internal_server_error,
             "ignore_internal_server_error_wait": ignore_internal_server_error_wait,
             "ignore_internal_server_error_retry": ignore_internal_server_error_retry,
+            "ignore_internet_connection": ignore_internet_connection,
+            "ignore_internet_connection_wait": ignore_internet_connection_wait,
+            "ignore_internet_connection_retry": ignore_internet_connection_retry,
         }
         super().__init__(**kwargs)
         self._basic: BasicAPI = BasicAPI(**kwargs)

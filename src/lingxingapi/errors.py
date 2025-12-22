@@ -36,6 +36,11 @@ class RequestError(BaseApiError):
     """Raised when a request to the API fails."""
 
 
+# Internet Error
+class InternetConnectionError(RequestError):
+    """Raised when there is an internet connectivity issue."""
+
+
 # Timeout
 class ApiTimeoutError(RequestError, TimeoutError):
     """Raise when the API request times out."""

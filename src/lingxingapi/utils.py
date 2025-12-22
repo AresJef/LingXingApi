@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-c
+import asyncio
 import datetime
 from typing import Any
 from decimal import Decimal
@@ -73,6 +74,50 @@ def generate_sign(params: dict, app_cipher: EcbMode) -> str:
 
     # 6: 使用 base64 编码, 并进行 URL 安全的编码
     return _urllib_quote(_b64encode(encrypt).decode("utf-8"), safe="")
+
+
+# Network --------------------------------------------------------------------------------------------------------------
+async def check_internet_tcp(
+    host: str = "119.29.29.29",
+    port: int = 53,
+    timeout: float = 3.0,
+) -> bool:
+    """Check basic network reachability by opening a TCP connection to a DNS endpoint `<'bool'>`.
+
+    This function attempts to establish a TCP socket connection to `host:port`
+    (by default, a public DNS resolver on port 53). If the TCP handshake succeeds
+    within `timeout`, the function closes the connection and returns `True`.
+    Otherwise (timeout or OS-level network error), it returns `False`.
+
+    **Important**
+    - This checks **TCP connectivity** to a specific endpoint, not general “internet
+      availability”.
+    - Many DNS resolvers primarily serve queries over **UDP/53**; some networks may
+      block TCP/53, or block direct access to public resolvers, while internet access
+      still works through other resolvers or via DoH/DoT.
+    - A `True` result indicates the target endpoint is reachable over TCP, not that
+      DNS queries succeed or that HTTP(S) is reachable.
+
+    :param host `<'str'>`: Target host/IP to connect to. Defaults to `'119.29.29.29'`.
+    :param port `<'int'>`: Target TCP port. Defaults to `'53'`.
+    :param timeout `<'float'>`: Maximum time in seconds to wait for the connection
+        attempt. Defaults to `3.0`.
+    :return `<'bool'>`: `True` if a TCP connection to `host:port` is established
+        within `timeout`, otherwise `False`.
+    """
+    try:
+        _, writer = await asyncio.wait_for(
+            asyncio.open_connection(host, port), timeout=timeout
+        )
+    except (OSError, asyncio.TimeoutError):
+        return False
+    else:
+        writer.close()
+        try:
+            await writer.wait_closed()
+        except Exception:
+            pass
+        return True
 
 
 # Date & Time ----------------------------------------------------------------------------------------------------------
