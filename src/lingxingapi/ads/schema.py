@@ -148,7 +148,7 @@ class SpProduct(BaseModel):
     # 商品广告ID
     ad_id: int
     # 商品ASIN
-    asin: str
+    asin: StrOrNone2Blank
     # 亚马逊SKU [原字段 'sku']
     msku: str = Field(validation_alias="sku")
     # 广告状态
