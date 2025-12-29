@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-c
 from typing import Literal
 from typing_extensions import Self
+from warnings import warn as _warn
 from asyncio import sleep as _aio_sleep
 from orjson import loads as _orjson_loads
 from Crypto.Cipher._mode_ecb import EcbMode
@@ -283,6 +284,9 @@ class BaseAPI:
                         self._ignore_api_limit 
                         and (self._infinite_retry or retry_count < self._ignore_api_limit_retry)
                 ):
+                    _warn(
+                        "请求被限流, 正在等待 %.2f 秒后重试..." % self._ignore_api_limit_wait,
+                    )
                     await _aio_sleep(self._ignore_api_limit_wait)
                     retry_count += 1
                     continue
@@ -298,6 +302,9 @@ class BaseAPI:
                         self._ignore_internal_server_error 
                         and (self._infinite_internal_server_error_retry or retry_count < self._ignore_internal_server_error_retry)
                 ):
+                    _warn(
+                        "服务器内部错误, 正在等待 %.2f 秒后重试..." % self._ignore_internal_server_error_wait,
+                    )
                     await _aio_sleep(self._ignore_internal_server_error_wait)
                     retry_count += 1
                     continue
@@ -315,6 +322,9 @@ class BaseAPI:
                         self._ignore_internet_connection 
                         and (self._infinite_internet_connection_retry or retry_count < self._ignore_internet_connection_retry)
                     ):
+                        _warn(
+                            "无法链接互联网, 正在等待 %.2f 秒后重试..." % self._ignore_internet_connection_wait,
+                        )
                         await _aio_sleep(self._ignore_internet_connection_wait)
                         retry_count += 1
                         continue
@@ -331,6 +341,9 @@ class BaseAPI:
                         self._ignore_timeout 
                         and (self._infinite_timeout_retry or retry_count < self._ignore_timeout_retry)
                 ):
+                    _warn(
+                        "请求超时, 正在等待 %.2f 秒后重试..." % self._ignore_timeout_wait,
+                    )
                     await _aio_sleep(self._ignore_timeout_wait)
                     retry_count += 1
                     continue
@@ -350,6 +363,9 @@ class BaseAPI:
                         self._ignore_internet_connection 
                         and (self._infinite_internet_connection_retry or retry_count < self._ignore_internet_connection_retry)
                     ):
+                        _warn(
+                            "无法链接互联网, 正在等待 %.2f 秒后重试..." % self._ignore_internet_connection_wait,
+                        )
                         await _aio_sleep(self._ignore_internet_connection_wait)
                         retry_count += 1
                         continue
