@@ -286,6 +286,10 @@ class BaseAPI:
                     await _aio_sleep(self._ignore_api_limit_wait)
                     retry_count += 1
                     continue
+                if params is not None:
+                    err.add_note("请求参数: %r" % params)
+                if body is not None:
+                    err.add_note("请求实体: %r" % body)
                 if retry_count > 0:
                     err.add_note("请求重试: %d" % retry_count)
                 raise err
@@ -297,6 +301,10 @@ class BaseAPI:
                     await _aio_sleep(self._ignore_internal_server_error_wait)
                     retry_count += 1
                     continue
+                if params is not None:
+                    err.add_note("请求参数: %r" % params)
+                if body is not None:
+                    err.add_note("请求实体: %r" % body)
                 if retry_count > 0:
                     err.add_note("请求重试: %d" % retry_count)
                 raise err
@@ -311,6 +319,10 @@ class BaseAPI:
                         retry_count += 1
                         continue
                     exc = errors.InternetConnectionError("无法链接互联网, 请检查网络连接", url, str(err))
+                    if params is not None:
+                        exc.add_note("请求参数: %r" % params)
+                    if body is not None:
+                        exc.add_note("请求实体: %r" % body)
                     if retry_count > 0:
                         exc.add_note("请求重试: %d" % retry_count)
                     raise exc from err
@@ -323,9 +335,13 @@ class BaseAPI:
                     retry_count += 1
                     continue
                 exc = errors.ApiTimeoutError("领星 API 请求超时", url, str(err))
-                exc.add_note("超时时间: %s" % self._timeout)
+                if params is not None:
+                    exc.add_note("请求参数: %r" % params)
+                if body is not None:
+                    exc.add_note("请求实体: %r" % body)
                 if retry_count > 0:
                     exc.add_note("请求重试: %d" % retry_count)
+                exc.add_note("超时时间: %s" % self._timeout)
                 raise exc from err
             except ClientConnectorError as err:
                 # 无法链接互联网
@@ -338,11 +354,21 @@ class BaseAPI:
                         retry_count += 1
                         continue
                     exc = errors.InternetConnectionError("无法链接互联网, 请检查网络连接", url, str(err))
+                    if params is not None:
+                        exc.add_note("请求参数: %r" % params)
+                    if body is not None:
+                        exc.add_note("请求实体: %r" % body)
                     if retry_count > 0:
                         exc.add_note("请求重试: %d" % retry_count)
                     raise exc from err
                 # Server 无响应
                 raise errors.ServerError("领星 API 服务器无响应, 若无网络问题, 请检查账号 IP 白名单设置", url, err) from err
+            except Exception as err:
+                if params is not None:
+                    err.add_note("请求参数: %r" % params)
+                if body is not None:
+                    err.add_note("请求实体: %r" % body)
+                raise err
             # fmt: on
 
     async def _request_with_sign(
