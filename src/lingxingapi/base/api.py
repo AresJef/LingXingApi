@@ -483,15 +483,8 @@ class BaseAPI:
                     "请求 url 或 params 不正确", url, data, code
                 )
             if errno == 500:
-                if data.get("message") in (
-                    "Internal Server Error",
-                    "请求连接异常,请稍后再试",
-                ):
-                    raise errors.InternalServerError(
-                        "领星 API 服务器发生内部错误", url, data, code
-                    )
-                raise errors.InvalidApiUrlError(
-                    "请求 url 或 params 不正确", url, data, code
+                raise errors.InternalServerError(
+                    "领星 API 服务器发生内部错误", url, data, code
                 )
             if errno == 2001001:
                 raise errors.AppIdOrSecretError(
