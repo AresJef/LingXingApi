@@ -50,9 +50,9 @@ class Portfolio(BaseModel):
     state: StrOrNone2Blank
     # 服务状态 [原字段 'serving_status']
     status: StrOrNone2Blank = Field(validation_alias="serving_status")
-    # 创建时间 (毫秒时间戳) [原字段 'creation_date']
+    # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
     create_time_ts: IntOrNone2Zero = Field(validation_alias="creation_date")
-    # 更新时间 (毫秒时间戳) [原字段 'last_updated_date']
+    # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
     update_time_ts: IntOrNone2Zero = Field(validation_alias="last_updated_date")
 
 
@@ -93,9 +93,9 @@ class SpCampaign(BaseModel):
     state: StrOrNone2Blank
     # 服务状态 [原字段 'serving_status']
     status: StrOrNone2Blank = Field(validation_alias="serving_status")
-    # 创建时间 (毫秒时间戳) [原字段 'creation_date']
+    # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
     create_time_ts: IntOrNone2Zero = Field(validation_alias="creation_date")
-    # 更新时间 (毫秒时间戳) [原字段 'last_updated_date']
+    # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
     update_time_ts: IntOrNone2Zero = Field(validation_alias="last_updated_date")
 
 
@@ -123,9 +123,9 @@ class SpAdGroup(BaseModel):
     state: StrOrNone2Blank
     # 服务状态 [原字段 'serving_status']
     status: StrOrNone2Blank = Field(validation_alias="serving_status")
-    # 创建时间 (毫秒时间戳) [原字段 'creation_date']
+    # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
     create_time_ts: IntOrNone2Zero = Field(validation_alias="creation_date")
-    # 更新时间 (毫秒时间戳) [原字段 'last_updated_date']
+    # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
     update_time_ts: IntOrNone2Zero = Field(validation_alias="last_updated_date")
 
 
@@ -155,9 +155,9 @@ class SpProduct(BaseModel):
     state: StrOrNone2Blank
     # 服务状态 [原字段 'serving_status']
     status: StrOrNone2Blank = Field(validation_alias="serving_status")
-    # 创建时间 (毫秒时间戳) [原字段 'creation_date']
+    # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
     create_time_ts: IntOrNone2Zero = Field(validation_alias="creation_date")
-    # 更新时间 (毫秒时间戳) [原字段 'last_updated_date']
+    # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
     update_time_ts: IntOrNone2Zero = Field(validation_alias="last_updated_date")
 
 
@@ -189,9 +189,9 @@ class SpKeyword(BaseModel):
     state: StrOrNone2Blank
     # 服务状态 [原字段 'serving_status']
     status: StrOrNone2Blank = Field(validation_alias="serving_status")
-    # 创建时间 (毫秒时间戳) [原字段 'creation_date']
+    # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
     create_time_ts: IntOrNone2Zero = Field(validation_alias="creation_date")
-    # 更新时间 (毫秒时间戳) [原字段 'last_updated_date']
+    # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
     update_time_ts: IntOrNone2Zero = Field(validation_alias="last_updated_date")
 
 
@@ -225,9 +225,9 @@ class SpTarget(BaseModel):
     state: StrOrNone2Blank
     # 服务状态 [原字段 'serving_status']
     status: StrOrNone2Blank = Field(validation_alias="serving_status")
-    # 创建时间 (毫秒时间戳) [原字段 'creation_date']
+    # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
     create_time_ts: IntOrNone2Zero = Field(validation_alias="creation_date")
-    # 更新时间 (毫秒时间戳) [原字段 'last_updated_date']
+    # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
     update_time_ts: IntOrNone2Zero = Field(validation_alias="last_updated_date")
 
 
@@ -255,9 +255,9 @@ class SpNegativeKeyword(BaseModel):
     state: StrOrNone2Blank
     # 服务状态 [原字段 'serving_status']
     status: StrOrNone2Blank = Field(validation_alias="serving_status")
-    # 创建时间 (毫秒时间戳) [原字段 'creation_date']
+    # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
     create_time_ts: IntOrNone2Zero = Field(validation_alias="creation_date")
-    # 更新时间 (毫秒时间戳) [原字段 'last_updated_date']
+    # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
     update_time_ts: IntOrNone2Zero = Field(validation_alias="last_updated_date")
 
 
@@ -285,9 +285,9 @@ class SpNegativeTarget(BaseModel):
     state: StrOrNone2Blank
     # 服务状态 [原字段 'serving_status']
     status: StrOrNone2Blank = Field(validation_alias="serving_status")
-    # 创建时间 (毫秒时间戳) [原字段 'creation_date']
+    # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
     create_time_ts: IntOrNone2Zero = Field(validation_alias="creation_date")
-    # 更新时间 (毫秒时间戳) [原字段 'last_updated_date']
+    # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
     update_time_ts: IntOrNone2Zero = Field(validation_alias="last_updated_date")
 
 
@@ -356,9 +356,9 @@ class SbAdGroup(BaseModel):
     state: StrOrNone2Blank
     # 服务状态 [原字段 'serving_status']
     status: StrOrNone2Blank = Field(validation_alias="serving_status")
-    # 创建时间 (毫秒时间戳) [原字段 'creation_date']
+    # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
     create_time_ts: IntOrNone2Zero = Field(validation_alias="creation_date")
-    # 更新时间 (毫秒时间戳) [原字段 'last_updated_date']
+    # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
     update_time_ts: IntOrNone2Zero = Field(validation_alias="last_updated_date")
 
 
@@ -388,9 +388,9 @@ class SbCreative(BaseModel):
     state: StrOrNone2Blank
     # 服务状态 [原字段 'serving_status']
     status: StrOrNone2Blank = Field(validation_alias="serving_status")
-    # 创建时间 (毫秒时间戳) [原字段 'creation_date']
+    # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
     create_time_ts: IntOrNone2Zero = Field(validation_alias="creation_date")
-    # 更新时间 (毫秒时间戳) [原字段 'last_updated_date']
+    # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
     update_time_ts: IntOrNone2Zero = Field(validation_alias="last_updated_date")
 
 
@@ -486,9 +486,9 @@ class SbNegativeKeyword(BaseModel):
     state: StrOrNone2Blank
     # 服务状态 [原字段 'serving_status']
     status: StrOrNone2Blank = Field(validation_alias="serving_status")
-    # 创建时间 (毫秒时间戳) [原字段 'creation_date']
+    # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
     create_time_ts: IntOrNone2Zero = Field(validation_alias="creation_date")
-    # 更新时间 (毫秒时间戳) [原字段 'last_updated_date']
+    # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
     update_time_ts: IntOrNone2Zero = Field(validation_alias="last_updated_date")
 
 
@@ -520,9 +520,9 @@ class SbNegativeTarget(BaseModel):
     state: StrOrNone2Blank
     # 服务状态 [原字段 'serving_status']
     status: StrOrNone2Blank = Field(validation_alias="serving_status")
-    # 创建时间 (毫秒时间戳) [原字段 'creation_date']
+    # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
     create_time_ts: IntOrNone2Zero = Field(validation_alias="creation_date")
-    # 更新时间 (毫秒时间戳) [原字段 'last_updated_date']
+    # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
     update_time_ts: IntOrNone2Zero = Field(validation_alias="last_updated_date")
 
 
@@ -561,9 +561,9 @@ class SdCampaign(BaseModel):
     state: StrOrNone2Blank
     # 服务状态 [原字段 'serving_status']
     status: StrOrNone2Blank = Field(validation_alias="serving_status")
-    # 创建时间 (毫秒时间戳) [原字段 'creation_date']
+    # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
     create_time_ts: IntOrNone2Zero = Field(validation_alias="creation_date")
-    # 更新时间 (毫秒时间戳) [原字段 'last_updated_date
+    # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date
     update_time_ts: IntOrNone2Zero = Field(validation_alias="last_updated_date")
 
 
@@ -593,9 +593,9 @@ class SdAdGroup(BaseModel):
     state: StrOrNone2Blank
     # 服务状态 [原字段 'serving_status']
     status: StrOrNone2Blank = Field(validation_alias="serving_status")
-    # 创建时间 (毫秒时间戳) [原字段 'creation_date']
+    # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
     create_time_ts: IntOrNone2Zero = Field(validation_alias="creation_date")
-    # 更新时间 (毫秒时间戳) [原字段 'last_updated_date']
+    # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
     update_time_ts: IntOrNone2Zero = Field(validation_alias="last_updated_date")
 
 
@@ -625,9 +625,9 @@ class SdProduct(BaseModel):
     state: StrOrNone2Blank
     # 服务状态 [原字段 'serving_status']
     status: StrOrNone2Blank = Field(validation_alias="serving_status")
-    # 创建时间 (毫秒时间戳) [原字段 'creation_date']
+    # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
     create_time_ts: IntOrNone2Zero = Field(validation_alias="creation_date")
-    # 更新时间 (毫秒时间戳) [原字段 'last_updated_date']
+    # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
     update_time_ts: IntOrNone2Zero = Field(validation_alias="last_updated_date")
 
 
@@ -661,9 +661,9 @@ class SdTarget(BaseModel):
     state: StrOrNone2Blank
     # 服务状态 [原字段 'serving_status']
     status: StrOrNone2Blank = Field(validation_alias="serving_status")
-    # 创建时间 (毫秒时间戳) [原字段 'creation_date']
+    # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
     create_time_ts: IntOrNone2Zero = Field(validation_alias="creation_date")
-    # 更新时间 (毫秒时间戳) [原字段 'last_updated_date']
+    # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
     update_time_ts: IntOrNone2Zero = Field(validation_alias="last_updated_date")
 
 
@@ -695,9 +695,9 @@ class SdNegativeTarget(BaseModel):
     state: StrOrNone2Blank
     # 服务状态 [原字段 'serving_status']
     status: StrOrNone2Blank = Field(validation_alias="serving_status")
-    # 创建时间 (毫秒时间戳) [原字段 'creation_date']
+    # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
     create_time_ts: IntOrNone2Zero = Field(validation_alias="creation_date")
-    # 更新时间 (毫秒时间戳) [原字段 'last_updated_date']
+    # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
     update_time_ts: IntOrNone2Zero = Field(validation_alias="last_updated_date")
 
 

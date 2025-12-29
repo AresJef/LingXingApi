@@ -98,9 +98,9 @@ class Product(BaseModel):
     status: int
     # 产品状态描述 [原字段 'status_text']
     status_desc: str = Field(validation_alias="status_text")
-    # 创建时间 (北京之间, 时间戳) [原字段 'create_time']
+    # 创建时间 (UTC秒时间戳) [原字段 'create_time']
     create_time_ts: int = Field(validation_alias="create_time")
-    # 更新时间 (北京时间, 时间戳) [原字段 'update_time']
+    # 更新时间 (UTC秒时间戳) [原字段 'update_time']
     update_time_ts: int = Field(validation_alias="update_time")
     # 产品开发者用户ID (Account.user_id) [原字段 'product_developer_uid']
     product_developer_id: int = Field(validation_alias="product_developer_uid")
@@ -865,7 +865,7 @@ class ProductGlobalTag(BaseModel):
     tag_id: str = Field(validation_alias="label_id")
     # 全局标签名称 [原字段 'label_name']
     tag_name: str = Field(validation_alias="label_name")
-    # 全局标签创建时间 (北京时间, 时间戳) [原字段 'gmt_created']
+    # 全局标签创建时间 (UTC毫秒时间戳) [原字段 'gmt_created']
     create_time_ts: int = Field(validation_alias="gmt_created")
 
 

@@ -172,9 +172,9 @@ class AdsAPI(BaseAPI):
                     "state": "enabled",
                     # 服务状态 [原字段 'serving_status']
                     "status": "PORTFOLIO_OUT_OF_BUDGET",
-                    # 创建时间 (毫秒时间戳) [原字段 'creation_date']
+                    # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
                     "create_time_ts": 1739410536715,
-                    # 更新时间 (毫秒时间戳) [原字段 'last_updated_date']
+                    # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
                     "update_time_ts": 1745401171459,
                 },
                 ...
@@ -278,9 +278,9 @@ class AdsAPI(BaseAPI):
                     "state": "enabled",
                     # 服务状态 [原字段 'serving_status']
                     "status": "CAMPAIGN_STATUS_ENABLED",
-                    # 创建时间 (毫秒时间戳) [原字段 'creation_date']
+                    # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
                     "create_time_ts": 1737172532791,
-                    # 更新时间 (毫秒时间戳) [原字段 'last_updated_date']
+                    # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
                     "update_time_ts": 1755674682189,
                 },
                 ...
@@ -373,9 +373,9 @@ class AdsAPI(BaseAPI):
                     "state": "enabled",
                     # 服务状态 [原字段 'serving_status']
                     "status": "CAMPAIGN_PAUSED",
-                    # 创建时间 (毫秒时间戳) [原字段 'creation_date']
+                    # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
                     "create_time_ts": 1738598311353,
-                    # 更新时间 (毫秒时间戳) [原字段 'last_updated_date']
+                    # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
                     "update_time_ts": 1738598311403,
                 },
                 ...
@@ -470,9 +470,9 @@ class AdsAPI(BaseAPI):
                     "state": "enabled",
                     # 服务状态 [原字段 'serving_status']
                     "status": "PORTFOLIO_OUT_OF_BUDGET",
-                    # 创建时间 (毫秒时间戳) [原字段 'creation_date']
+                    # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
                     "create_time_ts": 1743694871939,
-                    # 更新时间 (毫秒时间戳) [原字段 'last_updated_date']
+                    # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
                     "update_time_ts": 1743694872065,
                 },
                 ...
@@ -569,9 +569,9 @@ class AdsAPI(BaseAPI):
                     "state": "enabled",
                     # 服务状态 [原字段 'serving_status']
                     "status": "CAMPAIGN_PAUSED",
-                    # 创建时间 (毫秒时间戳) [原字段 'creation_date']
+                    # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
                     "create_time_ts": 1741705542679,
-                    # 更新时间 (毫秒时间戳) [原字段 'last_updated_date']
+                    # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
                     "update_time_ts": 1741706022758,
                 },
                 ...
@@ -670,9 +670,9 @@ class AdsAPI(BaseAPI):
                     "state": "paused",
                     # 服务状态 [原字段 'serving_status']
                     "status": "CAMPAIGN_PAUSED",
-                    # 创建时间 (毫秒时间戳) [原字段 'creation_date']
+                    # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
                     "create_time_ts": 1747815913398,
-                    # 创建时间 (毫秒时间戳) [原字段 'creation_date']
+                    # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
                     "update_time_ts": 1747816012556,
                 },
                 ...
@@ -761,9 +761,9 @@ class AdsAPI(BaseAPI):
                     "state": "enabled",
                     # 服务状态 [原字段 'serving_status']
                     "status": "PORTFOLIO_OUT_OF_BUDGET",
-                    # 创建时间 (毫秒时间戳) [原字段 'creation_date']
+                    # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
                     "create_time_ts": 1744989374515,
-                    # 更新时间 (毫秒时间戳) [原字段 'last_updated_date']
+                    # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
                     "update_time_ts": 1744989374649,
                 },
                 ...
@@ -853,9 +853,9 @@ class AdsAPI(BaseAPI):
                     "state": "enabled",
                     # 服务状态 [原字段 'serving_status']
                     "status": "PORTFOLIO_OUT_OF_BUDGET",
-                    # 创建时间 (毫秒时间戳) [原字段 'creation_date']
+                    # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
                     "create_time_ts": 1744989374515,
-                    # 更新时间 (毫秒时间戳) [原字段 'last_updated_date']
+                    # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
                     "update_time_ts": 1744989374649,
                 },
                 ...
@@ -1055,9 +1055,9 @@ class AdsAPI(BaseAPI):
                     "state": "enabled",
                     # 服务状态 [原字段 'serving_status']
                     "status": "AD_GROUP_STATUS_ENABLED",
-                    # 创建时间 (毫秒时间戳) [原字段 'creation_date']
+                    # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
                     "create_time_ts": 1745056819692,
-                    # 更新时间 (毫秒时间戳) [原字段 'last_updated_date']
+                    # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
                     "update_time_ts": 1745056819692,
                 },
                 ...
@@ -1145,9 +1145,9 @@ class AdsAPI(BaseAPI):
                     "state": "enabled",
                     # 服务状态 [原字段 'serving_status']
                     "status": "AD_STATUS_LIVE",
-                    # 创建时间 (毫秒时间戳) [原字段 'creation_date']
+                    # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
                     "create_time_ts": 1745056822757,
-                    # 更新时间 (毫秒时间戳) [原字段 'last_updated_date']
+                    # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
                     "update_time_ts": 1752331081315,
                 },
                 ...
@@ -1437,9 +1437,9 @@ class AdsAPI(BaseAPI):
                     "state": "enabled",
                     # 服务状态 [原字段 'serving_status']
                     "status": "",
-                    # 创建时间 (毫秒时间戳) [原字段 'creation_date']
+                    # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
                     "create_time_ts": 1741601265137,
-                    # 更新时间 (毫秒时间戳) [原字段 'last_updated_date']
+                    # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
                     "update_time_ts": 1741601265144,
                 },
                 ...
@@ -1536,9 +1536,9 @@ class AdsAPI(BaseAPI):
                     "state": "enabled",
                     # 服务状态 [原字段 'serving_status']
                     "status": "",
-                    # 创建时间 (毫秒时间戳) [原字段 'creation_date']
+                    # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
                     "create_time_ts": 1741601265137,
-                    # 更新时间 (毫秒时间戳) [原字段 'last_updated_date']
+                    # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
                     "update_time_ts": 1741601265144,
                 },
                 ...
@@ -1642,9 +1642,9 @@ class AdsAPI(BaseAPI):
                     "state": "paused",
                     # 服务状态 [原字段 'serving_status']
                     "status": "CAMPAIGN_PAUSED",
-                    # 创建时间 (毫秒时间戳) [原字段 'creation_date']
+                    # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
                     "create_time_ts": 1752293593320,
-                    # 更新时间 (毫秒时间戳) [原字段 'last_updated_date
+                    # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date
                     "update_time_ts": 1752761805148,
                 },
                 ...
@@ -1739,9 +1739,9 @@ class AdsAPI(BaseAPI):
                     "state": "paused",
                     # 服务状态 [原字段 'serving_status']
                     "status": "CAMPAIGN_PAUSED",
-                    # 创建时间 (毫秒时间戳) [原字段 'creation_date']
+                    # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
                     "create_time_ts": 1741677037099,
-                    # 更新时间 (毫秒时间戳) [原字段 'last_updated_date']
+                    # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
                     "update_time_ts": 1747663132380,
                 },
                 ...
@@ -1836,9 +1836,9 @@ class AdsAPI(BaseAPI):
                     "state": "enabled",
                     # 服务状态 [原字段 'serving_status']
                     "status": "CAMPAIGN_PAUSED",
-                    # 创建时间 (毫秒时间戳) [原字段 'creation_date']
+                    # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
                     "create_time_ts": 1752293594049,
-                    # 更新时间 (毫秒时间戳) [原字段 'last_updated_date']
+                    # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
                     "update_time_ts": 1752294110214,
                 },
                 ...
@@ -1937,9 +1937,9 @@ class AdsAPI(BaseAPI):
                     "state": "enabled",
                     # 服务状态 [原字段 'serving_status']
                     "status": "CAMPAIGN_PAUSED",
-                    # 创建时间 (毫秒时间戳) [原字段 'creation_date']
+                    # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
                     "create_time_ts": 1738163058574,
-                    # 更新时间 (毫秒时间戳) [原字段 'last_updated_date']
+                    # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
                     "update_time_ts": 1738163058579,
                 },
                 ...
@@ -2036,9 +2036,9 @@ class AdsAPI(BaseAPI):
                     "state": "enabled",
                     # 服务状态 [原字段 'serving_status']
                     "status": "CAMPAIGN_PAUSED",
-                    # 创建时间 (毫秒时间戳) [原字段 'creation_date']
+                    # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
                     "create_time_ts": 1738163058574,
-                    # 更新时间 (毫秒时间戳) [原字段 'last_updated_date']
+                    # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
                     "update_time_ts": 1738163058579,
                 },
                 ...
