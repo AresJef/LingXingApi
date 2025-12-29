@@ -51,6 +51,7 @@ class BaseAPI:
         ignore_internet_connection: bool,
         ignore_internet_connection_wait: int | float,
         ignore_internet_connection_retry: int,
+        echo_retry_warnings: bool = True,
     ) -> None:
         """领星 API 基础类, 提供公共方法和属性供子类继承使用
 
@@ -100,6 +101,20 @@ class BaseAPI:
 
         :param ignore_internal_server_error_retry `<'int'>`: 忽略服务器内部错误时的最大重试次数,
             仅在 `ignore_internal_server_error` 为 `True` 时生效, 若设置为 `-1` 则表示无限重试
+
+        :param ignore_internet_connection `<'bool'>`: 是否忽略无法链接互联网错误
+
+            - 如果设置为 `True`, 则在遇到无法链接互联网错误时不会抛出异常, 而是会等待
+              `ignore_internet_connection_wait` 秒后重试请求, 重试次数不超过 `ignore_internet_connection_retry`
+            - 如果设置为 `False`, 则在遇到无法链接互联网错误时直接抛出 `InternetConnectionError` 异常
+
+        :param ignore_internet_connection_wait `<'int/float'>`: 忽略无法链接互联网错误时的等待时间 (单位: 秒),
+            仅在 `ignore_internet_connection` 为 `True` 时生效
+
+        :param ignore_internet_connection_retry `<'int'>`: 忽略无法链接互联网错误时的最大重试次数,
+            仅在 `ignore_internet_connection` 为 `True` 时生效, 若设置为 `-1` 则表示无限重试
+
+        :param echo_retry_warnings `<'bool'>`: 是否在重试请求时打印警告信息, 默认为 `True`
         """
         # API 凭证
         self._app_id: str = app_id
@@ -136,6 +151,8 @@ class BaseAPI:
         self._infinite_internet_connection_retry: bool = (
             ignore_internet_connection_retry == -1
         )
+        # . 重试警告
+        self._echo_retry_warnings: bool = echo_retry_warnings
 
     async def __aenter__(self) -> Self:
         """进入 API 客户端异步上下文管理器
@@ -285,11 +302,10 @@ class BaseAPI:
                         self._ignore_api_limit 
                         and (self._infinite_retry or retry_count < self._ignore_api_limit_retry)
                 ):
-                    _warn(
-                        "请求被限流, 正在等待 %.2f 秒后重试..." % self._ignore_api_limit_wait,
-                    )
-                    await _aio_sleep(self._ignore_api_limit_wait)
                     retry_count += 1
+                    if self._echo_retry_warnings:
+                        _warn("请求被限流, 正在等待 %.2f 秒后重试(%d)..." % (self._ignore_api_limit_wait, retry_count))
+                    await _aio_sleep(self._ignore_api_limit_wait)
                     continue
                 if params is not None:
                     err.add_note("请求参数: %r" % params)
@@ -304,11 +320,10 @@ class BaseAPI:
                         self._ignore_internal_server_error 
                         and (self._infinite_internal_server_error_retry or retry_count < self._ignore_internal_server_error_retry)
                 ):
-                    _warn(
-                        "服务器内部错误, 正在等待 %.2f 秒后重试..." % self._ignore_internal_server_error_wait,
-                    )
-                    await _aio_sleep(self._ignore_internal_server_error_wait)
                     retry_count += 1
+                    if self._echo_retry_warnings:
+                        _warn("服务器内部错误, 正在等待 %.2f 秒后重试(%d)..." % (self._ignore_internal_server_error_wait, retry_count))
+                    await _aio_sleep(self._ignore_internal_server_error_wait)
                     continue
                 if params is not None:
                     err.add_note("请求参数: %r" % params)
@@ -325,11 +340,10 @@ class BaseAPI:
                         self._ignore_internet_connection 
                         and (self._infinite_internet_connection_retry or retry_count < self._ignore_internet_connection_retry)
                     ):
-                        _warn(
-                            "无法链接互联网, 正在等待 %.2f 秒后重试..." % self._ignore_internet_connection_wait,
-                        )
-                        await _aio_sleep(self._ignore_internet_connection_wait)
                         retry_count += 1
+                        if self._echo_retry_warnings:
+                            _warn("无法链接互联网, 正在等待 %.2f 秒后重试..." % (self._ignore_internet_connection_wait, retry_count))
+                        await _aio_sleep(self._ignore_internet_connection_wait)
                         continue
                     exc = errors.InternetConnectionError("无法链接互联网, 请检查网络连接", url, str(err))
                     if params is not None:
@@ -344,11 +358,10 @@ class BaseAPI:
                         self._ignore_timeout 
                         and (self._infinite_timeout_retry or retry_count < self._ignore_timeout_retry)
                 ):
-                    _warn(
-                        "请求超时, 正在等待 %.2f 秒后重试..." % self._ignore_timeout_wait,
-                    )
-                    await _aio_sleep(self._ignore_timeout_wait)
                     retry_count += 1
+                    if self._echo_retry_warnings:
+                        _warn("请求超时, 正在等待 %.2f 秒后重试..." % (self._ignore_timeout_wait, retry_count))
+                    await _aio_sleep(self._ignore_timeout_wait)
                     continue
                 exc = errors.ApiTimeoutError("领星 API 请求超时", url, str(err))
                 if params is not None:
@@ -367,11 +380,10 @@ class BaseAPI:
                         self._ignore_internet_connection 
                         and (self._infinite_internet_connection_retry or retry_count < self._ignore_internet_connection_retry)
                     ):
-                        _warn(
-                            "无法链接互联网, 正在等待 %.2f 秒后重试..." % self._ignore_internet_connection_wait,
-                        )
-                        await _aio_sleep(self._ignore_internet_connection_wait)
                         retry_count += 1
+                        if self._echo_retry_warnings:
+                            _warn("无法链接互联网, 正在等待 %.2f 秒后重试..." % (self._ignore_internet_connection_wait, retry_count))
+                        await _aio_sleep(self._ignore_internet_connection_wait)
                         continue
                     exc = errors.InternetConnectionError("无法链接互联网, 请检查网络连接", url, str(err))
                     if params is not None:

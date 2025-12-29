@@ -35,17 +35,18 @@ class API(BaseAPI):
         app_secret: str,
         timeout: int | float = 60,
         ignore_timeout: bool = False,
-        ignore_timeout_wait: int | float = 0.2,
+        ignore_timeout_wait: int | float = 1,
         ignore_timeout_retry: int = 10,
         ignore_api_limit: bool = False,
-        ignore_api_limit_wait: int | float = 0.2,
+        ignore_api_limit_wait: int | float = 1,
         ignore_api_limit_retry: int = 10,
         ignore_internal_server_error: bool = False,
-        ignore_internal_server_error_wait: int | float = 0.2,
+        ignore_internal_server_error_wait: int | float = 1,
         ignore_internal_server_error_retry: int = 10,
         ignore_internet_connection: bool = False,
         ignore_internet_connection_wait: int | float = 10,
         ignore_internet_connection_retry: int = 10,
+        echo_retry_warnings: bool = True,
     ) -> None:
         """初始化领星 API 客户端
 
@@ -62,7 +63,7 @@ class API(BaseAPI):
             - 如果设置为 `False`, 则在请求超时时会抛出 `ApiTimeoutError` 异常
 
         :param ignore_timeout_wait `<'int/float'>`: 忽略请求超时时的等待时间 (单位: 秒),
-            默认为 `0.2` 秒, 仅在 `ignore_timeout` 为 `True` 时生效
+            默认为 `1` 秒, 仅在 `ignore_timeout` 为 `True` 时生效
 
         :param ignore_timeout_retry `<'int'>`: 忽略请求超时时的最大重试次数,
             默认为 `10`, 仅在 `ignore_timeout` 为 `True` 时生效, 若设置为 `-1` 则表示无限重试
@@ -74,7 +75,7 @@ class API(BaseAPI):
             - 如果设置为 `False`, 则在遇到限流错误时会抛出 `ApiLimitError` 异常
 
         :param ignore_api_limit_wait `<'int/float'>`: 忽略 API 限流错误时的等待时间 (单位: 秒),
-            默认为 `0.2` 秒, 仅在 `ignore_api_limit` 为 `True` 时生效
+            默认为 `1` 秒, 仅在 `ignore_api_limit` 为 `True` 时生效
 
         :param ignore_api_limit_retry `<'int'>`: 忽略 API 限流错误时的最大重试次数,
             默认为 `10`, 仅在 `ignore_api_limit` 为 `True` 时生效, 若设置为 `-1` 则表示无限重试
@@ -86,7 +87,7 @@ class API(BaseAPI):
             - 如果设置为 `False`, 则在遇到服务器内部错误时会抛出 `InternalServerError` 异常
 
         :param ignore_internal_server_error_wait `<'int/float'>`: 忽略服务器内部错误时的等待时间 (单位: 秒),
-            默认为 `0.2` 秒, 仅在 `ignore_internal_server_error` 为 `True` 时生效
+            默认为 `1` 秒, 仅在 `ignore_internal_server_error` 为 `True` 时生效
 
         :param ignore_internal_server_error_retry `<'int'>`: 忽略服务器内部错误时的最大重试次数,
             默认为 `10`, 仅在 `ignore_internal_server_error` 为 `True` 时生效, 若设置为 `-1` 则表示无限重试
@@ -102,6 +103,8 @@ class API(BaseAPI):
 
         :param ignore_internet_connection_retry `<'int'>`: 忽略无法链接互联网时的最大重试次数,
             默认为 `10`, 仅在 `ignore_internet_connection` 为 `True` 时生效, 若设置为 `-1` 则表示无限重试
+
+        :param echo_retry_warnings `<'bool'>`: 是否在重试请求时打印警告信息, 默认为 `True`
         """
         # 验证参数
         # . API 凭证
@@ -204,6 +207,7 @@ class API(BaseAPI):
             "ignore_internet_connection": ignore_internet_connection,
             "ignore_internet_connection_wait": ignore_internet_connection_wait,
             "ignore_internet_connection_retry": ignore_internet_connection_retry,
+            "echo_retry_warnings": bool(echo_retry_warnings),
         }
         super().__init__(**kwargs)
         self._basic: BasicAPI = BasicAPI(**kwargs)
