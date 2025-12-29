@@ -47,7 +47,7 @@ class Portfolio(BaseModel):
     # 当前是否在预算范围内 (0: 超出预算, 1: 在预算内)
     in_budget: int
     # 广告状态
-    state: str
+    state: StrOrNone2Blank
     # 服务状态 [原字段 'serving_status']
     status: StrOrNone2Blank = Field(validation_alias="serving_status")
     # 创建时间 (毫秒时间戳) [原字段 'creation_date']
@@ -90,7 +90,7 @@ class SpCampaign(BaseModel):
     # 结束时间 [原字段 'end_date']
     end_time: StrOrNone2Blank = Field(None, validation_alias="end_date")
     # 广告状态
-    state: str
+    state: StrOrNone2Blank
     # 服务状态 [原字段 'serving_status']
     status: StrOrNone2Blank = Field(validation_alias="serving_status")
     # 创建时间 (毫秒时间戳) [原字段 'creation_date']
@@ -120,7 +120,7 @@ class SpAdGroup(BaseModel):
     # 默认竞价
     default_bid: float
     # 广告组状态
-    state: str
+    state: StrOrNone2Blank
     # 服务状态 [原字段 'serving_status']
     status: StrOrNone2Blank = Field(validation_alias="serving_status")
     # 创建时间 (毫秒时间戳) [原字段 'creation_date']
@@ -152,7 +152,7 @@ class SpProduct(BaseModel):
     # 亚马逊SKU [原字段 'sku']
     msku: str = Field(validation_alias="sku")
     # 广告状态
-    state: str
+    state: StrOrNone2Blank
     # 服务状态 [原字段 'serving_status']
     status: StrOrNone2Blank = Field(validation_alias="serving_status")
     # 创建时间 (毫秒时间戳) [原字段 'creation_date']
@@ -186,7 +186,7 @@ class SpKeyword(BaseModel):
     # 竞价
     bid: float
     # 广告状态
-    state: str
+    state: StrOrNone2Blank
     # 服务状态 [原字段 'serving_status']
     status: StrOrNone2Blank = Field(validation_alias="serving_status")
     # 创建时间 (毫秒时间戳) [原字段 'creation_date']
@@ -222,7 +222,7 @@ class SpTarget(BaseModel):
     # 竞价
     bid: float
     # 广告状态
-    state: str
+    state: StrOrNone2Blank
     # 服务状态 [原字段 'serving_status']
     status: StrOrNone2Blank = Field(validation_alias="serving_status")
     # 创建时间 (毫秒时间戳) [原字段 'creation_date']
@@ -252,7 +252,7 @@ class SpNegativeKeyword(BaseModel):
     # 否定匹配方式 [原字段 'negative_match_type']
     match_type: str = Field(validation_alias="negative_match_type")
     # 广告状态
-    state: str
+    state: StrOrNone2Blank
     # 服务状态 [原字段 'serving_status']
     status: StrOrNone2Blank = Field(validation_alias="serving_status")
     # 创建时间 (毫秒时间戳) [原字段 'creation_date']
@@ -282,7 +282,7 @@ class SpNegativeTarget(BaseModel):
     # 否定目标文本 [原字段 'negative_text']
     target_text: str = Field(validation_alias="negative_text")
     # 广告状态
-    state: str
+    state: StrOrNone2Blank
     # 服务状态 [原字段 'serving_status']
     status: StrOrNone2Blank = Field(validation_alias="serving_status")
     # 创建时间 (毫秒时间戳) [原字段 'creation_date']
@@ -329,7 +329,7 @@ class SbCampaign(BaseModel):
     # 结束时间 [原字段 'end_date']
     end_time: StrOrNone2Blank = Field(None, validation_alias="end_date")
     # 广告状态
-    state: str
+    state: StrOrNone2Blank
     # 服务状态 [原字段 'serving_status']
     status: StrOrNone2Blank = Field(validation_alias="serving_status")
 
@@ -353,7 +353,7 @@ class SbAdGroup(BaseModel):
     # 广告组名称 [原字段 'name']
     ad_group_name: str = Field(validation_alias="name")
     # 广告组状态
-    state: str
+    state: StrOrNone2Blank
     # 服务状态 [原字段 'serving_status']
     status: StrOrNone2Blank = Field(validation_alias="serving_status")
     # 创建时间 (毫秒时间戳) [原字段 'creation_date']
@@ -385,7 +385,7 @@ class SbCreative(BaseModel):
     # 广告创意 ASIN 列表 [原字段 'asin']
     asins: list[str] = Field(validation_alias="asin")
     # 广告状态
-    state: str
+    state: StrOrNone2Blank
     # 服务状态 [原字段 'serving_status']
     status: StrOrNone2Blank = Field(validation_alias="serving_status")
     # 创建时间 (毫秒时间戳) [原字段 'creation_date']
@@ -423,7 +423,7 @@ class SbKeyword(BaseModel):
     # 竞价 [原字段 'keyword_bid']
     bid: float = Field(validation_alias="keyword_bid")
     # 广告状态 [原字段 'keyword_state']
-    state: str = Field(validation_alias="keyword_state")
+    state: StrOrNone2Blank = Field(validation_alias="keyword_state")
 
 
 class SbKeywords(ResponseV1Token):
@@ -456,7 +456,7 @@ class SbTarget(BaseModel):
     # 竞价 [原字段 'target_bid']
     bid: float = Field(validation_alias="target_bid")
     # 广告状态 [原字段 'target_state']
-    state: str = Field(validation_alias="target_state")
+    state: StrOrNone2Blank = Field(validation_alias="target_state")
     # fmt: on
 
 
@@ -483,7 +483,7 @@ class SbNegativeKeyword(BaseModel):
     # 否定关键词匹配类型
     match_type: str
     # 广告状态
-    state: str
+    state: StrOrNone2Blank
     # 服务状态 [原字段 'serving_status']
     status: StrOrNone2Blank = Field(validation_alias="serving_status")
     # 创建时间 (毫秒时间戳) [原字段 'creation_date']
@@ -517,7 +517,7 @@ class SbNegativeTarget(BaseModel):
     # 否定目标定位解析表达式 (JSON 字符串) [原字段 'resolved_expression']
     expression_resolved: str = Field(validation_alias="resolved_expression")
     # 广告状态
-    state: str
+    state: StrOrNone2Blank
     # 服务状态 [原字段 'serving_status']
     status: StrOrNone2Blank = Field(validation_alias="serving_status")
     # 创建时间 (毫秒时间戳) [原字段 'creation_date']
@@ -558,7 +558,7 @@ class SdCampaign(BaseModel):
     # 结束时间 [原字段 'end_date']
     end_time: StrOrNone2Blank = Field(None, validation_alias="end_date")
     # 广告状态
-    state: str
+    state: StrOrNone2Blank
     # 服务状态 [原字段 'serving_status']
     status: StrOrNone2Blank = Field(validation_alias="serving_status")
     # 创建时间 (毫秒时间戳) [原字段 'creation_date']
@@ -590,7 +590,7 @@ class SdAdGroup(BaseModel):
     # 竞价优化方式
     bid_optimization: str
     # 广告组状态
-    state: str
+    state: StrOrNone2Blank
     # 服务状态 [原字段 'serving_status']
     status: StrOrNone2Blank = Field(validation_alias="serving_status")
     # 创建时间 (毫秒时间戳) [原字段 'creation_date']
@@ -622,7 +622,7 @@ class SdProduct(BaseModel):
     # 亚马逊SKU [原字段 'sku']
     msku: str = Field(validation_alias="sku")
     # 广告状态
-    state: str
+    state: StrOrNone2Blank
     # 服务状态 [原字段 'serving_status']
     status: StrOrNone2Blank = Field(validation_alias="serving_status")
     # 创建时间 (毫秒时间戳) [原字段 'creation_date']
@@ -658,7 +658,7 @@ class SdTarget(BaseModel):
     # 竞价
     bid: float
     # 广告状态
-    state: str
+    state: StrOrNone2Blank
     # 服务状态 [原字段 'serving_status']
     status: StrOrNone2Blank = Field(validation_alias="serving_status")
     # 创建时间 (毫秒时间戳) [原字段 'creation_date']
@@ -692,7 +692,7 @@ class SdNegativeTarget(BaseModel):
     # 否定目标定位解析表达式 (JSON 字符串) [原字段 'resolved_expression']
     expression_resolved: str = Field(validation_alias="resolved_expression")
     # 广告状态
-    state: str
+    state: StrOrNone2Blank
     # 服务状态 [原字段 'serving_status']
     status: StrOrNone2Blank = Field(validation_alias="serving_status")
     # 创建时间 (毫秒时间戳) [原字段 'creation_date']
