@@ -224,7 +224,7 @@ class BaseAPI:
             try:
                 await self._RefreshToken(BaseAPI._refresh_token)
                 return None
-            except errors.TokenExpiredError:
+            except errors.TokenError:
                 pass
         # 如果不存在 refresh token, 则重新获取 access token
         await self._AccessToken()
@@ -279,6 +279,7 @@ class BaseAPI:
                         url, await res.read(), extract_data
                     )
             # fmt: off
+            # . 请求限流错误处理
             except errors.ApiLimitError as err:
                 if (
                         self._ignore_api_limit 
@@ -297,6 +298,7 @@ class BaseAPI:
                 if retry_count > 0:
                     err.add_note("请求重试: %d" % retry_count)
                 raise err
+            # . 服务器内部错误处理
             except errors.InternalServerError as err:
                 if (
                         self._ignore_internal_server_error 
@@ -315,6 +317,7 @@ class BaseAPI:
                 if retry_count > 0:
                     err.add_note("请求重试: %d" % retry_count)
                 raise err
+            # . 网络相关错误处理
             except (TimeoutError, ServerDisconnectedError) as err:
                 # 无法链接互联网
                 if not await utils.check_internet_tcp():
@@ -356,6 +359,7 @@ class BaseAPI:
                     exc.add_note("请求重试: %d" % retry_count)
                 exc.add_note("超时时间: %s" % self._timeout)
                 raise exc from err
+            # . 服务器无响应处理
             except ClientConnectorError as err:
                 # 无法链接互联网
                 if not await utils.check_internet_tcp():
@@ -436,8 +440,8 @@ class BaseAPI:
                 headers=headers,
                 extract_data=extract_data,
             )
-        except errors.TokenExpiredError:
-            await self._UpdateToken()  # 刷新 Access Token
+        except errors.TokenError:
+            await self._UpdateToken()  # 刷新 Token
             return await self._request_with_sign(method, url, params, body)
 
     def _handle_response_data(
