@@ -381,7 +381,7 @@ class SbCreative(BaseModel):
     # 广告创意ID [原字段 'ad_creative_id']
     creative_id: int = Field(validation_alias="ad_creative_id")
     # 广告创意名称 [原字段 'name']
-    creative_name: str = Field(validation_alias="name")
+    creative_name: StrOrNone2Blank = Field(validation_alias="name")
     # 广告创意 ASIN 列表 [原字段 'asin']
     asins: list[str] = Field(validation_alias="asin")
     # 广告状态
