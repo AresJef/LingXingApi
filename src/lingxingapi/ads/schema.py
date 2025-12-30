@@ -220,7 +220,7 @@ class SpTarget(BaseModel):
     # 目标定位解析表达式 (JSON 字符串) [原字段 'resolved_expression']
     expression_resolved: str = Field(validation_alias="resolved_expression")
     # 竞价
-    bid: float
+    bid: FloatOrNone2Zero
     # 广告状态
     state: StrOrNone2Blank
     # 服务状态 [原字段 'serving_status']
@@ -421,7 +421,7 @@ class SbKeyword(BaseModel):
     # 关键词匹配类型
     match_type: str
     # 竞价 [原字段 'keyword_bid']
-    bid: float = Field(validation_alias="keyword_bid")
+    bid: FloatOrNone2Zero = Field(validation_alias="keyword_bid")
     # 广告状态 [原字段 'keyword_state']
     state: StrOrNone2Blank = Field(validation_alias="keyword_state")
 
@@ -454,7 +454,7 @@ class SbTarget(BaseModel):
     # 目标定位解析表达式 (JSON 字符串) [原字段 'resolved_expression']
     expression_resolved: str = Field(validation_alias="resolved_expression")
     # 竞价 [原字段 'target_bid']
-    bid: float = Field(validation_alias="target_bid")
+    bid: FloatOrNone2Zero = Field(validation_alias="target_bid")
     # 广告状态 [原字段 'target_state']
     state: StrOrNone2Blank = Field(validation_alias="target_state")
     # fmt: on
