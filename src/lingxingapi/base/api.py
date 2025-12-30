@@ -514,7 +514,7 @@ class BaseAPI:
                 raise errors.InvalidApiUrlError(
                     "请求 url 或 params 不正确", url, data, code
                 )
-            if errno == 500:
+            if errno in (100, 500):
                 raise errors.InternalServerError(
                     "领星 API 服务器发生内部错误", url, data, code
                 )
