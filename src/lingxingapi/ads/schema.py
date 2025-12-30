@@ -216,9 +216,9 @@ class SpTarget(BaseModel):
     # 目标定位表达式类型
     expression_type: str
     # 目标定位表达式 (JSON 字符串)
-    expression: str
+    expression: StrOrNone2Blank
     # 目标定位解析表达式 (JSON 字符串) [原字段 'resolved_expression']
-    expression_resolved: str = Field(validation_alias="resolved_expression")
+    expression_resolved: StrOrNone2Blank = Field(validation_alias="resolved_expression")
     # 竞价
     bid: FloatOrNone2Zero
     # 广告状态
