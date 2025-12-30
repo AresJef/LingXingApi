@@ -184,7 +184,7 @@ class SpKeyword(BaseModel):
     # 关键词匹配类型
     match_type: str
     # 竞价
-    bid: float
+    bid: FloatOrNone2Zero
     # 广告状态
     state: StrOrNone2Blank
     # 服务状态 [原字段 'serving_status']
