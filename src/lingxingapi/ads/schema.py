@@ -280,7 +280,7 @@ class SpNegativeTarget(BaseModel):
     # 否定目标类型 [原字段 'negative_type']
     target_type: str = Field(validation_alias="negative_type")
     # 否定目标文本 [原字段 'negative_text']
-    target_text: str = Field(validation_alias="negative_text")
+    target_text: StrOrNone2Blank = Field(validation_alias="negative_text")
     # 广告状态
     state: StrOrNone2Blank
     # 服务状态 [原字段 'serving_status']
