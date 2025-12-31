@@ -1478,7 +1478,7 @@ class SbPlacementReprot(BaseModel):
     # 广告成交商品件数
     units: int
     # 直接广告成交商品件数 [原字段 'same_units']
-    direct_units: int = Field(validation_alias="same_units")
+    direct_units: IntOrNone2Zero = Field(validation_alias="same_units")
     # 品牌新买家成交商品件数
     new_to_brand_units: int
     # 广告销售额
