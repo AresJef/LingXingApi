@@ -618,7 +618,7 @@ class SdProduct(BaseModel):
     # 商品广告ID
     ad_id: int
     # 商品ASIN
-    asin: str
+    asin: StrOrNone2Blank
     # 亚马逊SKU [原字段 'sku']
     msku: str = Field(validation_alias="sku")
     # 广告状态
@@ -656,7 +656,7 @@ class SdTarget(BaseModel):
     # 目标定位解析表达式 (JSON 字符串) [原字段 'resolved_expression']
     expression_resolved: str = Field(validation_alias="resolved_expression")
     # 竞价
-    bid: float
+    bid: FloatOrNone2Zero
     # 广告状态
     state: StrOrNone2Blank
     # 服务状态 [原字段 'serving_status']
