@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-c
+import datetime
 from typing import Literal
 from typing_extensions import Self
 from warnings import warn as _warn
@@ -7,10 +8,10 @@ from orjson import loads as _orjson_loads
 from Crypto.Cipher._mode_ecb import EcbMode
 from aiohttp import (
     TCPConnector,
+    ClientTimeout,
     ClientSession,
     ClientConnectorError,
-    ClientTimeout,
-    ServerDisconnectedError,
+    ClientConnectionError,
 )
 from lingxingapi import utils, errors
 from lingxingapi.base import route, schema
@@ -278,6 +279,7 @@ class BaseAPI:
         # 发送请求
         retry_count = 0
         while True:
+            # fmt: off
             try:
                 async with BaseAPI._session.request(
                     method,
@@ -295,7 +297,6 @@ class BaseAPI:
                     return self._handle_response_data(
                         url, await res.read(), extract_data
                     )
-            # fmt: off
             # . 请求限流错误处理
             except errors.ApiLimitError as err:
                 if (
@@ -304,7 +305,10 @@ class BaseAPI:
                 ):
                     retry_count += 1
                     if self._echo_retry_warnings:
-                        _warn("请求被限流, 等待 %.2f 秒后重试(%d)..." % (self._ignore_api_limit_wait, retry_count))
+                        _warn(
+                            "%s 请求被限流, 等待 %.2f 秒后重试(%d)..." 
+                            % (datetime.datetime.now(), self._ignore_api_limit_wait, retry_count)
+                        )
                     await _aio_sleep(self._ignore_api_limit_wait)
                     continue
                 if params is not None:
@@ -322,7 +326,10 @@ class BaseAPI:
                 ):
                     retry_count += 1
                     if self._echo_retry_warnings:
-                        _warn("服务器内部错误, 等待 %.2f 秒后重试(%d)..." % (self._ignore_internal_server_error_wait, retry_count))
+                        _warn(
+                            "%s 服务器内部错误, 等待 %.2f 秒后重试(%d)..." 
+                            % (datetime.datetime.now(), self._ignore_internal_server_error_wait, retry_count)
+                        )
                     await _aio_sleep(self._ignore_internal_server_error_wait)
                     continue
                 if params is not None:
@@ -332,8 +339,8 @@ class BaseAPI:
                 if retry_count > 0:
                     err.add_note("请求重试: %d" % retry_count)
                 raise err
-            # . 网络相关错误处理
-            except (TimeoutError, ServerDisconnectedError) as err:
+            # . 服务器无响应处理
+            except ClientConnectorError as err:
                 # 无法链接互联网
                 if not await utils.check_internet_tcp():
                     if (
@@ -342,7 +349,41 @@ class BaseAPI:
                     ):
                         retry_count += 1
                         if self._echo_retry_warnings:
-                            _warn("无法链接互联网, 等待 %.2f 秒后重试(%d)..." % (self._ignore_internet_connection_wait, retry_count))
+                            _warn(
+                                "%s 无法链接互联网, 等待 %.2f 秒后重试(%d)..." 
+                                % (datetime.datetime.now(), self._ignore_internet_connection_wait, retry_count)
+                            )
+                        await _aio_sleep(self._ignore_internet_connection_wait)
+                        continue
+                    exc = errors.InternetConnectionError("无法链接互联网, 请检查网络连接", url, str(err))
+                    if params is not None:
+                        exc.add_note("请求参数: %r" % params)
+                    if body is not None:
+                        exc.add_note("请求实体: %r" % body)
+                    if retry_count > 0:
+                        exc.add_note("请求重试: %d" % retry_count)
+                    raise exc from err
+                # Server 无响应
+                exc = errors.ServerError("服务器无响应, 若无网络问题, 请检查领星账号 IP 白名单设置", url, err)
+                if params is not None:
+                    exc.add_note("请求参数: %r" % params)
+                if body is not None:
+                    exc.add_note("请求实体: %r" % body)
+                raise exc from err
+            # . 网络相关错误处理
+            except ClientConnectionError as err:
+                # 无法链接互联网
+                if not await utils.check_internet_tcp():
+                    if (
+                        self._ignore_internet_connection 
+                        and (self._infinite_internet_connection_retry or retry_count < self._ignore_internet_connection_retry)
+                    ):
+                        retry_count += 1
+                        if self._echo_retry_warnings:
+                            _warn(
+                                "%s 无法链接互联网, 等待 %.2f 秒后重试(%d)..." 
+                                % (datetime.datetime.now(), self._ignore_internet_connection_wait, retry_count)
+                            )
                         await _aio_sleep(self._ignore_internet_connection_wait)
                         continue
                     exc = errors.InternetConnectionError("无法链接互联网, 请检查网络连接", url, str(err))
@@ -360,7 +401,10 @@ class BaseAPI:
                 ):
                     retry_count += 1
                     if self._echo_retry_warnings:
-                        _warn("请求超时, 等待 %.2f 秒后重试(%d)..." % (self._ignore_timeout_wait, retry_count))
+                        _warn(
+                            "%s 请求超时, 等待 %.2f 秒后重试(%d)..." 
+                            % (datetime.datetime.now(), self._ignore_timeout_wait, retry_count)
+                        )
                     await _aio_sleep(self._ignore_timeout_wait)
                     continue
                 exc = errors.ApiTimeoutError("领星 API 请求超时", url, str(err))
@@ -372,29 +416,7 @@ class BaseAPI:
                     exc.add_note("请求重试: %d" % retry_count)
                 exc.add_note("超时时间: %s" % self._timeout)
                 raise exc from err
-            # . 服务器无响应处理
-            except ClientConnectorError as err:
-                # 无法链接互联网
-                if not await utils.check_internet_tcp():
-                    if (
-                        self._ignore_internet_connection 
-                        and (self._infinite_internet_connection_retry or retry_count < self._ignore_internet_connection_retry)
-                    ):
-                        retry_count += 1
-                        if self._echo_retry_warnings:
-                            _warn("无法链接互联网, 等待 %.2f 秒后重试(%d)..." % (self._ignore_internet_connection_wait, retry_count))
-                        await _aio_sleep(self._ignore_internet_connection_wait)
-                        continue
-                    exc = errors.InternetConnectionError("无法链接互联网, 请检查网络连接", url, str(err))
-                    if params is not None:
-                        exc.add_note("请求参数: %r" % params)
-                    if body is not None:
-                        exc.add_note("请求实体: %r" % body)
-                    if retry_count > 0:
-                        exc.add_note("请求重试: %d" % retry_count)
-                    raise exc from err
-                # Server 无响应
-                raise errors.ServerError("领星 API 服务器无响应, 若无网络问题, 请检查账号 IP 白名单设置", url, err) from err
+            # . 其他异常处理
             except Exception as err:
                 if params is not None:
                     err.add_note("请求参数: %r" % params)
