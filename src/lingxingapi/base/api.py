@@ -334,7 +334,7 @@ class BaseAPI:
                     err.add_note("请求重试: %d" % retry_count)
                 raise err
             # . 网络相关错误处理
-            except ClientConnectionError as err:
+            except (TimeoutError, ClientConnectionError) as err:
                 # 无法链接互联网
                 if not await utils.check_internet_tcp():
                     if (
