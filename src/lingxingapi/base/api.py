@@ -261,19 +261,18 @@ class BaseAPI:
         :param extract_data `<'bool'>`: 是否提取响应数据中的 `data` 字段并直接返回, 默认为 `False`
         :returns `<'list/dict'>`: 返回解析并验证后响应数据
         """
-        # 确保 HTTP 会话可用
-        if BaseAPI._session is None or BaseAPI._session.closed:
-            BaseAPI._session = ClientSession(
-                route.API_SERVER,
-                headers={"Content-Type": "application/json"},
-                timeout=self._timeout,
-                connector=TCPConnector(limit=100),
-            )
-
-        # 发送请求
         retry_count = 0
         while True:
             # fmt: off
+            # 确保 HTTP 会话可用
+            if BaseAPI._session is None or BaseAPI._session.closed:
+                BaseAPI._session = ClientSession(
+                    route.API_SERVER,
+                    headers={"Content-Type": "application/json"},
+                    timeout=self._timeout,
+                    connector=TCPConnector(limit=100),
+                )
+            # 发送请求
             try:
                 async with BaseAPI._session.request(
                     method,
@@ -291,7 +290,7 @@ class BaseAPI:
                     return self._handle_response_data(
                         url, await res.read(), extract_data
                     )
-            # . 请求限流错误处理
+            # 请求限流错误处理
             except errors.ApiLimitError as err:
                 if (
                         self._ignore_api_limit 
@@ -312,7 +311,7 @@ class BaseAPI:
                 if retry_count > 0:
                     err.add_note("请求重试: %d" % retry_count)
                 raise err
-            # . 服务器内部错误处理
+            # 服务器内部错误处理
             except errors.InternalServerError as err:
                 if (
                         self._ignore_internal_server_error 
@@ -333,9 +332,9 @@ class BaseAPI:
                 if retry_count > 0:
                     err.add_note("请求重试: %d" % retry_count)
                 raise err
-            # . 网络相关错误处理
+            # 网络相关错误处理
             except (TimeoutError, ClientConnectionError) as err:
-                # 无法链接互联网
+                # . 无法链接互联网
                 if not await utils.check_internet_tcp():
                     if (
                         self._ignore_internet_connection 
@@ -357,7 +356,7 @@ class BaseAPI:
                     if retry_count > 0:
                         exc.add_note("请求重试: %d" % retry_count)
                     raise exc from err
-                # 请求超时
+                # . 请求超时
                 if (
                         self._ignore_timeout 
                         and (self._infinite_timeout_retry or retry_count < self._ignore_timeout_retry)
@@ -378,12 +377,14 @@ class BaseAPI:
                 if retry_count > 0:
                     exc.add_note("请求重试: %d" % retry_count)
                 raise exc from err
-            # . 其他异常处理
+            # 其他异常处理
             except Exception as err:
                 if params is not None:
                     err.add_note("请求参数: %r" % params)
                 if body is not None:
                     err.add_note("请求实体: %r" % body)
+                if retry_count > 0:
+                    err.add_note("请求重试: %d" % retry_count)
                 raise err
             # fmt: on
 
