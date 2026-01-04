@@ -2754,7 +2754,7 @@ class AdsAPI(BaseAPI):
         """查询 SP 商品投放小时数据
 
         ## Docs
-        - 新广告 - 报告: [SP广告小时数据(ad)](https://apidoc.lingxing.com/#/docs/newAd/report/spTargetHourData)
+        - 新广告 - 报告: [SP广告小时数据(ad)](https://apidoc.lingxing.com/#/docs/newAd/report/spAdvertiseHourData)
 
         :param report_date `<'str/date/datetime'>`: 报告日期
         :param campaign_id `<'int'>`: 广告活动ID, 参数来源 `SpCampaign.campaign_id`
@@ -2958,7 +2958,7 @@ class AdsAPI(BaseAPI):
         """查询 SP 关键词投放小时数据
 
         ## Docs
-        - 新广告 - 报告: [SP广告小时数据(both_ad_target)](https://apidoc.lingxing.com/#/docs/newAd/report/spTargetHourData)
+        - 新广告 - 报告: [SP广告小时数据(both_ad_target)](https://apidoc.lingxing.com/#/docs/newAd/report/spAdvertiseHourData)
 
         :param report_date `<'str/date/datetime'>`: 报告日期
         :param campaign_id `<'int'>`: 广告活动ID, 参数来源 `SpCampaign.campaign_id`

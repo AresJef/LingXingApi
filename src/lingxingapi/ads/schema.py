@@ -182,7 +182,7 @@ class SpKeyword(BaseModel):
     # 关键词文本
     keyword_text: str
     # 关键词匹配类型
-    match_type: str
+    match_type: StrOrNone2Blank
     # 竞价
     bid: FloatOrNone2Zero
     # 广告状态
@@ -250,7 +250,7 @@ class SpNegativeKeyword(BaseModel):
     # 否定关键词文本 [原字段 'negative_text']
     keyword_text: str = Field(validation_alias="negative_text")
     # 否定匹配方式 [原字段 'negative_match_type']
-    match_type: str = Field(validation_alias="negative_match_type")
+    match_type: StrOrNone2Blank = Field(validation_alias="negative_match_type")
     # 广告状态
     state: StrOrNone2Blank
     # 服务状态 [原字段 'serving_status']
@@ -419,7 +419,7 @@ class SbKeyword(BaseModel):
     # 关键词文本
     keyword_text: str
     # 关键词匹配类型
-    match_type: str
+    match_type: StrOrNone2Blank
     # 竞价 [原字段 'keyword_bid']
     bid: FloatOrNone2Zero = Field(validation_alias="keyword_bid")
     # 广告状态 [原字段 'keyword_state']
@@ -481,7 +481,7 @@ class SbNegativeKeyword(BaseModel):
     # 否定关键词文本
     keyword_text: str
     # 否定关键词匹配类型
-    match_type: str
+    match_type: StrOrNone2Blank
     # 广告状态
     state: StrOrNone2Blank
     # 服务状态 [原字段 'serving_status']
@@ -1094,7 +1094,7 @@ class SpKeywordReport(BaseModel):
     # 关键词文本
     keyword_text: str
     # 关键词匹配类型
-    match_type: str
+    match_type: StrOrNone2Blank
     # 广告花费
     cost: float
     # 总展示次数
@@ -1140,7 +1140,7 @@ class SpKeywordHour(BaseModel):
     # 关键词文本 [原字段 'targeting']
     keyword_text: str = Field(validation_alias="targeting")
     # 关键词匹配类型
-    match_type: str
+    match_type: StrOrNone2Blank
     # 商品ASIN
     asin: str
     # 亚马逊SKU
@@ -1312,7 +1312,7 @@ class SpQueryWordReport(BaseModel):
     # 用户使用搜索词 [原字段 'query']
     query_text: str = Field(validation_alias="query")
     # 关键词匹配类型
-    match_type: str
+    match_type: StrOrNone2Blank
     # 广告花费
     cost: float
     # 总展示次数
