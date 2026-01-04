@@ -1138,7 +1138,7 @@ class SpKeywordHour(BaseModel):
     # 关键词ID [原字段 'targeting_id']
     keyword_id: int = Field(validation_alias="targeting_id")
     # 关键词文本 [原字段 'targeting']
-    keyword_text: str = Field(validation_alias="targeting")
+    keyword_text: StrOrNone2Blank = Field(validation_alias="targeting")
     # 关键词匹配类型
     match_type: StrOrNone2Blank
     # 商品ASIN
