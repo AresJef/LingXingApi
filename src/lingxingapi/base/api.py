@@ -437,7 +437,8 @@ class BaseAPI:
                 headers=headers,
                 extract_data=extract_data,
             )
-        except errors.TokenError:
+        # 处理过期 Token 或 Signature
+        except (errors.TokenError, errors.SignatureExpiredError):
             await self._UpdateToken()  # 刷新 Token
             return await self._request_with_sign(method, url, params, body)
 
