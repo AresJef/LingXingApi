@@ -4331,11 +4331,11 @@ class AdsAPI(BaseAPI):
         )
         return schema.SbTargetReports.model_validate(data)
 
-    async def SbTargetingHourData(
+    async def SbTargetHourData(
         self,
         report_date: str | datetime.date | datetime.datetime,
         campaign_id: int,
-    ) -> schema.SbTargetingHourData:
+    ) -> schema.SbTargetHourData:
         """查询 SB 目标关键词或商品投放小时数据
 
         ## Docs
@@ -4369,10 +4369,10 @@ class AdsAPI(BaseAPI):
                     "campaign_id": 439************,
                     # 广告组ID [原字段 'group_id']
                     "ad_group_id": 325************,
-                    # 目标定位ID (keyword_id 或 target_id)
-                    "targeting_id": 341************,
+                    # 目标定位ID (keyword_id 或 target_id) [原字段 'targeting_id']
+                    "target_id": 341************,
                     # 目标定位文本 [原字段 'targeting']
-                    "targeting_text": "+pixma",
+                    "target_text": "+pixma",
                     # 广告花费
                     "cost": 1.45,
                     # 总展示次数
@@ -4425,7 +4425,7 @@ class AdsAPI(BaseAPI):
 
         # 发送请求
         data = await self._request_with_sign("POST", url, body=p.model_dump_params())
-        return schema.SbTargetingHourData.model_validate(data)
+        return schema.SbTargetHourData.model_validate(data)
 
     async def SbQueryWordReports(
         self,

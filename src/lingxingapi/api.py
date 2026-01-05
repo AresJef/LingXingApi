@@ -474,7 +474,7 @@ class API(BaseAPI):
             - SbCreativeReports: [SB广告创意报告](https://apidoc.lingxing.com/#/docs/newAd/report/listHsaProductAdReport)
             - SbKeywordReports: [SB广告的投放报告(keyword)](https://apidoc.lingxing.com/#/docs/newAd/report/listHsaTargetingReport)
             - SbTargetReports: [SB广告的投放报告(product)](https://apidoc.lingxing.com/#/docs/newAd/report/listHsaTargetingReport)
-            - SbTargetingHourData: [SB投放小时数据](https://apidoc.lingxing.com/#/docs/newAd/report/sbTargetHourData)
+            - SbTargetHourData: [SB投放小时数据](https://apidoc.lingxing.com/#/docs/newAd/report/sbTargetHourData)
             - SbQueryWordReports: [SB用户搜索词报表](https://apidoc.lingxing.com/#/docs/newAd/report/hsaQueryWordReports)
             - SbAsinAttributionReports: [SB广告归因于广告的购买报告](https://apidoc.lingxing.com/#/docs/newAd/report/hsaPurchasedAsinReports)
             - SbCostAllocationReports: [SB分摊](https://apidoc.lingxing.com/#/docs/newAd/baseData/newadsbDivideAsinReports)
