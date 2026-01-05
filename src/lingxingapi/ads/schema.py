@@ -180,7 +180,7 @@ class SpKeyword(BaseModel):
     # 关键词ID
     keyword_id: int
     # 关键词文本
-    keyword_text: str
+    keyword_text: StrOrNone2Blank
     # 关键词匹配类型
     match_type: StrOrNone2Blank
     # 竞价
@@ -248,7 +248,7 @@ class SpNegativeKeyword(BaseModel):
     # 广告组ID
     ad_group_id: IntOrNone2Zero
     # 否定关键词文本 [原字段 'negative_text']
-    keyword_text: str = Field(validation_alias="negative_text")
+    keyword_text: StrOrNone2Blank = Field(validation_alias="negative_text")
     # 否定匹配方式 [原字段 'negative_match_type']
     match_type: StrOrNone2Blank = Field(validation_alias="negative_match_type")
     # 广告状态
@@ -417,7 +417,7 @@ class SbKeyword(BaseModel):
     # 关键词ID
     keyword_id: int
     # 关键词文本
-    keyword_text: str
+    keyword_text: StrOrNone2Blank
     # 关键词匹配类型
     match_type: StrOrNone2Blank
     # 竞价 [原字段 'keyword_bid']
@@ -479,7 +479,7 @@ class SbNegativeKeyword(BaseModel):
     # 否定关键词ID
     keyword_id: int
     # 否定关键词文本
-    keyword_text: str
+    keyword_text: StrOrNone2Blank
     # 否定关键词匹配类型
     match_type: StrOrNone2Blank
     # 广告状态
@@ -1092,7 +1092,7 @@ class SpKeywordReport(BaseModel):
     # 关键词ID
     keyword_id: int
     # 关键词文本
-    keyword_text: str
+    keyword_text: StrOrNone2Blank
     # 关键词匹配类型
     match_type: StrOrNone2Blank
     # 广告花费
@@ -1308,7 +1308,7 @@ class SpQueryWordReport(BaseModel):
     # 关键词ID [原字段 'target_id']
     keyword_id: int = Field(validation_alias="target_id")
     # 关键词文本 [原字段 'target_text']
-    keyword_text: str = Field(validation_alias="target_text")
+    keyword_text: StrOrNone2Blank = Field(validation_alias="target_text")
     # 用户使用搜索词 [原字段 'query']
     query_text: str = Field(validation_alias="query")
     # 关键词匹配类型
@@ -1913,11 +1913,11 @@ class SbQueryWordReport(BaseModel):
     # 关键词ID [原字段 'target_id']
     keyword_id: int = Field(validation_alias="target_id")
     # 关键词文本 [原字段 'target_text']
-    keyword_text: str = Field(validation_alias="target_text")
+    keyword_text: StrOrNone2Blank = Field(validation_alias="target_text")
     # 用户使用搜索词 [原字段 'query']
     query_text: str = Field(validation_alias="query")
     # 关键词匹配类型
-    match_type: str
+    match_type: StrOrNone2Blank
     # 广告花费
     cost: float
     # 总展示次数
