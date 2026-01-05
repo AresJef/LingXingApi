@@ -1929,19 +1929,19 @@ class SbQueryWordReport(BaseModel):
     # 广告销售额
     sales: float
     # 视频广告播放25%次数 [原字段 'video_first_quartile_views']
-    video_25pct_views: int = Field(validation_alias="video_first_quartile_views")
+    video_25pct_views: IntOrNone2Zero = Field(validation_alias="video_first_quartile_views")
     # 视频广告播放50%次数 [原字段 'video_midpoint_views']
-    video_50pct_views: int = Field(validation_alias="video_midpoint_views")
+    video_50pct_views: IntOrNone2Zero = Field(validation_alias="video_midpoint_views")
     # 视频广告播放75%次数 [原字段 'video_third_quartile_views']
-    video_75pct_views: int = Field(validation_alias="video_third_quartile_views")
+    video_75pct_views: IntOrNone2Zero = Field(validation_alias="video_third_quartile_views")
     # 视频广告播放100%次数 [原字段 'video_complete_views']
-    video_100pct_views: int = Field(validation_alias="video_complete_views")
+    video_100pct_views: IntOrNone2Zero = Field(validation_alias="video_complete_views")
     # 视频广告播放5秒次数 [原字段 'video_5_second_views']
-    video_5sec_views: int = Field(validation_alias="video_5_second_views")
+    video_5sec_views: IntOrNone2Zero = Field(validation_alias="video_5_second_views")
     # 视频广告播放5秒观看率 [原字段 'video_5_second_view_rate']
     video_5sec_view_rate: FloatOrNone2Zero = Field(validation_alias="video_5_second_view_rate")
     # 视频广告静音取消次数 [原字段 'video_unmutes']
-    video_unmutes: int = Field(validation_alias="video_unmutes")
+    video_unmutes: IntOrNone2Zero = Field(validation_alias="video_unmutes")
     # 报告日期
     report_date: str
 
