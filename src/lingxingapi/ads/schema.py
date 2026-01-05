@@ -1365,14 +1365,14 @@ class SbCampaignReport(BaseModel):
     new_to_brand_orders: int
     # 品牌新买家订单占比 [原字段 'new_to_brand_order_percentage']
     # (品牌新买家广告订单数 / 广告订单数 x 100%)
-    new_to_brand_order_pct: float = Field(validation_alias="new_to_brand_order_percentage")
+    new_to_brand_order_pct: FloatOrNone2Zero = Field(validation_alias="new_to_brand_order_percentage")
     # 品牌新买家订单转化率 
     # (品牌新买家广告订单数 / 总点击次数 x 100%)
-    new_to_brand_order_rate: float
+    new_to_brand_order_rate: FloatOrNone2Zero
     # 广告成交商品件数
     units: int
     # 直接广告成交商品件数 [原字段 'same_units']
-    direct_units: int = Field(validation_alias="same_units")
+    direct_units: IntOrNone2Zero = Field(validation_alias="same_units")
     # 品牌新买家成交商品件数
     new_to_brand_units: int
     # 广告销售额
@@ -1383,10 +1383,10 @@ class SbCampaignReport(BaseModel):
     new_to_brand_sales: float
     # 广告可见率 - View Through Rate 
     # (可见展示次数 / 总展示次数 x 100%)
-    vtr: float
+    vtr: FloatOrNone2Zero
     # 广告可见点击率 - View Click Through Rate 
     # (总点击次数 / 可见展示次数 x 100%)
-    vctr: float
+    vctr: FloatOrNone2Zero
     # 报告日期
     report_date: str
     # fmt: on
@@ -1571,14 +1571,14 @@ class SbAdGroupReport(BaseModel):
     new_to_brand_orders: int
     # 品牌新买家订单占比 [原字段 'new_to_brand_order_percentage']
     # (品牌新买家广告订单数 / 广告订单数 x 100%)
-    new_to_brand_order_pct: float = Field(validation_alias="new_to_brand_order_percentage")
+    new_to_brand_order_pct: FloatOrNone2Zero = Field(validation_alias="new_to_brand_order_percentage")
     # 品牌新买家订单转化率
     # (品牌新买家广告订单数 / 总点击次数 x 100%)
-    new_to_brand_order_rate: float
+    new_to_brand_order_rate: FloatOrNone2Zero
     # 广告成交商品件数
     units: int
     # 直接广告成交商品件数 [原字段 'same_units']
-    direct_units: int = Field(validation_alias="same_units")
+    direct_units: IntOrNone2Zero = Field(validation_alias="same_units")
     # 品牌新买家成交商品件数
     new_to_brand_units: int
     # 广告销售额
@@ -1587,10 +1587,10 @@ class SbAdGroupReport(BaseModel):
     new_to_brand_sales: float
     # 广告可见率 - View Through Rate
     # (可见展示次数 / 总展示次数 x 100%)
-    vtr: float
+    vtr: FloatOrNone2Zero
     # 广告可见点击率 - View Click Through Rate
     # (总点击次数 / 可见展示次数 x 100%)
-    vctr: float
+    vctr: FloatOrNone2Zero
     # 报告日期
     report_date: str
     # fmt: on
@@ -1701,14 +1701,14 @@ class SbCreativeReport(BaseModel):
     new_to_brand_orders: int
     # 品牌新买家订单占比 [原字段 'new_to_brand_order_percentage']
     # (品牌新买家广告订单数 / 广告订单数 x 100%)
-    new_to_brand_order_pct: float = Field(validation_alias="new_to_brand_order_percentage")
+    new_to_brand_order_pct: FloatOrNone2Zero = Field(validation_alias="new_to_brand_order_percentage")
     # 品牌新买家订单转化率
     # (品牌新买家广告订单数 / 总点击次数 x 100%)
-    new_to_brand_order_rate: float
+    new_to_brand_order_rate: FloatOrNone2Zero
     # 广告成交商品件数
     units: int
     # 直接广告成交商品件数 [原字段 'same_units']
-    direct_units: int = Field(validation_alias="same_units")
+    direct_units: IntOrNone2Zero = Field(validation_alias="same_units")
     # 品牌新买家成交商品件数
     new_to_brand_units: int
     # 广告销售额
@@ -1719,10 +1719,10 @@ class SbCreativeReport(BaseModel):
     new_to_brand_sales: float
     # 广告可见率 - View Through Rate
     # (可见展示次数 / 总展示次数 x 100%)
-    vtr: float
+    vtr: FloatOrNone2Zero
     # 广告可见点击率 - View Click Through Rate
     # (总点击次数 / 可见展示次数 x 100%)
-    vctr: float
+    vctr: FloatOrNone2Zero
     # 报告日期
     report_date: str
     # fmt: on
@@ -1763,14 +1763,14 @@ class SbKeywordReport(BaseModel):
     new_to_brand_orders: int
     # 品牌新买家订单占比 [原字段 'new_to_brand_order_percentage']
     # (品牌新买家广告订单数 / 广告订单数 x 100%)
-    new_to_brand_order_pct: float = Field(validation_alias="new_to_brand_order_percentage")
+    new_to_brand_order_pct: FloatOrNone2Zero = Field(validation_alias="new_to_brand_order_percentage")
     # 品牌新买家订单转化率
     # (品牌新买家广告订单数 / 总点击次数 x 100%)
-    new_to_brand_order_rate: float
+    new_to_brand_order_rate: FloatOrNone2Zero
     # 广告成交商品件数
     units: int
     # 直接广告成交商品件数 [原字段 'same_units']
-    direct_units: int = Field(validation_alias="same_units")
+    direct_units: IntOrNone2Zero = Field(validation_alias="same_units")
     # 品牌新买家成交商品件数
     new_to_brand_units: int
     # 广告销售额
@@ -1819,14 +1819,14 @@ class SbTargetReport(BaseModel):
     new_to_brand_orders: int
     # 品牌新买家订单占比 [原字段 'new_to_brand_order_percentage']
     # (品牌新买家广告订单数 / 广告订单数 x 100%)
-    new_to_brand_order_pct: float = Field(validation_alias="new_to_brand_order_percentage")
+    new_to_brand_order_pct: FloatOrNone2Zero = Field(validation_alias="new_to_brand_order_percentage")
     # 品牌新买家订单转化率
     # (品牌新买家广告订单数 / 总点击次数 x 100%)
-    new_to_brand_order_rate: float
+    new_to_brand_order_rate: FloatOrNone2Zero
     # 广告成交商品件数
     units: int
     # 直接广告成交商品件数 [原字段 'same_units']
-    direct_units: int = Field(validation_alias="same_units")
+    direct_units: IntOrNone2Zero = Field(validation_alias="same_units")
     # 品牌新买家成交商品件数
     new_to_brand_units: int
     # 广告销售额
