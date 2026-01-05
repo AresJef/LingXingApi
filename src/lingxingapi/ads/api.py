@@ -3525,7 +3525,7 @@ class AdsAPI(BaseAPI):
                     "campaign_id": 442************,
                     # 广告花费
                     "cost": 2.4,
-                    # 广告花费
+                    # 总展示次数
                     "impressions": 28,
                     # 总点击次数
                     "clicks": 1,
@@ -3721,7 +3721,7 @@ class AdsAPI(BaseAPI):
                     # 广告活动ID
                     "campaign_id": 442************,
                     # 广告投放位置
-                    placement: "Other on-Amazon",
+                    "placement: "Other on-Amazon",
                     # 广告花费
                     "cost": 2.4,
                     # 广告花费
@@ -4331,11 +4331,11 @@ class AdsAPI(BaseAPI):
         )
         return schema.SbTargetReports.model_validate(data)
 
-    async def SbTargetHourData(
+    async def SbTargetingHourData(
         self,
         report_date: str | datetime.date | datetime.datetime,
         campaign_id: int,
-    ) -> schema.SbTargetHourData:
+    ) -> schema.SbTargetingHourData:
         """查询 SB 目标关键词或商品投放小时数据
 
         ## Docs
@@ -4369,10 +4369,10 @@ class AdsAPI(BaseAPI):
                     "campaign_id": 439************,
                     # 广告组ID [原字段 'group_id']
                     "ad_group_id": 325************,
-                    # 目标定位ID (keyword_id 或 target_id) [原字段 'targeting_id']
-                    "target_id": 341************,
+                    # 目标定位ID (keyword_id 或 target_id)
+                    "targeting_id": 341************,
                     # 目标定位文本 [原字段 'targeting']
-                    "target_text": "+pixma",
+                    "targeting_text": "+pixma",
                     # 广告花费
                     "cost": 1.45,
                     # 总展示次数
@@ -4425,7 +4425,7 @@ class AdsAPI(BaseAPI):
 
         # 发送请求
         data = await self._request_with_sign("POST", url, body=p.model_dump_params())
-        return schema.SbTargetHourData.model_validate(data)
+        return schema.SbTargetingHourData.model_validate(data)
 
     async def SbQueryWordReports(
         self,

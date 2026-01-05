@@ -1847,7 +1847,7 @@ class SbTargetReports(ResponseV1Token):
 
 
 # . SB Targeting Hour Data
-class SbTargetHour(BaseModel):
+class SbTargetingHour(BaseModel):
     """SB 目标关键词或商品投放小时数据"""
 
     # 亚马逊店铺ID (广告帐号ID)
@@ -1856,10 +1856,10 @@ class SbTargetHour(BaseModel):
     campaign_id: int
     # 广告组ID [原字段 'group_id']
     ad_group_id: IntOrNone2Zero = Field(validation_alias="group_id")
-    # 目标定位ID (keyword_id 或 target_id) [原字段 'targeting_id']
-    target_id: int = Field(validation_alias="targeting_id")
+    # 目标定位ID (keyword_id 或 target_id)
+    targeting_id: int
     # 目标定位文本 [原字段 'targeting']
-    target_text: StrOrNone2Blank = Field(validation_alias="targeting")
+    targeting_text: StrOrNone2Blank = Field(validation_alias="targeting")
     # 广告花费
     cost: float
     # 总展示次数
@@ -1894,10 +1894,10 @@ class SbTargetHour(BaseModel):
     report_date: str
 
 
-class SbTargetHourData(ResponseV1):
+class SbTargetingHourData(ResponseV1):
     """SB 目标关键词或商品投放小时数据列表"""
 
-    data: list[SbTargetHour]
+    data: list[SbTargetingHour]
 
 
 # . SB Query Word Reports
