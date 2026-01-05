@@ -1939,7 +1939,7 @@ class SbQueryWordReport(BaseModel):
     # 视频广告播放5秒次数 [原字段 'video_5_second_views']
     video_5sec_views: int = Field(validation_alias="video_5_second_views")
     # 视频广告播放5秒观看率 [原字段 'video_5_second_view_rate']
-    video_5sec_view_rate: float = Field(validation_alias="video_5_second_view_rate")
+    video_5sec_view_rate: FloatOrNone2Zero = Field(validation_alias="video_5_second_view_rate")
     # 视频广告静音取消次数 [原字段 'video_unmutes']
     video_unmutes: int = Field(validation_alias="video_unmutes")
     # 报告日期
