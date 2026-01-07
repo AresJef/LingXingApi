@@ -1904,6 +1904,7 @@ class SbTargetingHourData(ResponseV1):
 class SbQueryWordReport(BaseModel):
     """SB 用户搜索词报告"""
 
+    # fmt: off
     # 亚马逊店铺ID (广告帐号ID)
     profile_id: int
     # 广告活动ID
@@ -1944,6 +1945,7 @@ class SbQueryWordReport(BaseModel):
     video_unmutes: IntOrNone2Zero = Field(validation_alias="video_unmutes")
     # 报告日期
     report_date: str
+    # fmt: on
 
 
 class SbQueryWordReports(ResponseV1Token):
@@ -2598,7 +2600,7 @@ class AdsOperationLog(BaseModel):
     # 操作对象 [原字段 'operate_type']
     operation_target: str = Field(validation_alias="operate_type")
     # 操作类型 [原字段 'change_type']
-    operation_type: str = Field(validation_alias="change_type")
+    operation_type: StrOrNone2Blank = Field(validation_alias="change_type")
     # 操作来源 [原字段 'function_name']
     operation_source: str = Field(validation_alias="function_name")
     # 操作时间 [原字段 'operate_time']
