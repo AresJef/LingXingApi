@@ -2571,7 +2571,7 @@ class AdsOperation(BaseModel):
     # 操作编码
     code: str
     # 操作值
-    value: str
+    value: StrOrNone2Blank
 
 
 class AdsOperationLog(BaseModel):
