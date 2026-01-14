@@ -554,7 +554,12 @@ class BaseAPI:
                     "发起请求的 ip 未加入领星 api 白名单", url, data, code
                 )
             if errno == -1:
-                if data.get("message", None) == "请求listing服务失败:错误":
+                if data.get("message", "").startswith("请求listing服务失败"):
+                    raise errors.InternalServerError(
+                        "领星 API 服务器发生内部错误", url, data, code
+                    )
+            if errno == 1000:
+                if data.get("message", "").startswith("请求listing服务失败"):
                     raise errors.InternalServerError(
                         "领星 API 服务器发生内部错误", url, data, code
                     )
