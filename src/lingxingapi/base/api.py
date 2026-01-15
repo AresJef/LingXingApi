@@ -283,9 +283,14 @@ class BaseAPI:
                 ) as res:
                     # . 检查响应状态码
                     if res.status != 200:
-                        raise errors.ServerError(
-                            "领星API服务器响应错误", url, res.reason, res.status
-                        )
+                        if res.status == 502:
+                            raise errors.InternalServerError(
+                                "领星API服务器发生内部错误", url, res.reason, res.status
+                            )
+                        else:
+                            raise errors.ServerError(
+                                "领星API服务器响应错误", url, res.reason, res.status
+                            )
                     # . 解析并验证响应数据
                     return self._handle_response_data(
                         url, await res.read(), extract_data
