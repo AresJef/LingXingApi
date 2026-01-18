@@ -2351,7 +2351,7 @@ class SdTargetReport(BaseModel):
     # 目标定位类型 [原字段 'targeting_type']
     expression_type: StrOrNone2Blank = Field(validation_alias="targeting_type")
     # 目标定位表达式 (JSON 字符串) [原字段 'targeting_text']
-    expression: str = Field(validation_alias="targeting_text")
+    expression: StrOrNone2Blank = Field(validation_alias="targeting_text")
     # 投放策略
     tactic: str
     # 广告花费
