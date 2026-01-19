@@ -2079,7 +2079,7 @@ class SdCampaignReport(BaseModel):
     # 直接广告订单数 [原字段 'same_orders']
     direct_orders: int = Field(validation_alias="same_orders")
     # 广告成交商品件数
-    units: int
+    units: IntOrNone2Zero
     # 广告销售额
     sales: float
     # 直接广告销售额 [原字段 'same_sales']
