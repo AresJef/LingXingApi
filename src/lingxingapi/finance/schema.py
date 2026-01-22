@@ -45,46 +45,92 @@ class Transaction(BaseModel):
     country_code: str = Field(validation_alias="countryCode")
     # 市场名称 [原字段 'marketplaceName']
     marketplace: str = Field(validation_alias="marketplaceName")
-    # 交易ID [原字段 'id']
-    transaction_id: int = Field(validation_alias="id")
-    # 交易编号 [原字段 'fid']
-    transaction_number: str = Field(validation_alias="fid")
-    # 结算ID [原字段 'settlementId']
-    settlement_id: IntOrNone2Zero = Field(validation_alias="settlementId")
-    # 事件类型 [原字段 'eventType']
-    event_type: str = Field(validation_alias="eventType")
-    # 交易类型 [原字段 'type']
-    transaction_type: str = Field(validation_alias="type")
     # 账单类型 [原字段 'accountType']
     account_type: str = Field(validation_alias="accountType")
+    # 事件组ID [原字段 'financialEventGroupId']
+    financial_event_group_id: str = Field(validation_alias="financialEventGroupId")
+    # 事件类型 [原字段 'eventType']
+    event_type: str = Field(validation_alias="eventType")
+    # 交易编号 [原字段 'fid']
+    transaction_number: str = Field(validation_alias="fid")
+    # 交易类型 [原字段 'type']
+    transaction_type: str = Field(validation_alias="type")
+    # 结算ID [原字段 'settlementId']
+    settlement_id: IntOrNone2Zero = Field(validation_alias="settlementId")
     # 处理状态 [原字段 'processingStatus']
     # (Open: 未结算, Closed: 已结算, Reconciled: 已对账)
     settlement_status: str = Field(validation_alias="processingStatus")
     # 资金转账状态 [原字段 'fundTransferStatus']
     # (Succeeded: 已转账, Processing: 转账中, Failed: 失败, Unknown: 未知)
     transfer_status: str = Field(validation_alias="fundTransferStatus")
+    # 数量 [原字段 'quantity']
+    transaction_qty: int = Field(validation_alias="quantity")
+    # 金额 [原字段 'currencyAmount']
+    transaction_amt: float = Field(validation_alias="currencyAmount")
+    # 币种 [原字段 'currencyCode']
+    currency_code: str = Field(validation_alias="currencyCode")
+    # 交易发生时间 (UTC时间) [原字段 'postedDate']
+    transaction_time_utc: str = Field(validation_alias="postedDate")
+    # 交易发生时间 (本地时间) [原字段 'postedDateLocale']
+    transaction_time_loc: str = Field(validation_alias="postedDateLocale")
+    # 数据创建时间 (中国时间) [原字段 'gmtCreate']
+    create_time_cnt: str = Field(validation_alias="gmtCreate")
+    # 数据更新时间 (中国时间) [原字段 'gmtModified']
+    update_time_cnt: str = Field(validation_alias="gmtModified")
     # 亚马逊订单编号 [原字段 'amazonOrderId']
-    amazon_order_id: StrOrNone2Blank = Field("", validation_alias="amazonOrderId")
+    amazon_order_id: StrOrNone2Blank = Field(validation_alias="amazonOrderId")
+    # 商家订单ID [原字段 'merchantOrderId']
+    merchant_order_id: StrOrNone2Blank = Field(validation_alias="merchantOrderId")
     # 卖家提供的订单编号 [原字段 'sellerOrderId']
-    merchant_order_id: StrOrNone2Blank = Field("", validation_alias="sellerOrderId")
+    seller_order_id: StrOrNone2Blank = Field(validation_alias="sellerOrderId")
+    # 亚马逊订单ID [原字段 'orderId']
+    order_id: StrOrNone2Blank = Field(validation_alias="orderId")
+    # 亚马逊订单商品ID [原字段 'orderItemId']
+    order_item_id: IntOrNone2Zero = Field(validation_alias="orderItemId")
     # 配送渠道 [原字段 'fulfillment']
     fulfillment_channel: str = Field(validation_alias="fulfillment")
     # 亚马逊SKU [原字段 'sellerSku']
     msku: StrOrNone2Blank = Field(validation_alias="sellerSku")
     # 领星本地SKU [原字段 'localSku']
     lsku: StrOrNone2Blank = Field(validation_alias="localSku")
+    # FNSKU [原字段 'fnsku']
+    fnsku: StrOrNone2Blank = Field(validation_alias="fnsku")
     # 领星本地商品名称 [原字段 'localName']
     product_name: StrOrNone2Blank = Field(validation_alias="localName")
-    # 数量
-    quantity: int
-    # 金额 [原字段 'currencyAmount']
-    amount: float = Field(validation_alias="currencyAmount")
-    # 币种 [原字段 'currencyCode']
-    currency_code: str = Field(validation_alias="currencyCode")
-    # 交易发生时间 (本地时间) [原字段 'postedDateLocale']
-    transaction_time_loc: str = Field(validation_alias="postedDateLocale")
-    # 数据更新时间 (中国时间) [原字段 'gmtModified']
-    update_time_cnt: str = Field(validation_alias="gmtModified")
+    # 费用类型 [原字段 'feeType']
+    fee_type: str = Field(validation_alias="feeType")
+    # 费用描述 [原字段 'feeDescription']
+    fee_desc: str = Field(validation_alias="feeDescription")
+    # 费用原因 [原字段 'feeReason']
+    fee_reason: str = Field(validation_alias="feeReason")
+    # 促销ID [原字段 'promotionId']
+    promotion_id: str = Field(validation_alias="promotionId")
+    # 活动ID [原字段 'dealId']
+    deal_id: str = Field(validation_alias="dealId")
+    # 活动描述 [原字段 'dealDescription']
+    deal_desc: str = Field(validation_alias="dealDescription")
+    # 优惠券ID [原字段 'couponId']
+    coupon_id: str = Field(validation_alias="couponId")
+    # 优惠券描述 [原字段 'sellerCouponDescription']
+    coupon_desc: str = Field(validation_alias="sellerCouponDescription")
+    # 优惠券兑换次数 [原字段 'clipOrRedemptionCount']
+    coupon_redemption_count: int = Field(validation_alias="clipOrRedemptionCount")
+    # 发票ID [原字段 'invoiceId']
+    invoice_id: str = Field(validation_alias="invoiceId")
+    # 支付事件ID [原字段 'paymentEventId']
+    payment_event_id: str = Field(validation_alias="paymentEventId")
+    # 注册ID [原字段 'enrollmentId']
+    enrollment_id: str = Field(validation_alias="enrollmentId")
+    # 债务恢复类型 [原字段 'debtRecoveryType']
+    debt_recovery_type: str = Field(validation_alias="debtRecoveryType")
+    # 移除货件项ID [原字段 'removalShipmentItemId']
+    removal_shipment_item_id: str = Field(validation_alias="removalShipmentItemId")
+    # 调整事件ID [原字段 'adjustmentEventId']
+    adjustment_event_id: str = Field(validation_alias="adjustmentEventId")
+    # 安全索赔ID [原字段 'safeTClaimId']
+    safe_t_claim_id: str = Field(validation_alias="safeTClaimId")
+    # 安全索赔原因代码 [原字段 'reasonCode']
+    saft_t_claim_reason: str = Field(validation_alias="reasonCode")
 
 
 class Transactions(ResponseV1, FlattenDataRecords):

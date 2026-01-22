@@ -190,46 +190,92 @@ class FinanceAPI(BaseAPI):
                     "country_code": "DE",
                     # 市场名称 [原字段 'marketplaceName']
                     "marketplace": "Amazon.de",
-                    # 交易ID [原字段 'id']
-                    "transaction_id": 16******,
-                    # 交易编号 [原字段 'fid']
-                    "transaction_number": "HIO*********",
-                    # 结算ID [原字段 'settlementId']
-                    "settlement_id": 0,
-                    # 事件类型 [原字段 'eventType']
-                    "event_type": "Shipment",
-                    # 交易类型 [原字段 'type']
-                    "transaction_type": "Commission",
                     # 账单类型 [原字段 'accountType']
                     "account_type": "Standard",
+                    # 事件组ID [原字段 'financialEventGroupId']
+                    "financial_event_group_id": "To6lYH1kP6icDvKl4-********",
+                    # 事件类型 [原字段 'eventType']
+                    "event_type": "Shipment",
+                    # 交易编号 [原字段 'fid']
+                    "transaction_number": "HIO*********",
+                    # 交易类型 [原字段 'type']
+                    "transaction_type": "Commission",
+                    # 结算ID [原字段 'settlementId']
+                    "settlement_id": 0,
                     # 处理状态 [原字段 'processingStatus']
                     # (Open: 未结算, Closed: 已结算, Reconciled: 已对账)
                     "settlement_status": "Open",
                     # 资金转账状态 [原字段 'fundTransferStatus']
                     # (Succeeded: 已转账, Processing: 转账中, Failed: 失败, Unknown: 未知)
                     "transfer_status": "Unknown",
+                    # 数量 [原字段 'quantity']
+                    "transaction_qty": 1,
+                    # 金额 [原字段 'currencyAmount']
+                    "transaction_amt": -7.78,
+                    # 币种 [原字段 'currencyCode']
+                    "currency_code": "EUR",
+                    # 交易发生时间 (UTC时间) [原字段 'postedDate']
+                    "transaction_time_utc": "2026-01-06T11:17:40Z",
+                    # 交易发生时间 (本地时间) [原字段 'postedDateLocale']
+                    "transaction_time_loc": "2026-01-06T03:17:40-08:00",
+                    # 数据创建时间 (中国时间) [原字段 'gmtCreate']
+                    "create_time_cnt": "2026-01-06 23:33:08.238",
+                    # 数据更新时间 (中国时间) [原字段 'gmtModified']
+                    "update_time_cnt": "2025-09-04 06:19:38.739",
                     # 亚马逊订单编号 [原字段 'amazonOrderId']
                     "amazon_order_id": "303-*******-*******",
+                    # 商家订单ID [原字段 'merchantOrderId']
+                    "merchant_order_id": "",
                     # 卖家提供的订单编号 [原字段 'sellerOrderId']
-                    "merchant_order_id": "303-*******-*******",
+                    "seller_order_id": "303-*******-*******",
+                    # 亚马逊订单ID [原字段 'orderId']
+                    "order_id": "",
+                    # 亚马逊订单商品ID [原字段 'orderItemId']
+                    "order_item_id": 14955****,
                     # 配送渠道 [原字段 'fulfillment']
                     "fulfillment_channel": "FBA",
                     # 亚马逊SKU [原字段 'sellerSku']
                     "msku": "SKU*******",
                     # 领星本地SKU [原字段 'localSku']
                     "lsku": "LOCAL*******",
+                    # 亚马逊FNSKU [原字段 'fnsku']
+                    "fnsku": "X000*******",
                     # 领星本地商品名称 [原字段 'localName']
                     "product_name": "JBL",
-                    # 数量
-                    "quantity": 1,
-                    # 金额 [原字段 'currencyAmount']
-                    "amount": -7.78,
-                    # 金额 [原字段 'currencyAmount']
-                    "currency_code": "EUR",
-                    # 交易发生时间 (本地时间) [原字段 'postedDateLocale']
-                    "transaction_time_loc": "2025-09-03T23:59:56+02:00",
-                    # 数据更新时间 (中国时间) [原字段 'gmtModified']
-                    "update_time_cnt": "2025-09-04 06:19:38.739",
+                    # 费用类型 [原字段 'feeType']
+                    "fee_type": "",
+                    # 费用描述 [原字段 'feeDescription']
+                    "fee_desc": "",
+                    # 费用原因 [原字段 'feeReason']
+                    "fee_reason": "",
+                    # 促销ID [原字段 'promotionId']
+                    "promotion_id": "",
+                    # 活动ID [原字段 'dealId']
+                    "deal_id": "",
+                    # 活动描述 [原字段 'dealDescription']
+                    "deal_desc": "",
+                    # 优惠券ID [原字段 'couponId']
+                    "coupon_id": "",
+                    # 优惠券描述 [原字段 'sellerCouponDescription']
+                    "coupon_desc": "",
+                    # 优惠券兑换次数 [原字段 'clipOrRedemptionCount']
+                    "coupon_redemption_count": 0,
+                    # 发票ID [原字段 'invoiceId']
+                    "invoice_id": "",
+                    # 支付事件ID [原字段 'paymentEventId']
+                    "payment_event_id": "",
+                    # 注册ID [原字段 'enrollmentId']
+                    "enrollment_id": "",
+                    # 债务恢复类型 [原字段 'debtRecoveryType']
+                    "debt_recovery_type": "",
+                    # 移除货件项ID [原字段 'removalShipmentItemId']
+                    "removal_shipment_item_id": "",
+                    # 调整事件ID [原字段 'adjustmentEventId']
+                    "adjustment_event_id": "",
+                    # 安全索赔ID [原字段 'safeTClaimId']
+                    "safe_t_claim_id": "",
+                    # 安全索赔原因代码 [原字段 'reasonCode']
+                    "saft_t_claim_reason": "",
                 },
                 ...
             ],
@@ -1319,7 +1365,9 @@ class FinanceAPI(BaseAPI):
         return schema.AdsInvoices.model_validate(data)
 
     async def AdsInvoiceDetail(
-        self, sid: int, invoice_id: str
+        self,
+        sid: int,
+        invoice_id: str,
     ) -> schema.AdsInvoiceDetail:
         """查询亚马逊广告发票详情
 
