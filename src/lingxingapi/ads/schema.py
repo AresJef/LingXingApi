@@ -76,7 +76,7 @@ class SpCampaign(BaseModel):
     # 广告活动名称 [原字段 'name']
     campaign_name: str = Field(validation_alias="name")
     # 广告活动类型
-    campaign_type: str
+    campaign_type: StrOrNone2Blank
     # 投放类型
     targeting_type: str
     # 溢价报价调整 (0: 不调整, 1: 调整)
