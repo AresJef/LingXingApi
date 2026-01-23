@@ -1659,8 +1659,12 @@ class FinanceAPI(BaseAPI):
                     "points_adjusted": 0.0,
                     # 收入 - 货到付款金额 (COD) [原字段 'cashOnDelivery']
                     "cash_on_delivery": 0.0,
+                    # 收入 - VAT进项税费金额 [原字段 'sharedComminglingVatIncome']
+                    "commingling_vat_income": 0.0,
                     # 收入 - NetCo混合网络交易金额 [原字段 'netcoTransaction']
                     "netco_transaction": 0.0,
+                    # 收入 - TDS 194-O净额 (印度站) [原字段 'tdsSection194ONet']
+                    "tds_section_194o_net": 0.0,
                     # 收入 - 收回/冲回金额
                     "clawbacks": 0.0,
                     # 收入 - 其他收入金额 [原字段 'otherInAmount']
@@ -1676,8 +1680,14 @@ class FinanceAPI(BaseAPI):
                     "fba_fulfillment_fees": -23769.11,
                     # 支出 - FBA多渠道配送费用 (Multi-Channel) [原字段 'mcFbaDeliveryFee']
                     "fba_mcf_fulfillment_fees": -45.49,
+                    # 支出 - FBA多渠道配送费用 (分摊) [原字段 'sharedMcFbaFulfillmentFees']
+                    "fba_mcf_fulfillment_fees_alloc": 0.0,
                     # 支出 - FBA多渠道配送数量 (Multi-Channel) [原字段 'mcFbaFulfillmentFeesQuantity']
                     "fba_mcf_fulfillment_qty": 7,
+                    # 支出 - FBA其他交易费用 [原字段 'otherFbaTransactionFees']
+                    "fba_other_transaction_fees": -9966.06,
+                    # 支出 - FBA其他交易费用 (分摊) [原字段 'sharedOtherFbaTransactionFees']
+                    "fba_other_transaction_fees_alloc": 0.0,
                     # 支出 - FBA总配送费用退款金额 [原字段 'fbaTransactionFeeRefunds']
                     "fba_transaction_fee_refunds": 120.94,
                     # 支出 - 其他交易费用 [原字段 'otherTransactionFees']
@@ -1770,6 +1780,8 @@ class FinanceAPI(BaseAPI):
                     "vine_fees_alloc": -400.0,
                     # 支出 - 早期评论人计划费用 (分摊) [原字段 'sharedEarlyReviewerProgramFee']
                     "early_reviewer_program_fees_alloc": 0.0,
+                    # 支出 - FBM邮寄资费 (分摊) [原字段 'sharedMfnPostageFee']
+                    "mfn_postage_fees_alloc": 0.0,
                     # 支出 - 其他亚马逊服务费用 (分摊) (Service Fee) [原字段 'totalPlatformOtherFee']
                     "other_service_fees_alloc": -1733.33,
                     # 支出 - 亚马逊退款管理费用 [原字段 'refundAdministrationFees']
@@ -1780,7 +1792,9 @@ class FinanceAPI(BaseAPI):
                     # 支出 - 其他费用调整金额
                     "adjustments": -163.14,
                     # 支出 - 广告总花费 (Cost of Advertising) [原字段 'totalAdsCost']
-                    # (ads_sp_cost + ads_sb_cost + ads_sbv_cost + ads_sd_cost)
+                    # (ads_sp_cost + ads_sb_cost + ads_sbv_cost + ads_sd_cost + ads_cost_alloc +
+                    #  ads_amazon_live_cost_alloc + ads_creator_connections_cost_alloc +
+                    #  ads_sponsored_tv_cost_alloc + ads_retail_ad_service_alloc)
                     "ads_cost": -27743.22,
                     # 支出 - 广告总销售金额 [原字段 'totalAdsSales']
                     "ads_sales": 142803.87,
@@ -1812,10 +1826,24 @@ class FinanceAPI(BaseAPI):
                     "ads_sd_sales_qty": 0,
                     # 支出 - 广告分摊费用 [原字段 'sharedCostOfAdvertising']
                     "ads_cost_alloc": 0.0,
+                    # 支出 - Live广告花费 (分摊) [原字段 'sharedAdsAlCost']
+                    "ads_amazon_live_cost_alloc": 0.0,
+                    # 支出 - 内容创作者计划花费 (分摊) [原字段 'sharedAdsCcCost']
+                    "ads_creator_connections_cost_alloc": 0.0,
+                    # 支出 - TV广告花费 (分摊) [原字段 'sharedAdsSspaotCost']
+                    "ads_sponsored_tv_cost_alloc": 0.0,
+                    # 支出 - 零售商赞助广告花费 (分摊) [原字段 'sharedAdsSarCost']
+                    "ads_retail_ad_service_alloc": 0.0,
                     # 支出 - 广告总退款金额 (Refund for Advertiser) [原字段 'refundForAdvertiser']
                     "ads_cost_refunds": 0.0,
                     # 支出 - 清算服务费 (分摊) [原字段 'sharedLiquidationsFees']
                     "liquidation_service_fees_alloc": 0.0,
+                    # 支出 - 应收账款扣减 (分摊) [原字段 'sharedReceivablesDeductions']
+                    "receivables_deductions_alloc": 0.0,
+                    # 支出 - 亚马逊运费调整 (分摊) [原字段 'sharedAmazonShippingChargeAdjustments']
+                    "amazon_shipping_charge_adj_alloc": 0.0,
+                    # 支出 - VAT销项税费金额 [原字段 'sharedComminglingVatExpenses']
+                    "commingling_vat_expenses": 0.0,
                     # 支出 - 其他支出费用 [原字段 'others']
                     "other_expenses": 0.0,
                     # 支出 - 用户自定义推广总费用 [原字段 'customOrderFee']
@@ -1851,8 +1879,8 @@ class FinanceAPI(BaseAPI):
                     # 税费 - 总销售税代扣金额 [原字段 'salesTaxWithheld']
                     "sales_tax_withheld": -15036.42,
                     # 税费 - 总销售税费退款 [salesTaxRefund]
+                    # ('product_tax_refunded' 到 'tcs_cgst_refunded' 之间的所有税费退款)
                     "sales_tax_refunded": -784.31,
-                    # ('product_tax_refunded' 到 'sales_tax_withheld_refunded' 之间的所有税费退款)
                     # 税费 - 商品销售税费退款金额 [原字段 'taxRefundedProduct']
                     "product_tax_refunded": -783.0,
                     # 税费 - 配送运费税费退款金额 [原字段 'taxRefundedShipping']
@@ -1871,12 +1899,6 @@ class FinanceAPI(BaseAPI):
                     "tcs_cgst_refunded": 0.0,
                     # 税费 - 总退款税代扣金额 [原字段 'refundTaxWithheld']
                     "refund_tax_withheld": 784.31,
-                    # 税费 - VAT进项税费金额 [原字段 'sharedComminglingVatIncome']
-                    "commingling_vat_income": 0.0,
-                    # 税费 - VAT销项税费金额 [原字段 'sharedComminglingVatExpenses']
-                    "commingling_vat_expenses": 0.0,
-                    # 税费 - TDS 194-O净额 (印度站) [原字段 'tdsSection194ONet']
-                    "tds_section_194o_net": 0.0,
                     # 税费 - 其他税费调整 (分摊) [原字段 'sharedTaxAdjustment']
                     "other_tax_adj_alloc": 0.0,
                     # 成本 - 总退款数量 [原字段 'refundsQuantity']
@@ -1906,6 +1928,8 @@ class FinanceAPI(BaseAPI):
                     # 成本 - 总成本数量 [原字段 'cgQuantity']
                     # (fba&fbm_product_sales_qty + fba_mcf_fulfillment_qty + fba&fbm_reshipment_qty - fba_returns_saleable_qty)
                     "cost_of_goods_qty": -6757,
+                    # 成本 - 重成本数量绝对值 [原字段 'cgAbsQuantity']
+                    "cost_of_goods_abs_qty": 6780,
                     # 成本 - 总成本金额 (COGS) [原字段 'totalCost']
                     # (purchase_cost + logistics_cost + other_costs)
                     "cost_of_goods": -100790.7,
@@ -1913,6 +1937,8 @@ class FinanceAPI(BaseAPI):
                     "cost_of_goods_ratio": 0.4272,
                     # 成本 - 总采购成本 (COGS) [原字段 'cgPriceTotal']
                     "purchase_cost": -100790.7,
+                    # 成本 - 总采购绝对成本 [原字段 'cgPriceAbsTotal']
+                    "purchase_abs_cost": 100890.7,
                     # 成本 - 单品成本 [原字段 'cgUnitPrice']
                     "purchase_unit_cost": 14.93,
                     # 成本 - 采购成本占比 [原字段 'proportionOfCg']
@@ -2127,8 +2153,12 @@ class FinanceAPI(BaseAPI):
                     "points_adjusted": 0.0,
                     # 收入 - 货到付款金额 (COD) [原字段 'cashOnDelivery']
                     "cash_on_delivery": 0.0,
+                    # 收入 - VAT进项税费金额 [原字段 'sharedComminglingVatIncome']
+                    "commingling_vat_income": 0.0,
                     # 收入 - NetCo混合网络交易金额 [原字段 'netcoTransaction']
                     "netco_transaction": 0.0,
+                    # 收入 - TDS 194-O净额 (印度站) [原字段 'tdsSection194ONet']
+                    "tds_section_194o_net": 0.0,
                     # 收入 - 收回/冲回金额
                     "clawbacks": 0.0,
                     # 收入 - 其他收入金额 [原字段 'otherInAmount']
@@ -2144,8 +2174,14 @@ class FinanceAPI(BaseAPI):
                     "fba_fulfillment_fees": -23769.11,
                     # 支出 - FBA多渠道配送费用 (Multi-Channel) [原字段 'mcFbaDeliveryFee']
                     "fba_mcf_fulfillment_fees": -45.49,
+                    # 支出 - FBA多渠道配送费用 (分摊) [原字段 'sharedMcFbaFulfillmentFees']
+                    "fba_mcf_fulfillment_fees_alloc": 0.0,
                     # 支出 - FBA多渠道配送数量 (Multi-Channel) [原字段 'mcFbaFulfillmentFeesQuantity']
                     "fba_mcf_fulfillment_qty": 7,
+                    # 支出 - FBA其他交易费用 [原字段 'otherFbaTransactionFees']
+                    "fba_other_transaction_fees": -9966.06,
+                    # 支出 - FBA其他交易费用 (分摊) [原字段 'sharedOtherFbaTransactionFees']
+                    "fba_other_transaction_fees_alloc": 0.0,
                     # 支出 - FBA总配送费用退款金额 [原字段 'fbaTransactionFeeRefunds']
                     "fba_transaction_fee_refunds": 120.94,
                     # 支出 - 其他交易费用 [原字段 'otherTransactionFees']
@@ -2238,6 +2274,8 @@ class FinanceAPI(BaseAPI):
                     "vine_fees_alloc": -400.0,
                     # 支出 - 早期评论人计划费用 (分摊) [原字段 'sharedEarlyReviewerProgramFee']
                     "early_reviewer_program_fees_alloc": 0.0,
+                    # 支出 - FBM邮寄资费 (分摊) [原字段 'sharedMfnPostageFee']
+                    "mfn_postage_fees_alloc": 0.0,
                     # 支出 - 其他亚马逊服务费用 (分摊) (Service Fee) [原字段 'totalPlatformOtherFee']
                     "other_service_fees_alloc": -1733.33,
                     # 支出 - 亚马逊退款管理费用 [原字段 'refundAdministrationFees']
@@ -2248,7 +2286,9 @@ class FinanceAPI(BaseAPI):
                     # 支出 - 其他费用调整金额
                     "adjustments": -163.14,
                     # 支出 - 广告总花费 (Cost of Advertising) [原字段 'totalAdsCost']
-                    # (ads_sp_cost + ads_sb_cost + ads_sbv_cost + ads_sd_cost)
+                    # (ads_sp_cost + ads_sb_cost + ads_sbv_cost + ads_sd_cost + ads_cost_alloc +
+                    #  ads_amazon_live_cost_alloc + ads_creator_connections_cost_alloc +
+                    #  ads_sponsored_tv_cost_alloc + ads_retail_ad_service_alloc)
                     "ads_cost": -27743.22,
                     # 支出 - 广告总销售金额 [原字段 'totalAdsSales']
                     "ads_sales": 142803.87,
@@ -2280,10 +2320,24 @@ class FinanceAPI(BaseAPI):
                     "ads_sd_sales_qty": 0,
                     # 支出 - 广告分摊费用 [原字段 'sharedCostOfAdvertising']
                     "ads_cost_alloc": 0.0,
+                    # 支出 - Live广告花费 (分摊) [原字段 'sharedAdsAlCost']
+                    "ads_amazon_live_cost_alloc": 0.0,
+                    # 支出 - 内容创作者计划花费 (分摊) [原字段 'sharedAdsCcCost']
+                    "ads_creator_connections_cost_alloc": 0.0,
+                    # 支出 - TV广告花费 (分摊) [原字段 'sharedAdsSspaotCost']
+                    "ads_sponsored_tv_cost_alloc": 0.0,
+                    # 支出 - 零售商赞助广告花费 (分摊) [原字段 'sharedAdsSarCost']
+                    "ads_retail_ad_service_alloc": 0.0,
                     # 支出 - 广告总退款金额 (Refund for Advertiser) [原字段 'refundForAdvertiser']
                     "ads_cost_refunds": 0.0,
                     # 支出 - 清算服务费 (分摊) [原字段 'sharedLiquidationsFees']
                     "liquidation_service_fees_alloc": 0.0,
+                    # 支出 - 应收账款扣减 (分摊) [原字段 'sharedReceivablesDeductions']
+                    "receivables_deductions_alloc": 0.0,
+                    # 支出 - 亚马逊运费调整 (分摊) [原字段 'sharedAmazonShippingChargeAdjustments']
+                    "amazon_shipping_charge_adj_alloc": 0.0,
+                    # 支出 - VAT销项税费金额 [原字段 'sharedComminglingVatExpenses']
+                    "commingling_vat_expenses": 0.0,
                     # 支出 - 其他支出费用 [原字段 'others']
                     "other_expenses": 0.0,
                     # 支出 - 用户自定义推广总费用 [原字段 'customOrderFee']
@@ -2319,8 +2373,8 @@ class FinanceAPI(BaseAPI):
                     # 税费 - 总销售税代扣金额 [原字段 'salesTaxWithheld']
                     "sales_tax_withheld": -15036.42,
                     # 税费 - 总销售税费退款 [salesTaxRefund]
+                    # ('product_tax_refunded' 到 'tcs_cgst_refunded' 之间的所有税费退款)
                     "sales_tax_refunded": -784.31,
-                    # ('product_tax_refunded' 到 'sales_tax_withheld_refunded' 之间的所有税费退款)
                     # 税费 - 商品销售税费退款金额 [原字段 'taxRefundedProduct']
                     "product_tax_refunded": -783.0,
                     # 税费 - 配送运费税费退款金额 [原字段 'taxRefundedShipping']
@@ -2339,12 +2393,6 @@ class FinanceAPI(BaseAPI):
                     "tcs_cgst_refunded": 0.0,
                     # 税费 - 总退款税代扣金额 [原字段 'refundTaxWithheld']
                     "refund_tax_withheld": 784.31,
-                    # 税费 - VAT进项税费金额 [原字段 'sharedComminglingVatIncome']
-                    "commingling_vat_income": 0.0,
-                    # 税费 - VAT销项税费金额 [原字段 'sharedComminglingVatExpenses']
-                    "commingling_vat_expenses": 0.0,
-                    # 税费 - TDS 194-O净额 (印度站) [原字段 'tdsSection194ONet']
-                    "tds_section_194o_net": 0.0,
                     # 税费 - 其他税费调整 (分摊) [原字段 'sharedTaxAdjustment']
                     "other_tax_adj_alloc": 0.0,
                     # 成本 - 总退款数量 [原字段 'refundsQuantity']
@@ -2374,6 +2422,8 @@ class FinanceAPI(BaseAPI):
                     # 成本 - 总成本数量 [原字段 'cgQuantity']
                     # (fba&fbm_product_sales_qty + fba_mcf_fulfillment_qty + fba&fbm_reshipment_qty - fba_returns_saleable_qty)
                     "cost_of_goods_qty": -6757,
+                    # 成本 - 重成本数量绝对值 [原字段 'cgAbsQuantity']
+                    "cost_of_goods_abs_qty": 6780,
                     # 成本 - 总成本金额 (COGS) [原字段 'totalCost']
                     # (purchase_cost + logistics_cost + other_costs)
                     "cost_of_goods": -100790.7,
@@ -2381,6 +2431,8 @@ class FinanceAPI(BaseAPI):
                     "cost_of_goods_ratio": 0.4272,
                     # 成本 - 总采购成本 (COGS) [原字段 'cgPriceTotal']
                     "purchase_cost": -100790.7,
+                    # 成本 - 总采购绝对成本 [原字段 'cgPriceAbsTotal']
+                    "purchase_abs_cost": 100890.7,
                     # 成本 - 单品成本 [原字段 'cgUnitPrice']
                     "purchase_unit_cost": 14.93,
                     # 成本 - 采购成本占比 [原字段 'proportionOfCg']
@@ -2695,8 +2747,12 @@ class FinanceAPI(BaseAPI):
                     "points_adjusted": 0.0,
                     # 收入 - 货到付款金额 (COD) [原字段 'cashOnDelivery']
                     "cash_on_delivery": 0.0,
+                    # 收入 - VAT进项税费金额 [原字段 'sharedComminglingVatIncome']
+                    "commingling_vat_income": 0.0,
                     # 收入 - NetCo混合网络交易金额 [原字段 'netcoTransaction']
                     "netco_transaction": 0.0,
+                    # 收入 - TDS 194-O净额 (印度站) [原字段 'tdsSection194ONet']
+                    "tds_section_194o_net": 0.0,
                     # 收入 - 收回/冲回金额
                     "clawbacks": 0.0,
                     # 收入 - 其他收入金额 [原字段 'otherInAmount']
@@ -2712,8 +2768,14 @@ class FinanceAPI(BaseAPI):
                     "fba_fulfillment_fees": -23769.11,
                     # 支出 - FBA多渠道配送费用 (Multi-Channel) [原字段 'mcFbaDeliveryFee']
                     "fba_mcf_fulfillment_fees": -45.49,
+                    # 支出 - FBA多渠道配送费用 (分摊) [原字段 'sharedMcFbaFulfillmentFees']
+                    "fba_mcf_fulfillment_fees_alloc": 0.0,
                     # 支出 - FBA多渠道配送数量 (Multi-Channel) [原字段 'mcFbaFulfillmentFeesQuantity']
                     "fba_mcf_fulfillment_qty": 7,
+                    # 支出 - FBA其他交易费用 [原字段 'otherFbaTransactionFees']
+                    "fba_other_transaction_fees": -9966.06,
+                    # 支出 - FBA其他交易费用 (分摊) [原字段 'sharedOtherFbaTransactionFees']
+                    "fba_other_transaction_fees_alloc": 0.0,
                     # 支出 - FBA总配送费用退款金额 [原字段 'fbaTransactionFeeRefunds']
                     "fba_transaction_fee_refunds": 120.94,
                     # 支出 - 其他交易费用 [原字段 'otherTransactionFees']
@@ -2806,6 +2868,8 @@ class FinanceAPI(BaseAPI):
                     "vine_fees_alloc": -400.0,
                     # 支出 - 早期评论人计划费用 (分摊) [原字段 'sharedEarlyReviewerProgramFee']
                     "early_reviewer_program_fees_alloc": 0.0,
+                    # 支出 - FBM邮寄资费 (分摊) [原字段 'sharedMfnPostageFee']
+                    "mfn_postage_fees_alloc": 0.0,
                     # 支出 - 其他亚马逊服务费用 (分摊) (Service Fee) [原字段 'totalPlatformOtherFee']
                     "other_service_fees_alloc": -1733.33,
                     # 支出 - 亚马逊退款管理费用 [原字段 'refundAdministrationFees']
@@ -2816,7 +2880,9 @@ class FinanceAPI(BaseAPI):
                     # 支出 - 其他费用调整金额
                     "adjustments": -163.14,
                     # 支出 - 广告总花费 (Cost of Advertising) [原字段 'totalAdsCost']
-                    # (ads_sp_cost + ads_sb_cost + ads_sbv_cost + ads_sd_cost)
+                    # (ads_sp_cost + ads_sb_cost + ads_sbv_cost + ads_sd_cost + ads_cost_alloc +
+                    #  ads_amazon_live_cost_alloc + ads_creator_connections_cost_alloc +
+                    #  ads_sponsored_tv_cost_alloc + ads_retail_ad_service_alloc)
                     "ads_cost": -27743.22,
                     # 支出 - 广告总销售金额 [原字段 'totalAdsSales']
                     "ads_sales": 142803.87,
@@ -2848,10 +2914,24 @@ class FinanceAPI(BaseAPI):
                     "ads_sd_sales_qty": 0,
                     # 支出 - 广告分摊费用 [原字段 'sharedCostOfAdvertising']
                     "ads_cost_alloc": 0.0,
+                    # 支出 - Live广告花费 (分摊) [原字段 'sharedAdsAlCost']
+                    "ads_amazon_live_cost_alloc": 0.0,
+                    # 支出 - 内容创作者计划花费 (分摊) [原字段 'sharedAdsCcCost']
+                    "ads_creator_connections_cost_alloc": 0.0,
+                    # 支出 - TV广告花费 (分摊) [原字段 'sharedAdsSspaotCost']
+                    "ads_sponsored_tv_cost_alloc": 0.0,
+                    # 支出 - 零售商赞助广告花费 (分摊) [原字段 'sharedAdsSarCost']
+                    "ads_retail_ad_service_alloc": 0.0,
                     # 支出 - 广告总退款金额 (Refund for Advertiser) [原字段 'refundForAdvertiser']
                     "ads_cost_refunds": 0.0,
                     # 支出 - 清算服务费 (分摊) [原字段 'sharedLiquidationsFees']
                     "liquidation_service_fees_alloc": 0.0,
+                    # 支出 - 应收账款扣减 (分摊) [原字段 'sharedReceivablesDeductions']
+                    "receivables_deductions_alloc": 0.0,
+                    # 支出 - 亚马逊运费调整 (分摊) [原字段 'sharedAmazonShippingChargeAdjustments']
+                    "amazon_shipping_charge_adj_alloc": 0.0,
+                    # 支出 - VAT销项税费金额 [原字段 'sharedComminglingVatExpenses']
+                    "commingling_vat_expenses": 0.0,
                     # 支出 - 其他支出费用 [原字段 'others']
                     "other_expenses": 0.0,
                     # 支出 - 用户自定义推广总费用 [原字段 'customOrderFee']
@@ -2887,8 +2967,8 @@ class FinanceAPI(BaseAPI):
                     # 税费 - 总销售税代扣金额 [原字段 'salesTaxWithheld']
                     "sales_tax_withheld": -15036.42,
                     # 税费 - 总销售税费退款 [salesTaxRefund]
+                    # ('product_tax_refunded' 到 'tcs_cgst_refunded' 之间的所有税费退款)
                     "sales_tax_refunded": -784.31,
-                    # ('product_tax_refunded' 到 'sales_tax_withheld_refunded' 之间的所有税费退款)
                     # 税费 - 商品销售税费退款金额 [原字段 'taxRefundedProduct']
                     "product_tax_refunded": -783.0,
                     # 税费 - 配送运费税费退款金额 [原字段 'taxRefundedShipping']
@@ -2907,12 +2987,6 @@ class FinanceAPI(BaseAPI):
                     "tcs_cgst_refunded": 0.0,
                     # 税费 - 总退款税代扣金额 [原字段 'refundTaxWithheld']
                     "refund_tax_withheld": 784.31,
-                    # 税费 - VAT进项税费金额 [原字段 'sharedComminglingVatIncome']
-                    "commingling_vat_income": 0.0,
-                    # 税费 - VAT销项税费金额 [原字段 'sharedComminglingVatExpenses']
-                    "commingling_vat_expenses": 0.0,
-                    # 税费 - TDS 194-O净额 (印度站) [原字段 'tdsSection194ONet']
-                    "tds_section_194o_net": 0.0,
                     # 税费 - 其他税费调整 (分摊) [原字段 'sharedTaxAdjustment']
                     "other_tax_adj_alloc": 0.0,
                     # 成本 - 总退款数量 [原字段 'refundsQuantity']
@@ -2942,6 +3016,8 @@ class FinanceAPI(BaseAPI):
                     # 成本 - 总成本数量 [原字段 'cgQuantity']
                     # (fba&fbm_product_sales_qty + fba_mcf_fulfillment_qty + fba&fbm_reshipment_qty - fba_returns_saleable_qty)
                     "cost_of_goods_qty": -6757,
+                    # 成本 - 重成本数量绝对值 [原字段 'cgAbsQuantity']
+                    "cost_of_goods_abs_qty": 6780,
                     # 成本 - 总成本金额 (COGS) [原字段 'totalCost']
                     # (purchase_cost + logistics_cost + other_costs)
                     "cost_of_goods": -100790.7,
@@ -2949,6 +3025,8 @@ class FinanceAPI(BaseAPI):
                     "cost_of_goods_ratio": 0.4272,
                     # 成本 - 总采购成本 (COGS) [原字段 'cgPriceTotal']
                     "purchase_cost": -100790.7,
+                    # 成本 - 总采购绝对成本 [原字段 'cgPriceAbsTotal']
+                    "purchase_abs_cost": 100890.7,
                     # 成本 - 单品成本 [原字段 'cgUnitPrice']
                     "purchase_unit_cost": 14.93,
                     # 成本 - 采购成本占比 [原字段 'proportionOfCg']

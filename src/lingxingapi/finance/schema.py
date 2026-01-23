@@ -786,8 +786,12 @@ class IncomeStatement(BaseModel):
     points_adjusted: float = Field(validation_alias="pointsAdjusted")
     # 收入 - 货到付款金额 (COD) [原字段 'cashOnDelivery']
     cash_on_delivery: float = Field(validation_alias="cashOnDelivery")
+    # 收入 - VAT进项税费金额 [原字段 'sharedComminglingVatIncome']
+    commingling_vat_income: float = Field(validation_alias="sharedComminglingVatIncome")
     # 收入 - NetCo混合网络交易金额 [原字段 'netcoTransaction']
     netco_transaction: float = Field(validation_alias="netcoTransaction")
+    # 收入 - TDS 194-O净额 (印度站) [原字段 'tdsSection194ONet']
+    tds_section_194o_net: float = Field(validation_alias="tdsSection194ONet")
     # 收入 - 收回/冲回金额
     clawbacks: float
     # 收入 - 其他收入金额 [原字段 'otherInAmount']
@@ -796,15 +800,21 @@ class IncomeStatement(BaseModel):
     fba_selling_fees: float = Field(validation_alias="platformFee")
     # 支出 - FBA销售佣金退款金额 [原字段 'sellingFeeRefunds']
     fba_selling_fee_refunds: float = Field(validation_alias="sellingFeeRefunds")
-    # 支出 - FBA总配送费用 [原字段 'totalFbaDeliveryFee']
+    # 支出 - FBA交易费用 [原字段 'totalFbaDeliveryFee']
     # (fba_fulfillment_fees + mcf_fulfillment_fees)
     fba_transaction_fees: float = Field(validation_alias="totalFbaDeliveryFee")
-    # 支付 - FBA配送费用 (Fulfillment Fee) [原字段 'fbaDeliveryFee']
+    # 支出 - FBA配送费用 (Fulfillment Fee) [原字段 'fbaDeliveryFee']
     fba_fulfillment_fees: float = Field(validation_alias="fbaDeliveryFee")
     # 支出 - FBA多渠道配送费用 (Multi-Channel) [原字段 'mcFbaDeliveryFee']
     fba_mcf_fulfillment_fees: float = Field(validation_alias="mcFbaDeliveryFee")
+    # 支出 - FBA多渠道配送费用 (分摊) [原字段 'sharedMcFbaFulfillmentFees']
+    fba_mcf_fulfillment_fees_alloc: FloatOrNone2Zero = Field(0.0, validation_alias="sharedMcFbaFulfillmentFees")
     # 支出 - FBA多渠道配送数量 (Multi-Channel) [原字段 'mcFbaFulfillmentFeesQuantity']
     fba_mcf_fulfillment_qty: int = Field(validation_alias="mcFbaFulfillmentFeesQuantity")
+    # 支出 - FBA其他交易费用 [原字段 'otherFbaTransactionFees']
+    fba_other_transaction_fees: FloatOrNone2Zero = Field(0.0, validation_alias="otherFbaTransactionFees")
+    # 支出 - FBA其他交易费用 (分摊) [原字段 'sharedOtherFbaTransactionFees']
+    fba_other_transaction_fees_alloc: FloatOrNone2Zero = Field(0.0, validation_alias="sharedOtherFbaTransactionFees")
     # 支出 - FBA总配送费用退款金额 [原字段 'fbaTransactionFeeRefunds']
     fba_transaction_fee_refunds: float = Field(validation_alias="fbaTransactionFeeRefunds")
     # 支出 - 其他交易费用 [原字段 'otherTransactionFees']
@@ -885,8 +895,8 @@ class IncomeStatement(BaseModel):
     # 支出 - 承运商运输标签花费调整金额 [原字段 'sharedCarrierShippingLabelAdjustments']
     carrier_shipping_label_adj: float = Field(validation_alias="sharedCarrierShippingLabelAdjustments")
     # 支出 - 总推广费用 (Service Fee) [原字段 'promotionFee']
-    promotion_fees: float = Field(validation_alias="promotionFee")
     # (subscription_fees_alloc + coupon_fees_alloc + deal_fees_alloc + vine_fees_alloc + early_reviewer_program_fees_alloc)
+    promotion_fees: float = Field(validation_alias="promotionFee")
     # 支出 - 订阅服务费 (分摊) [原字段 'sharedSubscriptionFee']
     subscription_fees_alloc: float = Field(validation_alias="sharedSubscriptionFee")
     # 支出 - 优惠券费用 (分摊) [原字段 'sharedCouponFee']
@@ -899,8 +909,8 @@ class IncomeStatement(BaseModel):
     early_reviewer_program_fees_alloc: float = Field(validation_alias="sharedEarlyReviewerProgramFee")
     # 支出 - FBM邮寄资费 (分摊) [原字段 'sharedMfnPostageFee']
     mfn_postage_fees_alloc: float = Field(validation_alias="sharedMfnPostageFee")
-    # 支出 - 其他亚马逊服务费用 (分摊) (Service Fee) [原字段 'totalPlatformOtherFee']
-    other_service_fees_alloc: float = Field(validation_alias="totalPlatformOtherFee")
+    # 支出 - 其他亚马逊服务费用 (分摊) (Service Fee) [原字段 'sharedOtherServiceFees']
+    other_service_fees_alloc: float = Field(validation_alias="sharedOtherServiceFees")
     # 支出 - 亚马逊退款管理费用 [原字段 'refundAdministrationFees']
     refund_administration_fees: float = Field(validation_alias="refundAdministrationFees")
     # 支出 - 总费用退款金额 [totalFeeRefunds]
@@ -909,7 +919,9 @@ class IncomeStatement(BaseModel):
     # 支出 - 其他费用调整金额
     adjustments: float
     # 支出 - 广告总花费 (Cost of Advertising) [原字段 'totalAdsCost']
-    # (ads_sp_cost + ads_sb_cost + ads_sbv_cost + ads_sd_cost)
+    # (ads_sp_cost + ads_sb_cost + ads_sbv_cost + ads_sd_cost + ads_cost_alloc + 
+    #  ads_amazon_live_cost_alloc + ads_creator_connections_cost_alloc + 
+    #  ads_sponsored_tv_cost_alloc + ads_retail_ad_service_alloc)
     ads_cost: float = Field(validation_alias="totalAdsCost")
     # 支出 - 广告总销售金额 [原字段 'totalAdsSales']
     ads_sales: float = Field(validation_alias="totalAdsSales")
@@ -941,10 +953,24 @@ class IncomeStatement(BaseModel):
     ads_sd_sales_qty: int = Field(validation_alias="adsSdSalesQuantity")
     # 支出 - 广告分摊费用 [原字段 'sharedCostOfAdvertising']
     ads_cost_alloc: float = Field(validation_alias="sharedCostOfAdvertising")
+    # 支出 - Live广告花费 (分摊) [原字段 'sharedAdsAlCost']
+    ads_amazon_live_cost_alloc: float = Field(validation_alias="sharedAdsAlCost")
+    # 支出 - 内容创作者计划花费 (分摊) [原字段 'sharedAdsCcCost']
+    ads_creator_connections_cost_alloc: float = Field(validation_alias="sharedAdsCcCost")
+    # 支出 - TV广告花费 (分摊) [原字段 'sharedAdsSspaotCost']
+    ads_sponsored_tv_cost_alloc: float = Field(validation_alias="sharedAdsSspaotCost")
+    # 支出 - 零售商赞助广告花费 (分摊) [原字段 'sharedAdsSarCost']
+    ads_retail_ad_service_alloc: float = Field(validation_alias="sharedAdsSarCost")
     # 支出 - 广告总退款金额 (Refund for Advertiser) [原字段 'refundForAdvertiser']
     ads_cost_refunds: float = Field(validation_alias="refundForAdvertiser")
     # 支出 - 清算服务费 (分摊) [原字段 'sharedLiquidationsFees']
     liquidation_service_fees_alloc: float = Field(validation_alias="sharedLiquidationsFees")
+    # 支出 - 应收账款扣减 (分摊) [原字段 'sharedReceivablesDeductions']
+    receivables_deductions_alloc: float = Field(validation_alias="sharedReceivablesDeductions")
+    # 支出 - 亚马逊运费调整 (分摊) [原字段 'sharedAmazonShippingChargeAdjustments']
+    amazon_shipping_charge_adj_alloc: float = Field(validation_alias="sharedAmazonShippingChargeAdjustments")
+    # 支出 - VAT销项税费金额 [原字段 'sharedComminglingVatExpenses']
+    commingling_vat_expenses: float = Field(validation_alias="sharedComminglingVatExpenses")
     # 支出 - 其他支出费用 [原字段 'others']
     other_expenses: float = Field(validation_alias="others")
     # 支出 - 用户自定义推广总费用 [原字段 'customOrderFee']
@@ -1000,12 +1026,6 @@ class IncomeStatement(BaseModel):
     tcs_cgst_refunded: float = Field(validation_alias="tcsCgstRefunded")
     # 税费 - 总退款税代扣金额 [原字段 'refundTaxWithheld']
     refund_tax_withheld: float = Field(validation_alias="refundTaxWithheld")
-    # 税费 - VAT进项税费金额 [原字段 'sharedComminglingVatIncome']
-    commingling_vat_income: float = Field(validation_alias="sharedComminglingVatIncome")
-    # 税费 - VAT销项税费金额 [原字段 'sharedComminglingVatExpenses']
-    commingling_vat_expenses: float = Field(validation_alias="sharedComminglingVatExpenses")
-    # 税费 - TDS 194-O净额 (印度站) [原字段 'tdsSection194ONet']
-    tds_section_194o_net: float = Field(validation_alias="tdsSection194ONet")
     # 税费 - 其他税费调整 (分摊) [原字段 'sharedTaxAdjustment']
     other_tax_adj_alloc: float = Field(validation_alias="sharedTaxAdjustment")
     # 成本 - 总退款数量 [原字段 'refundsQuantity']
@@ -1035,6 +1055,8 @@ class IncomeStatement(BaseModel):
     # 成本 - 总成本数量 [原字段 'cgQuantity']
     # (fba&fbm_product_sales_qty + fba_mcf_fulfillment_qty + fba&fbm_reshipment_qty - fba_returns_saleable_qty)
     cost_of_goods_qty: IntOrNone2Zero = Field(validation_alias="cgQuantity")
+    # 成本 - 重成本数量绝对值 [原字段 'cgAbsQuantity']
+    cost_of_goods_abs_qty: int = Field(validation_alias="cgAbsQuantity")
     # 成本 - 总成本金额 (COGS) [原字段 'totalCost']
     # (purchase_cost + logistics_cost + other_costs)
     cost_of_goods: float = Field(validation_alias="totalCost")
@@ -1042,6 +1064,8 @@ class IncomeStatement(BaseModel):
     cost_of_goods_ratio: float = Field(validation_alias="proportionOfTotalCost")
     # 成本 - 总采购成本 (COGS) [原字段 'cgPriceTotal']
     purchase_cost: float = Field(validation_alias="cgPriceTotal")
+    # 成本 - 总采购绝对成本 [原字段 'cgPriceAbsTotal']
+    purchase_abs_cost: float = Field(validation_alias="cgPriceAbsTotal")
     # 成本 - 单品成本 [原字段 'cgUnitPrice']
     purchase_unit_cost: float = Field(validation_alias="cgUnitPrice")
     # 成本 - 采购成本占比 [原字段 'proportionOfCg']
