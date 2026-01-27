@@ -800,8 +800,8 @@ class IncomeStatement(BaseModel):
     fba_selling_fees: float = Field(validation_alias="platformFee")
     # 支出 - FBA销售佣金退款金额 [原字段 'sellingFeeRefunds']
     fba_selling_fee_refunds: float = Field(validation_alias="sellingFeeRefunds")
-    # 支出 - FBA交易费用 [原字段 'totalFbaDeliveryFee']
-    # (fba_fulfillment_fees + mcf_fulfillment_fees)
+    # 支出 - FBA交易费用 [原字段 'totalFbaDeliveryFee'] 
+    # (fba_fulfillment_fees 到 fba_transaction_return_fees_alloc 之间所有费用)
     fba_transaction_fees: float = Field(validation_alias="totalFbaDeliveryFee")
     # 支出 - FBA配送费用 (Fulfillment Fee) [原字段 'fbaDeliveryFee']
     fba_fulfillment_fees: float = Field(validation_alias="fbaDeliveryFee")
@@ -811,10 +811,10 @@ class IncomeStatement(BaseModel):
     fba_mcf_fulfillment_fees_alloc: FloatOrNone2Zero = Field(0.0, validation_alias="sharedMcFbaFulfillmentFees")
     # 支出 - FBA多渠道配送数量 (Multi-Channel) [原字段 'mcFbaFulfillmentFeesQuantity']
     fba_mcf_fulfillment_qty: int = Field(validation_alias="mcFbaFulfillmentFeesQuantity")
-    # 支出 - FBA其他交易费用 [原字段 'otherFbaTransactionFees']
-    fba_other_transaction_fees: FloatOrNone2Zero = Field(0.0, validation_alias="otherFbaTransactionFees")
-    # 支出 - FBA其他交易费用 (分摊) [原字段 'sharedOtherFbaTransactionFees']
-    fba_other_transaction_fees_alloc: FloatOrNone2Zero = Field(0.0, validation_alias="sharedOtherFbaTransactionFees")
+    # 支出 - FBA客户退货处理费用 (分摊) [原字段 'sharedFbaCustomerReturnFee']
+    fba_customer_return_fees_alloc: float = Field(validation_alias="sharedFbaCustomerReturnFee")
+    # 支出 - FBA交易退货处理费用 (分摊) [原字段 'sharedFbaTransactionCustomerReturnFee']
+    fba_transaction_return_fees_alloc: float = Field(validation_alias="sharedFbaTransactionCustomerReturnFee")
     # 支出 - FBA总配送费用退款金额 [原字段 'fbaTransactionFeeRefunds']
     fba_transaction_fee_refunds: float = Field(validation_alias="fbaTransactionFeeRefunds")
     # 支出 - 其他交易费用 [原字段 'otherTransactionFees']
@@ -823,7 +823,7 @@ class IncomeStatement(BaseModel):
     other_transaction_fee_refunds: float = Field(validation_alias="otherTransactionFeeRefunds")
     # 支出 - FBA仓储和入库服务总费用 [原字段 'totalStorageFee']
     fba_inventory_and_inbound_services_fees: float = Field(validation_alias="totalStorageFee")
-    # ('fba_storage_fees' 到 'awd_satellite_storage_fees_alloc' 之间的所有费用)
+    # ('fba_storage_fees' 到 'other_fba_inventory_fees_alloc' 之间的所有费用)
     # 支出 - FBA仓储费用 [原字段 'fbaStorageFee']
     fba_storage_fees: float = Field(validation_alias="fbaStorageFee")
     # 支出 - FBA仓储费用计提金额 [原字段 'fbaStorageFeeAccrual']
@@ -854,32 +854,14 @@ class IncomeStatement(BaseModel):
     fba_removal_qty: int = Field(validation_alias="removalQuantity")
     # 支出 - FBA入库运输计划费用 (分摊) [原字段 'sharedFbaInboundTransportationProgramFee']
     fba_inbound_transportation_program_fees_alloc: float = Field(validation_alias="sharedFbaInboundTransportationProgramFee")
-    # 支出 - FBA入库便利费用 (分摊) [原字段 'sharedFbaInboundConvenienceFee']
-    fba_inbound_convenience_fees_alloc: float = Field(validation_alias="sharedFbaInboundConvenienceFee")
     # 支出 - FBA入库缺陷费用 (分摊) [原字段 'sharedFbaInboundDefectFee']
     fba_inbound_defect_fees_alloc: float = Field(validation_alias="sharedFbaInboundDefectFee")
     # 支出 - FBA国际入库费用 (分摊) [原字段 'sharedFbaIntegerernationalInboundFee']
     fba_international_inbound_fees_alloc: float = Field(validation_alias="sharedFbaIntegerernationalInboundFee")
     # 支出 - FBA合作承运商(入库)运费 (分摊) [原字段 'sharedAmazonPartneredCarrierShipmentFee']
     fba_partnered_carrier_shipment_fees_alloc: float = Field(validation_alias="sharedAmazonPartneredCarrierShipmentFee")
-    # 支出 - FBA客户退货处理费用 (分摊) [原字段 'sharedFbaCustomerReturnFee']
-    fba_customer_return_fees_alloc: float = Field(validation_alias="sharedFbaCustomerReturnFee")
-    # 支出 - FBA交易退货处理费用 (分摊) [原字段 'sharedFbaTransactionCustomerReturnFee']
-    fba_transaction_return_fees_alloc: float = Field(validation_alias="sharedFbaTransactionCustomerReturnFee")
     # 支出 - FBA人工处理费用 (分摊) [原字段 'sharedManualProcessingFee']
     fba_manual_processing_fees_alloc: float = Field(validation_alias="sharedManualProcessingFee")
-    # 支出 - FBA贴标费用 (分摊) [原字段 'sharedLabelingFee']
-    fba_labeling_fees_alloc: float = Field(validation_alias="sharedLabelingFee")
-    # 支出 - FBA塑封袋费用 (分摊) [原字段 'sharedPolybaggingFee']
-    fba_polybagging_fees_alloc: float = Field(validation_alias="sharedPolybaggingFee")
-    # 支出 - FBA气泡膜费用 (分摊) [原字段 'sharedBubblewrapFee']
-    fba_bubblewrap_fees_alloc: float = Field(validation_alias="sharedBubblewrapFee")
-    # 支出 - FBA封箱胶带费用 (分摊) [原字段 'sharedTapingFee']
-    fba_taping_fees_alloc: float = Field(validation_alias="sharedTapingFee")
-    # 支出 - FBA库存费用调整金额 (分摊) [原字段 'sharedItemFeeAdjustment'] 
-    fba_inventory_fees_adj_alloc: float = Field(validation_alias="sharedItemFeeAdjustment")
-    # 支出 - FBA其他库存费用 (分摊) [原字段 'sharedOtherFbaInventoryFees']
-    other_fba_inventory_fees_alloc: float = Field(validation_alias="sharedOtherFbaInventoryFees")
     # 支出 - AWD仓储费用 (分摊) [原字段 'sharedAwdStorageFee']
     awd_storage_fees_alloc: float = Field(validation_alias="sharedAwdStorageFee")
     # 支出 - AWD处理费用 (分摊) [原字段 'sharedAwdProcessingFee']
@@ -888,14 +870,28 @@ class IncomeStatement(BaseModel):
     awd_transportation_fees_alloc: float = Field(validation_alias="sharedAwdTransportationFee")
     # 支出 - AWD卫星仓储费用 (分摊) [原字段 'sharedStarStorageFee']
     awd_satellite_storage_fees_alloc: float = Field(validation_alias="sharedStarStorageFee")
+    # 支出 - FBA库存费用调整金额 (分摊) [原字段 'sharedItemFeeAdjustment'] 
+    fba_inventory_fees_adj_alloc: float = Field(validation_alias="sharedItemFeeAdjustment")
+    # 支出 - FBA其他库存费用 (分摊) [原字段 'sharedOtherFbaInventoryFees']
+    other_fba_inventory_fees_alloc: float = Field(validation_alias="sharedOtherFbaInventoryFees")
     # 支出 - 运输标签花费金额 [原字段 'shippingLabelPurchases']
     shipping_label_purchases: float = Field(validation_alias="shippingLabelPurchases")
+    # 支出 - FBA贴标费用 (分摊) [原字段 'sharedLabelingFee']
+    fba_labeling_fees_alloc: float = Field(validation_alias="sharedLabelingFee")
+    # 支出 - FBA塑封袋费用 (分摊) [原字段 'sharedPolybaggingFee']
+    fba_polybagging_fees_alloc: float = Field(validation_alias="sharedPolybaggingFee")
+    # 支出 - FBA气泡膜费用 (分摊) [原字段 'sharedBubblewrapFee']
+    fba_bubblewrap_fees_alloc: float = Field(validation_alias="sharedBubblewrapFee")
+    # 支出 - FBA封箱胶带费用 (分摊) [原字段 'sharedTapingFee']
+    fba_taping_fees_alloc: float = Field(validation_alias="sharedTapingFee")
+    # 支出 - FBM邮寄资费 (分摊) [原字段 'sharedMfnPostageFee']
+    mfn_postage_fees_alloc: float = Field(validation_alias="sharedMfnPostageFee")
     # 支出 - 运输标签退款金额 [原字段 'shippingLabelRefunds']
     shipping_label_refunds: float = Field(validation_alias="shippingLabelRefunds")
     # 支出 - 承运商运输标签花费调整金额 [原字段 'sharedCarrierShippingLabelAdjustments']
     carrier_shipping_label_adj: float = Field(validation_alias="sharedCarrierShippingLabelAdjustments")
     # 支出 - 总推广费用 (Service Fee) [原字段 'promotionFee']
-    # (subscription_fees_alloc + coupon_fees_alloc + deal_fees_alloc + vine_fees_alloc + early_reviewer_program_fees_alloc)
+    # (subscription_fees_alloc 到 early_reviewer_program_fees_alloc 之间的所有费用)
     promotion_fees: float = Field(validation_alias="promotionFee")
     # 支出 - 订阅服务费 (分摊) [原字段 'sharedSubscriptionFee']
     subscription_fees_alloc: float = Field(validation_alias="sharedSubscriptionFee")
@@ -907,9 +903,9 @@ class IncomeStatement(BaseModel):
     vine_fees_alloc: float = Field(validation_alias="sharedVineFee")
     # 支出 - 早期评论人计划费用 (分摊) [原字段 'sharedEarlyReviewerProgramFee']
     early_reviewer_program_fees_alloc: float = Field(validation_alias="sharedEarlyReviewerProgramFee")
-    # 支出 - FBM邮寄资费 (分摊) [原字段 'sharedMfnPostageFee']
-    mfn_postage_fees_alloc: float = Field(validation_alias="sharedMfnPostageFee")
-    # 支出 - 其他亚马逊服务费用 (分摊) (Service Fee) [原字段 'sharedOtherServiceFees']
+    # 支出 - FBA入库便利费用 (Service Fee/分摊) [原字段 'sharedFbaInboundConvenienceFee']
+    fba_inbound_convenience_fees_alloc: float = Field(validation_alias="sharedFbaInboundConvenienceFee")
+    # 支出 - 其他亚马逊服务费用 (分摊) [原字段 'sharedOtherServiceFees']
     other_service_fees_alloc: float = Field(validation_alias="sharedOtherServiceFees")
     # 支出 - 亚马逊退款管理费用 [原字段 'refundAdministrationFees']
     refund_administration_fees: float = Field(validation_alias="refundAdministrationFees")
@@ -954,13 +950,13 @@ class IncomeStatement(BaseModel):
     # 支出 - 广告分摊费用 [原字段 'sharedCostOfAdvertising']
     ads_cost_alloc: float = Field(validation_alias="sharedCostOfAdvertising")
     # 支出 - Live广告花费 (分摊) [原字段 'sharedAdsAlCost']
-    ads_amazon_live_cost_alloc: float = Field(validation_alias="sharedAdsAlCost")
+    ads_amazon_live_cost_alloc: FloatOrNone2Zero = Field(validation_alias="sharedAdsAlCost")
     # 支出 - 内容创作者计划花费 (分摊) [原字段 'sharedAdsCcCost']
-    ads_creator_connections_cost_alloc: float = Field(validation_alias="sharedAdsCcCost")
+    ads_creator_connections_cost_alloc: FloatOrNone2Zero = Field(validation_alias="sharedAdsCcCost")
     # 支出 - TV广告花费 (分摊) [原字段 'sharedAdsSspaotCost']
-    ads_sponsored_tv_cost_alloc: float = Field(validation_alias="sharedAdsSspaotCost")
+    ads_sponsored_tv_cost_alloc: FloatOrNone2Zero = Field(validation_alias="sharedAdsSspaotCost")
     # 支出 - 零售商赞助广告花费 (分摊) [原字段 'sharedAdsSarCost']
-    ads_retail_ad_service_alloc: float = Field(validation_alias="sharedAdsSarCost")
+    ads_retail_ad_service_alloc: FloatOrNone2Zero = Field(validation_alias="sharedAdsSarCost")
     # 支出 - 广告总退款金额 (Refund for Advertiser) [原字段 'refundForAdvertiser']
     ads_cost_refunds: float = Field(validation_alias="refundForAdvertiser")
     # 支出 - 清算服务费 (分摊) [原字段 'sharedLiquidationsFees']

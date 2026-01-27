@@ -1673,8 +1673,8 @@ class FinanceAPI(BaseAPI):
                     "fba_selling_fees": -19936.57,
                     # 支出 - FBA销售佣金退款金额 [原字段 'sellingFeeRefunds']
                     "fba_selling_fee_refunds": 1095.17,
-                    # 支出 - FBA总配送费用 [原字段 'totalFbaDeliveryFee']
-                    # (fba_fulfillment_fees + mcf_fulfillment_fees)
+                    # 支出 - FBA交易费用 [原字段 'totalFbaDeliveryFee']
+                    # (fba_fulfillment_fees 到 fba_transaction_return_fees_alloc 之间所有费用)
                     "fba_transaction_fees": -23814.6,
                     # 支付 - FBA配送费用 (Fulfillment Fee) [原字段 'fbaDeliveryFee']
                     "fba_fulfillment_fees": -23769.11,
@@ -1684,10 +1684,10 @@ class FinanceAPI(BaseAPI):
                     "fba_mcf_fulfillment_fees_alloc": 0.0,
                     # 支出 - FBA多渠道配送数量 (Multi-Channel) [原字段 'mcFbaFulfillmentFeesQuantity']
                     "fba_mcf_fulfillment_qty": 7,
-                    # 支出 - FBA其他交易费用 [原字段 'otherFbaTransactionFees']
-                    "fba_other_transaction_fees": -9966.06,
-                    # 支出 - FBA其他交易费用 (分摊) [原字段 'sharedOtherFbaTransactionFees']
-                    "fba_other_transaction_fees_alloc": 0.0,
+                    # 支出 - FBA客户退货处理费用 (分摊) [原字段 'sharedFbaCustomerReturnFee']
+                    "fba_customer_return_fees_alloc": 0.0,
+                    # 支出 - FBA交易退货处理费用 (分摊) [原字段 'sharedFbaTransactionCustomerReturnFee']
+                    "fba_transaction_return_fees_alloc": 0.0,
                     # 支出 - FBA总配送费用退款金额 [原字段 'fbaTransactionFeeRefunds']
                     "fba_transaction_fee_refunds": 120.94,
                     # 支出 - 其他交易费用 [原字段 'otherTransactionFees']
@@ -1695,8 +1695,8 @@ class FinanceAPI(BaseAPI):
                     # 支出 - 其他交易费用退款金额 [原字段 'otherTransactionFeeRefunds']
                     "other_transaction_fee_refunds": 0.0,
                     # 支出 - FBA仓储和入库服务总费用 [原字段 'totalStorageFee']
+                    # ('fba_storage_fees' 到 'other_fba_inventory_fees_alloc' 之间的所有费用)
                     "fba_inventory_and_inbound_services_fees": -484.25,
-                    # ('fba_storage_fees' 到 'awd_satellite_storage_fees_alloc' 之间的所有费用)
                     # 支出 - FBA仓储费用 [原字段 'fbaStorageFee']
                     "fba_storage_fees": -151.64,
                     # 支出 - FBA仓储费用计提金额 [原字段 'fbaStorageFeeAccrual']
@@ -1727,32 +1727,14 @@ class FinanceAPI(BaseAPI):
                     "fba_removal_qty": 315,
                     # 支出 - FBA入库运输计划费用 (分摊) [原字段 'sharedFbaInboundTransportationProgramFee']
                     "fba_inbound_transportation_program_fees_alloc": 0.0,
-                    # 支出 - FBA入库便利费用 (分摊) [原字段 'sharedFbaInboundConvenienceFee']
-                    "fba_inbound_convenience_fees_alloc": 0.0,
                     # 支出 - FBA入库缺陷费用 (分摊) [原字段 'sharedFbaInboundDefectFee']
                     "fba_inbound_defect_fees_alloc": 0.0,
                     # 支出 - FBA国际入库费用 (分摊) [原字段 'sharedFbaIntegerernationalInboundFee']
                     "fba_international_inbound_fees_alloc": 0.0,
                     # 支出 - FBA合作承运商(入库)运费 (分摊) [原字段 'sharedAmazonPartneredCarrierShipmentFee']
                     "fba_partnered_carrier_shipment_fees_alloc": 0.0,
-                    # 支出 - FBA客户退货处理费用 (分摊) [原字段 'sharedFbaCustomerReturnFee']
-                    "fba_customer_return_fees_alloc": 0.0,
-                    # 支出 - FBA交易退货处理费用 (分摊) [原字段 'sharedFbaTransactionCustomerReturnFee']
-                    "fba_transaction_return_fees_alloc": 0.0,
                     # 支出 - FBA人工处理费用 (分摊) [原字段 'sharedManualProcessingFee']
                     "fba_manual_processing_fees_alloc": 0.0,
-                    # 支出 - FBA贴标费用 (分摊) [原字段 'sharedLabelingFee']
-                    "fba_labeling_fees_alloc": 0.0,
-                    # 支出 - FBA塑封袋费用 (分摊) [原字段 'sharedPolybaggingFee']
-                    "fba_polybagging_fees_alloc": 0.0,
-                    # 支出 - FBA气泡膜费用 (分摊) [原字段 'sharedBubblewrapFee']
-                    "fba_bubblewrap_fees_alloc": 0.0,
-                    # 支出 - FBA封箱胶带费用 (分摊) [原字段 'sharedTapingFee']
-                    "fba_taping_fees_alloc": 0.0,
-                    # 支出 - FBA库存费用调整金额 (分摊) [原字段 'sharedItemFeeAdjustment']
-                    "fba_inventory_fees_adj_alloc": 0.0,
-                    # 支出 - FBA其他库存费用 (分摊) [原字段 'sharedOtherFbaInventoryFees']
-                    "other_fba_inventory_fees_alloc": 0.0,
                     # 支出 - AWD仓储费用 (分摊) [原字段 'sharedAwdStorageFee']
                     "awd_storage_fees_alloc": 0.0,
                     # 支出 - AWD处理费用 (分摊) [原字段 'sharedAwdProcessingFee']
@@ -1761,15 +1743,29 @@ class FinanceAPI(BaseAPI):
                     "awd_transportation_fees_alloc": 0.0,
                     # 支出 - AWD卫星仓储费用 (分摊) [原字段 'sharedStarStorageFee']
                     "awd_satellite_storage_fees_alloc": 0.0,
+                    # 支出 - FBA库存费用调整金额 (分摊) [原字段 'sharedItemFeeAdjustment']
+                    "fba_inventory_fees_adj_alloc": 0.0,
+                    # 支出 - FBA其他库存费用 (分摊) [原字段 'sharedOtherFbaInventoryFees']
+                    "other_fba_inventory_fees_alloc": 0.0,
                     # 支出 - 运输标签花费金额 [原字段 'shippingLabelPurchases']
                     "shipping_label_purchases": 0.0,
+                    # 支出 - FBA贴标费用 (分摊) [原字段 'sharedLabelingFee']
+                    "fba_labeling_fees_alloc": 0.0,
+                    # 支出 - FBA塑封袋费用 (分摊) [原字段 'sharedPolybaggingFee']
+                    "fba_polybagging_fees_alloc": 0.0,
+                    # 支出 - FBA气泡膜费用 (分摊) [原字段 'sharedBubblewrapFee']
+                    "fba_bubblewrap_fees_alloc": 0.0,
+                    # 支出 - FBA封箱胶带费用 (分摊) [原字段 'sharedTapingFee']
+                    "fba_taping_fees_alloc": 0.0,
+                    # 支出 - FBM邮寄资费 (分摊) [原字段 'sharedMfnPostageFee']
+                    "mfn_postage_fees_alloc": 0.0,
                     # 支出 - 运输标签退款金额 [原字段 'shippingLabelRefunds']
                     "shipping_label_refunds": 0.0,
                     # 支出 - 承运商运输标签花费调整金额 [原字段 'sharedCarrierShippingLabelAdjustments']
                     "carrier_shipping_label_adj": 0.0,
                     # 支出 - 总推广费用 (Service Fee) [原字段 'promotionFee']
+                    # (subscription_fees_alloc 到 early_reviewer_program_fees_alloc 之间的所有费用)
                     "promotion_fees": -679.97,
-                    # (subscription_fees_alloc + coupon_fees_alloc + deal_fees_alloc + vine_fees_alloc + early_reviewer_program_fees_alloc)
                     # 支出 - 订阅服务费 (分摊) [原字段 'sharedSubscriptionFee']
                     "subscription_fees_alloc": -39.99,
                     # 支出 - 优惠券费用 (分摊) [原字段 'sharedCouponFee']
@@ -1780,9 +1776,9 @@ class FinanceAPI(BaseAPI):
                     "vine_fees_alloc": -400.0,
                     # 支出 - 早期评论人计划费用 (分摊) [原字段 'sharedEarlyReviewerProgramFee']
                     "early_reviewer_program_fees_alloc": 0.0,
-                    # 支出 - FBM邮寄资费 (分摊) [原字段 'sharedMfnPostageFee']
-                    "mfn_postage_fees_alloc": 0.0,
-                    # 支出 - 其他亚马逊服务费用 (分摊) (Service Fee) [原字段 'totalPlatformOtherFee']
+                    # 支出 - FBA入库便利费用 (Service Fee/分摊) [原字段 'sharedFbaInboundConvenienceFee']
+                    "fba_inbound_convenience_fees_alloc": 0.0,
+                    # 支出 - 其他亚马逊服务费用 (分摊) [原字段 'totalPlatformOtherFee']
                     "other_service_fees_alloc": -1733.33,
                     # 支出 - 亚马逊退款管理费用 [原字段 'refundAdministrationFees']
                     "refund_administration_fees": -219.15,
@@ -2167,8 +2163,8 @@ class FinanceAPI(BaseAPI):
                     "fba_selling_fees": -19936.57,
                     # 支出 - FBA销售佣金退款金额 [原字段 'sellingFeeRefunds']
                     "fba_selling_fee_refunds": 1095.17,
-                    # 支出 - FBA总配送费用 [原字段 'totalFbaDeliveryFee']
-                    # (fba_fulfillment_fees + mcf_fulfillment_fees)
+                    # 支出 - FBA交易费用 [原字段 'totalFbaDeliveryFee']
+                    # (fba_fulfillment_fees 到 fba_transaction_return_fees_alloc 之间所有费用)
                     "fba_transaction_fees": -23814.6,
                     # 支付 - FBA配送费用 (Fulfillment Fee) [原字段 'fbaDeliveryFee']
                     "fba_fulfillment_fees": -23769.11,
@@ -2178,10 +2174,10 @@ class FinanceAPI(BaseAPI):
                     "fba_mcf_fulfillment_fees_alloc": 0.0,
                     # 支出 - FBA多渠道配送数量 (Multi-Channel) [原字段 'mcFbaFulfillmentFeesQuantity']
                     "fba_mcf_fulfillment_qty": 7,
-                    # 支出 - FBA其他交易费用 [原字段 'otherFbaTransactionFees']
-                    "fba_other_transaction_fees": -9966.06,
-                    # 支出 - FBA其他交易费用 (分摊) [原字段 'sharedOtherFbaTransactionFees']
-                    "fba_other_transaction_fees_alloc": 0.0,
+                    # 支出 - FBA客户退货处理费用 (分摊) [原字段 'sharedFbaCustomerReturnFee']
+                    "fba_customer_return_fees_alloc": 0.0,
+                    # 支出 - FBA交易退货处理费用 (分摊) [原字段 'sharedFbaTransactionCustomerReturnFee']
+                    "fba_transaction_return_fees_alloc": 0.0,
                     # 支出 - FBA总配送费用退款金额 [原字段 'fbaTransactionFeeRefunds']
                     "fba_transaction_fee_refunds": 120.94,
                     # 支出 - 其他交易费用 [原字段 'otherTransactionFees']
@@ -2189,8 +2185,8 @@ class FinanceAPI(BaseAPI):
                     # 支出 - 其他交易费用退款金额 [原字段 'otherTransactionFeeRefunds']
                     "other_transaction_fee_refunds": 0.0,
                     # 支出 - FBA仓储和入库服务总费用 [原字段 'totalStorageFee']
+                    # ('fba_storage_fees' 到 'other_fba_inventory_fees_alloc' 之间的所有费用)
                     "fba_inventory_and_inbound_services_fees": -484.25,
-                    # ('fba_storage_fees' 到 'awd_satellite_storage_fees_alloc' 之间的所有费用)
                     # 支出 - FBA仓储费用 [原字段 'fbaStorageFee']
                     "fba_storage_fees": -151.64,
                     # 支出 - FBA仓储费用计提金额 [原字段 'fbaStorageFeeAccrual']
@@ -2221,32 +2217,14 @@ class FinanceAPI(BaseAPI):
                     "fba_removal_qty": 315,
                     # 支出 - FBA入库运输计划费用 (分摊) [原字段 'sharedFbaInboundTransportationProgramFee']
                     "fba_inbound_transportation_program_fees_alloc": 0.0,
-                    # 支出 - FBA入库便利费用 (分摊) [原字段 'sharedFbaInboundConvenienceFee']
-                    "fba_inbound_convenience_fees_alloc": 0.0,
                     # 支出 - FBA入库缺陷费用 (分摊) [原字段 'sharedFbaInboundDefectFee']
                     "fba_inbound_defect_fees_alloc": 0.0,
                     # 支出 - FBA国际入库费用 (分摊) [原字段 'sharedFbaIntegerernationalInboundFee']
                     "fba_international_inbound_fees_alloc": 0.0,
                     # 支出 - FBA合作承运商(入库)运费 (分摊) [原字段 'sharedAmazonPartneredCarrierShipmentFee']
                     "fba_partnered_carrier_shipment_fees_alloc": 0.0,
-                    # 支出 - FBA客户退货处理费用 (分摊) [原字段 'sharedFbaCustomerReturnFee']
-                    "fba_customer_return_fees_alloc": 0.0,
-                    # 支出 - FBA交易退货处理费用 (分摊) [原字段 'sharedFbaTransactionCustomerReturnFee']
-                    "fba_transaction_return_fees_alloc": 0.0,
                     # 支出 - FBA人工处理费用 (分摊) [原字段 'sharedManualProcessingFee']
                     "fba_manual_processing_fees_alloc": 0.0,
-                    # 支出 - FBA贴标费用 (分摊) [原字段 'sharedLabelingFee']
-                    "fba_labeling_fees_alloc": 0.0,
-                    # 支出 - FBA塑封袋费用 (分摊) [原字段 'sharedPolybaggingFee']
-                    "fba_polybagging_fees_alloc": 0.0,
-                    # 支出 - FBA气泡膜费用 (分摊) [原字段 'sharedBubblewrapFee']
-                    "fba_bubblewrap_fees_alloc": 0.0,
-                    # 支出 - FBA封箱胶带费用 (分摊) [原字段 'sharedTapingFee']
-                    "fba_taping_fees_alloc": 0.0,
-                    # 支出 - FBA库存费用调整金额 (分摊) [原字段 'sharedItemFeeAdjustment']
-                    "fba_inventory_fees_adj_alloc": 0.0,
-                    # 支出 - FBA其他库存费用 (分摊) [原字段 'sharedOtherFbaInventoryFees']
-                    "other_fba_inventory_fees_alloc": 0.0,
                     # 支出 - AWD仓储费用 (分摊) [原字段 'sharedAwdStorageFee']
                     "awd_storage_fees_alloc": 0.0,
                     # 支出 - AWD处理费用 (分摊) [原字段 'sharedAwdProcessingFee']
@@ -2255,15 +2233,29 @@ class FinanceAPI(BaseAPI):
                     "awd_transportation_fees_alloc": 0.0,
                     # 支出 - AWD卫星仓储费用 (分摊) [原字段 'sharedStarStorageFee']
                     "awd_satellite_storage_fees_alloc": 0.0,
+                    # 支出 - FBA库存费用调整金额 (分摊) [原字段 'sharedItemFeeAdjustment']
+                    "fba_inventory_fees_adj_alloc": 0.0,
+                    # 支出 - FBA其他库存费用 (分摊) [原字段 'sharedOtherFbaInventoryFees']
+                    "other_fba_inventory_fees_alloc": 0.0,
                     # 支出 - 运输标签花费金额 [原字段 'shippingLabelPurchases']
                     "shipping_label_purchases": 0.0,
+                    # 支出 - FBA贴标费用 (分摊) [原字段 'sharedLabelingFee']
+                    "fba_labeling_fees_alloc": 0.0,
+                    # 支出 - FBA塑封袋费用 (分摊) [原字段 'sharedPolybaggingFee']
+                    "fba_polybagging_fees_alloc": 0.0,
+                    # 支出 - FBA气泡膜费用 (分摊) [原字段 'sharedBubblewrapFee']
+                    "fba_bubblewrap_fees_alloc": 0.0,
+                    # 支出 - FBA封箱胶带费用 (分摊) [原字段 'sharedTapingFee']
+                    "fba_taping_fees_alloc": 0.0,
+                    # 支出 - FBM邮寄资费 (分摊) [原字段 'sharedMfnPostageFee']
+                    "mfn_postage_fees_alloc": 0.0,
                     # 支出 - 运输标签退款金额 [原字段 'shippingLabelRefunds']
                     "shipping_label_refunds": 0.0,
                     # 支出 - 承运商运输标签花费调整金额 [原字段 'sharedCarrierShippingLabelAdjustments']
                     "carrier_shipping_label_adj": 0.0,
                     # 支出 - 总推广费用 (Service Fee) [原字段 'promotionFee']
+                    # (subscription_fees_alloc 到 early_reviewer_program_fees_alloc 之间的所有费用)
                     "promotion_fees": -679.97,
-                    # (subscription_fees_alloc + coupon_fees_alloc + deal_fees_alloc + vine_fees_alloc + early_reviewer_program_fees_alloc)
                     # 支出 - 订阅服务费 (分摊) [原字段 'sharedSubscriptionFee']
                     "subscription_fees_alloc": -39.99,
                     # 支出 - 优惠券费用 (分摊) [原字段 'sharedCouponFee']
@@ -2274,9 +2266,9 @@ class FinanceAPI(BaseAPI):
                     "vine_fees_alloc": -400.0,
                     # 支出 - 早期评论人计划费用 (分摊) [原字段 'sharedEarlyReviewerProgramFee']
                     "early_reviewer_program_fees_alloc": 0.0,
-                    # 支出 - FBM邮寄资费 (分摊) [原字段 'sharedMfnPostageFee']
-                    "mfn_postage_fees_alloc": 0.0,
-                    # 支出 - 其他亚马逊服务费用 (分摊) (Service Fee) [原字段 'totalPlatformOtherFee']
+                    # 支出 - FBA入库便利费用 (Service Fee/分摊) [原字段 'sharedFbaInboundConvenienceFee']
+                    "fba_inbound_convenience_fees_alloc": 0.0,
+                    # 支出 - 其他亚马逊服务费用 (分摊) [原字段 'totalPlatformOtherFee']
                     "other_service_fees_alloc": -1733.33,
                     # 支出 - 亚马逊退款管理费用 [原字段 'refundAdministrationFees']
                     "refund_administration_fees": -219.15,
@@ -2761,8 +2753,8 @@ class FinanceAPI(BaseAPI):
                     "fba_selling_fees": -19936.57,
                     # 支出 - FBA销售佣金退款金额 [原字段 'sellingFeeRefunds']
                     "fba_selling_fee_refunds": 1095.17,
-                    # 支出 - FBA总配送费用 [原字段 'totalFbaDeliveryFee']
-                    # (fba_fulfillment_fees + mcf_fulfillment_fees)
+                    # 支出 - FBA交易费用 [原字段 'totalFbaDeliveryFee']
+                    # (fba_fulfillment_fees 到 fba_transaction_return_fees_alloc 之间所有费用)
                     "fba_transaction_fees": -23814.6,
                     # 支付 - FBA配送费用 (Fulfillment Fee) [原字段 'fbaDeliveryFee']
                     "fba_fulfillment_fees": -23769.11,
@@ -2772,10 +2764,10 @@ class FinanceAPI(BaseAPI):
                     "fba_mcf_fulfillment_fees_alloc": 0.0,
                     # 支出 - FBA多渠道配送数量 (Multi-Channel) [原字段 'mcFbaFulfillmentFeesQuantity']
                     "fba_mcf_fulfillment_qty": 7,
-                    # 支出 - FBA其他交易费用 [原字段 'otherFbaTransactionFees']
-                    "fba_other_transaction_fees": -9966.06,
-                    # 支出 - FBA其他交易费用 (分摊) [原字段 'sharedOtherFbaTransactionFees']
-                    "fba_other_transaction_fees_alloc": 0.0,
+                    # 支出 - FBA客户退货处理费用 (分摊) [原字段 'sharedFbaCustomerReturnFee']
+                    "fba_customer_return_fees_alloc": 0.0,
+                    # 支出 - FBA交易退货处理费用 (分摊) [原字段 'sharedFbaTransactionCustomerReturnFee']
+                    "fba_transaction_return_fees_alloc": 0.0,
                     # 支出 - FBA总配送费用退款金额 [原字段 'fbaTransactionFeeRefunds']
                     "fba_transaction_fee_refunds": 120.94,
                     # 支出 - 其他交易费用 [原字段 'otherTransactionFees']
@@ -2783,8 +2775,8 @@ class FinanceAPI(BaseAPI):
                     # 支出 - 其他交易费用退款金额 [原字段 'otherTransactionFeeRefunds']
                     "other_transaction_fee_refunds": 0.0,
                     # 支出 - FBA仓储和入库服务总费用 [原字段 'totalStorageFee']
+                    # ('fba_storage_fees' 到 'other_fba_inventory_fees_alloc' 之间的所有费用)
                     "fba_inventory_and_inbound_services_fees": -484.25,
-                    # ('fba_storage_fees' 到 'awd_satellite_storage_fees_alloc' 之间的所有费用)
                     # 支出 - FBA仓储费用 [原字段 'fbaStorageFee']
                     "fba_storage_fees": -151.64,
                     # 支出 - FBA仓储费用计提金额 [原字段 'fbaStorageFeeAccrual']
@@ -2815,32 +2807,14 @@ class FinanceAPI(BaseAPI):
                     "fba_removal_qty": 315,
                     # 支出 - FBA入库运输计划费用 (分摊) [原字段 'sharedFbaInboundTransportationProgramFee']
                     "fba_inbound_transportation_program_fees_alloc": 0.0,
-                    # 支出 - FBA入库便利费用 (分摊) [原字段 'sharedFbaInboundConvenienceFee']
-                    "fba_inbound_convenience_fees_alloc": 0.0,
                     # 支出 - FBA入库缺陷费用 (分摊) [原字段 'sharedFbaInboundDefectFee']
                     "fba_inbound_defect_fees_alloc": 0.0,
                     # 支出 - FBA国际入库费用 (分摊) [原字段 'sharedFbaIntegerernationalInboundFee']
                     "fba_international_inbound_fees_alloc": 0.0,
                     # 支出 - FBA合作承运商(入库)运费 (分摊) [原字段 'sharedAmazonPartneredCarrierShipmentFee']
                     "fba_partnered_carrier_shipment_fees_alloc": 0.0,
-                    # 支出 - FBA客户退货处理费用 (分摊) [原字段 'sharedFbaCustomerReturnFee']
-                    "fba_customer_return_fees_alloc": 0.0,
-                    # 支出 - FBA交易退货处理费用 (分摊) [原字段 'sharedFbaTransactionCustomerReturnFee']
-                    "fba_transaction_return_fees_alloc": 0.0,
                     # 支出 - FBA人工处理费用 (分摊) [原字段 'sharedManualProcessingFee']
                     "fba_manual_processing_fees_alloc": 0.0,
-                    # 支出 - FBA贴标费用 (分摊) [原字段 'sharedLabelingFee']
-                    "fba_labeling_fees_alloc": 0.0,
-                    # 支出 - FBA塑封袋费用 (分摊) [原字段 'sharedPolybaggingFee']
-                    "fba_polybagging_fees_alloc": 0.0,
-                    # 支出 - FBA气泡膜费用 (分摊) [原字段 'sharedBubblewrapFee']
-                    "fba_bubblewrap_fees_alloc": 0.0,
-                    # 支出 - FBA封箱胶带费用 (分摊) [原字段 'sharedTapingFee']
-                    "fba_taping_fees_alloc": 0.0,
-                    # 支出 - FBA库存费用调整金额 (分摊) [原字段 'sharedItemFeeAdjustment']
-                    "fba_inventory_fees_adj_alloc": 0.0,
-                    # 支出 - FBA其他库存费用 (分摊) [原字段 'sharedOtherFbaInventoryFees']
-                    "other_fba_inventory_fees_alloc": 0.0,
                     # 支出 - AWD仓储费用 (分摊) [原字段 'sharedAwdStorageFee']
                     "awd_storage_fees_alloc": 0.0,
                     # 支出 - AWD处理费用 (分摊) [原字段 'sharedAwdProcessingFee']
@@ -2849,15 +2823,29 @@ class FinanceAPI(BaseAPI):
                     "awd_transportation_fees_alloc": 0.0,
                     # 支出 - AWD卫星仓储费用 (分摊) [原字段 'sharedStarStorageFee']
                     "awd_satellite_storage_fees_alloc": 0.0,
+                    # 支出 - FBA库存费用调整金额 (分摊) [原字段 'sharedItemFeeAdjustment']
+                    "fba_inventory_fees_adj_alloc": 0.0,
+                    # 支出 - FBA其他库存费用 (分摊) [原字段 'sharedOtherFbaInventoryFees']
+                    "other_fba_inventory_fees_alloc": 0.0,
                     # 支出 - 运输标签花费金额 [原字段 'shippingLabelPurchases']
                     "shipping_label_purchases": 0.0,
+                    # 支出 - FBA贴标费用 (分摊) [原字段 'sharedLabelingFee']
+                    "fba_labeling_fees_alloc": 0.0,
+                    # 支出 - FBA塑封袋费用 (分摊) [原字段 'sharedPolybaggingFee']
+                    "fba_polybagging_fees_alloc": 0.0,
+                    # 支出 - FBA气泡膜费用 (分摊) [原字段 'sharedBubblewrapFee']
+                    "fba_bubblewrap_fees_alloc": 0.0,
+                    # 支出 - FBA封箱胶带费用 (分摊) [原字段 'sharedTapingFee']
+                    "fba_taping_fees_alloc": 0.0,
+                    # 支出 - FBM邮寄资费 (分摊) [原字段 'sharedMfnPostageFee']
+                    "mfn_postage_fees_alloc": 0.0,
                     # 支出 - 运输标签退款金额 [原字段 'shippingLabelRefunds']
                     "shipping_label_refunds": 0.0,
                     # 支出 - 承运商运输标签花费调整金额 [原字段 'sharedCarrierShippingLabelAdjustments']
                     "carrier_shipping_label_adj": 0.0,
                     # 支出 - 总推广费用 (Service Fee) [原字段 'promotionFee']
+                    # (subscription_fees_alloc 到 early_reviewer_program_fees_alloc 之间的所有费用)
                     "promotion_fees": -679.97,
-                    # (subscription_fees_alloc + coupon_fees_alloc + deal_fees_alloc + vine_fees_alloc + early_reviewer_program_fees_alloc)
                     # 支出 - 订阅服务费 (分摊) [原字段 'sharedSubscriptionFee']
                     "subscription_fees_alloc": -39.99,
                     # 支出 - 优惠券费用 (分摊) [原字段 'sharedCouponFee']
@@ -2868,9 +2856,9 @@ class FinanceAPI(BaseAPI):
                     "vine_fees_alloc": -400.0,
                     # 支出 - 早期评论人计划费用 (分摊) [原字段 'sharedEarlyReviewerProgramFee']
                     "early_reviewer_program_fees_alloc": 0.0,
-                    # 支出 - FBM邮寄资费 (分摊) [原字段 'sharedMfnPostageFee']
-                    "mfn_postage_fees_alloc": 0.0,
-                    # 支出 - 其他亚马逊服务费用 (分摊) (Service Fee) [原字段 'totalPlatformOtherFee']
+                    # 支出 - FBA入库便利费用 (Service Fee/分摊) [原字段 'sharedFbaInboundConvenienceFee']
+                    "fba_inbound_convenience_fees_alloc": 0.0,
+                    # 支出 - 其他亚马逊服务费用 (分摊) [原字段 'totalPlatformOtherFee']
                     "other_service_fees_alloc": -1733.33,
                     # 支出 - 亚马逊退款管理费用 [原字段 'refundAdministrationFees']
                     "refund_administration_fees": -219.15,
