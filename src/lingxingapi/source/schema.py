@@ -789,7 +789,7 @@ class FbaInventoryHealthItem(BaseModel):
     # 商品类目 [原字段 'product_group']
     category: str = Field(validation_alias="product_group")
     # 商品类目排名 [原字段 'sales_rank']
-    category_rank: int = Field(validation_alias="sales_rank")
+    category_rank: IntOrNone2Zero = Field(validation_alias="sales_rank")
     # 商品仓储类型
     storage_type: str
     # 商品总仓储使用量 (排除待移除商品仓储使用量)
@@ -856,63 +856,63 @@ class FbaInventoryHealthItem(BaseModel):
     # 货币代码 [原字段 'currency']
     currency_code: str = Field(validation_alias="currency")
     # 商品标准价 (不包含促销, 运费, 积分) [原字段 'your_price']
-    standard_price: float = Field(validation_alias="your_price")
+    standard_price: FloatOrNone2Zero = Field(validation_alias="your_price")
     # 商品优惠价 [原字段 'sales_price']
-    sale_price: float = Field(validation_alias="sales_price")
+    sale_price: FloatOrNone2Zero = Field(validation_alias="sales_price")
     # 商品促销价 [原字段 'featuredoffer_price']
-    offer_price: float = Field(validation_alias="featuredoffer_price")
+    offer_price: FloatOrNone2Zero = Field(validation_alias="featuredoffer_price")
     # 商品最低价 (含运费) [原字段 'lowest_price_new_plus_shipping']
-    lowest_price: float = Field(validation_alias="lowest_price_new_plus_shipping")
+    lowest_price: FloatOrNone2Zero = Field(validation_alias="lowest_price_new_plus_shipping")
     # 商品最低二手价 (含运费) [原字段 'lowest_price_used']
-    lowest_used_price: float = Field(validation_alias="lowest_price_used")
+    lowest_used_price: FloatOrNone2Zero = Field(validation_alias="lowest_price_used")
     # 最近7天发货销售额 [原字段 'sales_shipped_last_7_days']
-    shipped_7d_amt: float = Field(validation_alias="sales_shipped_last_7_days")
+    shipped_7d_amt: FloatOrNone2Zero = Field(validation_alias="sales_shipped_last_7_days")
     # 最近30天发货销售额 [原字段 'sales_shipped_last_30_days']
-    shipped_30d_amt: float = Field(validation_alias="sales_shipped_last_30_days")
+    shipped_30d_amt: FloatOrNone2Zero = Field(validation_alias="sales_shipped_last_30_days")
     # 最近60天发货销售额 [原字段 'sales_shipped_last_60_days']
-    shipped_60d_amt: float = Field(validation_alias="sales_shipped_last_60_days")
+    shipped_60d_amt: FloatOrNone2Zero = Field(validation_alias="sales_shipped_last_60_days")
     # 最近90天发货销售额 [原字段 'sales_shipped_last_90_days']
-    shipped_90d_amt: float = Field(validation_alias="sales_shipped_last_90_days")
+    shipped_90d_amt: FloatOrNone2Zero = Field(validation_alias="sales_shipped_last_90_days")
     # 最近7天发货数量 [原字段 'units_shipped_t7']
-    shipped_7d_qty: int = Field(validation_alias="units_shipped_t7")
+    shipped_7d_qty: IntOrNone2Zero = Field(validation_alias="units_shipped_t7")
     # 最近30天发货数量 [原字段 'units_shipped_t30']
-    shipped_30d_qty: int = Field(validation_alias="units_shipped_t30")
+    shipped_30d_qty: IntOrNone2Zero = Field(validation_alias="units_shipped_t30")
     # 最近60天发货数量 [原字段 'units_shipped_t60']
-    shipped_60d_qty: int = Field(validation_alias="units_shipped_t60")
+    shipped_60d_qty: IntOrNone2Zero = Field(validation_alias="units_shipped_t60")
     # 最近90天发货数量 [原字段 'units_shipped_t90'] 
-    shipped_90d_qty: int = Field(validation_alias="units_shipped_t90")
+    shipped_90d_qty: IntOrNone2Zero = Field(validation_alias="units_shipped_t90")
     # 库存售出率 (过去 90 天销量除以平均可售库存) [原字段 'sell_through']
-    sell_through_rate: float = Field(validation_alias="sell_through")
+    sell_through_rate: FloatOrNone2Zero = Field(validation_alias="sell_through")
     # 历史连续至少6个月无销售库存 [原字段 'no_sale_last_6_months']
     historical_no_sale_6m: IntOrNone2Zero = Field(validation_alias="no_sale_last_6_months")
     # 历史供货天数 (取短期&长期更大值)
-    historical_days_of_supply: float
+    historical_days_of_supply: FloatOrNone2Zero
     # 历史短期供货天数 [原字段 'short_term_historical_days_of_supply']
-    historical_st_days_of_supply: float = Field(validation_alias="short_term_historical_days_of_supply")
+    historical_st_days_of_supply: FloatOrNone2Zero = Field(validation_alias="short_term_historical_days_of_supply")
     # 历史长期供货天数 [原字段 'long_term_historical_days_of_supply']
-    historical_lt_days_of_supply: float = Field(validation_alias="long_term_historical_days_of_supply")
+    historical_lt_days_of_supply: FloatOrNone2Zero = Field(validation_alias="long_term_historical_days_of_supply")
     # 预估可供货天数 [原字段 'days_of_supply']
     estimated_days_of_supply: IntOrNone2Zero = Field(validation_alias="days_of_supply")
     # 基于过去30天数据预估可供货周数 [原字段 'weeks_of_cover_t30']
-    estimated_weeks_of_cover_30d: int = Field(validation_alias="weeks_of_cover_t30")
+    estimated_weeks_of_cover_30d: IntOrNone2Zero = Field(validation_alias="weeks_of_cover_t30")
     # 基于过去90天数据预估可供货周数 [原字段 'weeks_of_cover_t90']
-    estimated_weeks_of_cover_90d: int = Field(validation_alias="weeks_of_cover_t90")
+    estimated_weeks_of_cover_90d: IntOrNone2Zero = Field(validation_alias="weeks_of_cover_t90")
     # 预估冗余库存数量 [原字段 'estimated_excess_quantity']
-    estimated_excess: int = Field(validation_alias="estimated_excess_quantity")
+    estimated_excess: IntOrNone2Zero = Field(validation_alias="estimated_excess_quantity")
     # 库存健康状态 [原字段 'fba_inventory_level_health_status']
     inventory_health_status: str = Field(validation_alias="fba_inventory_level_health_status")
     # 库存预警信息 [原字段 'alert']
     inventory_alert: str = Field(validation_alias="alert")
     # 推荐安全库存水平 [原字段 'healthy_inventory_level']
-    recommended_healthy_qty: int = Field(validation_alias="healthy_inventory_level")
+    recommended_healthy_qty: IntOrNone2Zero = Field(validation_alias="healthy_inventory_level")
     # 推荐最低库存水平 [原字段 'fba_minimum_inventory_level']
     recommended_minimum_qty: IntOrNone2Zero = Field(validation_alias="fba_minimum_inventory_level")
     # 推荐移除库存数量 [原字段 'recommended_removal_quantity']
-    recommended_removal_qty: int = Field(validation_alias="recommended_removal_quantity")
+    recommended_removal_qty: IntOrNone2Zero = Field(validation_alias="recommended_removal_quantity")
     # 推荐促销价格
-    recommended_sales_price: float
+    recommended_sales_price: FloatOrNone2Zero
     # 推荐促销天数 [原字段 'recommended_sale_duration_days']
-    recommended_sales_days: int = Field(validation_alias="recommended_sale_duration_days")
+    recommended_sales_days: IntOrNone2Zero = Field(validation_alias="recommended_sale_duration_days")
     # 推荐操作
     recommended_action: str
     # 预计推荐操作节省仓储费用 [原字段 'estimated_cost_savings_of_recommended_actions']
