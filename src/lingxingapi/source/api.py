@@ -1384,7 +1384,7 @@ class SourceAPI(BaseAPI):
                     # 商品单位体积
                     "item_volume": 0.026245,
                     # 体积单位 [原字段 'volume_unit_measurement']
-                    "item_volume_unit": "cubic feet",
+                    "volume_unit": "cubic feet",
                     # 可售库存数量 [原字段 'available']
                     "afn_fulfillable_qty": 1031,
                     # 待移除库存数量 [原字段 'pending_removal_quantity']
@@ -1420,10 +1420,6 @@ class SourceAPI(BaseAPI):
                     "age_331_to_365_days_qty": 0,
                     # 库龄365天以上的库存数量 [原字段 'inv_age_365_plus_days']
                     "age_365_plus_days_qty": 0,
-                    # 是否免除长期仓储费 (Yes, No) [原字段 'exempted_from_low_inventory_level_fee']
-                    "is_ltsf_exempted": "Yes",
-                    # 当前周是否收取低库存水平费 (Yes, No) [原字段 'low_Inventory_Level_fee_applied_in_current_week']
-                    "is_weekly_ltsf_applied": "No",
                     # 库龄180天以上收取长期仓储费的库存数量 [原字段 'qty_to_be_charged_ltsf_6_mo']
                     "ltsf_180_plus_days_qty": 0,
                     # 库龄180天以上预估收取长期仓储费的金额 [原字段 'projected_ltsf_6_mo']
@@ -1434,11 +1430,15 @@ class SourceAPI(BaseAPI):
                     "estimated_ltsf_365_plus_fee": 0.0,
                     # 预估截至下一收费日期 (每月15日) 长期仓储费金额 [原字段 'estimated_ltsf_next_charge']
                     "estimated_ltsf_next_charge_fee": 0.0,
+                    # 是否免除低库存费 (Yes, No) [原字段 'exempted_from_low_inventory_level_fee']
+                    "is_lilf_exempted": "Yes",
+                    # 当前周是否收取低库存费 (Yes, No) [原字段 'low_Inventory_Level_fee_applied_in_current_week']
+                    "is_lilf_applied_in_current_week": "No",
                     # 是否免除低库存成本覆盖费 (Yes, No) [原字段 'exempted_from_low_inventory_cost_coverage_fee']
-                    "is_licc_exempted": "",
+                    "is_licc_exempted": "Yes",
                     # 当前周是否收取低库存成本覆盖费 (Yes, No) [原字段 'low_inventory_cost_coverage_fee_applied_in_current_week']
-                    "is_weekly_licc_applied": "",
-                    # 预估往后30天内的仓储费金额 (月度仓储 + 长期仓储) [原字段 'estimated_storage_cost_next_month']
+                    "is_licc_applied_in_current_week": "No",
+                    # 预估往后30天内的仓储费金额 (月度仓储 + 长期仓储 + 低库存 + 库存成本覆盖) [原字段 'estimated_storage_cost_next_month']
                     "estimated_30_days_storage_fee": 20.4,
                     # 货币代码 [原字段 'currency']
                     "currency_code": "USD",
