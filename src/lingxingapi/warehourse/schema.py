@@ -144,7 +144,7 @@ class FbaInventoryItem(BaseModel):
     # FBA 在库待发货的库存数量 [原字段 'reserved_customerorders']
     afn_reserved_customer_order_qty: int = Field(validation_alias="reserved_customerorders")
     # FBA 总可售库存数量 [原字段 'total_fulfillable_quantity']
-    # afn_fulfillable + afn_reserved_fc_processing + afn_reserved_fc_transfers
+    # (afn_fulfillable_qty + afn_reserved_fc_processing_qty + afn_reserved_fc_transfers_qty)
     afn_fulfillable_total_qty: int = Field(validation_alias="total_fulfillable_quantity")
     # FBA 实际发货在途的数量 [原字段 'afn_erp_real_shipped_quantity']
     afn_actual_shipped_qty: int = Field(validation_alias="afn_erp_real_shipped_quantity")
@@ -286,7 +286,7 @@ class FbaInventoryDetailItem(BaseModel):
     # FBA 在库待发货的库存货值金额 [原字段 'reserved_customerorders_price']
     afn_reserved_customer_order_amt: float = Field(validation_alias="reserved_customerorders_price")
     # FBA 总可售库存数量 [原字段 'total_fulfillable_quantity']
-    # afn_fulfillable + afn_reserved_fc_processing + afn_reserved_fc_transfers
+    # (afn_fulfillable_qty + afn_reserved_fc_processing_qty + afn_reserved_fc_transfers_qty)
     afn_fulfillable_total_qty: int = Field(validation_alias="total_fulfillable_quantity")
     # FBA 实际发货在途的数量 [原字段 'stock_up_num']
     afn_actual_shipped_qty: int = Field(validation_alias="stock_up_num")
