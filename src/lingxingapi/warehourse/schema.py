@@ -94,7 +94,7 @@ class FbaInventoryFulfillableLocal(BaseModel):
     # 店铺名称 [原字段 'name']
     seller_name: str = Field(validation_alias="name")
     # 店铺本地可售数量 [原字段 'quantity_for_local_fulfillment']
-    afn_fulfillable_local: int = Field(validation_alias="quantity_for_local_fulfillment")
+    afn_fulfillable_qty: int = Field(validation_alias="quantity_for_local_fulfillment")
     # fmt: on
 
 
@@ -132,50 +132,50 @@ class FbaInventoryItem(BaseModel):
     # (0: 库存不共享, 1: 库存北美共享, 2: 库存欧洲共享)
     stock_share_type: int = Field(validation_alias="share_type")
     # FBA 多国店铺本地可售库存信息列表 [原字段 'afn_fulfillable_quantity_multi']
-    afn_fulfillable_local: list[FbaInventoryFulfillableLocal] = Field(validation_alias="afn_fulfillable_quantity_multi")
+    afn_fulfillable_locals_qty: list[FbaInventoryFulfillableLocal] = Field(validation_alias="afn_fulfillable_quantity_multi")
+    # FBA 可售库存数量 [原字段 'afn_fulfillable_quantity']
+    afn_fulfillable_qty: int = Field(validation_alias="afn_fulfillable_quantity")
+    # FBA 在库不可售的库存数量 [原字段 'afn_unsellable_quantity']
+    afn_unsellable_qty: int = Field(validation_alias="afn_unsellable_quantity")
+    # FBA 在库待调仓的库存数量 [原字段 'reserved_fc_processing']
+    afn_reserved_fc_processing_qty: int = Field(validation_alias="reserved_fc_processing")
+    # FBA 在库调仓中的库存数量 [原字段 'reserved_fc_transfers']
+    afn_reserved_fc_transfers_qty: int = Field(validation_alias="reserved_fc_transfers")
+    # FBA 在库待发货的库存数量 [原字段 'reserved_customerorders']
+    afn_reserved_customer_order_qty: int = Field(validation_alias="reserved_customerorders")
     # FBA 总可售库存数量 [原字段 'total_fulfillable_quantity']
     # afn_fulfillable + afn_reserved_fc_processing + afn_reserved_fc_transfers
-    afn_fulfillable_total: int = Field(validation_alias="total_fulfillable_quantity")
-    # FBA 可售库存数量 [原字段 'afn_fulfillable_quantity']
-    afn_fulfillable: int = Field(validation_alias="afn_fulfillable_quantity")
-    # FBA 在库待调仓的库存数量 [原字段 'reserved_fc_processing']
-    afn_reserved_fc_processing: int = Field(validation_alias="reserved_fc_processing")
-    # FBA 在库调仓中的库存数量 [原字段 'reserved_fc_transfers']
-    afn_reserved_fc_transfers: int = Field(validation_alias="reserved_fc_transfers")
-    # FBA 在库待发货的库存数量 [原字段 'reserved_customerorders']
-    afn_reserved_customer_order: int = Field(validation_alias="reserved_customerorders")
-    # FBA 在库不可售的库存数量 [原字段 'afn_unsellable_quantity']
-    afn_unsellable: int = Field(validation_alias="afn_unsellable_quantity")
+    afn_fulfillable_total_qty: int = Field(validation_alias="total_fulfillable_quantity")
     # FBA 实际发货在途的数量 [原字段 'afn_erp_real_shipped_quantity']
-    afn_actual_shipped: int = Field(validation_alias="afn_erp_real_shipped_quantity")
+    afn_actual_shipped_qty: int = Field(validation_alias="afn_erp_real_shipped_quantity")
     # FBA 发货在途的库存数量 [原字段 'afn_inbound_shipped_quantity']
-    afn_inbound_shipped: int = Field(validation_alias="afn_inbound_shipped_quantity")
+    afn_inbound_shipped_qty: int = Field(validation_alias="afn_inbound_shipped_quantity")
     # FBA 发货计划入库的库存数量 [原字段 'afn_inbound_working_quantity']
-    afn_inbound_working: int = Field(validation_alias="afn_inbound_working_quantity")
+    afn_inbound_working_qty: int = Field(validation_alias="afn_inbound_working_quantity")
     # FBA 发货入库接收中的库存数量 [原字段 'afn_inbound_receiving_quantity']
-    afn_inbound_receiving: int = Field(validation_alias="afn_inbound_receiving_quantity")
+    afn_inbound_receiving_qty: int = Field(validation_alias="afn_inbound_receiving_quantity")
     # FBA 调查中的库存数量 [原字段 'afn_researching_quantity']
-    afn_researching: int = Field(validation_alias="afn_researching_quantity")
+    afn_researching_qty: int = Field(validation_alias="afn_researching_quantity")
     # 库龄0-30天的库存数量 [原字段 'inv_age_0_to_30_days']
-    age_0_to_30_days: int = Field(validation_alias="inv_age_0_to_30_days")
+    age_0_to_30_days_qty: int = Field(validation_alias="inv_age_0_to_30_days")
     # 库龄31-60天的库存数量 [原字段 'inv_age_31_to_60_days']
-    age_31_to_60_days: int = Field(validation_alias="inv_age_31_to_60_days")
+    age_31_to_60_days_qty: int = Field(validation_alias="inv_age_31_to_60_days")
     # 库龄61-90天的库存数量 [原字段 'inv_age_61_to_90_days']
-    age_61_to_90_days: int = Field(validation_alias="inv_age_61_to_90_days")
+    age_61_to_90_days_qty: int = Field(validation_alias="inv_age_61_to_90_days")
     # 库龄0-90天的库存数量 [原字段 'inv_age_0_to_90_days']
-    age_0_to_90_days: int = Field(validation_alias="inv_age_0_to_90_days")
+    age_0_to_90_days_qty: int = Field(validation_alias="inv_age_0_to_90_days")
     # 库龄91-180天的库存数量 [原字段 'inv_age_91_to_180_days']
-    age_91_to_180_days: int = Field(validation_alias="inv_age_91_to_180_days")
+    age_91_to_180_days_qty: int = Field(validation_alias="inv_age_91_to_180_days")
     # 库龄181-270天的库存数量 [原字段 'inv_age_181_to_270_days']
-    age_181_to_270_days: int = Field(validation_alias="inv_age_181_to_270_days")
+    age_181_to_270_days_qty: int = Field(validation_alias="inv_age_181_to_270_days")
     # 库龄271-330天的库存数量 [原字段 'inv_age_271_to_330_days']
-    age_271_to_330_days: int = Field(validation_alias="inv_age_271_to_330_days")
+    age_271_to_330_days_qty: int = Field(validation_alias="inv_age_271_to_330_days")
     # 库龄271-365天的库存数量 [原字段 'inv_age_271_to_365_days']
-    age_271_to_365_days: int = Field(validation_alias="inv_age_271_to_365_days")
+    age_271_to_365_days_qty: int = Field(validation_alias="inv_age_271_to_365_days")
     # 库龄331-365天的库存数量 [原字段 'inv_age_331_to_365_days']
-    age_331_to_365_days: int = Field(validation_alias="inv_age_331_to_365_days")
+    age_331_to_365_days_qty: int = Field(validation_alias="inv_age_331_to_365_days")
     # 库龄365天以上的库存数量 [原字段 'inv_age_365_plus_days']
-    age_365_plus_days: int = Field(validation_alias="inv_age_365_plus_days")
+    age_365_plus_days_qty: int = Field(validation_alias="inv_age_365_plus_days")
     # 库存售出率 (过去 90 天销量除以平均可售库存) [原字段 'sell_through']
     sell_through_rate: float = Field(validation_alias="sell_through")
     # 历史供货天数 (取短期&长期更大值)
@@ -219,7 +219,7 @@ class FbaInventoryDetailFulfillableLocal(BaseModel):
     # 店铺名称 [原字段 'name']
     seller_name: str = Field(validation_alias="name")
     # 店铺本地可售数量 [原字段 'quantity_for_local_fulfillment']
-    afn_fulfillable_local: int = Field(validation_alias="quantity_for_local_fulfillment")
+    afn_fulfillable_qty: int = Field(validation_alias="quantity_for_local_fulfillment")
     # fmt: on
 
 
@@ -255,101 +255,101 @@ class FbaInventoryDetailItem(BaseModel):
     # 库存共享类型 [原字段 'share_type']
     # (0: 库存不共享, 1: 库存北美共享, 2: 库存欧洲共享)
     stock_share_type: int = Field(validation_alias="share_type")
-    # 库存总数量 [原字段 'total']
-    stock_total: int = Field(validation_alias="total")
-    # 库存总货值金额 [原字段 'total_price']
-    stock_total_amt: float = Field(validation_alias="total_price")
     # 库存总可售数量 [原字段 'available_total']
     stock_total_fulfillable: int = Field(validation_alias="available_total")
     # 库存总可售货值金额 [原字段 'available_total_price']
     stock_total_fulfillable_amt: float = Field(validation_alias="available_total_price")
+    # FBM 可售库存数量 [原字段 'quantity']
+    mfn_fulfillable_qty: int = Field(validation_alias="quantity")
+    # FBM 可售库存货值金额 [原字段 'quantity_price']
+    mfn_fulfillable_amt: float = Field(validation_alias="quantity_price")
     # FBA 多国店铺本地可售库存信息列表 [原字段 'fba_storage_quantity_list']
-    afn_fulfillable_local: list[FbaInventoryDetailFulfillableLocal] = Field(validation_alias="fba_storage_quantity_list")
-    # FBA 总可售库存数量 [原字段 'total_fulfillable_quantity']
-    # afn_fulfillable + afn_reserved_fc_processing + afn_reserved_fc_transfers
-    afn_fulfillable_total: int = Field(validation_alias="total_fulfillable_quantity")
+    afn_fulfillable_locals_qty: list[FbaInventoryDetailFulfillableLocal] = Field(validation_alias="fba_storage_quantity_list")
     # FBA 可售库存数量 [原字段 'afn_fulfillable_quantity']
-    afn_fulfillable: int = Field(validation_alias="afn_fulfillable_quantity")
+    afn_fulfillable_qty: int = Field(validation_alias="afn_fulfillable_quantity")
     # FBA 可售库存货值金额 [原字段 'afn_fulfillable_quantity_price']
     afn_fulfillable_amt: float = Field(validation_alias="afn_fulfillable_quantity_price")
+    # FBA 在库不可售的库存数量 [原字段 'afn_unsellable_quantity']
+    afn_unsellable_qty: int = Field(validation_alias="afn_unsellable_quantity")
+    # FBA 在库不可售的库存货值金额 [原字段 'afn_unsellable_quantity_price']
+    afn_unsellable_amt: float = Field(validation_alias="afn_unsellable_quantity_price")
     # FBA 在库待调仓的库存数量 [原字段 'reserved_fc_processing']
-    afn_reserved_fc_processing: int = Field(validation_alias="reserved_fc_processing")
+    afn_reserved_fc_processing_qty: int = Field(validation_alias="reserved_fc_processing")
     # FBA 在库待调仓的库存货值金额 [原字段 'reserved_fc_processing_price']
     afn_reserved_fc_processing_amt: float = Field(validation_alias="reserved_fc_processing_price")
     # FBA 在库调仓中的库存数量 [原字段 'reserved_fc_transfers']
-    afn_reserved_fc_transfers: int = Field(validation_alias="reserved_fc_transfers")
+    afn_reserved_fc_transfers_qty: int = Field(validation_alias="reserved_fc_transfers")
     # FBA 在库调仓中的库存货值金额 [原字段 'reserved_fc_transfers_price']
     afn_reserved_fc_transfers_amt: float = Field(validation_alias="reserved_fc_transfers_price")
     # FBA 在库待发货的库存数量 [原字段 'reserved_customerorders']
-    afn_reserved_customer_order: int = Field(validation_alias="reserved_customerorders")
+    afn_reserved_customer_order_qty: int = Field(validation_alias="reserved_customerorders")
     # FBA 在库待发货的库存货值金额 [原字段 'reserved_customerorders_price']
     afn_reserved_customer_order_amt: float = Field(validation_alias="reserved_customerorders_price")
-    # FBA 在库不可售的库存数量 [原字段 'afn_unsellable_quantity']
-    afn_unsellable: int = Field(validation_alias="afn_unsellable_quantity")
-    # FBA 在库不可售的库存货值金额 [原字段 'afn_unsellable_quantity_price']
-    afn_unsellable_amt: float = Field(validation_alias="afn_unsellable_quantity_price")
+    # FBA 总可售库存数量 [原字段 'total_fulfillable_quantity']
+    # afn_fulfillable + afn_reserved_fc_processing + afn_reserved_fc_transfers
+    afn_fulfillable_total_qty: int = Field(validation_alias="total_fulfillable_quantity")
     # FBA 实际发货在途的数量 [原字段 'stock_up_num']
-    afn_actual_shipped: int = Field(validation_alias="stock_up_num")
+    afn_actual_shipped_qty: int = Field(validation_alias="stock_up_num")
     # FBA 实际发货在途的货值金额 [原字段 'stock_up_num_price']
     afn_actual_shipped_amt: float = Field(validation_alias="stock_up_num_price")
     # FBA 发货在途的库存数量 [原字段 'afn_inbound_shipped_quantity']
-    afn_inbound_shipped: int = Field(validation_alias="afn_inbound_shipped_quantity")
+    afn_inbound_shipped_qty: int = Field(validation_alias="afn_inbound_shipped_quantity")
     # FBA 发货在途的库存货值金额 [原字段 'afn_inbound_shipped_quantity_price']
     afn_inbound_shipped_amt: float = Field(validation_alias="afn_inbound_shipped_quantity_price")
     # FBA 发货计划入库的库存数量 [原字段 'afn_inbound_working_quantity']
-    afn_inbound_working: int = Field(validation_alias="afn_inbound_working_quantity")
+    afn_inbound_working_qty: int = Field(validation_alias="afn_inbound_working_quantity")
     # FBA 发货计划入库的库存货值金额 [原字段 'afn_inbound_working_quantity_price']
     afn_inbound_working_amt: float = Field(validation_alias="afn_inbound_working_quantity_price")
     # FBA 发货入库接收中的库存数量 [原字段 'afn_inbound_receiving_quantity']
-    afn_inbound_receiving: int = Field(validation_alias="afn_inbound_receiving_quantity")
+    afn_inbound_receiving_qty: int = Field(validation_alias="afn_inbound_receiving_quantity")
     # FBA 发货入库接收中的库存货值金额 [原字段 'afn_inbound_receiving_quantity_price']
     afn_inbound_receiving_amt: float = Field(validation_alias="afn_inbound_receiving_quantity_price")
     # FBA 调查中的库存数量 [原字段 'afn_researching_quantity']
-    afn_researching: int = Field(validation_alias="afn_researching_quantity")
+    afn_researching_qty: int = Field(validation_alias="afn_researching_quantity")
     # FBA 调查中的库存货值金额 [原字段 'afn_researching_quantity_price']
     afn_researching_amt: float = Field(validation_alias="afn_researching_quantity_price")
-    # FBM 可售库存数量 [原字段 'quantity']
-    mfn_fulfillable: int = Field(validation_alias="quantity")
-    # FBM 可售库存货值金额 [原字段 'quantity_price']
-    mfn_fulfillable_amt: float = Field(validation_alias="quantity_price")
+    # 库存总数量 [原字段 'total']
+    stock_total_qty: int = Field(validation_alias="total")
+    # 库存总货值金额 [原字段 'total_price']
+    stock_total_amt: float = Field(validation_alias="total_price")
     # 库龄0-30天的库存数量 [原字段 'inv_age_0_to_30_days']
-    age_0_to_30_days: int = Field(validation_alias="inv_age_0_to_30_days")
+    age_0_to_30_days_qty: int = Field(validation_alias="inv_age_0_to_30_days")
     # 库龄0-30天的库存货值金额 [原字段 'inv_age_0_to_30_price']
     age_0_to_30_days_amt: float = Field(validation_alias="inv_age_0_to_30_price")
     # 库龄31-60天的库存数量 [原字段 'inv_age_31_to_60_days']
-    age_31_to_60_days: int = Field(validation_alias="inv_age_31_to_60_days")
+    age_31_to_60_days_qty: int = Field(validation_alias="inv_age_31_to_60_days")
     # 库龄31-60天的库存货值金额 [原字段 'inv_age_31_to_60_price']
     age_31_to_60_days_amt: float = Field(validation_alias="inv_age_31_to_60_price")
     # 库龄61-90天的库存数量 [原字段 'inv_age_61_to_90_days']
-    age_61_to_90_days: int = Field(validation_alias="inv_age_61_to_90_days")
+    age_61_to_90_days_qty: int = Field(validation_alias="inv_age_61_to_90_days")
     # 库龄61-90天的库存货值金额 [原字段 'inv_age_61_to_90_price']
     age_61_to_90_days_amt: float = Field(validation_alias="inv_age_61_to_90_price")
     # 库龄0-90天的库存数量 [原字段 'inv_age_0_to_90_days']
-    age_0_to_90_days: int = Field(validation_alias="inv_age_0_to_90_days")
+    age_0_to_90_days_qty: int = Field(validation_alias="inv_age_0_to_90_days")
     # 库龄0-90天的库存货值金额 [原字段 'inv_age_0_to_90_price']
     age_0_to_90_days_amt: float = Field(validation_alias="inv_age_0_to_90_price")
     # 库龄91-180天的库存数量 [原字段 'inv_age_91_to_180_days']
-    age_91_to_180_days: int = Field(validation_alias="inv_age_91_to_180_days")
+    age_91_to_180_days_qty: int = Field(validation_alias="inv_age_91_to_180_days")
     # 库龄91-180天的库存货值金额 [原字段 'inv_age_91_to_180_price']
     age_91_to_180_days_amt: float = Field(validation_alias="inv_age_91_to_180_price")
     # 库龄181-270天的库存数量 [原字段 'inv_age_181_to_270_days']
-    age_181_to_270_days: int = Field(validation_alias="inv_age_181_to_270_days")
+    age_181_to_270_days_qty: int = Field(validation_alias="inv_age_181_to_270_days")
     # 库龄181-270天的库存货值金额 [原字段 'inv_age_181_to_270_price']
     age_181_to_270_days_amt: float = Field(validation_alias="inv_age_181_to_270_price")
     # 库龄271-330天的库存数量 [原字段 'inv_age_271_to_330_days']
-    age_271_to_330_days: int = Field(validation_alias="inv_age_271_to_330_days")
+    age_271_to_330_days_qty: int = Field(validation_alias="inv_age_271_to_330_days")
     # 库龄271-330天的库存货值金额 [原字段 'inv_age_271_to_330_price']
     age_271_to_330_days_amt: float = Field(validation_alias="inv_age_271_to_330_price")
     # 库龄271-365天的库存数量 [原字段 'inv_age_271_to_365_days']
-    age_271_to_365_days: int = Field(validation_alias="inv_age_271_to_365_days")
+    age_271_to_365_days_qty: int = Field(validation_alias="inv_age_271_to_365_days")
     # 库龄271-365天的库存货值金额 [原字段 'inv_age_271_to_365_price']
     age_271_to_365_days_amt: float = Field(validation_alias="inv_age_271_to_365_price")
     # 库龄331-365天的库存数量 [原字段 'inv_age_331_to_365_days']
-    age_331_to_365_days: int = Field(validation_alias="inv_age_331_to_365_days")
+    age_331_to_365_days_qty: int = Field(validation_alias="inv_age_331_to_365_days")
     # 库龄331-365天的库存货值金额 [原字段 'inv_age_331_to_365_price']
     age_331_to_365_days_amt: float = Field(validation_alias="inv_age_331_to_365_price")
     # 库龄365天以上的库存数量 [原字段 'inv_age_365_plus_days']
-    age_365_plus_days: int = Field(validation_alias="inv_age_365_plus_days")
+    age_365_plus_days_qty: int = Field(validation_alias="inv_age_365_plus_days")
     # 库龄365天以上的库存货值金额 [原字段 'inv_age_365_plus_price']
     age_365_plus_days_amt: float = Field(validation_alias="inv_age_365_plus_price")
     # 库存售出率 (过去 90 天销量除以平均可售库存) [原字段 'sell_through']
@@ -373,9 +373,9 @@ class FbaInventoryDetailItem(BaseModel):
     # fmt: on
 
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    @field_validator("afn_fulfillable_local", mode="before")
+    @field_validator("afn_fulfillable_locals_qty", mode="before")
     @classmethod
-    def _validate_afn_fulfillable_local(cls, v) -> list | Any:
+    def _validate_afn_fulfillable_locals_qty(cls, v) -> list | Any:
         """验证 FBA 多国店铺本地可售库存信息"""
         return [] if v is None else v
 
@@ -544,7 +544,7 @@ class SellerInventoryItem(BaseModel):
     # 产品调拨在途头程费用 [原字段 'transit_head_cost']
     transit_first_leg_fee: float = Field(validation_alias="transit_head_cost")
     # 外箱可售数量 [原字段 'available_inventory_box_qty']
-    box_fulfillable_qty: int = Field(validation_alias="available_inventory_box_qty")
+    box_fulfillable_qty: float = Field(validation_alias="available_inventory_box_qty")
     # 第三方海外仓库存信息 [原字段 'third_inventory']
     overseas_inventory: OverseasInventoryInfo = Field(validation_alias="third_inventory")
     # 库存单价成本 [原字段 'stock_cost']
