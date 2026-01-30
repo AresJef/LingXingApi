@@ -467,7 +467,12 @@ class BaseAPI:
         code = data.get("code")
         if code is None:
             raise errors.ResponseDataError("响应数据错误, 缺少 code 字段", url, data)
-        if code not in (0, 1, "200"):
+        if code == 1:
+            if data.get("msg", "") == "服务内部错误":
+                raise errors.InternalServerError(
+                    "领星 API 服务器发生内部错误", url, data, code
+                )
+        elif code not in (0, "200"):
             try:
                 errno: int = int(code)
             except ValueError:
