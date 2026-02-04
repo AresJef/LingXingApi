@@ -6,7 +6,7 @@ from warnings import warn as _warn
 from asyncio import sleep as _aio_sleep
 from orjson import loads as _orjson_loads
 from Crypto.Cipher._mode_ecb import EcbMode
-from aiohttp import TCPConnector, ClientTimeout, ClientSession, ClientConnectionError
+from aiohttp import TCPConnector, ClientTimeout, ClientSession
 from lingxingapi import utils, errors
 from lingxingapi.base import route, schema
 
@@ -333,7 +333,7 @@ class BaseAPI:
                     err.add_note("请求重试: %d" % retry_count)
                 raise err
             # 网络相关错误处理
-            except (TimeoutError, ClientConnectionError) as err:
+            except (TimeoutError, errors.ClientConnectionError, errors.ClientPayloadError) as err:
                 # . 无法链接互联网
                 if not await utils.check_internet_tcp():
                     if (

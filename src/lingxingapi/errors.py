@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from typing import Any
+from aiohttp import ClientPayloadError, ClientConnectionError
 
 
 # Base errors -----------------------------------------------------------------------------------------------------------
