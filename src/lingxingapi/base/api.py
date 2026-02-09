@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-c
-import datetime, logging
+import logging
 from typing import Literal
 from typing_extensions import Self
 from asyncio import sleep as _aio_sleep
@@ -10,11 +10,10 @@ from lingxingapi import utils, errors
 from lingxingapi.base import route, schema
 
 
+logger = logging.getLogger(__name__)
+
 # Type Aliases ---------------------------------------------------------------------------------------------------------
 REQUEST_METHOD = Literal["GET", "POST", "PUT", "DELETE"]
-
-# Logger ---------------------------------------------------------------------------------------------------------------
-logger = logging.getLogger(__name__)
 
 
 # API ------------------------------------------------------------------------------------------------------------------
