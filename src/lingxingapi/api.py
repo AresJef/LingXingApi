@@ -46,7 +46,6 @@ class API(BaseAPI):
         ignore_internet_connection: bool = False,
         ignore_internet_connection_wait: int | float = 1,
         ignore_internet_connection_retry: int = 10,
-        echo_retry_warnings: bool = True,
     ) -> None:
         """初始化领星 API 客户端
 
@@ -103,8 +102,6 @@ class API(BaseAPI):
 
         :param ignore_internet_connection_retry `<'int'>`: 忽略无法链接互联网时的最大重试次数,
             默认为 `10`, 仅在 `ignore_internet_connection` 为 `True` 时生效, 若设置为 `-1` 则表示无限重试
-
-        :param echo_retry_warnings `<'bool'>`: 是否在重试请求时打印警告信息, 默认为 `True`
         """
         # 验证参数
         # . API 凭证
@@ -207,7 +204,6 @@ class API(BaseAPI):
             "ignore_internet_connection": ignore_internet_connection,
             "ignore_internet_connection_wait": ignore_internet_connection_wait,
             "ignore_internet_connection_retry": ignore_internet_connection_retry,
-            "echo_retry_warnings": bool(echo_retry_warnings),
         }
         super().__init__(**kwargs)
         self._basic: BasicAPI = BasicAPI(**kwargs)

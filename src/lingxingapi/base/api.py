@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-c
-import datetime
+import datetime, logging
 from typing import Literal
 from typing_extensions import Self
-from warnings import warn as _warn
 from asyncio import sleep as _aio_sleep
 from orjson import loads as _orjson_loads
 from Crypto.Cipher._mode_ecb import EcbMode
@@ -10,8 +9,12 @@ from aiohttp import TCPConnector, ClientTimeout, ClientSession
 from lingxingapi import utils, errors
 from lingxingapi.base import route, schema
 
+
 # Type Aliases ---------------------------------------------------------------------------------------------------------
 REQUEST_METHOD = Literal["GET", "POST", "PUT", "DELETE"]
+
+# Logger ---------------------------------------------------------------------------------------------------------------
+logger = logging.getLogger(__name__)
 
 
 # API ------------------------------------------------------------------------------------------------------------------
@@ -46,7 +49,6 @@ class BaseAPI:
         ignore_internet_connection: bool,
         ignore_internet_connection_wait: int | float,
         ignore_internet_connection_retry: int,
-        echo_retry_warnings: bool = True,
     ) -> None:
         """领星 API 基础类, 提供公共方法和属性供子类继承使用
 
@@ -108,8 +110,6 @@ class BaseAPI:
 
         :param ignore_internet_connection_retry `<'int'>`: 忽略无法链接互联网错误时的最大重试次数,
             仅在 `ignore_internet_connection` 为 `True` 时生效, 若设置为 `-1` 则表示无限重试
-
-        :param echo_retry_warnings `<'bool'>`: 是否在重试请求时打印警告信息, 默认为 `True`
         """
         # API 凭证
         self._app_id: str = app_id
@@ -146,8 +146,6 @@ class BaseAPI:
         self._infinite_internet_connection_retry: bool = (
             ignore_internet_connection_retry == -1
         )
-        # . 重试警告
-        self._echo_retry_warnings: bool = echo_retry_warnings
 
     async def __aenter__(self) -> Self:
         """进入 API 客户端异步上下文管理器
@@ -284,7 +282,7 @@ class BaseAPI:
                     # . 检查响应状态码
                     if res.status != 200:
                         if res.status == 502:
-                            raise errors.InternalServerError("领星API服务器发生内部错误", url, res.reason, res.status)
+                            raise errors.InternalServerError("领星API服务器内部错误", url, res.reason, res.status)
                         raise errors.ServerError("领星API服务器响应错误", url, res.reason, res.status)
                     # . 解析并验证响应数据
                     return self._handle_response_data(
@@ -297,11 +295,10 @@ class BaseAPI:
                         and (self._infinite_retry or retry_count < self._ignore_api_limit_retry)
                 ):
                     retry_count += 1
-                    if self._echo_retry_warnings:
-                        _warn(
-                            "%s 请求被限流, 等待 %.2f 秒后重试(%d)..." 
-                            % (datetime.datetime.now(), self._ignore_api_limit_wait, retry_count)
-                        )
+                    logger.warning(
+                        "领星API请求被限流, 等待 %.1f 秒后重试(%d)", 
+                        self._ignore_api_limit_wait, retry_count, stacklevel=3
+                    )
                     await _aio_sleep(self._ignore_api_limit_wait)
                     continue
                 if params is not None:
@@ -318,11 +315,10 @@ class BaseAPI:
                         and (self._infinite_internal_server_error_retry or retry_count < self._ignore_internal_server_error_retry)
                 ):
                     retry_count += 1
-                    if self._echo_retry_warnings:
-                        _warn(
-                            "%s 服务器内部错误, 等待 %.2f 秒后重试(%d)..." 
-                            % (datetime.datetime.now(), self._ignore_internal_server_error_wait, retry_count)
-                        )
+                    logger.warning(
+                        "领星API服务器内部错误, 等待 %.1f 秒后重试(%d)", 
+                        self._ignore_internal_server_error_wait, retry_count, stacklevel=3
+                    )
                     await _aio_sleep(self._ignore_internal_server_error_wait)
                     continue
                 if params is not None:
@@ -341,11 +337,10 @@ class BaseAPI:
                         and (self._infinite_internet_connection_retry or retry_count < self._ignore_internet_connection_retry)
                     ):
                         retry_count += 1
-                        if self._echo_retry_warnings:
-                            _warn(
-                                "%s 无法链接互联网, 等待 %.2f 秒后重试(%d)..." 
-                                % (datetime.datetime.now(), self._ignore_internet_connection_wait, retry_count)
-                            )
+                        logger.warning(
+                            "无法链接互联网, 等待 %.1f 秒后重试(%d)", 
+                            self._ignore_internet_connection_wait, retry_count, stacklevel=3
+                        )
                         await _aio_sleep(self._ignore_internet_connection_wait)
                         continue
                     exc = errors.InternetConnectionError("无法链接互联网, 请检查网络连接", url, str(err))
@@ -362,14 +357,13 @@ class BaseAPI:
                         and (self._infinite_timeout_retry or retry_count < self._ignore_timeout_retry)
                 ):
                     retry_count += 1
-                    if self._echo_retry_warnings:
-                        _warn(
-                            "%s 请求超时, 若无网络问题, 请检查领星账号 IP 白名单设置, 等待 %.2f 秒后重试(%d)..." 
-                            % (datetime.datetime.now(), self._ignore_timeout_wait, retry_count)
-                        )
+                    logger.warning(
+                        "领星API请求超时或错误, 若无网络问题, 请检查IP白名单设置, 等待 %.1f 秒后重试(%d)", 
+                        self._ignore_timeout_wait, retry_count, stacklevel=3
+                    )
                     await _aio_sleep(self._ignore_timeout_wait)
                     continue
-                exc = errors.ApiTimeoutError("领星 API 请求超时, 若无网络问题, 请检查领星账号 IP 白名单设置", url, str(err))
+                exc = errors.ApiTimeoutError("领星API请求超时或错误, 若无网络问题, 请检查IP白名单设置", url, str(err))
                 if params is not None:
                     exc.add_note("请求参数: %r" % params)
                 if body is not None:
