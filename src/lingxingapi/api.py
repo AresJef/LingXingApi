@@ -44,7 +44,7 @@ class API(BaseAPI):
         ignore_internal_server_error_wait: int | float = 1,
         ignore_internal_server_error_retry: int = 10,
         ignore_internet_connection: bool = False,
-        ignore_internet_connection_wait: int | float = 10,
+        ignore_internet_connection_wait: int | float = 1,
         ignore_internet_connection_retry: int = 10,
         echo_retry_warnings: bool = True,
     ) -> None:
@@ -99,7 +99,7 @@ class API(BaseAPI):
             - 如果设置为 `False`, 则在无法链接互联网时会抛出 `InternetConnectionError` 异常
 
         :param ignore_internet_connection_wait `<'int/float'>`: 忽略无法链接互联网时的等待时间 (单位: 秒),
-            默认为 `10` 秒, 仅在 `ignore_internet_connection` 为 `True` 时生效
+            默认为 `1` 秒, 仅在 `ignore_internet_connection` 为 `True` 时生效
 
         :param ignore_internet_connection_retry `<'int'>`: 忽略无法链接互联网时的最大重试次数,
             默认为 `10`, 仅在 `ignore_internet_connection` 为 `True` 时生效, 若设置为 `-1` 则表示无限重试
