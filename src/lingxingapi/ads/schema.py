@@ -1202,7 +1202,7 @@ class SpTargetReport(BaseModel):
     # 目标定位表达式类型 [原字段 'targeting_type']
     expression_type: StrOrNone2Blank = Field(validation_alias="targeting_type")
     # 目标定位表达式 (JSON 字符串) [原字段 'targeting_expression']
-    expression: str = Field(validation_alias="targeting_expression")
+    expression: StrOrNone2Blank = Field(validation_alias="targeting_expression")
     # 广告花费
     cost: float
     # 总展示次数
