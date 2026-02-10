@@ -452,7 +452,7 @@ class SbTarget(BaseModel):
     # 目标定位表达式 (JSON 字符串)
     expression: str
     # 目标定位解析表达式 (JSON 字符串) [原字段 'resolved_expression']
-    expression_resolved: str = Field(validation_alias="resolved_expression")
+    expression_resolved: StrOrNone2Blank = Field(validation_alias="resolved_expression")
     # 竞价 [原字段 'target_bid']
     bid: FloatOrNone2Zero = Field(validation_alias="target_bid")
     # 广告状态 [原字段 'target_state']
