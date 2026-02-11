@@ -71,7 +71,7 @@ class ListingTagInfo(BaseModel):
     """商品标签信息."""
 
     # 领星标签ID (ListingGlobalTag.tag_id) [原字段 'globalTagId']
-    tag_id: str = Field(validation_alias="globalTagId")
+    tag_id: int = Field(validation_alias="globalTagId")
     # 领星标签名称 (ListingGlobalTag.tag_name) [原字段 'tagName']
     tag_name: str = Field(validation_alias="tagName")
     # 领星标签颜色 (如: "#FF0000") [原字段 'color']
@@ -262,7 +262,7 @@ class ListingGlobalTag(BaseModel):
     """商品 Listing 标签."""
 
     # 领星标签ID [原字段 'global_tag_id']
-    tag_id: str = Field(validation_alias="global_tag_id")
+    tag_id: int = Field(validation_alias="global_tag_id")
     # 领星标签名称
     tag_name: str
     # 标签类型 [原字段 'type']

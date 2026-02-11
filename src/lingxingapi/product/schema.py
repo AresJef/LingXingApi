@@ -862,7 +862,7 @@ class ProductGlobalTag(BaseModel):
     """领星本地产品全局标签信息"""
 
     # 全局标签ID [原字段 'label_id']
-    tag_id: str = Field(validation_alias="label_id")
+    tag_id: int = Field(validation_alias="label_id")
     # 全局标签名称 [原字段 'label_name']
     tag_name: str = Field(validation_alias="label_name")
     # 全局标签创建时间 (UTC毫秒时间戳) [原字段 'gmt_created']
@@ -880,7 +880,7 @@ class CreateProductGlobalTag(BaseModel):
     """创建产品全局标签结果"""
 
     # 全局标签ID [原字段 'label_id']
-    tag_id: str = Field(validation_alias="label_id")
+    tag_id: int = Field(validation_alias="label_id")
     # 全局标签名称 [原字段 'label_name']
     tag_name: str = Field(validation_alias="label_name")
 
