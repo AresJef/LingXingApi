@@ -190,7 +190,7 @@ class ProductAPI(BaseAPI):
                     "tags": [
                         {
                             # 领星标签ID (GlobalTag.tag_id) [原字段 'global_tag_id']
-                            "tag_id": "9*****************",
+                            "tag_id": 9*****************,
                             # 领星标签名称 (GlobalTag.tag_name) [原字段 'tag_name']
                             "tag_name": "重点款",
                             # 领星标签颜色 (如: "#FF0000") [原字段 'color']
@@ -520,7 +520,7 @@ class ProductAPI(BaseAPI):
                     "tags": [
                         {
                             # 领星标签ID (GlobalTag.tag_id) [原字段 'global_tag_id']
-                            "tag_id": "9*****************",
+                            "tag_id": 9*****************,
                             # 领星标签名称 (GlobalTag.tag_name) [原字段 'tag_name']
                             "tag_name": "重点款",
                             # 领星标签颜色 (如: "#FF0000") [原字段 'color']

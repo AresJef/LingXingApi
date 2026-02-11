@@ -277,7 +277,7 @@ class SetListingTag(Parameter):
     @field_validator("tag_ids", mode="before")
     @classmethod
     def _validate_tag_ids(cls, v) -> list[str]:
-        return utils.validate_array_of_non_empty_str(v, "领星标签ID列表 tag_ids")
+        return utils.validate_array_of_unsigned_int(v, "领星标签ID列表 tag_ids")
 
     @field_validator("mskus", mode="before")
     @classmethod
@@ -301,7 +301,7 @@ class UnsetListingTag(Parameter):
     @field_validator("tag_ids", mode="before")
     @classmethod
     def _validate_tag_ids(cls, v) -> list[str]:
-        return utils.validate_array_of_non_empty_str(v, "领星标签ID列表 tag_ids")
+        return utils.validate_array_of_unsigned_int(v, "领星标签ID列表 tag_ids")
 
     @field_validator("mskus", mode="before")
     @classmethod

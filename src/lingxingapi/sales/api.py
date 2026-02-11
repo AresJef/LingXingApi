@@ -575,7 +575,7 @@ class SalesAPI(BaseAPI):
             "data": [
                 {
                     # 领星标签ID [原字段 'global_tag_id']
-                    'tag_id': '900000000000000000',
+                    'tag_id': 900000000000000000,
                     # 领星标签名称
                     'tag_name': '特殊Listing',
                     # 标签类型 [原字段 'type']
@@ -652,13 +652,13 @@ class SalesAPI(BaseAPI):
         data = await self._request_with_sign("POST", url, body=p.model_dump_params())
         return base_schema.ResponseResult.model_validate(data)
 
-    async def RemoveListingGlobalTag(self, *tag_id: str) -> base_schema.ResponseResult:
+    async def RemoveListingGlobalTag(self, *tag_id: int) -> base_schema.ResponseResult:
         """删除Listing可设置的全局标签
 
         ## Docs:
         - 销售 - Listing: [删除Listing标签](https://apidoc.lingxing.com/#/docs/Sale/globalTagRemoveTag)
 
-        :param *tag_id `<'str'>`: 支持最多删除200个标签ID, 参数来源: `ListingGlobalTag.tag_id`
+        :param *tag_id `<'int'>`: 支持最多删除200个标签ID, 参数来源: `ListingGlobalTag.tag_id`
         :returns `<'ResponseResult'>`: 返回删除结果
         ```python
         {
@@ -730,7 +730,7 @@ class SalesAPI(BaseAPI):
                     "tags": [
                         {
                             # 领星标签ID (ListingGlobalTag.tag_id) [原字段 'global_tag_id']
-                            "tag_id": "90000*************",
+                            "tag_id": 90000*************,
                             # 领星标签名称 (ListingGlobalTag.tag_name) [原字段 'tag_name']
                             "tag_name": "特殊",
                             # 领星标签颜色 [原字段 'color']
@@ -758,7 +758,7 @@ class SalesAPI(BaseAPI):
 
     async def SetListingTag(
         self,
-        tag_ids: str | list[str],
+        tag_ids: int | list[int],
         *msku: dict,
     ) -> base_schema.ResponseResult:
         """批量给指定Listing设置标签
@@ -766,7 +766,7 @@ class SalesAPI(BaseAPI):
         ## Docs:
         - 销售 - Listing: [Listing新增商品标签](https://apidoc.lingxing.com/#/docs/Sale/AddGoodsTag)
 
-        :param tag_ids `<'str/list[str]'>`: 单个领星标签ID或ID列表, 参数来源: `ListingGlolbalTag.tag_id`
+        :param tag_ids `<'int/list[int]'>`: 单个领星标签ID或ID列表, 参数来源: `ListingGlolbalTag.tag_id`
         :param *msku `<'dict'>`: 需要设置对应标签的Listing信息
 
             - 每个字典必须包含 `sid` 和 `msku` 字段, 如:
@@ -806,7 +806,7 @@ class SalesAPI(BaseAPI):
 
     async def UnsetListingTag(
         self,
-        tag_ids: str | list[str],
+        tag_ids: int | list[int],
         *msku: dict,
     ) -> base_schema.ResponseResult:
         """批量给指定Listing移除标签
@@ -814,7 +814,7 @@ class SalesAPI(BaseAPI):
         ## Docs:
         - 销售 - Listing: [Listing删除商品标签](https://apidoc.lingxing.com/#/docs/Sale/DeleteGoodsTag)
 
-        :param tag_ids `<'str/list[str]'>`: 单个领星标签ID或ID列表, 参数来源: `ListingGlolbalTag.tag_id`
+        :param tag_ids `<'int/list[int]'>`: 单个领星标签ID或ID列表, 参数来源: `ListingGlolbalTag.tag_id`
         :param *msku `<'dict'>`: 需要移除对应标签的Listing信息
 
             - 每个字典必须包含 `sid` 和 `msku` 字段, 如:
@@ -3133,7 +3133,7 @@ class SalesAPI(BaseAPI):
                     "tags": [
                         {
                             # 领星标签ID (ListingGlobalTag.tag_id) [原字段 'global_tag_id']
-                            "tag_id": "90****************",
+                            "tag_id": 90****************,
                             # 领星标签名称 (ListingGlobalTag.tag_name) [原字段 'tag_name']
                             "tag_name": "特殊",
                             # 领星标签颜色 (如: "#FF0000") [原字段 'color']
