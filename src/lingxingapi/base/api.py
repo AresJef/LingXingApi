@@ -296,7 +296,8 @@ class BaseAPI:
                     retry_count += 1
                     logger.warning(
                         "领星API请求被限流, 等待 %.1f 秒后重试(%d)", 
-                        self._ignore_api_limit_wait, retry_count, stacklevel=3
+                        self._ignore_api_limit_wait, retry_count, 
+                        stacklevel=3,
                     )
                     await _aio_sleep(self._ignore_api_limit_wait)
                     continue
@@ -314,11 +315,17 @@ class BaseAPI:
                         and (self._infinite_internal_server_error_retry or retry_count < self._ignore_internal_server_error_retry)
                 ):
                     retry_count += 1
-                    logger.warning(
-                        "领星API服务器内部错误, 等待 %.1f 秒后重试(%d)", 
-                        self._ignore_internal_server_error_wait, retry_count, stacklevel=3
+                    if self._infinite_retry and retry_count > 60:
+                        log_level = logging.ERROR
+                    else:
+                        log_level = logging.WARNING
+                    logger.log(
+                        log_level,
+                        "领星API服务器内部错误, 等待 %.1f 秒后重试(%d) | %s.", 
+                        self._ignore_api_limit_wait, retry_count, err,
+                        stacklevel=3
                     )
-                    await _aio_sleep(self._ignore_internal_server_error_wait)
+                    await _aio_sleep(self._ignore_api_limit_wait)
                     continue
                 if params is not None:
                     err.add_note("请求参数: %r" % params)
@@ -356,11 +363,17 @@ class BaseAPI:
                         and (self._infinite_timeout_retry or retry_count < self._ignore_timeout_retry)
                 ):
                     retry_count += 1
-                    logger.warning(
-                        "领星API请求超时或错误, 若无网络问题, 请检查IP白名单设置, 等待 %.1f 秒后重试(%d)", 
-                        self._ignore_timeout_wait, retry_count, stacklevel=3
+                    if self._infinite_retry and retry_count > 60:
+                        log_level = logging.ERROR
+                    else:
+                        log_level = logging.WARNING
+                    logger.log(
+                        log_level,
+                        "领星API请求超时或错误, 若无网络问题, 请检查IP白名单设置, 等待 %.1f 秒后重试(%d) | %s", 
+                        self._ignore_api_limit_wait, retry_count, err,
+                        stacklevel=3
                     )
-                    await _aio_sleep(self._ignore_timeout_wait)
+                    await _aio_sleep(self._ignore_api_limit_wait)
                     continue
                 exc = errors.ApiTimeoutError("领星API请求超时或错误, 若无网络问题, 请检查IP白名单设置", url, str(err))
                 if params is not None:
@@ -465,6 +478,8 @@ class BaseAPI:
                 raise errors.InternalServerError(
                     "领星 API 服务器发生内部错误", url, data, code
                 )
+            # 未知错误码
+            raise errors.UnknownRequestError("未知的 api 错误", url, data, code)
         elif code not in (0, "200"):
             try:
                 errno: int = int(code)
@@ -551,16 +566,11 @@ class BaseAPI:
                 raise errors.UnauthorizedRequestIpError(
                     "发起请求的 ip 未加入领星 api 白名单", url, data, code
                 )
-            if errno == -1:
-                if data.get("message", "").startswith("请求listing服务失败"):
-                    raise errors.InternalServerError(
-                        "领星 API 服务器发生内部错误", url, data, code
-                    )
-            if errno == 1000:
-                if data.get("message", "").startswith("请求listing服务失败"):
-                    raise errors.InternalServerError(
-                        "领星 API 服务器发生内部错误", url, data, code
-                    )
+            # listing 服务相关错误码
+            if data.get("message", "").startswith("请求listing服务失败"):
+                raise errors.InternalServerError(
+                    "领星 API 服务器发生内部错误: 请求listing服务失败", url, data, code
+                )
             # 未知错误码
             raise errors.UnknownRequestError("未知的 api 错误", url, data, code)
 
