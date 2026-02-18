@@ -1268,10 +1268,10 @@ class IncomeStatementLsku(IncomeStatement):
     country_codes: list[str] = Field(validation_alias="countryCode")
     # 关联的ASIN列表 [原字段 'asins']
     asins: list[str] = Field(validation_alias="asins")
+    # 领星本地商品ID [原字段 'pid']
+    lsku_id: int = Field(validation_alias="pid")
     # 领星本地SKU [原字段 'localSku']
     lsku: str = Field(validation_alias="localSku")
-    # 领星本地商品ID [原字段 'pid']
-    product_id: int = Field(validation_alias="pid")
     # 领星本地商品名称 [原字段 'localName']
     product_name: StrOrNone2Blank = Field(validation_alias="localName")
     # 产品型号 [原字段 'model']
