@@ -1389,8 +1389,6 @@ class SalesAPI(BaseAPI):
                         {
                             # 领星店铺ID (Seller.sid)
                             "sid": 1,
-                            # 领星本地商品ID
-                            "product_id": 2*****,
                             # 领星订单详情ID [原字段 'id']
                             "order_id": 10**********,
                             # 亚马逊订单商品编码 [订单下唯一键，但亚马逊返回值可能会发生变更]
@@ -1399,6 +1397,8 @@ class SalesAPI(BaseAPI):
                             "asin": "B0********",
                             # 亚马逊卖家SKU [原字段 'seller_sku']
                             "msku": "SKU********",
+                            # 领星本地商品ID [原字段 'product_id']
+                            "lsku_id": 2*****,
                             # 领星本地商品SKU [原字段 'sku']
                             "lsku": "LOCAL-SKU********",
                             # 领星本地商品名称

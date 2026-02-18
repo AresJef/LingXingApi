@@ -499,8 +499,6 @@ class OrderDetailItem(BaseModel):
     # fmt: off
     # 领星店铺ID
     sid: int
-    # 领星本地商品ID
-    product_id: int
     # 领星订单详情ID [原字段 'id']
     order_id: int = Field(validation_alias="id")
     # 亚马逊订单商品编码 [订单下唯一键, 但亚马逊返回值可能会发生变更]
@@ -509,6 +507,8 @@ class OrderDetailItem(BaseModel):
     asin: str
     # 亚马逊卖家SKU [原字段 'seller_sku']
     msku: str = Field(validation_alias="seller_sku")
+    # 领星本地商品ID [原字段 'product_id']
+    lsku_id: int = Field(validation_alias="product_id")
     # 领星本地商品SKU [原字段 'sku']
     lsku: str = Field(validation_alias="sku")
     # 领星本地商品名称
