@@ -231,7 +231,7 @@ class CreateListingGlobalTag(Parameter):
 # . Remove Listing Global Tag
 class RemoveListingGlobalTag(Parameter):
     # 领星标签IDs, 最多支持 200 个 (ListingGlobalTag.tag_id)
-    tag_ids: list[NonEmptyStr]
+    tag_ids: list[NonNegativeInt]
 
 
 # . Listing Tags
