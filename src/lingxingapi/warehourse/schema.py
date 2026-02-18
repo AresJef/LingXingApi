@@ -50,12 +50,12 @@ class WarehouseBinItem(BaseModel):
     sid: int = Field(validation_alias="store_id")
     # 领星店铺名称
     seller_name: str
+    # 领星商品ID [原字段 'product_id']
+    lsku_id: int = Field(validation_alias="product_id")
     # 领星本地商品SKU [原字段 'sku']
     lsku: str = Field(validation_alias="sku")
     # 商品FNSKU
     fnsku: str
-    # 领星商品ID
-    product_id: int
     # 领星商品名称
     product_name: str
 
@@ -409,6 +409,8 @@ class AwdInventoryItem(BaseModel):
     asin_url: str
     # 亚马逊SKU [原字段 'seller_sku']
     msku: str = Field(validation_alias="seller_sku")
+    # 领星商品ID [原字段 'product_id']
+    lsku_id: int = Field(validation_alias="product_id")
     # 领星本地SKU [原字段 'sku']
     lsku: str = Field(validation_alias="sku")
     # 亚马逊FNSKU
@@ -417,8 +419,6 @@ class AwdInventoryItem(BaseModel):
     spu: str
     # 多属性SPU产品名称
     spu_name: str
-    # 领星产品ID
-    product_id: int
     # 领星商品名称
     product_name: str
     # 商品类型ID [原字段 'cid']
@@ -517,12 +517,12 @@ class SellerInventoryItem(BaseModel):
     warehouse_id: int = Field(validation_alias="wid")
     # 领星店铺ID [原字段 'seller_id']
     sid: int = Field(validation_alias="seller_id")
+    # 领星商品ID [原字段 'product_id']
+    lsku_id: int = Field(validation_alias="product_id")
     # 领星本地商品SKU [原字段 'sku']
     lsku: str = Field(validation_alias="sku")
     # 亚马逊FNSKU
     fnsku: str
-    # 领星商品ID
-    product_id: int
     # 产品总库存数量 [原字段 'product_total']
     total_qty: int = Field(validation_alias="product_total")
     # 产品库存可售数量 [原字段 'product_valid_num']
@@ -591,12 +591,12 @@ class SellerInventoryBinItem(BaseModel):
     sid: int = Field(validation_alias="store_id")
     # 亚马逊SKU
     msku: str
-    # 领星本地商品SKU [原字段 'sku']
-    lsku: str = Field(validation_alias="sku")
     # 亚马逊FNSKU
     fnsku: str
-    # 领星商品ID
-    product_id: int
+    # 领星商品ID [原字段 'product_id']
+    lsku_id: int = Field(validation_alias="product_id")
+    # 领星本地商品SKU [原字段 'sku']
+    lsku: str = Field(validation_alias="sku")
     # 领星商品名称
     product_name: str
     # 产品总库存数量 [原字段 'total']
@@ -646,12 +646,12 @@ class SellerInventoryBatch(BaseModel):
     seller_name: str = Field(validation_alias="store_name")
     # 亚马逊SKU
     msku: str
-    # 领星本地商品SKU [原字段 'sku']
-    lsku: str = Field(validation_alias="sku")
     # 亚马逊FNSKU
     fnsku: str
-    # 领星商品ID
-    product_id: int
+    # 领星商品ID [原字段 'product_id']
+    lsku_id: int = Field(validation_alias="product_id")
+    # 领星本地商品SKU [原字段 'sku']
+    lsku: str = Field(validation_alias="sku")
     # 领星商品名称
     product_name: str
     # 批次总数 [原字段 'total']
@@ -730,12 +730,12 @@ class SellerInventoryRecord(BaseModel):
     seller_name: str = Field(validation_alias="store_name")
     # 亚马逊SKU
     msku: str
-    # 领星本地商品SKU [原字段 'sku']
-    lsku: str = Field(validation_alias="sku")
     # 亚马逊FNSKU
     fnsku: str
-    # 领星商品ID
-    product_id: int
+    # 领星商品ID [原字段 'product_id']
+    lsku_id: int = Field(validation_alias="product_id")
+    # 领星本地商品SKU [原字段 'sku']
+    lsku: str = Field(validation_alias="sku")
     # 领星商品名称
     product_name: str
     # 批次流水在库结存 [原字段 'balance_num']
@@ -811,12 +811,12 @@ class SellerInventoryOperation(BaseModel):
     operator_name: str = Field(validation_alias="opt_real_name")
     # 领星店铺ID [原字段 'seller_id']
     sid: int = Field(validation_alias="seller_id")
-    # 领星本地商品SKU [原字段 'sku']
-    lsku: str = Field(validation_alias="sku")
     # 亚马逊FNSKU
     fnsku: str
-    # 领星商品ID
-    product_id: int
+    # 领星商品ID [原字段 'product_id']
+    lsku_id: int = Field(validation_alias="product_id")
+    # 领星本地商品SKU [原字段 'sku']
+    lsku: str = Field(validation_alias="sku")
     # 领星商品名称
     product_name: str
     # 品牌ID [原字段 'bid']
@@ -910,12 +910,12 @@ class SellerInventoryBinRecord(BaseModel):
     operator_name: str = Field(validation_alias="opt_realname")
     # 领星店铺ID [原字段 'seller_id']
     sid: int = Field(validation_alias="seller_id")
-    # 领星本地商品SKU [原字段 'sku']
-    lsku: str = Field(validation_alias="sku")
     # 亚马逊FNSKU
     fnsku: str
-    # 领星商品ID
-    product_id: int
+    # 领星商品ID [原字段 'product_id']
+    lsku_id: int = Field(validation_alias="product_id")
+    # 领星本地商品SKU [原字段 'sku']
+    lsku: str = Field(validation_alias="sku")
     # 领星商品名称
     product_name: str
 

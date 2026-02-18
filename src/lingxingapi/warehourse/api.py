@@ -193,12 +193,12 @@ class WarehouseAPI(BaseAPI):
                             "sid": "1",
                             # 领星店铺名称
                             "seller_name": "测试卖家",
+                            # 领星商品ID [原字段 'product_id']
+                            "lsku_id": 1****,
                             # 领星本地商品SKU [原字段 'sku']
                             "lsku": "SKU*******",
                             # 商品FNSKU
                             "fnsku": "X0********",
-                            # 领星商品ID
-                            "product_id": 1****,
                             # 领星商品名称
                             "product_name": "P********",
                         },
@@ -720,6 +720,8 @@ class WarehouseAPI(BaseAPI):
                     "asin_url": "https://www.amazon.com/dp/B0CPT1TVV7",
                     # 亚马逊SKU [原字段 'seller_sku']
                     "msku": "HM300-BLACK",
+                    # 领星产品ID [原字段 'product_id']
+                    "lsku_id": 0,
                     # 领星本地SKU [原字段 'sku']
                     "lsku": "",
                     # 亚马逊FNSKU
@@ -728,8 +730,6 @@ class WarehouseAPI(BaseAPI):
                     "spu": "",
                     # 多属性SPU产品名称
                     "spu_name": "",
-                    # 领星产品ID
-                    "product_id": 0,
                     # 领星商品名称
                     "product_name": "",
                     # 商品类型ID [原字段 'cid']
@@ -851,13 +851,13 @@ class WarehouseAPI(BaseAPI):
                     "warehouse_id": 1***,
                     # 领星店铺ID [原字段 'seller_id']
                     "sid": 1,
+                    # 领星产品ID [原字段 'product_id']
+                    "lsku_id": : 2*****,
                     # 领星本地商品SKU [原字段 'sku']
                     "lsku": "LOCAL*******",
                     # 亚马逊FNSKU
                     "fnsku": "X00*******",
                     # 产品总库存数量 [原字段 'product_total']
-                    # 领星商品ID
-                    "product_id": 2*****,
                     "total_qty": 0,
                     # 产品库存可售数量 [原字段 'product_valid_num']
                     "fulfillable_qty": 0,
@@ -998,12 +998,12 @@ class WarehouseAPI(BaseAPI):
                     "sid": 0,
                     # 亚马逊SKU
                     "msku": "",
-                    # 领星本地商品SKU [原字段 'sku']
-                    "lsku": "P*******",
                     # 亚马逊FNSKU
                     "fnsku": "",
-                    # 领星商品ID
-                    "product_id": 237229,
+                    # 领星产品ID [原字段 'product_id']
+                    "lsku_id": : 2*****,
+                    # 领星本地商品SKU [原字段 'sku']
+                    "lsku": "P*******",
                     # 领星商品名称
                     "product_name": "LOCAL*******",
                     # 产品总库存数量 [原字段 'total']
@@ -1142,12 +1142,12 @@ class WarehouseAPI(BaseAPI):
                     "seller_name": "NA店铺",
                     # 亚马逊SKU
                     "msku": "SKU********",
-                    # 领星本地商品SKU [原字段 'sku']
-                    "lsku": "LOCAL********",
                     # 亚马逊FNSKU
                     "fnsku": "X00*******",
-                    # 领星商品ID
-                    "product_id": 2*****,
+                    # 领星产品ID [原字段 'product_id']
+                    "lsku_id": : 2*****,
+                    # 领星本地商品SKU [原字段 'sku']
+                    "lsku": "LOCAL********",
                     # 领星商品名称
                     "product_name": "P********",
                     # 批次总数 [原字段 'total']
@@ -1327,12 +1327,12 @@ class WarehouseAPI(BaseAPI):
                     "seller_name": "",
                     # 亚马逊SKU
                     "msku": "",
-                    # 领星本地商品SKU [原字段 'sku']
-                    "lsku": "LOCAL********",
                     # 亚马逊FNSKU
                     "fnsku": "",
-                    # 领星商品ID
-                    "product_id": 23****,
+                    # 领星产品ID [原字段 'product_id']
+                    "lsku_id": : 2*****,
+                    # 领星本地商品SKU [原字段 'sku']
+                    "lsku": "LOCAL********",
                     # 领星商品名称
                     "product_name": "P********",
                     # 批次流水在库结存 [原字段 'balance_num']
@@ -1550,12 +1550,12 @@ class WarehouseAPI(BaseAPI):
                     "operator_name": "白小白",
                     # 领星店铺ID [原字段 'seller_id']
                     "sid": 0,
-                    # 领星本地商品SKU [原字段 'sku']
-                    "lsku": "LOCAL********",
                     # 亚马逊FNSKU
                     "fnsku": "",
-                    # 领星商品ID
-                    "product_id": 23****,
+                    # 领星产品ID [原字段 'product_id']
+                    "lsku_id": : 2*****,
+                    # 领星本地商品SKU [原字段 'sku']
+                    "lsku": "LOCAL********",
                     # 领星商品名称
                     "product_name": "P********",
                     # 品牌ID [原字段 'bid']
@@ -1743,12 +1743,12 @@ class WarehouseAPI(BaseAPI):
                     "operator_name": "白小白",
                     # 领星店铺ID [原字段 'seller_id']
                     "sid": 1,
-                    # 领星本地商品SKU [原字段 'sku']
-                    "lsku": "LOCAL********",
                     # 亚马逊FNSKU
                     "fnsku": "X00*******",
-                    # 领星商品ID
-                    "product_id": 2*****,
+                    # 领星产品ID [原字段 'product_id']
+                    "lsku_id": : 2*****,
+                    # 领星本地商品SKU [原字段 'sku']
+                    "lsku": "LOCAL********",
                     # 领星商品名称
                     "product_name": "P********",
                 },
