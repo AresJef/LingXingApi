@@ -391,6 +391,8 @@ class PurchaseAPI(BaseAPI):
                     "country": "",
                     # 亚马逊SKU列表 [原字段 'msku']
                     "mskus": [],
+                    # 领星本地产品ID [原字段 'product_id']
+                    "lsku_id": 2*****,
                     # 本地产品SKU [原字段 'sku']
                     "lsku": "SKU********",
                     # 亚马逊FNSKU
@@ -399,8 +401,6 @@ class PurchaseAPI(BaseAPI):
                     "spu": "SPU********",
                     # 多属性产品名称
                     "spu_name": "P********",
-                    # 领星产品ID
-                    "product_id": 4*****,
                     # 本地产品名称
                     "product_name": "P********",
                     # 多属性产品属性列表 [原字段 'attribute']

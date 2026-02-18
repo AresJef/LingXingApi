@@ -140,6 +140,8 @@ class PurchasePlan(BaseModel):
     country: str = Field(validation_alias="marketplace")
     # 亚马逊SKU列表 [原字段 'msku']
     mskus: list[str] = Field(validation_alias="msku")
+    # 领星本地产品ID [原字段 'product_id']
+    lsku_id: int = Field(validation_alias="product_id")
     # 本地产品SKU [原字段 'sku']
     lsku: str = Field(validation_alias="sku")
     # 亚马逊FNSKU
@@ -148,8 +150,6 @@ class PurchasePlan(BaseModel):
     spu: str
     # 多属性产品名称
     spu_name: str
-    # 领星产品ID
-    product_id: int
     # 本地产品名称
     product_name: str
     # 多属性产品属性列表 [原字段 'attribute']
