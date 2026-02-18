@@ -87,16 +87,16 @@ class SourceAPI(BaseAPI):
                     "order_status": "Shipped",
                     # 订单商品状态 [原字段 'item_status']
                     "order_item_status": "Shipped",
-                    # 领星产品ID [原字段 'pid']
-                    "product_id": 2*****,
-                    # 领星产品名称 [原字段 'local_name']
-                    "product_name": "Apple",
                     # 商品ASIN
                     "asin": "B0D*******",
                     # 亚马逊SKU [原字段 'sku']
                     "msku": "SKU*********",
+                    # 领星产品ID [原字段 'pid']
+                    "lsku_id": 2*****,
                     # 本地SKU [原字段 'local_sku']
                     "lsku": "LOCAL********",
+                    # 领星产品名称 [原字段 'local_name']
+                    "product_name": "Apple",
                     # 商品标题 [原字段 'product_name']
                     "title": "Product Title",
                     # ASIN链接 [原字段 'url']

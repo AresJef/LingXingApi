@@ -30,16 +30,16 @@ class Order(BaseModel):
     order_status: str
     # 订单商品状态 [原字段 'item_status']
     order_item_status: str = Field(validation_alias="item_status")
-    # 领星产品ID [原字段 'pid']
-    product_id: int = Field(validation_alias="pid")
-    # 领星产品名称 [原字段 'local_name']
-    product_name: str = Field(validation_alias="local_name")
     # 商品ASIN
     asin: str
     # 亚马逊SKU [原字段 'sku']
     msku: str = Field(validation_alias="sku")
+    # 领星产品ID [原字段 'pid']
+    lsku_id: int = Field(validation_alias="pid")
     # 本地SKU [原字段 'local_sku']
     lsku: str = Field(validation_alias="local_sku")
+    # 领星产品名称 [原字段 'local_name']
+    product_name: str = Field(validation_alias="local_name")
     # 商品标题 [原字段 'product_name']
     title: str = Field(validation_alias="product_name")
     # ASIN链接 [原字段 'url']
