@@ -36,8 +36,8 @@ class ProductQuotePricing(BaseModel):
 class ProductSupplierQuote(BaseModel):
     """领星本地产品供应商报价信息"""
 
-    # 领星本地产品ID
-    product_id: int
+    # 领星本地产品ID [原字段 'product_id']
+    lsku_id: int = Field(validation_alias="product_id")
     # 供应商ID
     supplier_id: int
     # 供应商名称
@@ -72,12 +72,12 @@ class Product(BaseModel):
     """领星本地产品"""
 
     # fmt: off
+    # 领星本地产品ID [原字段 'id']
+    lsku_id: int = Field(validation_alias="id")
     # 领星本地SKU [原字段 'sku']
     lsku: str = Field(validation_alias="sku")
     # 领星本地SKU识别码
     sku_identifier: str
-    # 领星本地产品ID [原字段 'id']
-    product_id: int = Field(validation_alias="id")
     # 领星本地产品名称
     product_name: str
     # 领星本地产品分类ID [原字段 'cid']
@@ -143,10 +143,10 @@ class Products(ResponseV1):
 class ProductBundleItem(BaseModel):
     """领星本地产品组合信息"""
 
+    # 领星本地产品ID [原字段 'product_id']
+    lsku_id: int = Field(validation_alias="product_id")
     # 领星本地SKU [原字段 'sku']
     lsku: str = Field(validation_alias="sku")
-    # 领星本地产品ID
-    product_id: int
     # 产品数量 [原字段 'quantity']
     product_qty: int = Field(validation_alias="quantity")
 
@@ -249,12 +249,12 @@ class ProductDetail(BaseModel):
     """领星本地产品详情"""
 
     # fmt: off
+    # 领星本地产品ID [原字段 'id']
+    lsku_id: int = Field(validation_alias="id")
     # 领星本地SKU [原字段 'sku']
     lsku: str = Field(validation_alias="sku")
     # 领星本地SKU识别码
     sku_identifier: str
-    # 领星本地产品ID [原字段 'id']
-    product_id: int = Field(validation_alias="id")
     # 领星本地产品名称
     product_name: str
     # 领星本地产品分类ID [原字段 'cid']
@@ -361,12 +361,12 @@ class ProductDetails(ResponseV1):
 class EditProduct(BaseModel):
     """领星本地产品编辑结果"""
 
+    # 领星本地产品ID [原字段 'product_id']
+    lsku_id: int = Field(validation_alias="product_id")
     # 领星本地产品SKU [原字段 'sku']
     lsku: str = Field(validation_alias="sku")
     # 领星本地SKU识别码
     sku_identifier: str
-    # 领星本地产品ID
-    product_id: int
 
 
 class EditProductResult(ResponseResult):
@@ -561,6 +561,8 @@ class SpuProductAuxiliaryMaterial(BaseModel):
 class SpuProductDetailItemImage(BaseModel):
     """领星本地SPU多属性产品详情项图片"""
 
+    # 领星本地产品ID [原字段 'product_id']
+    lsku_id: int = Field(validation_alias="product_id")
     # 图片ID [原字段 'pp_id']
     image_id: int = Field(validation_alias="pp_id")
     # 图片名称 [原字段 'pic_name']
@@ -577,8 +579,6 @@ class SpuProductDetailItemImage(BaseModel):
     image_type: int = Field(validation_alias="pic_type")
     # 是否为主图 (0: 否, 1: 是)
     is_primary: int
-    # 领星本地产品ID
-    product_id: int
 
 
 class SpuProductDetailItemAttribute(BaseModel):
@@ -596,10 +596,10 @@ class SpuProductDetailItem(BaseModel):
     """领星本地SPU多属性产品详情项"""
 
     # fmt: off
+    # 领星本地产品ID [原字段 'product_id']
+    lsku_id: int = Field(validation_alias="product_id")
     # 领星本地SKU [原字段 'sku']
     lsku: str = Field(validation_alias="sku")
-    # 领星本地产品ID
-    product_id: int
     # 领星本地产品名称 
     product_name: str
     # 产品图片链接 [原字段 'pic_url']
@@ -676,10 +676,10 @@ class SpuProductDetailData(ResponseV1):
 class EditSpuProductItem(BaseModel):
     """领星本地SPU多属性产品编辑结果项"""
 
+    # 领星本地产品ID [原字段 'product_id']
+    lsku_id: int = Field(validation_alias="product_id")
     # 领星本地SKU [原字段 'sku']
     lsku: str = Field(validation_alias="sku")
-    # 领星本地产品ID
-    product_id: int
 
 
 class EditSpuProduct(BaseModel):
@@ -701,10 +701,10 @@ class EditSpuProductResult(ResponseResult):
 class BundleProductItem(BaseModel):
     """领星本地产品组合信息"""
 
+    # 领星本地子产品ID [原字段 'productId']
+    lsku_id: int = Field(validation_alias="productId")
     # 子产品SKU [原字段 'sku']
     lsku: str = Field(validation_alias="sku")
-    # 领星本地子产品ID [原字段 'productId']
-    product_id: int = Field(validation_alias="productId")
     # 子产品捆绑数量 [原字段 'bundledQty']
     bundle_qty: int = Field(validation_alias="bundledQty")
     # 子产品费用比例
@@ -758,10 +758,10 @@ class EditBundleProductResult(ResponseResult):
 class AuxiliaryMaterialAssociate(BaseModel):
     """领星本地产品辅料关联的产品信息"""
 
+    # 领星本地产品ID [原字段 'pid']
+    lsku_id: int = Field(validation_alias="pid")
     # 领星本地产品SKU [原字段 'sku']
     lsku: str = Field(validation_alias="sku")
-    # 领星本地产品ID [原字段 'pid']
-    product_id: int = Field(validation_alias="pid")
     # 领星本地产品名称
     product_name: str
     # 产品关联辅料的数量 [原字段 'quantity']

@@ -64,8 +64,8 @@ class EnableDisableProducts(Parameter):
 
     # 产品起停用状态 (1: 启用, 2: 禁用)
     status: str = Field(alias="batch_status")
-    # 领星本地产品ID列表 (Product.product_id)
-    product_ids: list
+    # 领星本地产品ID列表 (Product.lsku_id)
+    lsku_ids: list = Field(alias="product_ids")
 
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     @field_validator("status", mode="before")
@@ -77,24 +77,31 @@ class EnableDisableProducts(Parameter):
             return "Disable"
         raise ValueError("产品起停用 status 必须为 (0/Disable) 或 (1/Enable)")
 
-    @field_validator("product_ids", mode="before")
+    @field_validator("lsku_ids", mode="before")
     @classmethod
-    def _validate_product_ids(cls, v) -> list[int]:
-        return utils.validate_array_of_unsigned_int(v, "领星本地产品ID product_ids")
+    def _validate_lsku_ids(cls, v) -> list[int]:
+        return utils.validate_array_of_unsigned_int(v, "领星本地产品ID lsku_ids")
 
 
 # . Product Details
 class ProductDetails(Parameter):
     """产品详情查询参数"""
 
+    # 领星本地产品ID列表 (Product.lsku_id)
+    lsku_ids: Optional[list] = Field(None, alias="productIds")
     # 领星本地SKU列表 (Product.lsku)
     lskus: Optional[list] = Field(None, alias="skus")
     # 领星本地SKU识别码列表 (Product.sku_identifier)
     sku_identifiers: Optional[list] = Field(None, alias="sku_identifiers")
-    # 领星本地产品ID列表 (Product.product_id)
-    product_ids: Optional[list] = Field(None, alias="productIds")
 
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    @field_validator("lsku_ids", mode="before")
+    @classmethod
+    def _validate_lsku_ids(cls, v) -> list[int] | None:
+        if v is None:
+            return None
+        return utils.validate_array_of_unsigned_int(v, "领星本地产品ID lsku_ids")
+
     @field_validator("lskus", mode="before")
     @classmethod
     def _validate_lskus(cls, v) -> list[str] | None:
@@ -108,13 +115,6 @@ class ProductDetails(Parameter):
         if v is None:
             return None
         return utils.validate_array_of_str(v, "领星SKU识别码 sku_identifiers")
-
-    @field_validator("product_ids", mode="before")
-    @classmethod
-    def _validate_product_ids(cls, v) -> list[int] | None:
-        if v is None:
-            return None
-        return utils.validate_array_of_unsigned_int(v, "领星本地产品ID product_ids")
 
 
 # . Edit Product

@@ -64,12 +64,12 @@ class ProductAPI(BaseAPI):
             # 响应数据
             "data": [
                 {
+                    # 领星本地产品ID [原字段 'id']
+                    "lsku_id": 1,
                     # 领星本地SKU [原字段 'sku']
                     "lsku": "LOCAL********",
                     # 领星本地SKU识别码
                     "sku_identifier": "S/N1234567890",
-                    # 领星本地产品ID [原字段 'id']
-                    "product_id": 1,
                     # 领星本地产品名称
                     "product_name": "P*********",
                     # 领星本地产品分类ID [原字段 'cid']
@@ -113,8 +113,8 @@ class ProductAPI(BaseAPI):
                     # 供应商报价信息列表 [原字段 'supplier_quote']
                     "supplier_quotes": [
                         {
-                            # 领星本地产品ID
-                            "product_id": 4*****,
+                            # 领星本地产品ID [原字段 'product_id']
+                            "lsku_id": 4*****,
                             # 供应商ID
                             "supplier_id": 6***,
                             # 供应商名称
@@ -240,21 +240,21 @@ class ProductAPI(BaseAPI):
     async def ProductDetails(
         self,
         *,
+        lsku_ids: int | list[int] | None = None,
         lskus: str | list[str] | None = None,
         sku_identifiers: str | list[str] | None = None,
-        product_ids: int | list[int] | None = None,
     ) -> schema.ProductDetails:
         """批量查询领星本地产品详情
 
         ## Docs
         - 产品: [批量查询本地产品详情](https://apidoc.lingxing.com/#/docs/Product/batchGetProductInfo)
 
+        :param lsku_ids `<'int/list'>`: 领星本地产品ID或产品ID列表,
+            默认 `None` (三码选一必填), 参数来源 `Product.lsku_id`
         :param lskus `<'str/list'>`: 领星本地SKU或SKU列表,
             默认 `None` (三码选一必填), 参数来源 `Product.lsku`
         :param sku_identifiers `<'str/list'>`: 领星本地SKU识别码或识别码列表,
             默认 `None` (三码选一必填), 参数来源 `Product.sku_identifier`
-        :param product_ids `<'int/list'>`: 领星本地产品ID或产品ID列表,
-            默认 `None` (三码选一必填), 参数来源 `Product.product_id`
         :returns `<'ProductDetails'>`: 返回查询到的领星本地产品详情列表
         ```python
         {
@@ -275,12 +275,12 @@ class ProductAPI(BaseAPI):
             # 响应数据
             "data": [
                 {
+                    # 领星本地产品ID [原字段 'id']
+                    "lsku_id": 1,
                     # 领星本地SKU [原字段 'sku']
                     "lsku": "SKU********",
                     # 领星本地SKU识别码
                     "sku_identifier": "S/N1234567890",
-                    # 领星本地产品ID [原字段 'id']
-                    "product_id": 1,
                     # 领星本地产品名称
                     "product_name": "P*********",
                     # 领星本地产品分类ID [原字段 'cid']
@@ -298,10 +298,10 @@ class ProductAPI(BaseAPI):
                     # 组合产品所包含的单品列表 [原字段 'combo_product_list']
                     "bundle_items": [
                         {
+                            # 领星本地产品ID [原字段 'product_id']
+                            "lsku_id": 1,
                             # 领星本地SKU [原字段 'sku']
                             "lsku": "SKU********",
-                            # 领星本地产品ID
-                            "product_id": 1,
                             # 产品数量 [原字段 'quantity']
                             "product_qty": 100,
                         },
@@ -373,8 +373,8 @@ class ProductAPI(BaseAPI):
                     # 供应商报价信息列表 [原字段 'supplier_quote']
                     "supplier_quotes": [
                         {
-                            # 领星本地产品ID
-                            "product_id": 4*****,
+                            # 领星本地产品ID [原字段 'product_id']
+                            "lsku_id": 4*****,
                             # 供应商ID
                             "supplier_id": 6***,
                             # 供应商名称
@@ -550,9 +550,9 @@ class ProductAPI(BaseAPI):
         url = route.PRODUCT_DETAILS
         # 解析并验证参数
         args = {
+            "lsku_ids": lsku_ids,
             "lskus": lskus,
             "sku_identifiers": sku_identifiers,
-            "product_ids": product_ids,
         }
         try:
             p = param.ProductDetails.model_validate(args)
@@ -563,13 +563,13 @@ class ProductAPI(BaseAPI):
         data = await self._request_with_sign("POST", url, body=p.model_dump_params())
         return schema.ProductDetails.model_validate(data)
 
-    async def EnableProducts(self, *product_ids: int) -> base_schema.ResponseResult:
+    async def EnableProducts(self, *lsku_ids: int) -> base_schema.ResponseResult:
         """批量启用领星本地产品
 
         ## Docs
         - 产品: [产品启用、禁用](https://apidoc.lingxing.com/#/docs/Product/productOperateBatch)
 
-        :param *product_ids `<'int'>`: 领星本地产品ID, 参数来源 `Product.product_id`
+        :param *lsku_ids `<'int'>`: 领星本地产品ID, 参数来源 `Product.lsku_id`
         :returns `<'ResponseResult'>`: 返回启用产品结果
         ```python
         {
@@ -590,28 +590,26 @@ class ProductAPI(BaseAPI):
         """
         url = route.ENABLE_DISABLE_PRODUCTS
         # 解析并验证参数
+        args = {
+            "status": "Enable",
+            "lsku_ids": list(lsku_ids),
+        }
         try:
-            ids = utils.validate_array_of_unsigned_int(
-                product_ids, "领星本地产品ID product_ids"
-            )
+            p = param.EnableDisableProducts.model_validate(args)
         except Exception as err:
-            raise errors.InvalidParametersError(
-                err, url, {"product_ids": product_ids}
-            ) from err
+            raise errors.InvalidParametersError(err, url, args) from err
 
         # 发送请求
-        data = await self._request_with_sign(
-            "POST", url, body={"batch_status": "Enable", "product_ids": ids}
-        )
+        data = await self._request_with_sign("POST", url, body=p.model_dump_params())
         return base_schema.ResponseResult.model_validate(data)
 
-    async def DisableProducts(self, *product_ids: int) -> base_schema.ResponseResult:
+    async def DisableProducts(self, *lsku_ids: int) -> base_schema.ResponseResult:
         """批量禁用领星本地产品
 
         ## Docs
         - 产品: [产品启用、禁用](https://apidoc.lingxing.com/#/docs/Product/productOperateBatch)
 
-        :param *product_ids `<'int'>`: 领星本地产品ID, 参数来源 `Product.product_id`
+        :param *lsku_ids `<'int'>`: 领星本地产品ID, 参数来源 `Product.lsku_id`
         :returns `<'ResponseResult'>`: 返回禁用产品结果
         ```python
         {
@@ -632,19 +630,16 @@ class ProductAPI(BaseAPI):
         """
         url = route.ENABLE_DISABLE_PRODUCTS
         # 解析并验证参数
+        args = {
+            "status": "Disable",
+            "lsku_ids": list(lsku_ids),
+        }
         try:
-            ids = utils.validate_array_of_unsigned_int(
-                product_ids, "领星本地产品ID product_ids"
-            )
+            p = param.EnableDisableProducts.model_validate(args)
         except Exception as err:
-            raise errors.InvalidParametersError(
-                err, url, {"product_ids": product_ids}
-            ) from err
-
+            raise errors.InvalidParametersError(err, url, args) from err
         # 发送请求
-        data = await self._request_with_sign(
-            "POST", url, body={"batch_status": "Disable", "product_ids": ids}
-        )
+        data = await self._request_with_sign("POST", url, body=p.model_dump_params())
         return base_schema.ResponseResult.model_validate(data)
 
     async def EditProduct(
@@ -864,12 +859,12 @@ class ProductAPI(BaseAPI):
             "response_time": "2025-08-13 19:23:04",
             # 响应结果
             "data": {
+                # 领星本地产品ID [原字段 'product_id']
+                "lsku_id": 1,
                 # 领星本地产品SKU [原字段 'sku']
                 "lsku": "SKU*******",
                 # 领星本地产品SKU识别码
                 "sku_identifier": "SN*******",
-                # 领星本地产品ID
-                "product_id": 1,
             },
         }
         ```
@@ -1269,10 +1264,10 @@ class ProductAPI(BaseAPI):
                 # 标准产品列表 [原字段 'sku_list']
                 "items": [
                     {
+                        # 领星本地产品ID [原字段 'product_id']
+                        "lsku_id": 47****,
                         # 领星本地SKU [原字段 'sku']
                         "lsku": "SKU*******",
-                        # 领星本地产品ID
-                        "product_id": 47****,
                         # 领星本地产品名称
                         "product_name": "P*********",
                         # 产品图片链接 [原字段 'pic_url']
@@ -1280,6 +1275,8 @@ class ProductAPI(BaseAPI):
                         # 产品图片列表 [原字段 'pic_list']
                         "images": [
                             {
+                                # 领星本地产品ID [原字段 'product_id']
+                                "lsku_id": 47****,
                                 # 图片ID [原字段 'pp_id']
                                 "image_id": 21****************,
                                 # 图片名称 [原字段 'pic_name']
@@ -1296,8 +1293,6 @@ class ProductAPI(BaseAPI):
                                 "image_type": 1,
                                 # 是否为主图 (0: 否, 1: 是)
                                 "is_primary": 1,
-                                # 领星本地产品ID
-                                "product_id": 47****,
                             },
                             ...
                         ],
@@ -1481,10 +1476,10 @@ class ProductAPI(BaseAPI):
                 # 领星SPU多属性产品列表 [原字段 'sku_list']
                 "items": [
                     {
+                        # 领星本地产品ID [原字段 'product_id']
+                        "lsku_id": 47****,
                         # 领星本地SKU [原字段 'sku']
                         "lsku": "SKU*******",
-                        # 领星本地产品ID
-                        "product_id": 47****,
                     },
                     ...
                 ],
@@ -1566,10 +1561,10 @@ class ProductAPI(BaseAPI):
                     # 捆绑产品列表 [原字段 'bundled_products']
                     "items": [
                         {
+                            # 领星本地子产品ID [原字段 'productId']
+                            "lsku_id": 4*****,
                             # 子产品SKU [原字段 'sku']
                             "lsku": "SKU*******",
-                            # 领星本地子产品ID [原字段 'productId']
-                            "product_id": 4*****,
                             # 子产品捆绑数量 [原字段 'bundledQty']
                             "bundle_qty": 1,
                             # 子产品费用比例
@@ -1777,10 +1772,10 @@ class ProductAPI(BaseAPI):
                     # 辅料关联的产品列表 [原字段 'aux_relation_product']
                     "associates": [
                         {
+                            # 领星本地产品ID [原字段 'pid']
+                            "lsku_id": 4*****,
                             # 领星本地产品SKU [原字段 'sku']
                             "lsku": "SKU*******",
-                            # 领星本地产品ID [原字段 'pid']
-                            "product_id": 4*****,
                             # 领星本地产品名称
                             "product_name": "P*********",
                             # 产品关联辅料的数量 [原字段 'quantity']
@@ -1794,8 +1789,8 @@ class ProductAPI(BaseAPI):
                     # 供应商报价信息列表 [原字段 'supplier_quote']
                     "supplier_quotes": [
                         {
-                            # 领星本地产品ID
-                            "product_id": 4*****,
+                            # 领星本地产品ID [原字段 'product_id']
+                            "lsku_id": 4*****,
                             # 供应商ID
                             "supplier_id": 6***,
                             # 供应商名称
