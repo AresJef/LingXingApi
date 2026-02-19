@@ -571,6 +571,11 @@ class BaseAPI:
                 raise errors.InternalServerError(
                     "领星 API 服务器发生内部错误: 请求listing服务失败", url, data, code
                 )
+            # 非法请求?
+            if errno == 104:
+                raise errors.InternalServerError(
+                    "领星 API 服务器发生内部错误: 非法请求", url, data, code
+                )
             # 未知错误码
             raise errors.UnknownRequestError("未知的 api 错误", url, data, code)
 
