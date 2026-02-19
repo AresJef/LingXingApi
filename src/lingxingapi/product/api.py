@@ -1782,7 +1782,7 @@ class ProductAPI(BaseAPI):
                             "aux_qty": 0,
                             # 辅料配比数量 [原字段 'aux_qty']
                             "aux_ratio_qty": 1,
-                            # 产品配比数据 [原字段 'sku_qty']
+                            # 产品配比数量 [原字段 'sku_qty']
                             "sku_ratio_qty": 1,
                         }
                     ],
