@@ -48,6 +48,7 @@ class BaseAPI:
         ignore_internet_connection: bool,
         ignore_internet_connection_wait: int | float,
         ignore_internet_connection_retry: int,
+        max_tcp_connections: int,
     ) -> None:
         """领星 API 基础类, 提供公共方法和属性供子类继承使用
 
@@ -109,6 +110,8 @@ class BaseAPI:
 
         :param ignore_internet_connection_retry `<'int'>`: 忽略无法链接互联网错误时的最大重试次数,
             仅在 `ignore_internet_connection` 为 `True` 时生效, 若设置为 `-1` 则表示无限重试
+
+        :param max_tcp_connections `<'int'>`: HTTP 会话的最大 TCP 连接数, 用于控制并发请求的数量
         """
         # API 凭证
         self._app_id: str = app_id
@@ -116,6 +119,7 @@ class BaseAPI:
         self._app_cipher: EcbMode = app_cipher
         # HTTP 会话
         self._timeout: ClientTimeout = timeout
+        self._max_tcp_connections: int = max_tcp_connections
         # 错误处理
         # . 请求超时
         self._ignore_timeout: bool = ignore_timeout
@@ -267,7 +271,7 @@ class BaseAPI:
                     route.API_SERVER,
                     headers={"Content-Type": "application/json"},
                     timeout=self._timeout,
-                    connector=TCPConnector(limit=100),
+                    connector=TCPConnector(limit=self._max_tcp_connections),
                 )
             # 发送请求
             try:

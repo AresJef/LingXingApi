@@ -46,6 +46,7 @@ class API(BaseAPI):
         ignore_internet_connection: bool = False,
         ignore_internet_connection_wait: int | float = 1,
         ignore_internet_connection_retry: int = 10,
+        max_tcp_connections: int = 100,
     ) -> None:
         """初始化领星 API 客户端
 
@@ -102,6 +103,8 @@ class API(BaseAPI):
 
         :param ignore_internet_connection_retry `<'int'>`: 忽略无法链接互联网时的最大重试次数,
             默认为 `10`, 仅在 `ignore_internet_connection` 为 `True` 时生效, 若设置为 `-1` 则表示无限重试
+
+        :param max_tcp_connections `<'int'>`: HTTP 会话的最大 TCP 连接数, 用于控制并发请求的数量, 默认为 100
         """
         # 验证参数
         # . API 凭证
@@ -186,6 +189,12 @@ class API(BaseAPI):
                 % (ignore_internet_connection_retry,)
             )
         ignore_internet_connection_retry: int = ignore_internet_connection_retry
+        # . 最大 TCP 连接数
+        if not isinstance(max_tcp_connections, int) or max_tcp_connections < 0:
+            raise errors.ApiSettingsError(
+                "最大 TCP 连接数必须为非负整数, 而非 %r" % (max_tcp_connections,)
+            )
+        max_tcp_connections: int = max_tcp_connections
         # 初始化
         kwargs = {
             "app_id": app_id,
@@ -204,6 +213,7 @@ class API(BaseAPI):
             "ignore_internet_connection": ignore_internet_connection,
             "ignore_internet_connection_wait": ignore_internet_connection_wait,
             "ignore_internet_connection_retry": ignore_internet_connection_retry,
+            "max_tcp_connections": max_tcp_connections,
         }
         super().__init__(**kwargs)
         self._basic: BasicAPI = BasicAPI(**kwargs)
