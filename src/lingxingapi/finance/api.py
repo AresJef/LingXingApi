@@ -1717,7 +1717,7 @@ class FinanceAPI(BaseAPI):
                     "fba_overage_fees_alloc": 0.0,
                     # 支出 - FBA仓储续期费用 (分摊) [原字段 'sharedStorageRenewalBilling']
                     "fba_storage_renewal_fees_alloc": 0.0,
-                    # 支出 - FBA仓鼠销毁费用 (分摊) [原字段 'sharedFbaDisposalFee']
+                    # 支出 - FBA仓储销毁费用 (分摊) [原字段 'sharedFbaDisposalFee']
                     "fba_disposal_fees_alloc": -2.08,
                     # 支出 - FBA仓储销毁数量 [原字段 'disposalQuantity']
                     "fba_disposal_qty": 0,
@@ -2207,7 +2207,7 @@ class FinanceAPI(BaseAPI):
                     "fba_overage_fees_alloc": 0.0,
                     # 支出 - FBA仓储续期费用 (分摊) [原字段 'sharedStorageRenewalBilling']
                     "fba_storage_renewal_fees_alloc": 0.0,
-                    # 支出 - FBA仓鼠销毁费用 (分摊) [原字段 'sharedFbaDisposalFee']
+                    # 支出 - FBA仓储销毁费用 (分摊) [原字段 'sharedFbaDisposalFee']
                     "fba_disposal_fees_alloc": -2.08,
                     # 支出 - FBA仓储销毁数量 [原字段 'disposalQuantity']
                     "fba_disposal_qty": 0,
@@ -2797,7 +2797,7 @@ class FinanceAPI(BaseAPI):
                     "fba_overage_fees_alloc": 0.0,
                     # 支出 - FBA仓储续期费用 (分摊) [原字段 'sharedStorageRenewalBilling']
                     "fba_storage_renewal_fees_alloc": 0.0,
-                    # 支出 - FBA仓鼠销毁费用 (分摊) [原字段 'sharedFbaDisposalFee']
+                    # 支出 - FBA仓储销毁费用 (分摊) [原字段 'sharedFbaDisposalFee']
                     "fba_disposal_fees_alloc": -2.08,
                     # 支出 - FBA仓储销毁数量 [原字段 'disposalQuantity']
                     "fba_disposal_qty": 0,
