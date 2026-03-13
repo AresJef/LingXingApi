@@ -1759,8 +1759,8 @@ class SalesAPI(BaseAPI):
         self,
         *,
         sids: int | list[int] | None = None,
-        start_data: str | datetime.date | datetime.datetime | None = None,
-        end_data: str | datetime.date | datetime.datetime | None = None,
+        start_date: str | datetime.date | datetime.datetime | None = None,
+        end_date: str | datetime.date | datetime.datetime | None = None,
         date_type: int | None = None,
         offset: int = 0,
         length: int = 10,
@@ -1772,9 +1772,9 @@ class SalesAPI(BaseAPI):
 
         :param sids `<'int/list[int]'>`: 领星店铺ID或ID列表,
             默认 `None` (查询所有店铺), 参数来源: `Order.sid`
-        :param start_data `<'str/date/datetime'>`: 查询开始日期, 左闭右开,
+        :param start_date `<'str/date/datetime'>`: 查询开始日期, 左闭右开,
             默认 `None` (查询最近6个月)
-        :param end_data `<'str/date/datetime'>`: 查询结束日期, 左闭右开,
+        :param end_date `<'str/date/datetime'>`: 查询结束日期, 左闭右开,
             默认 `None` (查询最近6个月)
         :param date_type `<'int'>`: 查询日期类型, 默认 `None` (使用: 1)
 
@@ -1859,8 +1859,8 @@ class SalesAPI(BaseAPI):
         # 解析并验证参数
         args = {
             "sids": sids,
-            "start_data": start_data,
-            "end_data": end_data,
+            "start_date": start_date,
+            "end_date": end_date,
             "date_type": date_type,
             "offset": offset,
             "length": length,
@@ -2633,8 +2633,8 @@ class SalesAPI(BaseAPI):
         self,
         *,
         sids: int | list[int] | None = None,
-        start_data: str | datetime.date | datetime.datetime | None = None,
-        end_data: str | datetime.date | datetime.datetime | None = None,
+        start_date: str | datetime.date | datetime.datetime | None = None,
+        end_date: str | datetime.date | datetime.datetime | None = None,
         offset: int | None = None,
         length: int | None = None,
     ) -> schema.PromotionCoupons:
@@ -2645,8 +2645,8 @@ class SalesAPI(BaseAPI):
 
         :param sids `<'int/list[int]'>`: 领星店铺ID或ID列表,
             默认 `None` (查询所有店铺), 参数来源: `Seller.sid`
-        :param start_data `<'str/date/datetime'>`:促销开始日期, 默认 `None`
-        :param end_data `<'str/date/datetime'>`: 促销结束日期, 默认 `None`
+        :param start_date `<'str/date/datetime'>`:促销开始日期, 默认 `None`
+        :param end_date `<'str/date/datetime'>`: 促销结束日期, 默认 `None`
         :param offset `<'int'>`: 分页偏移量, 默认 `None` (使用: 0)
         :param length `<'int'>`: 分页长度, 最大值200, 默认 `None` (使用: 20)
         :returns `<'PromotionCoupons'>`: 返回查询到的促销列表
@@ -2714,8 +2714,8 @@ class SalesAPI(BaseAPI):
         # 解析并验证参数
         args = {
             "sids": sids,
-            "start_data": start_data,
-            "end_data": end_data,
+            "start_date": start_date,
+            "end_date": end_date,
             "offset": offset,
             "length": length,
         }
@@ -2732,8 +2732,8 @@ class SalesAPI(BaseAPI):
         self,
         *,
         sids: int | list[int] | None = None,
-        start_data: str | datetime.date | datetime.datetime | None = None,
-        end_data: str | datetime.date | datetime.datetime | None = None,
+        start_date: str | datetime.date | datetime.datetime | None = None,
+        end_date: str | datetime.date | datetime.datetime | None = None,
         offset: int | None = None,
         length: int | None = None,
     ) -> schema.PromotionDeals:
@@ -2744,8 +2744,8 @@ class SalesAPI(BaseAPI):
 
         :param sids `<'int/list[int]'>`: 领星店铺ID或ID列表,
             默认 `None` (查询所有店铺), 参数来源: `Seller.sid`
-        :param start_data `<'str/date/datetime'>`: 促销开始日期, 默认 `None`
-        :param end_data `<'str/date/datetime'>`: 促销结束日期, 默认 `None`
+        :param start_date `<'str/date/datetime'>`: 促销开始日期, 默认 `None`
+        :param end_date `<'str/date/datetime'>`: 促销结束日期, 默认 `None`
         :param offset `<'int'>`: 分页偏移量, 默认 `None` (使用: 0)
         :param length `<'int'>`: 分页长度, 最大值200, 默认 `None` (使用: 20)
         :returns `<'PromotionDeals'>`: 返回查询到的促销列表
@@ -2819,8 +2819,8 @@ class SalesAPI(BaseAPI):
         # 解析并验证参数
         args = {
             "sids": sids,
-            "start_data": start_data,
-            "end_data": end_data,
+            "start_date": start_date,
+            "end_date": end_date,
             "offset": offset,
             "length": length,
         }
@@ -2837,8 +2837,8 @@ class SalesAPI(BaseAPI):
         self,
         *,
         sids: int | list[int] | None = None,
-        start_data: str | datetime.date | datetime.datetime | None = None,
-        end_data: str | datetime.date | datetime.datetime | None = None,
+        start_date: str | datetime.date | datetime.datetime | None = None,
+        end_date: str | datetime.date | datetime.datetime | None = None,
         offset: int | None = None,
         length: int | None = None,
     ) -> schema.PromotionActivities:
@@ -2849,8 +2849,8 @@ class SalesAPI(BaseAPI):
 
         :param sids `<'int/list[int]'>`: 领星店铺ID或ID列表,
             默认 `None` (查询所有店铺), 参数来源: `Seller.sid`
-        :param start_data `<'str/date/datetime'>`: 促销开始日期, 默认 `None`
-        :param end_data `<'str/date/datetime'>`: 促销结束日期, 默认 `None`
+        :param start_date `<'str/date/datetime'>`: 促销开始日期, 默认 `None`
+        :param end_date `<'str/date/datetime'>`: 促销结束日期, 默认 `None`
         :param offset `<'int'>`: 分页偏移量, 默认 `None` (使用: 0)
         :param length `<'int'>`: 分页长度, 最大值200, 默认 `None` (使用: 20)
         :returns `<'PromotionActivities'>`: 返回查询到的促销列表
@@ -2926,8 +2926,8 @@ class SalesAPI(BaseAPI):
         # 解析并验证参数
         args = {
             "sids": sids,
-            "start_data": start_data,
-            "end_data": end_data,
+            "start_date": start_date,
+            "end_date": end_date,
             "offset": offset,
             "length": length,
         }
@@ -2944,8 +2944,8 @@ class SalesAPI(BaseAPI):
         self,
         *,
         sids: int | list[int] | None = None,
-        start_data: str | datetime.date | datetime.datetime | None = None,
-        end_data: str | datetime.date | datetime.datetime | None = None,
+        start_date: str | datetime.date | datetime.datetime | None = None,
+        end_date: str | datetime.date | datetime.datetime | None = None,
         offset: int | None = None,
         length: int | None = None,
     ) -> schema.PromotionDiscounts:
@@ -2956,8 +2956,8 @@ class SalesAPI(BaseAPI):
 
         :param sids `<'int/list[int]'>`: 领星店铺ID或ID列表,
             默认 `None` (查询所有店铺), 参数来源: `Seller.sid`
-        :param start_data `<'str/date/datetime'>`: 促销开始日期, 默认 `None`
-        :param end_data `<'str/date/datetime'>`: 促销结束日期, 默认 `None`
+        :param start_date `<'str/date/datetime'>`: 促销开始日期, 默认 `None`
+        :param end_date `<'str/date/datetime'>`: 促销结束日期, 默认 `None`
         :param offset `<'int'>`: 分页偏移量, 默认 `None` (使用: 0)
         :param length `<'int'>`: 分页长度, 最大值200, 默认 `None` (使用: 20)
         :returns `<'PromotionDiscounts'>`: 返回查询到的促销列表
@@ -3012,8 +3012,8 @@ class SalesAPI(BaseAPI):
         # 解析并验证参数
         args = {
             "sids": sids,
-            "start_data": start_data,
-            "end_data": end_data,
+            "start_date": start_date,
+            "end_date": end_date,
             "offset": offset,
             "length": length,
         }
@@ -3030,8 +3030,8 @@ class SalesAPI(BaseAPI):
         self,
         site_date: str | datetime.date | datetime.datetime,
         *,
-        start_data: str | datetime.date | datetime.datetime | None = None,
-        end_data: str | datetime.date | datetime.datetime | None = None,
+        start_date: str | datetime.date | datetime.datetime | None = None,
+        end_date: str | datetime.date | datetime.datetime | None = None,
         sids: int | list[int] | None = None,
         promotion_type: int | list[int] | None = None,
         promotion_status: int | list[int] | None = None,
@@ -3046,8 +3046,8 @@ class SalesAPI(BaseAPI):
         - 销售 - 促销管理: [查询商品折扣列表](https://apidoc.lingxing.com/#/docs/Sale/promotionListingList)
 
         :param site_date `<'str/date/datetime'>`: 站点日期, 必须是 str, date 或 datetime 类型
-        :param start_data `<'str/date/datetime'>`: 促销开始日期, 默认 `None`
-        :param end_data `<'str/date/datetime'>`: 促销结束日期, 默认 `None`
+        :param start_date `<'str/date/datetime'>`: 促销开始日期, 默认 `None`
+        :param end_date `<'str/date/datetime'>`: 促销结束日期, 默认 `None`
         :param sids `<'int/list[int]'>`: 领星店铺ID或ID列表,
             默认 `None` (查询所有店铺), 参数来源: `Seller.sid`
         :param promotion_type `<'int/list[int]'>`: 促销类型或类型列表, 默认 `None` (查询所有类型)
@@ -3180,8 +3180,8 @@ class SalesAPI(BaseAPI):
         # 解析并验证参数
         args = {
             "site_date": site_date,
-            "start_data": start_data,
-            "end_data": end_data,
+            "start_date": start_date,
+            "end_date": end_date,
             "sids": sids,
             "promotion_type": promotion_type,
             "promotion_status": promotion_status,
