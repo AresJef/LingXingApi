@@ -284,7 +284,7 @@ class BaseAPI:
                 ) as res:
                     # . 检查响应状态码
                     if res.status != 200:
-                        if res.status == 502:
+                        if res.status in (502, 504):
                             raise errors.InternalServerError("领星API服务器内部错误", url, res.reason, res.status)
                         raise errors.ServerError("领星API服务器响应错误", url, res.reason, res.status)
                     # . 解析并验证响应数据
