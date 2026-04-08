@@ -855,19 +855,19 @@ class McfOrderItem(BaseModel):
     """多渠道订单中的商品"""
 
     # 商品ASIN (Listing.asin)
-    asin: str
+    asin: str = Field(default="")
     # 亚马逊卖家SKU (Listing.msku)
     msku: str
     # 领星本地SKU (Listing.lsku) [原字段 'local_sku']
-    lsku: str = Field(validation_alias="local_sku")
+    lsku: str = Field(validation_alias="local_sku", default="")
     # 亚马逊FBA自生成的商品编号 (Listing.fnsku)
-    fnsku: str
+    fnsku: str = Field(default="")
     # 领星本地商品名称 (Listing.product_name) [原字段 'local_name']
-    product_name: str = Field(validation_alias="local_name")
+    product_name: str = Field(validation_alias="local_name", default="")
     # 商品标题 [原字段 'item_name']
-    title: str = Field(validation_alias="item_name")
+    title: str = Field(validation_alias="item_name", default="")
     # 商品略缩图链接 [原字段 'small_image_url']
-    thumbnail_url: str = Field(validation_alias="small_image_url")
+    thumbnail_url: str = Field(validation_alias="small_image_url", default="")
     # 订单商品总数量 [原字段 'quantity']
     order_qty: int = Field(validation_alias="quantity")
 
