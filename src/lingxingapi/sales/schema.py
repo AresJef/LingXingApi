@@ -878,7 +878,7 @@ class McfOrder(BaseModel):
     # 领星店铺ID (Seller.sid)
     sid: int
     # 领星店铺名称 (Seller.name) [原字段 'store_name']
-    seller_name: str = Field(validation_alias="store_name")
+    seller_name: StrOrNone2Blank = Field(validation_alias="store_name")
     # 订单国家 (中文)
     country: str
     # 多渠道亚马逊订单ID
@@ -943,7 +943,7 @@ class McfOrderDetail(BaseModel):
     # 领星店铺ID (Seller.sid)
     sid: int
     # 领星店铺名称 (Seller.name) [原字段 'store_name']
-    seller_name: str = Field(validation_alias="store_name")
+    seller_name: StrOrNone2Blank = Field(validation_alias="store_name")
     # 多渠道亚马逊订单ID
     amazon_order_id: str
     # 多渠道订单配送ID [原字段 'seller_fulfillment_order_id']
