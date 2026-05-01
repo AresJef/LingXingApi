@@ -1010,16 +1010,16 @@ class ProductAPI(BaseAPI):
 
     async def SpuProductDetail(
         self,
-        spu_id: int,
-        spu: str,
+        spu_id: int | None = None,
+        spu: str | None = None,
     ) -> schema.SpuProductDetailData:
         """查询SPU多属性产品详情
 
         ## Docs
         - 产品: [查询多属性产品详情](https://apidoc.lingxing.com/#/docs/Product/spuInfo)
 
-        :param spu_id `<'int'>`: 领星SPU多属性产品ID, 参数来源 `SpuProduct.spu_id`
-        :param spu `<'str'>`: 领星SPU多属性产品编码, 参数来源 `SpuProduct.spu`
+        :param spu_id `<'int'>`: 领星SPU多属性产品ID, 参数来源 `SpuProduct.spu_id`, 与 `spu` 参数至少传入一个, 默认 `None`
+        :param spu `<'str'>`: 领星SPU多属性产品编码, 参数来源 `SpuProduct.spu`, 与 `spu_id` 参数至少传入一个, 默认 `None`
         :returns `<'SpuProductDetailData'>`: 返回查询到的SPU多属性产品详情
         ```python
         {
@@ -1335,6 +1335,10 @@ class ProductAPI(BaseAPI):
             p = param.SpuProductDetail.model_validate(args)
         except Exception as err:
             raise errors.InvalidParametersError(err, url, args) from err
+        if p.spu_id is None and p.spu is None:
+            raise errors.InvalidParametersError(
+                "'spu_id' 和 'spu' 参数需要至少传入其中一个", url, args
+            )
 
         # 发送请求
         data = await self._request_with_sign("POST", url, body=p.model_dump_params())

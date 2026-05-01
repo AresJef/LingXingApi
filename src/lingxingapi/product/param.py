@@ -413,9 +413,9 @@ class SpuProductDetail(Parameter):
     """SPU产品详情查询参数"""
 
     # 领星SPU多属性产品ID (SpuProduct.spu_id)
-    spu_id: NonNegativeInt = Field(alias="ps_id")
+    spu_id: Optional[NonNegativeInt] = Field(None, alias="ps_id")
     # 领星SPU多属性产品编码
-    spu: NonEmptyStr
+    spu: Optional[NonEmptyStr] = None
 
 
 # . Edit Spu Product
