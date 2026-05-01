@@ -39,7 +39,7 @@ async def test(self, app_id: str, app_secret: str) -> None:
 
 ### Acknowledgements
 
-MysqlEngine is based on several open-source repositories.
+LingXingApi is based on several open-source repositories.
 
 - [aiohttp](https://github.com/aio-libs/aiohttp)
 - [cytimes](https://github.com/AresJef/cyTimes)
