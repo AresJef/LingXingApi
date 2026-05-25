@@ -2652,7 +2652,7 @@ class AdsAPI(BaseAPI):
         offset: int | None = None,
         length: int | None = None,
     ) -> schema.SpProductReports:
-        """查询 SP 商品投放报告
+        """查询 SP 广告报告
 
         ## Docs
         - 新广告 - 报告: [SP广告商品报表](https://apidoc.lingxing.com/#/docs/newAd/report/spProductAdReports)
@@ -2664,7 +2664,7 @@ class AdsAPI(BaseAPI):
             第一分页无需填写, 当 next_token 和 offset 同时传入时以 next_token 为主, 默认 `None`
         :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
         :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
-        :returns `<'SpProductReports'>`: 返回查询到的 SP 商品投放报告结果
+        :returns `<'SpProductReports'>`: 返回查询到的 SP 广告报告结果
         ```python
         {
             # 状态码
@@ -3056,6 +3056,113 @@ class AdsAPI(BaseAPI):
         data = await self._request_with_sign("POST", url, body=p.model_dump_params())
         return schema.SpKeywordHourData.model_validate(data)
 
+    async def SpQueryKeywordReports(
+        self,
+        report_date: str | datetime.date | datetime.datetime,
+        sid: int,
+        profile_id: int,
+        *,
+        next_token: str | None = None,
+        offset: int | None = None,
+        length: int | None = None,
+    ) -> schema.SpQueryKeywordReports:
+        """查询 SP 关键词的用户搜索词报告
+
+        ## Docs
+        - 新广告 - 报告: [SP用户搜索词报表(keyword)](https://apidoc.lingxing.com/#/docs/newAd/report/queryWordReports)
+
+        :param report_date `<'str/date/datetime'>`: 报告日期
+        :param sid `<'int'>`: 领星店铺ID
+        :param profile_id `<'int'>`: 亚马逊店铺ID (广告帐号ID), 参数来源 `AdsProfiles.profile_id`
+        :param next_token `<'str/None'>`: 分页游标, 上次分页结果中的 `next_token`,
+            第一分页无需填写, 当 next_token 和 offset 同时传入时以 next_token 为主, 默认 `None`
+        :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
+        :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
+        :returns `<'SpQueryKeywordReports'>`: 返回查询到的 SP 关键词的用户搜索词报告结果
+        ```python
+        {
+            # 状态码
+            "code": 0,
+            # 提示信息
+            "message": "success",
+            # 错误信息
+            "errors": [],
+            # 请求ID
+            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
+            # 响应时间
+            "response_time": "2025-08-13 19:23:04",
+            # 响应数据量
+            "response_count": 2,
+            # 总数据量
+            "total_count": 2,
+            # 响应数据
+            "data": [
+                {
+                    # 亚马逊店铺ID (广告帐号ID)
+                    "profile_id": 494************,
+                    # 广告活动ID
+                    "campaign_id": 336************,
+                    # 广告组ID
+                    "ad_group_id": 351************,
+                    # 用户使用搜索词 [原字段 'query']
+                    "query_text": "canon pixma ts3120 color ink cartridges",
+                    # 广告花费
+                    "cost": 2.55,
+                    # 总展示次数
+                    "impressions": 2,
+                    # 总点击次数
+                    "clicks": 1,
+                    # 广告订单数
+                    "orders": 1,
+                    # 直接广告订单数 [原字段 'same_orders']
+                    "direct_orders": 1,
+                    # 广告成交商品件数
+                    "units": 1,
+                    # 直接广告成交商品件数 [原字段 'same_units']
+                    "direct_units": 1,
+                    # 广告销售额
+                    "sales": 29.88,
+                    # 直接广告销售额 [原字段 'same_sales']
+                    "direct_sales": 29.88,
+                    # 报告日期
+                    "report_date": "2025-08-23",
+                    # 关键词ID [原字段 'target_id']
+                    "keyword_id": 508************,
+                    # 关键词文本 [原字段 'target_text']
+                    "keyword_text": "canon ts3120 ink cartridges",
+                    # 关键词匹配类型
+                    "match_type": "BROAD",
+                },
+                ...
+            ],
+            # 分页游标
+            "next_token": "MjgxNTExNTQ0MTc4ODM1",
+        }
+        ```
+        """
+        url = route.SP_QUERY_WORD_REPORTS
+        # 解析并验证参数
+        args = {
+            "report_date": report_date,
+            "sid": sid,
+            "profile_id": profile_id,
+            "show_detail": 0,
+            "target_type": "keyword",
+            "next_token": next_token,
+            "offset": offset,
+            "length": length,
+        }
+        try:
+            p = param.SpQueryReports.model_validate(args)
+        except Exception as err:
+            raise errors.InvalidParametersError(err, url, args) from err
+
+        # 发送请求
+        data = await self._request_with_sign(
+            "POST", url, body=p.model_dump_params(), headers={"X-API-VERSION": "2"}
+        )
+        return schema.SpQueryKeywordReports.model_validate(data)
+
     async def SpTargetReports(
         self,
         report_date: str | datetime.date | datetime.datetime,
@@ -3066,7 +3173,7 @@ class AdsAPI(BaseAPI):
         offset: int | None = None,
         length: int | None = None,
     ) -> schema.SpTargetReports:
-        """查询 SP 目标商品投放报告
+        """查询 SP 商品投放报告
 
         ## Docs
         - 新广告 - 报告: [SP商品定位报表](https://apidoc.lingxing.com/#/docs/newAd/report/spTargetReports)
@@ -3078,7 +3185,7 @@ class AdsAPI(BaseAPI):
             第一分页无需填写, 当 next_token 和 offset 同时传入时以 next_token 为主, 默认 `None`
         :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
         :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
-        :returns `<'SpTargetReports'>`: 返回查询到的 SP 目标商品投放报告结果
+        :returns `<'SpTargetReports'>`: 返回查询到的 SP 商品投放报告结果
         ```python
         {
             # 状态码
@@ -3165,14 +3272,14 @@ class AdsAPI(BaseAPI):
         report_date: str | datetime.date | datetime.datetime,
         campaign_id: int,
     ) -> schema.SpTargetHourData:
-        """查询 SP 目标商品投放小时数据
+        """查询 SP 商品投放小时数据
 
         ## Docs
         - 新广告 - 报告: [SP投放小时数据(both_ad_target)](https://apidoc.lingxing.com/#/docs/newAd/report/spTargetHourData)
 
         :param report_date `<'str/date/datetime'>`: 报告日期
         :param campaign_id `<'int'>`: 广告活动ID, 参数来源 `SpCampaign.campaign_id`
-        :returns `<'SpTargetHourData'>`: 返回查询到的 SP 目标商品投放小时数据结果
+        :returns `<'SpTargetHourData'>`: 返回查询到的 SP 商品投放小时数据结果
         ```python
         {
             # 状态码
@@ -3266,7 +3373,7 @@ class AdsAPI(BaseAPI):
         data = await self._request_with_sign("POST", url, body=p.model_dump_params())
         return schema.SpTargetHourData.model_validate(data)
 
-    async def SpQueryWordReports(
+    async def SpQueryTargetReports(
         self,
         report_date: str | datetime.date | datetime.datetime,
         sid: int,
@@ -3275,11 +3382,11 @@ class AdsAPI(BaseAPI):
         next_token: str | None = None,
         offset: int | None = None,
         length: int | None = None,
-    ) -> schema.SpQueryWordReports:
-        """查询 SP 用户搜索词报告
+    ) -> schema.SpQueryTargetReports:
+        """查询 SP 商品投放的用户搜索词报告
 
         ## Docs
-        - 新广告 - 报告: [SP用户搜索词报表](https://apidoc.lingxing.com/#/docs/newAd/report/queryWordReports)
+        - 新广告 - 报告: [SP用户搜索词报表(target)](https://apidoc.lingxing.com/#/docs/newAd/report/queryWordReports)
 
         :param report_date `<'str/date/datetime'>`: 报告日期
         :param sid `<'int'>`: 领星店铺ID
@@ -3288,7 +3395,7 @@ class AdsAPI(BaseAPI):
             第一分页无需填写, 当 next_token 和 offset 同时传入时以 next_token 为主, 默认 `None`
         :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
         :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
-        :returns `<'SpQueryWordReports'>`: 返回查询到的 SP 用户搜索词报告结果
+        :returns `<'SpQueryTargetReports'>`: 返回查询到的 SP 商品投放的用户搜索词报告结果
         ```python
         {
             # 状态码
@@ -3314,14 +3421,8 @@ class AdsAPI(BaseAPI):
                     "campaign_id": 336************,
                     # 广告组ID
                     "ad_group_id": 351************,
-                    # 关键词ID [原字段 'target_id']
-                    "keyword_id": 508************,
-                    # 关键词文本 [原字段 'target_text']
-                    "keyword_text": "canon ts3120 ink cartridges",
                     # 用户使用搜索词 [原字段 'query']
                     "query_text": "canon pixma ts3120 color ink cartridges",
-                    # 关键词匹配类型
-                    "match_type": "BROAD",
                     # 广告花费
                     "cost": 2.55,
                     # 总展示次数
@@ -3342,6 +3443,12 @@ class AdsAPI(BaseAPI):
                     "direct_sales": 29.88,
                     # 报告日期
                     "report_date": "2025-08-23",
+                    # 目标商品投放ID
+                    "target_id": 529************,
+                    # 目标定位表达式 (JSON 字符串) [原字段 'target_text']
+                    "expression": '"[{\\"type\\": \\"asinSameAs\\", \\"value\\": \\"B06*******\\"}]"',
+                    # 目标商品匹配类型
+                    "match_type": "",
                 },
                 ...
             ],
@@ -3357,12 +3464,13 @@ class AdsAPI(BaseAPI):
             "sid": sid,
             "profile_id": profile_id,
             "show_detail": 0,
+            "target_type": "target",
             "next_token": next_token,
             "offset": offset,
             "length": length,
         }
         try:
-            p = param.AdReports.model_validate(args)
+            p = param.SpQueryReports.model_validate(args)
         except Exception as err:
             raise errors.InvalidParametersError(err, url, args) from err
 
@@ -3370,7 +3478,7 @@ class AdsAPI(BaseAPI):
         data = await self._request_with_sign(
             "POST", url, body=p.model_dump_params(), headers={"X-API-VERSION": "2"}
         )
-        return schema.SpQueryWordReports.model_validate(data)
+        return schema.SpQueryTargetReports.model_validate(data)
 
     # . 报告 - Sponsored Brands
     async def SbCampaignReports(

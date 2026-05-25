@@ -91,7 +91,15 @@ class AdHourData(Parameter):
         return "%04d-%02d-%02d" % (dt.year, dt.month, dt.day)
 
 
+# . SP Query Reports
+class SpQueryReports(AdReports):
+    """查询 SP 用户搜索词报告参数"""
+
+    target_type: NonEmptyStr
+
+
 # . SB Target Reports
+# TODO
 class SbTargetingReports(AdReports):
     """查询 SB 广告投放目标报告参数"""
 
@@ -107,6 +115,7 @@ class SbTargetingReports(AdReports):
         return "producttarget" if v == "product" else v
 
 
+# TODO
 # . SB Query Word Reports
 class SbQueryWordReports(AdReports):
     """查询 SB 用户搜索词报告参数"""

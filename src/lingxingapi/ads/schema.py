@@ -1296,8 +1296,8 @@ class SpTargetHourData(ResponseV1):
 
 
 # . SP Query Word Reports
-class SpQueryWordReport(BaseModel):
-    """SP 用户搜索词报告"""
+class SpQueryBaseReport(BaseModel):
+    """SP 用户搜索词基础报告"""
 
     # 亚马逊店铺ID (广告帐号ID)
     profile_id: int
@@ -1305,14 +1305,8 @@ class SpQueryWordReport(BaseModel):
     campaign_id: int
     # 广告组ID
     ad_group_id: IntOrNone2Zero
-    # 关键词ID [原字段 'target_id']
-    keyword_id: int = Field(validation_alias="target_id")
-    # 关键词文本 [原字段 'target_text']
-    keyword_text: StrOrNone2Blank = Field(validation_alias="target_text")
     # 用户使用搜索词 [原字段 'query']
     query_text: str = Field(validation_alias="query")
-    # 关键词匹配类型
-    match_type: StrOrNone2Blank
     # 广告花费
     cost: float
     # 总展示次数
@@ -1335,10 +1329,39 @@ class SpQueryWordReport(BaseModel):
     report_date: str
 
 
-class SpQueryWordReports(ResponseV1Token):
+class SpQueryKeywordReport(SpQueryBaseReport):
+    """SP 关键词用户搜索词报告"""
+
+    # 关键词ID [原字段 'target_id']
+    keyword_id: int = Field(validation_alias="target_id")
+    # 关键词文本 [原字段 'target_text']
+    keyword_text: StrOrNone2Blank = Field(validation_alias="target_text")
+    # 关键词匹配类型
+    match_type: StrOrNone2Blank
+
+
+class SpQueryKeywordReports(ResponseV1Token):
     """SP 用户搜索词报告列表"""
 
-    data: list[SpQueryWordReport]
+    data: list[SpQueryKeywordReport]
+
+
+# . SP Query Target Reports
+class SpQueryTargetReport(SpQueryBaseReport):
+    """SP 商品投放用户搜索词报告"""
+
+    # 目标商品投放ID
+    target_id: int
+    # 目标定位表达式 (JSON 字符串) [原字段 'target_text']
+    expression: StrOrNone2Blank = Field(validation_alias="target_text")
+    # 目标商品匹配类型
+    match_type: StrOrNone2Blank
+
+
+class SpQueryTargetReports(ResponseV1Token):
+    """SP 商品投放用户搜索词报告列表"""
+
+    data: list[SpQueryTargetReport]
 
 
 # 报告 - Sponsored Brands - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
