@@ -1329,7 +1329,7 @@ class SpQueryBaseReport(BaseModel):
     report_date: str
 
 
-class SpQueryKeywordReport(SpQueryBaseReport):
+class SpKeywordQueryReport(SpQueryBaseReport):
     """SP 关键词的用户搜索词报告"""
 
     # 关键词ID [原字段 'target_id']
@@ -1340,14 +1340,14 @@ class SpQueryKeywordReport(SpQueryBaseReport):
     match_type: StrOrNone2Blank
 
 
-class SpQueryKeywordReports(ResponseV1Token):
+class SpKeywordQueryReports(ResponseV1Token):
     """SP 关键词的用户搜索词报告列表"""
 
-    data: list[SpQueryKeywordReport]
+    data: list[SpKeywordQueryReport]
 
 
 # . SP Query Target Reports
-class SpQueryTargetReport(SpQueryBaseReport):
+class SpTargetQueryReport(SpQueryBaseReport):
     """SP 商品投放的用户搜索词报告"""
 
     # 目标商品投放ID
@@ -1358,10 +1358,10 @@ class SpQueryTargetReport(SpQueryBaseReport):
     match_type: StrOrNone2Blank
 
 
-class SpQueryTargetReports(ResponseV1Token):
+class SpTargetQueryReports(ResponseV1Token):
     """SP 商品投放的用户搜索词报告列表"""
 
-    data: list[SpQueryTargetReport]
+    data: list[SpTargetQueryReport]
 
 
 # 报告 - Sponsored Brands - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -1936,7 +1936,7 @@ class SbTargetingHourData(ResponseV1):
 
 
 # . SB Query Keyword Reports
-class SbQueryKeywordReport(BaseModel):
+class SbKeywordQueryReport(BaseModel):
     """SB 关键词的用户搜索词报告"""
 
     # fmt: off
@@ -1983,10 +1983,10 @@ class SbQueryKeywordReport(BaseModel):
     # fmt: on
 
 
-class SbQueryKeywordReports(ResponseV1Token):
+class SbKeywordQueryReports(ResponseV1Token):
     """SB 关键词的用户搜索词报告列表"""
 
-    data: list[SbQueryKeywordReport]
+    data: list[SbKeywordQueryReport]
 
 
 # . SB ASIN Attribution Reports

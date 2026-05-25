@@ -33,7 +33,7 @@ class SpNegativeTargeting(AdEntities):
     """查询 SP 否定投放参数"""
 
     # 否定投放类型 ("keyword", "target")
-    targeting_type: NonEmptyStr = Field(alias="target_type")
+    target_type: NonEmptyStr
     # 广告活动ID
     campaign_id: Optional[NonNegativeInt] = None
 
@@ -45,12 +45,12 @@ class SbTargeting(AdEntities):
     # SB广告类型 ('SB', 'SBV', 'ALL')
     ad_type: NonEmptyStr = Field(alias="ads_type")
     # 投放目标类型 ('keyword', 'product', 'ALL')
-    targeting_type: NonEmptyStr
+    target_type: NonEmptyStr = Field(alias="targeting_type")
 
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    @field_validator("targeting_type", mode="before")
+    @field_validator("target_type", mode="before")
     @classmethod
-    def _validate_targeting_type(cls, v: str) -> str:
+    def _validate_target_type(cls, v: str) -> str:
         return "producttarget" if v == "product" else v
 
 
@@ -106,12 +106,12 @@ class SbTargetingReports(AdReports):
     # SB广告类型 ('SB', 'SBV', 'ALL' - 当前只支持'ALL')
     ad_type: NonEmptyStr = Field(alias="sponsored_type")
     # 投放目标类型 ('keyword', 'product', 'ALL')
-    targeting_type: NonEmptyStr = Field(alias="target_type")
+    target_type: NonEmptyStr
 
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    @field_validator("targeting_type", mode="before")
+    @field_validator("target_type", mode="before")
     @classmethod
-    def _validate_targeting_type(cls, v: str) -> str:
+    def _validate_target_type(cls, v: str) -> str:
         return "producttarget" if v == "product" else v
 
 
@@ -120,7 +120,7 @@ class SbQueryReports(AdReports):
     """查询 SB 用户搜索词报告参数"""
 
     # 投放目标类型 ('keyword', 'product' - 当前只支持'keyword')
-    targeting_type: NonEmptyStr = Field(alias="target_type")
+    target_type: NonEmptyStr
 
 
 # . DSP Reports

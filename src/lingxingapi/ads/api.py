@@ -778,7 +778,7 @@ class AdsAPI(BaseAPI):
         args = {
             "sid": sid,
             "profile_id": profile_id,
-            "targeting_type": "keyword",
+            "target_type": "keyword",
             "champaign_id": champaign_id,
             "next_token": next_token,
             "offset": offset,
@@ -870,7 +870,7 @@ class AdsAPI(BaseAPI):
         args = {
             "sid": sid,
             "profile_id": profile_id,
-            "targeting_type": "target",
+            "target_type": "target",
             "champaign_id": champaign_id,
             "next_token": next_token,
             "offset": offset,
@@ -1259,7 +1259,7 @@ class AdsAPI(BaseAPI):
             "sid": sid,
             "profile_id": profile_id,
             "ad_type": ad_type,
-            "targeting_type": "keyword",
+            "target_type": "keyword",
             "next_token": next_token,
             "offset": offset,
             "length": length,
@@ -1357,7 +1357,7 @@ class AdsAPI(BaseAPI):
             "sid": sid,
             "profile_id": profile_id,
             "ad_type": ad_type,
-            "targeting_type": "product",
+            "target_type": "product",
             "next_token": next_token,
             "offset": offset,
             "length": length,
@@ -3056,7 +3056,7 @@ class AdsAPI(BaseAPI):
         data = await self._request_with_sign("POST", url, body=p.model_dump_params())
         return schema.SpKeywordHourData.model_validate(data)
 
-    async def SpQueryKeywordReports(
+    async def SpKeywordQueryReports(
         self,
         report_date: str | datetime.date | datetime.datetime,
         sid: int,
@@ -3065,7 +3065,7 @@ class AdsAPI(BaseAPI):
         next_token: str | None = None,
         offset: int | None = None,
         length: int | None = None,
-    ) -> schema.SpQueryKeywordReports:
+    ) -> schema.SpKeywordQueryReports:
         """查询 SP 关键词的用户搜索词报告
 
         ## Docs
@@ -3078,7 +3078,7 @@ class AdsAPI(BaseAPI):
             第一分页无需填写, 当 next_token 和 offset 同时传入时以 next_token 为主, 默认 `None`
         :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
         :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
-        :returns `<'SpQueryKeywordReports'>`: 返回查询到的 SP 关键词的用户搜索词报告结果
+        :returns `<'SpKeywordQueryReports'>`: 返回查询到的 SP 关键词的用户搜索词报告结果
         ```python
         {
             # 状态码
@@ -3140,7 +3140,7 @@ class AdsAPI(BaseAPI):
         }
         ```
         """
-        url = route.SP_QUERY_WORD_REPORTS
+        url = route.SP_QUERY_REPORTS
         # 解析并验证参数
         args = {
             "report_date": report_date,
@@ -3161,7 +3161,7 @@ class AdsAPI(BaseAPI):
         data = await self._request_with_sign(
             "POST", url, body=p.model_dump_params(), headers={"X-API-VERSION": "2"}
         )
-        return schema.SpQueryKeywordReports.model_validate(data)
+        return schema.SpKeywordQueryReports.model_validate(data)
 
     async def SpTargetReports(
         self,
@@ -3373,7 +3373,7 @@ class AdsAPI(BaseAPI):
         data = await self._request_with_sign("POST", url, body=p.model_dump_params())
         return schema.SpTargetHourData.model_validate(data)
 
-    async def SpQueryTargetReports(
+    async def SpTargetQueryReports(
         self,
         report_date: str | datetime.date | datetime.datetime,
         sid: int,
@@ -3382,7 +3382,7 @@ class AdsAPI(BaseAPI):
         next_token: str | None = None,
         offset: int | None = None,
         length: int | None = None,
-    ) -> schema.SpQueryTargetReports:
+    ) -> schema.SpTargetQueryReports:
         """查询 SP 商品投放的用户搜索词报告
 
         ## Docs
@@ -3395,7 +3395,7 @@ class AdsAPI(BaseAPI):
             第一分页无需填写, 当 next_token 和 offset 同时传入时以 next_token 为主, 默认 `None`
         :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
         :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
-        :returns `<'SpQueryTargetReports'>`: 返回查询到的 SP 商品投放的用户搜索词报告结果
+        :returns `<'SpTargetQueryReports'>`: 返回查询到的 SP 商品投放的用户搜索词报告结果
         ```python
         {
             # 状态码
@@ -3457,7 +3457,7 @@ class AdsAPI(BaseAPI):
         }
         ```
         """
-        url = route.SP_QUERY_WORD_REPORTS
+        url = route.SP_QUERY_REPORTS
         # 解析并验证参数
         args = {
             "report_date": report_date,
@@ -3478,7 +3478,7 @@ class AdsAPI(BaseAPI):
         data = await self._request_with_sign(
             "POST", url, body=p.model_dump_params(), headers={"X-API-VERSION": "2"}
         )
-        return schema.SpQueryTargetReports.model_validate(data)
+        return schema.SpTargetQueryReports.model_validate(data)
 
     # . 报告 - Sponsored Brands
     async def SbCampaignReports(
@@ -4318,7 +4318,7 @@ class AdsAPI(BaseAPI):
             "sid": sid,
             "profile_id": profile_id,
             "ad_type": "ALL",
-            "targeting_type": "keyword",
+            "target_type": "keyword",
             "show_detail": 0,
             "next_token": next_token,
             "offset": offset,
@@ -4335,7 +4335,7 @@ class AdsAPI(BaseAPI):
         )
         return schema.SbKeywordReports.model_validate(data)
 
-    async def SbQueryKeywordReports(
+    async def SbKeywordQueryReports(
         self,
         report_date: str | datetime.date | datetime.datetime,
         sid: int,
@@ -4344,8 +4344,8 @@ class AdsAPI(BaseAPI):
         next_token: str | None = None,
         offset: int | None = None,
         length: int | None = None,
-    ) -> schema.SbQueryKeywordReports:
-        """查询 SB 用户搜索词报告
+    ) -> schema.SbKeywordQueryReports:
+        """查询 SB 关键词的用户搜索词报告
 
         ## Docs
         - 新广告 - 报告: [SB用户搜索词报表](https://apidoc.lingxing.com/#/docs/newAd/report/hsaQueryWordReports)
@@ -4357,7 +4357,7 @@ class AdsAPI(BaseAPI):
             第一分页无需填写, 当 next_token 和 offset 同时传入时以 next_token 为主, 默认 `None`
         :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
         :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
-        :returns `<'SbQueryKeywordReports'>`: 返回查询到的 SB 用户搜索词报告结果
+        :returns `<'SbKeywordQueryReports'>`: 返回查询到的 SB 关键词的用户搜索词报告结果
         ```python
         {
             # 状态码
@@ -4425,13 +4425,13 @@ class AdsAPI(BaseAPI):
         }
         ```
         """
-        url = route.SB_QUERY_WORD_REPORTS
+        url = route.SB_QUERY_REPORTS
         # 解析并验证参数
         args = {
             "report_date": report_date,
             "sid": sid,
             "profile_id": profile_id,
-            "targeting_type": "keyword",
+            "target_type": "keyword",
             "show_detail": 0,
             "next_token": next_token,
             "offset": offset,
@@ -4446,7 +4446,7 @@ class AdsAPI(BaseAPI):
         data = await self._request_with_sign(
             "POST", url, body=p.model_dump_params(), headers={"X-API-VERSION": "2"}
         )
-        return schema.SbQueryKeywordReports.model_validate(data)
+        return schema.SbKeywordQueryReports.model_validate(data)
 
     async def SbTargetReports(
         self,
@@ -4458,7 +4458,7 @@ class AdsAPI(BaseAPI):
         offset: int | None = None,
         length: int | None = None,
     ) -> schema.SbTargetReports:
-        """查询 SB 目标商品投放报告
+        """查询 SB 商品投放报告
 
         ## Docs
         - 新广告 - 报告: [SB广告的投放报告(product)](https://apidoc.lingxing.com/#/docs/newAd/report/listHsaTargetingReport)
@@ -4470,7 +4470,7 @@ class AdsAPI(BaseAPI):
             第一分页无需填写, 当 next_token 和 offset 同时传入时以 next_token 为主, 默认 `None`
         :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
         :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
-        :returns `<'SbTargetReports'>`: 返回查询到的 SB 目标商品投放报告结果
+        :returns `<'SbTargetReports'>`: 返回查询到的 SB 商品投放报告结果
         ```python
         {
             # 状态码
@@ -4547,7 +4547,7 @@ class AdsAPI(BaseAPI):
             "sid": sid,
             "profile_id": profile_id,
             "ad_type": "ALL",
-            "targeting_type": "product",
+            "target_type": "product",
             "show_detail": 0,
             "next_token": next_token,
             "offset": offset,
@@ -4569,14 +4569,14 @@ class AdsAPI(BaseAPI):
         report_date: str | datetime.date | datetime.datetime,
         campaign_id: int,
     ) -> schema.SbTargetingHourData:
-        """查询 SB 目标关键词或商品投放小时数据
+        """查询 SB 关键词或商品投放小时数据
 
         ## Docs
         - 新广告 - 报告: [SB投放小时数据](https://apidoc.lingxing.com/#/docs/newAd/report/sbTargetHourData)
 
         :param report_date `<'str/date/datetime'>`: 报告日期
         :param campaign_id `<'int'>`: 广告活动ID, 参数来源 `SbCampaign.campaign_id`
-        :returns `<'SbTargetingHourData'>`: 返回查询到的 SB 目标关键词或商品投放小时数据结果
+        :returns `<'SbTargetingHourData'>`: 返回查询到的 SB 关键词或商品投放小时数据结果
         ```python
         {
             # 状态码
@@ -5467,7 +5467,7 @@ class AdsAPI(BaseAPI):
         offset: int | None = None,
         length: int | None = None,
     ) -> schema.SdTargetReports:
-        """查询 SD 目标商品投放报告
+        """查询 SD 商品投放报告
 
         ## Docs
         - 新广告 - 报告: [SD商品定位报表](https://apidoc.lingxing.com/#/docs/newAd/report/sdTargetReports)
@@ -5479,7 +5479,7 @@ class AdsAPI(BaseAPI):
             第一分页无需填写, 当 next_token 和 offset 同时传入时以 next_token 为主, 默认 `None`
         :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
         :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
-        :returns `<'SdTargetReports'>`: 返回查询到的 SD 目标商品投放报告结果
+        :returns `<'SdTargetReports'>`: 返回查询到的 SD 商品投放报告结果
         ```python
         {
             # 状态码
@@ -5570,14 +5570,14 @@ class AdsAPI(BaseAPI):
         report_date: str | datetime.date | datetime.datetime,
         campaign_id: int,
     ) -> schema.SdTargetHourData:
-        """查询 SD 目标商品投放小时数据
+        """查询 SD 商品投放小时数据
 
         ## Docs
         - 新广告 - 报告: [SD投放小时数据(both_ad_target)](https://apidoc.lingxing.com/#/docs/newAd/report/sdTargetHourData)
 
         :param report_date `<'str/date/datetime'>`: 报告日期
         :param campaign_id `<'int'>`: 广告活动ID, 参数来源 `SdCampaign.campaign_id`
-        :returns `<'SdTargetHourData'>`: 返回查询到的 SD 目标商品投放小时数据结果
+        :returns `<'SdTargetHourData'>`: 返回查询到的 SD 商品投放小时数据结果
         ```python
         {
             # 状态码
@@ -5677,7 +5677,7 @@ class AdsAPI(BaseAPI):
         offset: int | None = None,
         length: int | None = None,
     ) -> schema.SdMatchedTargetReports:
-        """查询 SD 匹配的目标商品投放报告
+        """查询 SD 匹配的商品投放报告
 
         ## Docs
         - 新广告 - 报告: [SD匹配的目标报表](https://apidoc.lingxing.com/#/docs/newAd/report/sdMatchTargetReports)
@@ -5693,7 +5693,7 @@ class AdsAPI(BaseAPI):
             第一分页无需填写, 当 next_token 和 offset 同时传入时以 next_token 为主, 默认 `None`
         :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
         :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
-        :returns `<'SdMatchedTargetReports'>`: 返回查询到的 SD 匹配的目标商品投放报告结果
+        :returns `<'SdMatchedTargetReports'>`: 返回查询到的 SD 匹配的商品投放报告结果
         ```python
         {
             # 状态码

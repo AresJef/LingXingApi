@@ -72,7 +72,7 @@ SP_TARGET_REPORTS: str = "/pb/openapi/newad/spTargetReports"
 # https://apidoc.lingxing.com/#/docs/newAd/report/spTargetHourData
 SP_TARGET_HOUR_DATA: str = "/pb/openapi/newad/spTargetHourData"
 # https://apidoc.lingxing.com/#/docs/newAd/report/queryWordReports
-SP_QUERY_WORD_REPORTS: str = "/pb/openapi/newad/queryWordReports"
+SP_QUERY_REPORTS: str = "/pb/openapi/newad/queryWordReports"
 
 # . 报告 - Sponsored Brands
 # https://apidoc.lingxing.com/#/docs/newAd/report/hsaCampaignReports
@@ -94,7 +94,7 @@ SB_TARGETING_REPORTS: str = "/pb/openapi/newad/listHsaTargetingReport"
 # https://apidoc.lingxing.com/#/docs/newAd/report/sbTargetHourData
 SB_TARGETING_HOUR_DATA: str = "/pb/openapi/newad/sbTargetHourData"
 # https://apidoc.lingxing.com/#/docs/newAd/report/hsaQueryWordReports
-SB_QUERY_WORD_REPORTS: str = "/pb/openapi/newad/hsaQueryWordReports"
+SB_QUERY_REPORTS: str = "/pb/openapi/newad/hsaQueryWordReports"
 # https://apidoc.lingxing.com/#/docs/newAd/report/hsaPurchasedAsinReports
 SB_ASIN_ATTRIBUTION_REPORTS: str = "/pb/openapi/newad/hsaPurchasedAsinReports"
 # https://apidoc.lingxing.com/#/docs/newAd/baseData/newadsbDivideAsinReports
