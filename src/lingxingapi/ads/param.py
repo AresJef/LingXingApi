@@ -95,15 +95,15 @@ class AdHourData(Parameter):
 class SpQueryReports(AdReports):
     """查询 SP 用户搜索词报告参数"""
 
+    # 投放目标类型 ('keyword', 'product')
     target_type: NonEmptyStr
 
 
 # . SB Target Reports
-# TODO
 class SbTargetingReports(AdReports):
     """查询 SB 广告投放目标报告参数"""
 
-    # SB广告类型 ('SB', 'SBV', 'ALL')
+    # SB广告类型 ('SB', 'SBV', 'ALL' - 当前只支持'ALL')
     ad_type: NonEmptyStr = Field(alias="sponsored_type")
     # 投放目标类型 ('keyword', 'product', 'ALL')
     targeting_type: NonEmptyStr = Field(alias="target_type")
@@ -115,11 +115,11 @@ class SbTargetingReports(AdReports):
         return "producttarget" if v == "product" else v
 
 
-# TODO
-# . SB Query Word Reports
-class SbQueryWordReports(AdReports):
+# . SB Query Reports
+class SbQueryReports(AdReports):
     """查询 SB 用户搜索词报告参数"""
 
+    # 投放目标类型 ('keyword', 'product' - 当前只支持'keyword')
     targeting_type: NonEmptyStr = Field(alias="target_type")
 
 

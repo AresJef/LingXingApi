@@ -4323,6 +4323,119 @@ class AdsAPI(BaseAPI):
         )
         return schema.SbKeywordReports.model_validate(data)
 
+    async def SbQueryKeywordReports(
+        self,
+        report_date: str | datetime.date | datetime.datetime,
+        sid: int,
+        profile_id: int,
+        *,
+        next_token: str | None = None,
+        offset: int | None = None,
+        length: int | None = None,
+    ) -> schema.SbQueryKeywordReports:
+        """查询 SB 用户搜索词报告
+
+        ## Docs
+        - 新广告 - 报告: [SB用户搜索词报表](https://apidoc.lingxing.com/#/docs/newAd/report/hsaQueryWordReports)
+
+        :param report_date `<'str/date/datetime'>`: 报告日期
+        :param sid `<'int'>`: 领星店铺ID
+        :param profile_id `<'int'>`: 亚马逊店铺ID (广告帐号ID), 参数来源 `AdsProfiles.profile_id`
+        :param next_token `<'str/None'>`: 分页游标, 上次分页结果中的 `next_token`,
+            第一分页无需填写, 当 next_token 和 offset 同时传入时以 next_token 为主, 默认 `None`
+        :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
+        :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
+        :returns `<'SbQueryKeywordReports'>`: 返回查询到的 SB 用户搜索词报告结果
+        ```python
+        {
+            # 状态码
+            "code": 0,
+            # 提示信息
+            "message": "success",
+            # 错误信息
+            "errors": [],
+            # 请求ID
+            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
+            # 响应时间
+            "response_time": "2025-08-13 19:23:04",
+            # 响应数据量
+            "response_count": 2,
+            # 总数据量
+            "total_count": 2,
+            # 响应数据
+            "data": [
+                {
+                    # 亚马逊店铺ID (广告帐号ID)
+                    "profile_id": 494************,
+                    # 广告活动ID
+                    "campaign_id": 451************,
+                    # 广告组ID
+                    "ad_group_id": 329************,
+                    # 用户使用搜索词 [原字段 'query']
+                    "query_text": "hp envy 5660 ink",
+                    # 广告花费
+                    "cost": 0.62,
+                    # 总展示次数
+                    "impressions": 3,
+                    # 总点击次数
+                    "clicks": 1,
+                    # 广告订单数
+                    "orders": 1,
+                    # 广告销售额
+                    "sales": 39.89,
+                    # 视频广告播放25%次数 [原字段 'video_first_quartile_views']
+                    "video_25pct_views": 0,
+                    # 视频广告播放50%次数 [原字段 'video_midpoint_views']
+                    "video_50pct_views": 0,
+                    # 视频广告播放75%次数 [原字段 'video_third_quartile_views']
+                    "video_75pct_views": 0,
+                    # 视频广告播放100%次数 [原字段 'video_complete_views']
+                    "video_100pct_views": 0,
+                    # 视频广告播放5秒次数 [原字段 'video_5_second_views']
+                    "video_5sec_views": 0,
+                    # 视频广告播放5秒观看率 [原字段 'video_5_second_view_rate']
+                    "video_5sec_view_rate": 0.0,
+                    # 视频广告静音取消次数 [原字段 'video_unmutes']
+                    "video_unmutes": 0,
+                    # 报告日期
+                    "report_date": "2025-08-24",
+                    # 关键词ID [原字段 'target_id']
+                    "keyword_id": 431************,
+                    # 关键词文本 [原字段 'target_text']
+                    "keyword_text": "+hp +envy +5660 +ink",
+                    # 关键词匹配类型
+                    "match_type": "broad",
+                },
+                ...
+            ],
+            # 分页游标
+            "next_token": "MjgxNTExNTQ0MTc4ODM1",
+        }
+        ```
+        """
+        url = route.SB_QUERY_WORD_REPORTS
+        # 解析并验证参数
+        args = {
+            "report_date": report_date,
+            "sid": sid,
+            "profile_id": profile_id,
+            "targeting_type": "keyword",
+            "show_detail": 0,
+            "next_token": next_token,
+            "offset": offset,
+            "length": length,
+        }
+        try:
+            p = param.SbQueryReports.model_validate(args)
+        except Exception as err:
+            raise errors.InvalidParametersError(err, url, args) from err
+
+        # 发送请求
+        data = await self._request_with_sign(
+            "POST", url, body=p.model_dump_params(), headers={"X-API-VERSION": "2"}
+        )
+        return schema.SbQueryKeywordReports.model_validate(data)
+
     async def SbTargetReports(
         self,
         report_date: str | datetime.date | datetime.datetime,
@@ -4534,119 +4647,6 @@ class AdsAPI(BaseAPI):
         # 发送请求
         data = await self._request_with_sign("POST", url, body=p.model_dump_params())
         return schema.SbTargetingHourData.model_validate(data)
-
-    async def SbQueryWordReports(
-        self,
-        report_date: str | datetime.date | datetime.datetime,
-        sid: int,
-        profile_id: int,
-        *,
-        next_token: str | None = None,
-        offset: int | None = None,
-        length: int | None = None,
-    ) -> schema.SbQueryWordReports:
-        """查询 SB 用户搜索词报告
-
-        ## Docs
-        - 新广告 - 报告: [SB用户搜索词报表](https://apidoc.lingxing.com/#/docs/newAd/report/hsaQueryWordReports)
-
-        :param report_date `<'str/date/datetime'>`: 报告日期
-        :param sid `<'int'>`: 领星店铺ID
-        :param profile_id `<'int'>`: 亚马逊店铺ID (广告帐号ID), 参数来源 `AdsProfiles.profile_id`
-        :param next_token `<'str/None'>`: 分页游标, 上次分页结果中的 `next_token`,
-            第一分页无需填写, 当 next_token 和 offset 同时传入时以 next_token 为主, 默认 `None`
-        :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
-        :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
-        :returns `<'SbQueryWordReports'>`: 返回查询到的 SB 用户搜索词报告结果
-        ```python
-        {
-            # 状态码
-            "code": 0,
-            # 提示信息
-            "message": "success",
-            # 错误信息
-            "errors": [],
-            # 请求ID
-            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
-            # 响应时间
-            "response_time": "2025-08-13 19:23:04",
-            # 响应数据量
-            "response_count": 2,
-            # 总数据量
-            "total_count": 2,
-            # 响应数据
-            "data": [
-                {
-                    # 亚马逊店铺ID (广告帐号ID)
-                    "profile_id": 494************,
-                    # 广告活动ID
-                    "campaign_id": 451************,
-                    # 广告组ID
-                    "ad_group_id": 329************,
-                    # 关键词ID [原字段 'target_id']
-                    "keyword_id": 431************,
-                    # 关键词文本 [原字段 'target_text']
-                    "keyword_text": "+hp +envy +5660 +ink",
-                    # 用户使用搜索词 [原字段 'query']
-                    "query_text": "hp envy 5660 ink",
-                    # 关键词匹配类型
-                    "match_type": "broad",
-                    # 广告花费
-                    "cost": 0.62,
-                    # 总展示次数
-                    "impressions": 3,
-                    # 总点击次数
-                    "clicks": 1,
-                    # 广告订单数
-                    "orders": 1,
-                    # 广告销售额
-                    "sales": 39.89,
-                    # 视频广告播放25%次数 [原字段 'video_first_quartile_views']
-                    "video_25pct_views": 0,
-                    # 视频广告播放50%次数 [原字段 'video_midpoint_views']
-                    "video_50pct_views": 0,
-                    # 视频广告播放75%次数 [原字段 'video_third_quartile_views']
-                    "video_75pct_views": 0,
-                    # 视频广告播放100%次数 [原字段 'video_complete_views']
-                    "video_100pct_views": 0,
-                    # 视频广告播放5秒次数 [原字段 'video_5_second_views']
-                    "video_5sec_views": 0,
-                    # 视频广告播放5秒观看率 [原字段 'video_5_second_view_rate']
-                    "video_5sec_view_rate": 0.0,
-                    # 视频广告静音取消次数 [原字段 'video_unmutes']
-                    "video_unmutes": 0,
-                    # 报告日期
-                    "report_date": "2025-08-24",
-                },
-                ...
-            ],
-            # 分页游标
-            "next_token": "MjgxNTExNTQ0MTc4ODM1",
-        }
-        ```
-        """
-        url = route.SB_QUERY_WORD_REPORTS
-        # 解析并验证参数
-        args = {
-            "report_date": report_date,
-            "sid": sid,
-            "profile_id": profile_id,
-            "targeting_type": "keyword",
-            "show_detail": 0,
-            "next_token": next_token,
-            "offset": offset,
-            "length": length,
-        }
-        try:
-            p = param.SbQueryWordReports.model_validate(args)
-        except Exception as err:
-            raise errors.InvalidParametersError(err, url, args) from err
-
-        # 发送请求
-        data = await self._request_with_sign(
-            "POST", url, body=p.model_dump_params(), headers={"X-API-VERSION": "2"}
-        )
-        return schema.SbQueryWordReports.model_validate(data)
 
     async def SbAsinAttributionReports(
         self,

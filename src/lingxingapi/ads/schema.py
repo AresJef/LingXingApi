@@ -1295,7 +1295,7 @@ class SpTargetHourData(ResponseV1):
     data: list[SpTargetHour]
 
 
-# . SP Query Word Reports
+# . SP Query Keyword Reports
 class SpQueryBaseReport(BaseModel):
     """SP 用户搜索词基础报告"""
 
@@ -1330,7 +1330,7 @@ class SpQueryBaseReport(BaseModel):
 
 
 class SpQueryKeywordReport(SpQueryBaseReport):
-    """SP 关键词用户搜索词报告"""
+    """SP 关键词的用户搜索词报告"""
 
     # 关键词ID [原字段 'target_id']
     keyword_id: int = Field(validation_alias="target_id")
@@ -1341,14 +1341,14 @@ class SpQueryKeywordReport(SpQueryBaseReport):
 
 
 class SpQueryKeywordReports(ResponseV1Token):
-    """SP 用户搜索词报告列表"""
+    """SP 关键词的用户搜索词报告列表"""
 
     data: list[SpQueryKeywordReport]
 
 
 # . SP Query Target Reports
 class SpQueryTargetReport(SpQueryBaseReport):
-    """SP 商品投放用户搜索词报告"""
+    """SP 商品投放的用户搜索词报告"""
 
     # 目标商品投放ID
     target_id: int
@@ -1359,7 +1359,7 @@ class SpQueryTargetReport(SpQueryBaseReport):
 
 
 class SpQueryTargetReports(ResponseV1Token):
-    """SP 商品投放用户搜索词报告列表"""
+    """SP 商品投放的用户搜索词报告列表"""
 
     data: list[SpQueryTargetReport]
 
@@ -1923,9 +1923,9 @@ class SbTargetingHourData(ResponseV1):
     data: list[SbTargetingHour]
 
 
-# . SB Query Word Reports
-class SbQueryWordReport(BaseModel):
-    """SB 用户搜索词报告"""
+# . SB Query Keyword Reports
+class SbQueryKeywordReport(BaseModel):
+    """SB 关键词的用户搜索词报告"""
 
     # fmt: off
     # 亚马逊店铺ID (广告帐号ID)
@@ -1934,14 +1934,8 @@ class SbQueryWordReport(BaseModel):
     campaign_id: int
     # 广告组ID
     ad_group_id: IntOrNone2Zero
-    # 关键词ID [原字段 'target_id']
-    keyword_id: int = Field(validation_alias="target_id")
-    # 关键词文本 [原字段 'target_text']
-    keyword_text: StrOrNone2Blank = Field(validation_alias="target_text")
     # 用户使用搜索词 [原字段 'query']
     query_text: str = Field(validation_alias="query")
-    # 关键词匹配类型
-    match_type: StrOrNone2Blank
     # 广告花费
     cost: float
     # 总展示次数
@@ -1968,13 +1962,19 @@ class SbQueryWordReport(BaseModel):
     video_unmutes: IntOrNone2Zero = Field(validation_alias="video_unmutes")
     # 报告日期
     report_date: str
+    # 关键词ID [原字段 'target_id']
+    keyword_id: int = Field(validation_alias="target_id")
+    # 关键词文本 [原字段 'target_text']
+    keyword_text: StrOrNone2Blank = Field(validation_alias="target_text")
+    # 关键词匹配类型
+    match_type: StrOrNone2Blank
     # fmt: on
 
 
-class SbQueryWordReports(ResponseV1Token):
-    """SB 用户搜索词报告列表"""
+class SbQueryKeywordReports(ResponseV1Token):
+    """SB 关键词的用户搜索词报告列表"""
 
-    data: list[SbQueryWordReport]
+    data: list[SbQueryKeywordReport]
 
 
 # . SB ASIN Attribution Reports
