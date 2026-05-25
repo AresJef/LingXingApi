@@ -1508,6 +1508,18 @@ class SbPlacementReprot(BaseModel):
     sales: float
     # 品牌新买家销售额
     new_to_brand_sales: float
+    # 品牌搜索次数 [原字段 'branded_searches']
+    brand_searches: IntOrNone2Zero = Field(validation_alias="branded_searches")
+    # 视频广告播放25%次数 [原字段 'videofirstquartileviews']
+    video_25pct_views: IntOrNone2Zero = Field(validation_alias="videofirstquartileviews")
+    # 视频广告播放50%次数 [原字段 'videomidpointviews']
+    video_50pct_views: IntOrNone2Zero = Field(validation_alias="videomidpointviews")
+    # 视频广告播放75%次数 [原字段 'videothirdquartileviews']
+    video_75pct_views: IntOrNone2Zero = Field(validation_alias="videothirdquartileviews")
+    # 视频广告播放5秒次数 [原字段 'video5secondviews']
+    video_5sec_views: IntOrNone2Zero = Field(validation_alias="video5secondviews")
+    # 视频广告播放5秒观看率 [原字段 'video5secondviewrate']
+    video_5sec_view_rate: FloatOrNone2Zero = Field(validation_alias="video5secondviewrate")
     # 报告日期
     report_date: str
     # fmt: on
