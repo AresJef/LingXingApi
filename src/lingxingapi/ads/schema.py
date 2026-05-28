@@ -137,7 +137,7 @@ class SpAdGroups(ResponseV1Token):
 
 # . SP Ads
 class SpProduct(BaseModel):
-    """SP 商品投放"""
+    """SP 广告商品"""
 
     # 亚马逊店铺ID (广告帐号ID)
     profile_id: int
@@ -162,14 +162,14 @@ class SpProduct(BaseModel):
 
 
 class SpProducts(ResponseV1Token):
-    """SP 商品投放列表"""
+    """SP 广告商品列表"""
 
     data: list[SpProduct]
 
 
 # . SP Keywords
 class SpKeyword(BaseModel):
-    """SP 关键词投放"""
+    """SP 关键词投放投放"""
 
     # 亚马逊店铺ID (广告帐号ID)
     profile_id: int
@@ -196,14 +196,14 @@ class SpKeyword(BaseModel):
 
 
 class SpKeywords(ResponseV1Token):
-    """SP 关键词投放列表"""
+    """SP 手动关键词投放列表"""
 
     data: list[SpKeyword]
 
 
 # . SP Targets
 class SpTarget(BaseModel):
-    """SP 目标商品投放"""
+    """SP 自动投放/手动商品投放"""
 
     # 亚马逊店铺ID (广告帐号ID)
     profile_id: int
@@ -211,13 +211,13 @@ class SpTarget(BaseModel):
     campaign_id: int
     # 广告组ID
     ad_group_id: IntOrNone2Zero
-    # 目标商品广告ID
+    # 自动投放/手动商品投放ID
     target_id: int
-    # 目标定位表达式类型
+    # 自动/手动投放类型
     expression_type: str
-    # 目标定位表达式 (JSON 字符串)
+    # 自动投放/手动商品投放表达式 (JSON 字符串)
     expression: StrOrNone2Blank
-    # 目标定位解析表达式 (JSON 字符串) [原字段 'resolved_expression']
+    # 自动投放/手动商品投放表达式表达式解析 (JSON 字符串) [原字段 'resolved_expression']
     expression_resolved: StrOrNone2Blank = Field(validation_alias="resolved_expression")
     # 竞价
     bid: FloatOrNone2Zero
@@ -232,14 +232,14 @@ class SpTarget(BaseModel):
 
 
 class SpTargets(ResponseV1Token):
-    """SP 目标商品投放列表"""
+    """SP 自动投放/手动商品投放列表"""
 
     data: list[SpTarget]
 
 
 # . Sp Negative Keywords
 class SpNegativeKeyword(BaseModel):
-    """SP 否定投放目标或关键词"""
+    """SP 否定手动关键词投放"""
 
     # 亚马逊店铺ID (广告帐号ID)
     profile_id: int
@@ -262,14 +262,14 @@ class SpNegativeKeyword(BaseModel):
 
 
 class SpNegativeKeywords(ResponseV1Token):
-    """SP 否定关键词投放列表"""
+    """SP 否定手动关键词投放列表"""
 
     data: list[SpNegativeKeyword]
 
 
 # . SP Negative Targets
 class SpNegativeTarget(BaseModel):
-    """SP 否定投放目标或关键词"""
+    """SP 否定自动投放/手动商品投放"""
 
     # 亚马逊店铺ID (广告帐号ID)
     profile_id: int
@@ -292,7 +292,7 @@ class SpNegativeTarget(BaseModel):
 
 
 class SpNegativeTargets(ResponseV1Token):
-    """SP 否定目标商品投放列表"""
+    """SP 否定自动投放/手动商品投放列表"""
 
     data: list[SpNegativeTarget]
 
@@ -1081,7 +1081,7 @@ class SpProductHourData(ResponseV1):
 
 # . SP Keyword Reports
 class SpKeywordReport(BaseModel):
-    """SP 关键词投放报告"""
+    """SP 手动关键词投放报告"""
 
     # 亚马逊店铺ID (广告帐号ID)
     profile_id: int
@@ -1118,14 +1118,14 @@ class SpKeywordReport(BaseModel):
 
 
 class SpKeywordReports(ResponseV1Token):
-    """SP 关键词投放报告列表"""
+    """SP 手动关键词投放报告列表"""
 
     data: list[SpKeywordReport]
 
 
 # . SP Keyword Hour Data
 class SpKeywordHour(BaseModel):
-    """SP 关键词投放小时数据"""
+    """SP 手动关键词投放小时数据"""
 
     # 亚马逊店铺ID (广告帐号ID)
     profile_id: int
@@ -1182,14 +1182,14 @@ class SpKeywordHour(BaseModel):
 
 
 class SpKeywordHourData(ResponseV1):
-    """SP 关键词投放小时数据列表"""
+    """SP 手动关键词投放小时数据列表"""
 
     data: list[SpKeywordHour]
 
 
 # . SP Target Reports
 class SpTargetReport(BaseModel):
-    """SP 目标商品投放报告"""
+    """SP 自动投放/手动商品投放报告"""
 
     # 亚马逊店铺ID (广告帐号ID)
     profile_id: int
@@ -1197,11 +1197,11 @@ class SpTargetReport(BaseModel):
     campaign_id: int
     # 广告组ID
     ad_group_id: IntOrNone2Zero
-    # 目标商品广告ID
+    # 自动投放/手动商品投放ID
     target_id: int
-    # 目标定位表达式类型 [原字段 'targeting_type']
+    # 投放匹配类型 [原字段 'targeting_type']
     expression_type: StrOrNone2Blank = Field(validation_alias="targeting_type")
-    # 目标定位表达式 (JSON 字符串) [原字段 'targeting_expression']
+    # 自动投放/手动商品投放表达式 (JSON 字符串)
     expression: StrOrNone2Blank = Field(validation_alias="targeting_expression")
     # 广告花费
     cost: float
@@ -1226,14 +1226,14 @@ class SpTargetReport(BaseModel):
 
 
 class SpTargetReports(ResponseV1Token):
-    """SP 目标商品投放报告列表"""
+    """SP 自动投放/手动商品投放报告列表"""
 
     data: list[SpTargetReport]
 
 
 # . SP Target Hour Data
 class SpTargetHour(BaseModel):
-    """SP 目标商品投放小时数据"""
+    """SP 自动投放/手动商品投放小时数据"""
 
     # 亚马逊店铺ID (广告帐号ID)
     profile_id: int
@@ -1243,11 +1243,11 @@ class SpTargetHour(BaseModel):
     ad_group_id: IntOrNone2Zero = Field(validation_alias="group_id")
     # 商品广告ID
     ad_id: int
-    # 目标商品广告ID [原字段 'targeting_id']
+    # 自动投放/手动商品投放ID [原字段 'targeting_id']
     target_id: int = Field(validation_alias="targeting_id")
-    # 目标商品文本 [原字段 'targeting']
+    # 自动投放/手动商品投放文本 [原字段 'targeting']
     target_text: StrOrNone2Blank = Field(validation_alias="targeting")
-    # 目标匹配类型 [原字段 'match_type']
+    # 投放匹配类型 [原字段 'match_type']
     target_type: StrOrNone2Blank = Field(validation_alias="match_type")
     # 商品ASIN
     asin: str
@@ -1290,7 +1290,7 @@ class SpTargetHour(BaseModel):
 
 
 class SpTargetHourData(ResponseV1):
-    """SP 目标商品投放小时数据列表"""
+    """SP 自动投放/手动商品投放小时数据列表"""
 
     data: list[SpTargetHour]
 
@@ -1330,7 +1330,7 @@ class SpQueryBaseReport(BaseModel):
 
 
 class SpKeywordQueryReport(SpQueryBaseReport):
-    """SP 关键词的用户搜索词报告"""
+    """SP 手动关键词的用户搜索词报告"""
 
     # 关键词ID [原字段 'target_id']
     keyword_id: int = Field(validation_alias="target_id")
@@ -1341,25 +1341,25 @@ class SpKeywordQueryReport(SpQueryBaseReport):
 
 
 class SpKeywordQueryReports(ResponseV1Token):
-    """SP 关键词的用户搜索词报告列表"""
+    """SP 手动关键词的用户搜索词报告列表"""
 
     data: list[SpKeywordQueryReport]
 
 
 # . SP Query Target Reports
 class SpTargetQueryReport(SpQueryBaseReport):
-    """SP 商品投放的用户搜索词报告"""
+    """SP 自动投放/手动商品投的用户搜索词报告"""
 
-    # 目标商品投放ID
+    # 自动投放/手动商品投放ID
     target_id: int
-    # 目标定位表达式 (JSON 字符串) [原字段 'target_text']
+    # 自动投放/手动商品投放表达式 (JSON 字符串) [原字段 'target_text']
     expression: StrOrNone2Blank = Field(validation_alias="target_text")
-    # 目标商品匹配类型
+    # 投放匹配类型
     match_type: StrOrNone2Blank
 
 
 class SpTargetQueryReports(ResponseV1Token):
-    """SP 商品投放的用户搜索词报告列表"""
+    """SP 自动投放/手动商品投的用户搜索词报告列表"""
 
     data: list[SpTargetQueryReport]
 

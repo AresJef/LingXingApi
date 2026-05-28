@@ -416,7 +416,7 @@ class AdsAPI(BaseAPI):
         offset: int | None = None,
         length: int | None = None,
     ) -> schema.SpProducts:
-        """查询 SP 商品投放
+        """查询 SP 广告商品
 
         ## Docs
         - 新广告 - 基础数据: [SP广告商品](https://apidoc.lingxing.com/#/docs/newAd/baseData/spProductAds)
@@ -434,7 +434,7 @@ class AdsAPI(BaseAPI):
 
         :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
         :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
-        :returns `<'SpProducts'>`: 返回查询到的 SP 商品投放结果
+        :returns `<'SpProducts'>`: 返回查询到的 SP 广告商品结果
         ```python
         {
             # 状态码
@@ -513,7 +513,7 @@ class AdsAPI(BaseAPI):
         offset: int | None = None,
         length: int | None = None,
     ) -> schema.SpKeywords:
-        """查询 SP 关键词投放
+        """查询 SP 手动关键词投放
 
         ## Docs
         - 新广告 - 基础数据: [SP关键词](https://apidoc.lingxing.com/#/docs/newAd/baseData/spKeywords)
@@ -531,7 +531,7 @@ class AdsAPI(BaseAPI):
 
         :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
         :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
-        :returns `<'SpKeywords'>`: 返回查询到的 SP 关键词投放结果
+        :returns `<'SpKeywords'>`: 返回查询到的 SP 手动关键词投放结果
         ```python
         {
             # 状态码
@@ -612,7 +612,7 @@ class AdsAPI(BaseAPI):
         offset: int | None = None,
         length: int | None = None,
     ) -> schema.SpTargets:
-        """查询 SP 目标商品投放
+        """查询 SP 自动投放/手动商品投放
 
         ## Docs
         - 新广告 - 基础数据: [SP商品定位](https://apidoc.lingxing.com/#/docs/newAd/baseData/spTargets)
@@ -630,7 +630,7 @@ class AdsAPI(BaseAPI):
 
         :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
         :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
-        :returns `<'SpTargets'>`: 返回查询到的 SP 目标商品投放结果
+        :returns `<'SpTargets'>`: 返回查询到的 SP 自动投放/手动商品投放结果
         ```python
         {
             # 状态码
@@ -656,13 +656,13 @@ class AdsAPI(BaseAPI):
                     "campaign_id": 327************,
                     # 广告组ID
                     "ad_group_id": 442************,
-                    # 目标商品广告ID
+                    # 自动投放/手动商品投放ID
                     "target_id": 562************,
-                    # 目标定位表达式类型
+                    # 自动/手动投放类型
                     "expression_type": "manual",
-                    # 目标定位表达式 (JSON 字符串)
+                    # 自动投放/手动商品投放表达式 (JSON 字符串)
                     "expression": '[{"type": "asinSameAs", "value": "B00*******"}]',
-                    # 目标定位解析表达式 (JSON 字符串) [原字段 'resolved_expression']
+                    # 自动投放/手动商品投放表达式表达式解析 (JSON 字符串) [原字段 'resolved_expression']
                     "expression_resolved": '[{"type": "asinSameAs", "value": "B00*******"}]',
                     # 竞价
                     "bid": 2.0,
@@ -713,7 +713,7 @@ class AdsAPI(BaseAPI):
         offset: int | None = None,
         length: int | None = None,
     ) -> schema.SpNegativeKeywords:
-        """查询 SP 否定关键词投放
+        """查询 SP 否定手动关键词投放
 
         ## Docs
         - 新广告 - 基础数据: [SP否定投放(keyword)](https://apidoc.lingxing.com/#/docs/newAd/baseData/spNegativeTargetsOrKeywords)
@@ -727,7 +727,7 @@ class AdsAPI(BaseAPI):
 
         :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
         :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
-        :returns `<'SpNegativeKeywords'>`: 返回查询到的 SP 否定投放结果
+        :returns `<'SpNegativeKeywords'>`: 返回查询到的 SP 否定手动关键词投放结果
         ```python
         {
             # 状态码
@@ -805,7 +805,7 @@ class AdsAPI(BaseAPI):
         offset: int | None = None,
         length: int | None = None,
     ) -> schema.SpNegativeTargets:
-        """查询 SP 否定目标商品投放
+        """查询 SP 否定自动投放/手动商品投放
 
         ## Docs
         - 新广告 - 基础数据: [SP否定投放(target)](https://apidoc.lingxing.com/#/docs/newAd/baseData/spNegativeTargetsOrKeywords)
@@ -819,7 +819,7 @@ class AdsAPI(BaseAPI):
 
         :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
         :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
-        :returns `<'SpNegativeTargets'>`: 返回查询到的 SP 否定目标商品投放结果
+        :returns `<'SpNegativeTargets'>`: 返回查询到的 SP 否定自动投放/手动商品投放结果
         ```python
         {
             # 状态码
@@ -845,9 +845,9 @@ class AdsAPI(BaseAPI):
                     "campaign_id": 397************,
                     # 广告组ID
                     "ad_group_id": 335************,
-                    # 否定目标类型 [原字段 'negative_type']
+                    # 否定投放类型 [原字段 'negative_type']
                     "target_type": "negativeAsin",
-                    # 否定目标文本 [原字段 'negative_text']
+                    # 否定投放文本 [原字段 'negative_text']
                     "target_text": "B0C*******",
                     # 广告状态
                     "state": "enabled",
@@ -2856,7 +2856,7 @@ class AdsAPI(BaseAPI):
         offset: int | None = None,
         length: int | None = None,
     ) -> schema.SpKeywordReports:
-        """查询 SP 关键词投放报告
+        """查询 SP 手动关键词投放报告
 
         ## Docs
         - 新广告 - 报告: [SP关键词报表](https://apidoc.lingxing.com/#/docs/newAd/report/spKeywordReports)
@@ -2868,7 +2868,7 @@ class AdsAPI(BaseAPI):
             第一分页无需填写, 当 next_token 和 offset 同时传入时以 next_token 为主, 默认 `None`
         :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
         :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
-        :returns `<'SpKeywordReports'>`: 返回查询到的 SP 关键词投放报告结果
+        :returns `<'SpKeywordReports'>`: 返回查询到的 SP 手动关键词投放报告结果
         ```python
         {
             # 状态码
@@ -2955,14 +2955,14 @@ class AdsAPI(BaseAPI):
         report_date: str | datetime.date | datetime.datetime,
         campaign_id: int,
     ) -> schema.SpKeywordHourData:
-        """查询 SP 关键词投放小时数据
+        """查询 SP 手动关键词投放小时数据
 
         ## Docs
         - 新广告 - 报告: [SP广告小时数据(both_ad_target)](https://apidoc.lingxing.com/#/docs/newAd/report/spAdvertiseHourData)
 
         :param report_date `<'str/date/datetime'>`: 报告日期
         :param campaign_id `<'int'>`: 广告活动ID, 参数来源 `SpCampaign.campaign_id`
-        :returns `<'SpKeywordHourData'>`: 返回查询到的 SP 关键词投放小时数据结果
+        :returns `<'SpKeywordHourData'>`: 返回查询到的 SP 手动关键词投放小时数据结果
         ```python
         {
             # 状态码
@@ -3066,7 +3066,7 @@ class AdsAPI(BaseAPI):
         offset: int | None = None,
         length: int | None = None,
     ) -> schema.SpKeywordQueryReports:
-        """查询 SP 关键词的用户搜索词报告
+        """查询 SP 手动关键词的用户搜索词报告
 
         ## Docs
         - 新广告 - 报告: [SP用户搜索词报表(keyword)](https://apidoc.lingxing.com/#/docs/newAd/report/queryWordReports)
@@ -3078,7 +3078,7 @@ class AdsAPI(BaseAPI):
             第一分页无需填写, 当 next_token 和 offset 同时传入时以 next_token 为主, 默认 `None`
         :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
         :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
-        :returns `<'SpKeywordQueryReports'>`: 返回查询到的 SP 关键词的用户搜索词报告结果
+        :returns `<'SpKeywordQueryReports'>`: 返回查询到的 SP 手动关键词的用户搜索词报告结果
         ```python
         {
             # 状态码
@@ -3173,7 +3173,7 @@ class AdsAPI(BaseAPI):
         offset: int | None = None,
         length: int | None = None,
     ) -> schema.SpTargetReports:
-        """查询 SP 商品投放报告
+        """查询 SP 自动投放/手动商品投放报告
 
         ## Docs
         - 新广告 - 报告: [SP商品定位报表](https://apidoc.lingxing.com/#/docs/newAd/report/spTargetReports)
@@ -3185,7 +3185,7 @@ class AdsAPI(BaseAPI):
             第一分页无需填写, 当 next_token 和 offset 同时传入时以 next_token 为主, 默认 `None`
         :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
         :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
-        :returns `<'SpTargetReports'>`: 返回查询到的 SP 商品投放报告结果
+        :returns `<'SpTargetReports'>`: 返回查询到的 SP 自动投放/手动商品投放报告结果
         ```python
         {
             # 状态码
@@ -3211,11 +3211,11 @@ class AdsAPI(BaseAPI):
                     "campaign_id": 363************,
                     # 广告组ID
                     "ad_group_id": 353************,
-                    # 目标商品广告ID
+                    # 自动投放/手动商品投放ID
                     "target_id": 529************,
-                    # 目标定位表达式类型 [原字段 'targeting_type']
+                    # 投放匹配类型 [原字段 'targeting_type']
                     "expression_type": "TARGETING_EXPRESSION",
-                    # 目标定位表达式 (JSON 字符串) [原字段 'targeting_expression']
+                    # 自动投放/手动商品投放表达式 (JSON 字符串)
                     "expression": '"[{\\"type\\": \\"asinSameAs\\", \\"value\\": \\"B06*******\\"}]"',
                     # 广告花费
                     "cost": 4.8,
@@ -3272,14 +3272,14 @@ class AdsAPI(BaseAPI):
         report_date: str | datetime.date | datetime.datetime,
         campaign_id: int,
     ) -> schema.SpTargetHourData:
-        """查询 SP 商品投放小时数据
+        """查询 SP 自动投放/手动商品投放小时数据
 
         ## Docs
         - 新广告 - 报告: [SP投放小时数据(both_ad_target)](https://apidoc.lingxing.com/#/docs/newAd/report/spTargetHourData)
 
         :param report_date `<'str/date/datetime'>`: 报告日期
         :param campaign_id `<'int'>`: 广告活动ID, 参数来源 `SpCampaign.campaign_id`
-        :returns `<'SpTargetHourData'>`: 返回查询到的 SP 商品投放小时数据结果
+        :returns `<'SpTargetHourData'>`: 返回查询到的 SP 自动投放/手动商品投放小时数据结果
         ```python
         {
             # 状态码
@@ -3307,11 +3307,11 @@ class AdsAPI(BaseAPI):
                     "ad_group_id": 297************,
                     # 商品广告ID
                     "ad_id": 401************,
-                    # 目标商品广告ID [原字段 'targeting_id']
+                    # 自动投放/手动商品投放ID [原字段 'targeting_id']
                     "target_id": 297************,
-                    # 目标商品文本 [原字段 'targeting']
+                    # 自动投放/手动商品投放文本 [原字段 'targeting']
                     "target_text": 'asin="B01*******"',
-                    # 目标匹配类型 [原字段 'match_type']
+                    # 投放匹配类型 [原字段 'match_type']
                     "target_type": "TARGETING_EXPRESSION",
                     # 商品ASIN
                     "asin": "B0F*******",
@@ -3383,7 +3383,7 @@ class AdsAPI(BaseAPI):
         offset: int | None = None,
         length: int | None = None,
     ) -> schema.SpTargetQueryReports:
-        """查询 SP 商品投放的用户搜索词报告
+        """查询 SP 自动投放/手动商品投的用户搜索词报告
 
         ## Docs
         - 新广告 - 报告: [SP用户搜索词报表(target)](https://apidoc.lingxing.com/#/docs/newAd/report/queryWordReports)
@@ -3395,7 +3395,7 @@ class AdsAPI(BaseAPI):
             第一分页无需填写, 当 next_token 和 offset 同时传入时以 next_token 为主, 默认 `None`
         :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
         :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
-        :returns `<'SpTargetQueryReports'>`: 返回查询到的 SP 商品投放的用户搜索词报告结果
+        :returns `<'SpTargetQueryReports'>`: 返回查询到的 SP 自动投放/手动商品投的用户搜索词报告结果
         ```python
         {
             # 状态码
@@ -3443,11 +3443,11 @@ class AdsAPI(BaseAPI):
                     "direct_sales": 29.88,
                     # 报告日期
                     "report_date": "2025-08-23",
-                    # 目标商品投放ID
+                    # 自动投放/手动商品投放ID
                     "target_id": 529************,
-                    # 目标定位表达式 (JSON 字符串) [原字段 'target_text']
+                    # 自动投放/手动商品投放表达式 (JSON 字符串) [原字段 'target_text']
                     "expression": '"[{\\"type\\": \\"asinSameAs\\", \\"value\\": \\"B06*******\\"}]"',
-                    # 目标商品匹配类型
+                    # 投放匹配类型
                     "match_type": "",
                 },
                 ...
