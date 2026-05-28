@@ -412,6 +412,18 @@ class ListingOperationLogs(PageOffestAndLength):
         # fmt: on
 
 
+# 销售 - 刊登管理 ----------------------------------------------------------------------------------------------------------------
+# . Amazon Categories
+class AmazonCategories(Parameter):
+    # 店铺ID
+    sid: NonNegativeInt = Field(alias="storeId")
+
+
+class AmazonChildCategories(AmazonCategories):
+    # 目唯一标识
+    category_uid: NonNegativeInt = Field(alias="categoryUniqueId")
+
+
 # 销售 - 平台订单 ----------------------------------------------------------------------------------------------------------------
 # . Orders
 class Orders(PageOffestAndLength):

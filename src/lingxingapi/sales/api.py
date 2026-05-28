@@ -6,7 +6,6 @@ from lingxingapi.base.api import BaseAPI
 from lingxingapi.base import schema as base_schema
 from lingxingapi.sales import param, route, schema
 
-
 # Type Aliases ---------------------------------------------------------------------------------------------------------
 SEARCH_FIELD = Literal["asin", "msku", "lsku"]
 ORDER_STATUS = Literal[
@@ -1068,6 +1067,152 @@ class SalesAPI(BaseAPI):
         # 发送请求
         data = await self._request_with_sign("POST", url, body=p.model_dump_params())
         return schema.ListingOperationLogs.model_validate(data)
+
+    # 刊登管理 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    async def AmazonRootCategories(self, sid: int) -> schema.AmazonRootCategories:
+        """查询亚马逊根分类列表
+
+        ## Docs:
+        - 销售 - 刊登管理: [刊登管理-查询 Amazon 根分类](https://apidoc.lingxing.com/#/docs/Sale/PublishManageCategoryRoot)
+
+        :param sid `<'int'>`: 领星店铺ID, 参数来源: `Seller.sid`
+        :return `<'AmazonRootCategories'>`: 返回查询到的亚马逊根分类信息列表
+        ```python
+        {
+            # 状态码
+            "code": 0,
+            # 提示信息
+            "message": "success",
+            # 错误信息
+            "errors": [],
+            # 请求ID
+            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
+            # 响应时间
+            "response_time": "2025-08-13 19:23:04",
+            # 响应数据量
+            "response_count": 2,
+            # 总数据量
+            "total_count": 2,
+            # 响应数据
+            "data": [
+                {
+                    # 分类唯一标识 [原字段 'categoryUniqueId']
+                    "category_uid": 107883866793967616,
+                    # 分类ID [原字段 'categoryId']
+                    "category_id": 19419899011,
+                    # 分类名称 [原字段 'categoryName']
+                    "category_name": "Amazon Explore",
+                    # 亚马逊市场ID [原字段 'marketplaceId']
+                    "marketplace_id": "ATVPDKIKX0DER",
+                    # 是否是根分类 (0: 否, 1: 是) [原字段 'isRoot']
+                    "is_root_category": 1,
+                    # 父分类ID (根分类的父分类ID为0) [原字段 'parentId']
+                    "parent_category_id": 0,
+                    # 是否有子分类 (0: 否, 1: 是) [原字段 'hasChildren']
+                    "has_child_categories": 1,
+                    # 子分类ID列表 [原字段 'childCategory']
+                    "child_category_ids": [
+                        19531762011,
+                        ...
+                    ],
+                    # 产品类型来源列表 [原字段 'productTypeOrigin']
+                    "product_type_origins": [
+                        "WEB_SERVICES",
+                        ...
+                    ],
+                },
+                ...
+            ]
+        }
+        ```
+        """
+        url = route.AMAZON_ROOT_CATEGORIES
+        # 解析并验证参数
+        args = {"sid": sid}
+        try:
+            p = param.AmazonCategories.model_validate(args)
+        except Exception as err:
+            raise errors.InvalidParametersError(err, url, args) from err
+
+        # 发送请求
+        data = await self._request_with_sign("POST", url, body=p.model_dump_params())
+        return schema.AmazonRootCategories.model_validate(data)
+
+    async def AmazonChildCategories(
+        self,
+        sid: int,
+        category_uid: int,
+    ) -> schema.AmazonChildCategories:
+        """查询亚马逊子分类列表
+
+        ## Docs:
+        - 销售 - 刊登管理: [刊登管理-查询 Amazon 子分类](https://apidoc.lingxing.com/#/docs/Sale/PublishManageCategoryChildren)
+
+        :param sid `<'int'>`: 领星店铺ID, 参数来源: `Seller.sid`
+        :param category_uid `<'int'>`: 分类唯一标识, 参数来源: `AmazonRootCategory.category_uid` 或 `AmazonChildCategory.category_uid`
+        :return `<'AmazonChildCategories'>`: 返回查询到的亚马逊子分类信息列表
+        ```python
+        {
+            # 状态码
+            "code": 0,
+            # 提示信息
+            "message": "success",
+            # 错误信息
+            "errors": [],
+            # 请求ID
+            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
+            # 响应时间
+            "response_time": "2025-08-13 19:23:04",
+            # 响应数据量
+            "response_count": 2,
+            # 总数据量
+            "total_count": 2,
+            # 响应数据
+            "data": [
+                {
+                    # 分类唯一标识 [原字段 'categoryUniqueId']
+                    "category_uid": 107883866882048017,
+                    # 分类ID [原字段 'categoryId']
+                    "category_id": 19531762011,
+                    # 分类名称 [原字段 'categoryName']
+                    "category_name": "Culture & Landmarks",
+                    # 亚马逊市场ID [原字段 'marketplaceId']
+                    "marketplace_id": "ATVPDKIKX0DER",
+                    # 是否是根分类 (0: 否, 1: 是) [原字段 'isRoot']
+                    "is_root_category": 0,
+                    # 父分类ID [原字段 'parentId']
+                    "parent_category_id": 19419899011,
+                    # 是否有子分类 (0: 否, 1: 是) [原字段 'hasChildren']
+                    "has_child_categories": 1,
+                    # 子分类ID列表 [原字段 'childCategory']
+                    "child_category_ids": [
+                        19531762011,
+                        ...
+                    ],
+                    # 产品类型来源列表 [原字段 'productTypeOrigin']
+                    "product_type_origins": [
+                        "WEB_SERVICES",
+                        ...
+                    ],
+                    # 子分类路径 [原字段 'categoryPathName']
+                    "category_path": "Amazon Explore > Culture & Landmarks",
+                },
+                ...
+            ]
+        }
+        ```
+        """
+        url = route.AMAZON_CHILD_CATEGORIES
+        # 解析并验证参数
+        args = {"sid": sid, "category_uid": category_uid}
+        try:
+            p = param.AmazonChildCategories.model_validate(args)
+        except Exception as err:
+            raise errors.InvalidParametersError(err, url, args) from err
+
+        # 发送请求
+        data = await self._request_with_sign("POST", url, body=p.model_dump_params())
+        return schema.AmazonChildCategories.model_validate(data)
 
     # 平台订单 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     async def Orders(

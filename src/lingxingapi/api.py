@@ -310,6 +310,10 @@ class API(BaseAPI):
             - EditListingFbms: [修改FBM库存&处理时间](https://apidoc.lingxing.com/#/docs/Sale/UpdateFbmInventory)
             - ListingOperationLogs: [查询Listing操作日志列表](https://apidoc.lingxing.com/#/docs/Sale/listingOperateLogPageList)
 
+        * 销售 - 刊登管理
+            - AmazonRootCategories [刊登管理-查询 Amazon 根分类](https://apidoc.lingxing.com/#/docs/Sale/PublishManageCategoryRoot)
+            - AmazonChildCategories [刊登管理-查询 Amazon 子分类](https://apidoc.lingxing.com/#/docs/Sale/PublishManageCategoryChildren)
+
         * 销售 - 平台订单
             - Orders: [查询亚马逊订单列表](https://apidoc.lingxing.com/#/docs/Sale/Orderlists)
             - OrderDetails: [查询亚马逊订单详情](https://apidoc.lingxing.com/#/docs/Sale/OrderDetail)

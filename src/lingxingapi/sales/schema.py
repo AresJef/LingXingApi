@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from typing import Any
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, Field, field_validator, model_validator
+from lingxingapi import errors
 from lingxingapi.base import schema as base_schema
 from lingxingapi.base.schema import ResponseV1, ResponseResult, FlattenDataRecords
 from lingxingapi.fields import IntOrNone2Zero, FloatOrNone2Zero, StrOrNone2Blank
@@ -378,6 +379,64 @@ class ListingOperationLogs(ResponseV1):
     """商品 Listing 操作日志."""
 
     data: list[ListingOperationLog]
+
+
+# 销售 - 刊登管理 ----------------------------------------------------------------------------------------------------------------
+class AmazonCategory(BaseModel):
+    """亚马逊根分类."""
+
+    # 分类唯一标识 [原字段 'categoryUniqueId']
+    category_uid: int = Field(validation_alias="categoryUniqueId")
+    # 分类ID [原字段 'categoryId']
+    category_id: int = Field(validation_alias="categoryId")
+    # 分类名称 [原字段 'categoryName']
+    category_name: str = Field(validation_alias="categoryName")
+    # 亚马逊市场ID [原字段 'marketplaceId']
+    marketplace_id: str = Field(validation_alias="marketplaceId")
+    # 是否是根分类 (0: 否, 1: 是) [原字段 'isRoot']
+    is_root_category: int = Field(validation_alias="isRoot")
+    # 父分类ID [原字段 'parentId']
+    parent_category_id: int = Field(validation_alias="parentId")
+    # 是否有子分类 (0: 否, 1: 是) [原字段 'hasChildren']
+    has_child_categories: int = Field(validation_alias="hasChildren")
+    # 子分类ID列表 [原字段 'childCategory']
+    child_category_ids: list[int] = Field(validation_alias="childCategory")
+    # 分类路径 [原字段 'categoryPathName']
+    category_path: str = Field("", validation_alias="categoryPathName")
+    # 产品类型来源列表 [原字段 'productTypeOrigin']
+    product_type_origins: list[str] = Field(validation_alias="productTypeOrigin")
+
+
+class AmazonRootCategories(ResponseV1):
+    """亚马逊根分类列表."""
+
+    data: list[AmazonCategory]
+
+    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    @model_validator(mode="before")
+    def _flatten_data(cls, data: dict) -> dict:
+        try:
+            inner: dict = data.pop("data", {})
+            data["data"] = inner.get("category", [])
+        except Exception:
+            raise errors.ResponseDataError(cls.__name__, data=data)
+        return data
+
+
+class AmazonChildCategories(ResponseV1):
+    """亚马逊子分类列表."""
+
+    data: list[AmazonCategory]
+
+    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    @model_validator(mode="before")
+    def _flatten_data(cls, data: dict) -> dict:
+        try:
+            inner: dict = data.pop("data", {})
+            data["data"] = inner.get("categoryChildren", [])
+        except Exception:
+            raise errors.ResponseDataError(cls.__name__, data=data)
+        return data
 
 
 # 销售 - 平台订单 ----------------------------------------------------------------------------------------------------------------

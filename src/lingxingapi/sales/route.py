@@ -31,6 +31,12 @@ EDIT_LISTING_FBMS: str = "/basicOpen/FbmManagement/modifyFbmInventory"
 # https://apidoc.lingxing.com/#/docs/Sale/listingOperateLogPageList
 LISTING_OPERATION_LOGS: str = "/basicOpen/listingManage/listingOperateLog/pageList"
 
+# 销售 - 刊登管理 ----------------------------------------------------------------------------------------------------------------
+# https://apidoc.lingxing.com/#/docs/Sale/PublishManageCategoryRoot
+AMAZON_ROOT_CATEGORIES: str = "/basicOpen/openapi/publish/manage/categoryRoot"
+# https://apidoc.lingxing.com/#/docs/Sale/PublishManageCategoryChildren
+AMAZON_CHILD_CATEGORIES: str = "/basicOpen/openapi/publish/manage/categoryChildren"
+
 # 销售 - 平台订单 ----------------------------------------------------------------------------------------------------------------
 # https://apidoc.lingxing.com/#/docs/Sale/Orderlists
 ORDERS: str = "/erp/sc/data/mws/orders"
