@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-c
-import logging
+import asyncio, logging
 from typing import Literal
 from typing_extensions import Self
-from asyncio import sleep as _aio_sleep
 from orjson import loads as _orjson_loads
 from Crypto.Cipher._mode_ecb import EcbMode
 from aiohttp import TCPConnector, ClientTimeout, ClientSession
@@ -24,10 +23,10 @@ class BaseAPI:
     """
 
     # HTTP 会话
-    _session: ClientSession = None
+    _session: ClientSession | None = None
     # Token 令牌
-    _access_token: str = None
-    _refresh_token: str = None
+    _access_token: str | None = None
+    _refresh_token: str | None = None
 
     def __init__(
         self,
@@ -116,20 +115,24 @@ class BaseAPI:
         self._app_id: str = app_id
         self._app_secret: str = app_secret
         self._app_cipher: EcbMode = app_cipher
+
         # HTTP 会话
         self._timeout: ClientTimeout = timeout
         self._max_tcp_connections: int = max_tcp_connections
+
         # 错误处理
         # . 请求超时
         self._ignore_timeout: bool = ignore_timeout
         self._ignore_timeout_wait: float = ignore_timeout_wait
         self._ignore_timeout_retry: int = ignore_timeout_retry
         self._infinite_timeout_retry: bool = ignore_timeout_retry == -1
+
         # . API 限流
         self._ignore_api_limit: bool = ignore_api_limit
         self._ignore_api_limit_wait: float = ignore_api_limit_wait
         self._ignore_api_limit_retry: int = ignore_api_limit_retry
         self._infinite_retry: bool = ignore_api_limit_retry == -1
+
         # . 服务器内部错误 (500错误码, 仅限 Internal Server Error 类型)
         self._ignore_internal_server_error: bool = ignore_internal_server_error
         self._ignore_internal_server_error_wait: float = (
@@ -141,7 +144,8 @@ class BaseAPI:
         self._infinite_internal_server_error_retry: bool = (
             ignore_internal_server_error_retry == -1
         )
-        # . 无法链接互联网
+
+        # . 无法连接互联网
         self._ignore_internet_connection: bool = ignore_internet_connection
         self._ignore_internet_connection_wait: float = ignore_internet_connection_wait
         self._ignore_internet_connection_retry: int = ignore_internet_connection_retry
@@ -164,7 +168,7 @@ class BaseAPI:
         """关闭 API 客户端的 HTTP 会话"""
         if BaseAPI._session is not None:
             await BaseAPI._session.close()
-            BaseAPI._session = None
+        BaseAPI._session = None
 
     # 公共 API --------------------------------------------------------------------------------------
     # . Token 令牌
@@ -262,8 +266,8 @@ class BaseAPI:
         :returns `<'list/dict'>`: 返回解析并验证后响应数据
         """
         retry_count = 0
+
         while True:
-            # fmt: off
             # 确保 HTTP 会话可用
             if BaseAPI._session is None or BaseAPI._session.closed:
                 BaseAPI._session = ClientSession(
@@ -272,6 +276,7 @@ class BaseAPI:
                     timeout=self._timeout,
                     connector=TCPConnector(limit=self._max_tcp_connections),
                 )
+
             # 发送请求
             try:
                 async with BaseAPI._session.request(
@@ -284,38 +289,39 @@ class BaseAPI:
                     # . 检查响应状态码
                     if res.status != 200:
                         if res.status in (501, 502, 504):
-                            raise errors.InternalServerError("领星API服务器内部错误", url, res.reason, res.status)
-                        raise errors.ServerError("领星API服务器响应错误", url, res.reason, res.status)
+                            raise errors.InternalServerError(
+                                "领星API服务器内部错误", url, res.reason, res.status
+                            )
+                        raise errors.ServerError(
+                            "领星API服务器响应错误", url, res.reason, res.status
+                        )
                     # . 解析并验证响应数据
                     return self._handle_response_data(
                         url, await res.read(), extract_data
                     )
             # 请求限流错误处理
             except errors.ApiLimitError as err:
-                if (
-                        self._ignore_api_limit 
-                        and (self._infinite_retry or retry_count < self._ignore_api_limit_retry)
+                if self._ignore_api_limit and (
+                    self._infinite_retry or retry_count < self._ignore_api_limit_retry
                 ):
                     retry_count += 1
                     logger.warning(
-                        "领星API请求被限流, 等待 %.1f 秒后重试(%d)", 
-                        self._ignore_api_limit_wait, retry_count, 
+                        "领星API请求被限流, 等待 %.1f 秒后重试(%d)",
+                        self._ignore_api_limit_wait,
+                        retry_count,
                         stacklevel=3,
                     )
-                    await _aio_sleep(self._ignore_api_limit_wait)
+                    await asyncio.sleep(self._ignore_api_limit_wait)
                     continue
-                if params is not None:
-                    err.add_note("请求参数: %r" % params)
-                if body is not None:
-                    err.add_note("请求实体: %r" % body)
-                if retry_count > 0:
-                    err.add_note("请求重试: %d" % retry_count)
+                
+                err = self._add_request_notes(err, params, body, retry_count)
                 raise err
+
             # 服务器内部错误处理
             except errors.InternalServerError as err:
-                if (
-                        self._ignore_internal_server_error 
-                        and (self._infinite_internal_server_error_retry or retry_count < self._ignore_internal_server_error_retry)
+                if self._ignore_internal_server_error and (
+                    self._infinite_internal_server_error_retry
+                    or retry_count < self._ignore_internal_server_error_retry
                 ):
                     retry_count += 1
                     if self._infinite_retry and retry_count > 60:
@@ -324,46 +330,50 @@ class BaseAPI:
                         log_level = logging.WARNING
                     logger.log(
                         log_level,
-                        "领星API服务器内部错误, 等待 %.1f 秒后重试(%d) | %s.", 
-                        self._ignore_api_limit_wait, retry_count, err,
-                        stacklevel=3
+                        "领星API服务器内部错误, 等待 %.1f 秒后重试(%d) | %s.",
+                        self._ignore_internal_server_error_wait,
+                        retry_count,
+                        err,
+                        stacklevel=3,
                     )
-                    await _aio_sleep(self._ignore_api_limit_wait)
+                    await asyncio.sleep(self._ignore_internal_server_error_wait)
                     continue
-                if params is not None:
-                    err.add_note("请求参数: %r" % params)
-                if body is not None:
-                    err.add_note("请求实体: %r" % body)
-                if retry_count > 0:
-                    err.add_note("请求重试: %d" % retry_count)
+
+                err = self._add_request_notes(err, params, body, retry_count)
                 raise err
-            # 网络相关错误处理
-            except (TimeoutError, errors.ClientConnectionError, errors.ClientPayloadError) as err:
-                # . 无法链接互联网
+
+            # 网络 / 超时 / 协议错误处理
+            except (
+                TimeoutError,
+                errors.ClientConnectionError,
+                errors.ClientPayloadError,
+            ) as err:
+                # . 无法连接互联网
                 if not await utils.check_internet_tcp():
-                    if (
-                        self._ignore_internet_connection 
-                        and (self._infinite_internet_connection_retry or retry_count < self._ignore_internet_connection_retry)
+                    if self._ignore_internet_connection and (
+                        self._infinite_internet_connection_retry
+                        or retry_count < self._ignore_internet_connection_retry
                     ):
                         retry_count += 1
                         logger.warning(
-                            "无法链接互联网, 等待 %.1f 秒后重试(%d)", 
-                            self._ignore_internet_connection_wait, retry_count, stacklevel=3
+                            "无法连接互联网, 等待 %.1f 秒后重试(%d)",
+                            self._ignore_internet_connection_wait,
+                            retry_count,
+                            stacklevel=3,
                         )
-                        await _aio_sleep(self._ignore_internet_connection_wait)
+                        await asyncio.sleep(self._ignore_internet_connection_wait)
                         continue
-                    exc = errors.InternetConnectionError("无法链接互联网, 请检查网络连接", url, str(err))
-                    if params is not None:
-                        exc.add_note("请求参数: %r" % params)
-                    if body is not None:
-                        exc.add_note("请求实体: %r" % body)
-                    if retry_count > 0:
-                        exc.add_note("请求重试: %d" % retry_count)
+
+                    exc = errors.InternetConnectionError(
+                        "无法连接互联网, 请检查网络连接", url, str(err)
+                    )
+                    exc = self._add_request_notes(exc, params, body, retry_count)
                     raise exc from err
-                # . 请求超时
-                if (
-                        self._ignore_timeout 
-                        and (self._infinite_timeout_retry or retry_count < self._ignore_timeout_retry)
+
+                # . 请求超时 / 网络连接 / 协议异常
+                if self._ignore_timeout and (
+                    self._infinite_timeout_retry
+                    or retry_count < self._ignore_timeout_retry
                 ):
                     retry_count += 1
                     if self._infinite_retry and retry_count > 60:
@@ -372,36 +382,34 @@ class BaseAPI:
                         log_level = logging.WARNING
                     logger.log(
                         log_level,
-                        "领星API请求超时或错误, 若无网络问题, 请检查IP白名单设置, 等待 %.1f 秒后重试(%d) | %s", 
-                        self._ignore_api_limit_wait, retry_count, err,
-                        stacklevel=3
+                        "领星API请求超时或网络错误, 若无网络问题, 请检查IP白名单设置, "
+                        "等待 %.1f 秒后重试(%d) | %s",
+                        self._ignore_timeout_wait,
+                        retry_count,
+                        err,
+                        stacklevel=3,
                     )
-                    await _aio_sleep(self._ignore_api_limit_wait)
+                    await asyncio.sleep(self._ignore_timeout_wait)
                     continue
-                exc = errors.ApiTimeoutError("领星API请求超时或错误, 若无网络问题, 请检查IP白名单设置", url, str(err))
-                if params is not None:
-                    exc.add_note("请求参数: %r" % params)
-                if body is not None:
-                    exc.add_note("请求实体: %r" % body)
-                if retry_count > 0:
-                    exc.add_note("请求重试: %d" % retry_count)
+
+                exc = errors.ApiTimeoutError(
+                    "领星API请求超时或网络错误, 若无网络问题, 请检查IP白名单设置",
+                    url,
+                    str(err),
+                )
+                exc = self._add_request_notes(exc, params, body, retry_count)
                 raise exc from err
+
             # 其他异常处理
             except Exception as err:
-                if params is not None:
-                    err.add_note("请求参数: %r" % params)
-                if body is not None:
-                    err.add_note("请求实体: %r" % body)
-                if retry_count > 0:
-                    err.add_note("请求重试: %d" % retry_count)
+                err = self._add_request_notes(err, params, body, retry_count)
                 raise err
-            # fmt: on
 
     async def _request_with_sign(
         self,
         method: REQUEST_METHOD,
         url: str,
-        params: dict = None,
+        params: dict | None = None,
         body: dict | None = None,
         headers: dict | None = None,
         extract_data: bool = False,
@@ -410,7 +418,7 @@ class BaseAPI:
 
         :param method `<'str'>`: HTTP 请求方法, 如: `"GET"`, `"POST"`, `"PUT"`, `"DELETE"`
         :param url `<'str'>`: 业务请求路径, 如: `"/api/auth-server/oauth/access-token"`
-        :param params `<'dict'>`: 可选请求参数, 默认 `None`
+        :param params `<'dict/None'>`: 可选请求参数, 默认 `None`
         :param body `<'dict/None'>`: 可选业务请参数, 默认 `None`
         :param headers `<'dict/None'>`: 可选请求头, 如: `{"X-API-VERSION": "2"}`, 默认 `None`
         :param extract_data `<'bool'>`: 是否提取响应数据中的 `data` 字段并直接返回, 默认为 `False`
@@ -426,15 +434,17 @@ class BaseAPI:
             "access_token": BaseAPI._access_token,
             "timestamp": utils.now_ts(),
         }
+
         if isinstance(params, dict):
             reqs_params.update(params)
-        sign_params = {k: v for k, v in reqs_params.items()}
+
+        sign_params = dict(reqs_params)
+
         if isinstance(body, dict):
             sign_params.update(body)
 
         # 生成签名
-        sign = utils.generate_sign(sign_params, self._app_cipher)
-        reqs_params["sign"] = sign
+        reqs_params["sign"] = utils.generate_sign(sign_params, self._app_cipher)
 
         # 发送请求
         try:
@@ -446,6 +456,7 @@ class BaseAPI:
                 headers=headers,
                 extract_data=extract_data,
             )
+
         # 处理过期 Token 或 Signature
         except (errors.TokenError, errors.SignatureExpiredError):
             await self._UpdateToken()  # 刷新 Token
@@ -476,6 +487,7 @@ class BaseAPI:
         code = data.get("code")
         if code is None:
             raise errors.ResponseDataError("响应数据错误, 缺少 code 字段", url, data)
+
         if code == 1:
             if data.get("msg", "") == "服务内部错误":
                 raise errors.InternalServerError(
@@ -483,6 +495,7 @@ class BaseAPI:
                 )
             # 未知错误码
             raise errors.UnknownRequestError("未知的 api 错误", url, data, code)
+
         elif code not in (0, "200"):
             try:
                 errno: int = int(code)
@@ -490,6 +503,7 @@ class BaseAPI:
                 raise errors.ResponseDataError(
                     "响应数据错误, code 字段不是整数", url, data, code
                 )
+
             # 常见错误码
             if errno == 2001003:
                 raise errors.AccessTokenExpiredError(
@@ -511,6 +525,7 @@ class BaseAPI:
                 raise errors.ApiLimitError(
                     "请求速率过高导致被限流拦截", url, data, code
                 )
+
             # 其他错误码
             if errno in (400, 405):
                 raise errors.InvalidApiUrlError(
@@ -569,6 +584,7 @@ class BaseAPI:
                 raise errors.UnauthorizedRequestIpError(
                     "发起请求的 ip 未加入领星 api 白名单", url, data, code
                 )
+
             # listing 服务相关错误码
             if data.get("message", "").startswith("请求listing服务失败"):
                 raise errors.InternalServerError(
@@ -608,3 +624,20 @@ class BaseAPI:
             raise errors.ResponseDataError(
                 "响应数据错误, 缺少 data 字段", url, res_data, code
             )
+
+    @staticmethod
+    def _add_request_notes(
+        err: BaseException,
+        params: dict | None,
+        body: dict | None,
+        retry_count: int,
+    ) -> BaseException:
+        """向异常对象添加请求上下文信息。"""
+
+        if params is not None:
+            err.add_note("请求参数: %r" % params)
+        if body is not None:
+            err.add_note("请求实体: %r" % body)
+        if retry_count > 0:
+            err.add_note("请求重试: %d" % retry_count)
+        return err
