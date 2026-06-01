@@ -79,6 +79,20 @@ class ListingTagInfo(BaseModel):
     tag_color: str = Field(validation_alias="color")
 
 
+class ListingB2BDiscountLevel(BaseModel):
+    # B2B促销等级的最小购买数量 [原字段: 'lower_bound']
+    discount_qty: int = Field(validation_alias="lower_bound")
+    # B2B促销等级的折扣数值 [原字段: 'value']
+    discount_value: float = Field(validation_alias="value")
+
+
+class ListingB2BDiscount(BaseModel):
+    # B2B促销类型
+    discount_type: str
+    # B2B促销等级列表 [原字段: 'levels']
+    discount_levels: list[ListingB2BDiscountLevel] = Field(validation_alias="levels")
+
+
 class Listing(BaseModel):
     """商品 Listing 信息."""
 
@@ -109,14 +123,20 @@ class Listing(BaseModel):
     product_type: int = Field(validation_alias="store_type")
     # 商品价格的货币代码
     currency_code: str
-    # 商品标准价 (不包含促销, 运费, 积分) [原字段 'price']
-    standard_price: FloatOrNone2Zero = Field(validation_alias="price")
+    # 商品标价 (不包含促销, 运费, 积分) [原字段 'price']
+    your_price: FloatOrNone2Zero = Field(validation_alias="price")
     # 商品优惠价 [原字段 'listing_price']
     sale_price: FloatOrNone2Zero = Field(validation_alias="listing_price")
-    # 商品运费
-    shipping: FloatOrNone2Zero
-    # 商品积分 (适用于日本站点)
-    points: FloatOrNone2Zero
+    # 商品List价格
+    list_price: FloatOrNone2Zero
+    # 商品B2B价格
+    b2b_price: FloatOrNone2Zero
+    # 商品B2B折扣列表 [原字段: 'b2b_price_discount']
+    b2b_discounts: list[ListingB2BDiscount] = Field(validation_alias="b2b_price_discount")
+    # 商品运费 [原字段 'shipping']
+    shipping_cost: FloatOrNone2Zero = Field(validation_alias="shipping")
+    # 商品积分费 (适用于日本站点) [原字段 'points']
+    points_cost: FloatOrNone2Zero = Field(validation_alias="points")
     # 商品到手价 (包含促销, 运费, 积分)
     landed_price: FloatOrNone2Zero
     # 商品昨天的总销售额 [原字段 'yesterday_amount']
@@ -192,6 +212,11 @@ class Listing(BaseModel):
     # 商品标签信息 [原字段 'global_tags']
     tags: list[ListingTagInfo] = Field(validation_alias="global_tags")
     # fmt: on
+
+    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    @field_validator("b2b_discounts", mode="before")
+    def _validate_b2b_discounts(cls, v):
+        return [v] if not isinstance(v, list) else v
 
 
 class Listings(ResponseV1):

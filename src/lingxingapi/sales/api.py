@@ -135,14 +135,35 @@ class SalesAPI(BaseAPI):
                     "product_type": 1,
                     # 商品价格的货币代码
                     "currency_code": "EUR",  # 商品价格的货币代码
-                    # 商品标准价 (不包含促销, 运费, 积分) [原字段 'price']
-                    "standard_price": 50.99,
+                    # 商品标价 (不包含促销, 运费, 积分) [原字段 'price']
+                    "your_price": 50.99,
                     # 商品优惠价 [原字段 'listing_price']
                     "sale_price": 43.99,
-                    # 商品运费
-                    "shipping": 0.0,
-                    # 商品积分 (适用于日本站点)
-                    "points": 0.0,
+                    # 商品List价格
+                    "list_price": 48.99,
+                    # 商品B2B价格
+                    "b2b_price": 40.99,
+                    # 商品B2B折扣列表 [原字段: 'b2b_price_discount']
+                    "b2b_discounts": [
+                        {
+                            # B2B促销类型
+                            "discount_type": "percent",
+                            # B2B促销等级列表 [原字段: 'levels']
+                            "discount_levels": [
+                                {
+                                    # B2B促销等级的最小购买数量 [原字段: 'lower_bound']
+                                    "discount_qty": 10,
+                                    # B2B促销等级的折扣数值 [原字段: 'value']
+                                    "discount_value": 5.0,
+                                },
+                                ...
+                        },
+                        ...
+                    ]
+                    # 商品运费 [原字段 'shipping']
+                    "shipping_cost": 0.0,
+                    # 商品积分费 (适用于日本站点) [原字段 'points']
+                    "points_cost": 0.0,
                     # 商品到手价 (包含促销, 运费, 积分)
                     "landed_price": 43.99,
                     # 商品昨天的总销售额 [原字段 'yesterday_amount']
