@@ -80,13 +80,17 @@ class ListingTagInfo(BaseModel):
 
 
 class ListingB2BDiscountLevel(BaseModel):
+    """B2B促销等级."""
+
     # B2B促销等级的最小购买数量 [原字段: 'lower_bound']
-    discount_qty: int = Field(validation_alias="lower_bound")
+    discount_qty: IntOrNone2Zero = Field(0, validation_alias="lower_bound")
     # B2B促销等级的折扣数值 [原字段: 'value']
-    discount_value: float = Field(validation_alias="value")
+    discount_value: FloatOrNone2Zero = Field(0.0, validation_alias="value")
 
 
 class ListingB2BDiscount(BaseModel):
+    """B2B促销信息."""
+
     # B2B促销类型
     discount_type: str
     # B2B促销等级列表 [原字段: 'levels']
@@ -215,8 +219,13 @@ class Listing(BaseModel):
 
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     @field_validator("b2b_discounts", mode="before")
-    def _validate_b2b_discounts(cls, v):
-        return [v] if not isinstance(v, list) else v
+    def _validate_b2b_discounts(cls, v) -> list:
+        if isinstance(v, list):
+            return [ListingB2BDiscount.model_validate(i) for i in v]
+        elif isinstance(v, dict):
+            return [ListingB2BDiscount.model_validate(v)]
+        else:
+            return []
 
 
 class Listings(ResponseV1):
