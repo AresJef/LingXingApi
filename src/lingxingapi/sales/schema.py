@@ -348,8 +348,10 @@ class ListingFbaFee(BaseModel):
     sid: int
     # 亚马逊卖家SKU (Listing.msku)
     msku: str
-    # 预估FBA费用
-    fba_fee: FloatOrNone2Zero
+    # 预估FBA费用 [原字段 'fba_fee']
+    expect_fba_fee: FloatOrNone2Zero = Field(validation_alias="fba_fee")
+    # 实际FBA费用 [原字段 'fba_fee_report']
+    actual_fba_fee: FloatOrNone2Zero = Field(validation_alias="fba_fee_report")
     # 预估FBA费用货币代码 [原字段 'fba_fee_currency_code']
     currency_code: str = Field(validation_alias="fba_fee_currency_code")
 
