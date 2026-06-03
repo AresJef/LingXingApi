@@ -975,7 +975,7 @@ class McfOrder(BaseModel):
     # 领星店铺名称 (Seller.name) [原字段 'store_name']
     seller_name: StrOrNone2Blank = Field(validation_alias="store_name")
     # 订单国家 (中文)
-    country: str
+    country: StrOrNone2Blank
     # 多渠道亚马逊订单ID
     amazon_order_id: str
     # 多渠道订单配送ID [原字段 'seller_fulfillment_order_id']
@@ -985,7 +985,7 @@ class McfOrder(BaseModel):
     # 订单备注 [原字段 'remark']
     order_note: str = Field(validation_alias="remark")
     # 买家名称
-    buyer_name: str
+    buyer_name: StrOrNone2Blank
     # 购买时间 (站点时间) [原字段 'purchase_date_local']
     purchase_time_loc: str = Field(validation_alias="purchase_date_local")
     # 发货时间 (UTC时间) [原字段 'ship_date_utc']
