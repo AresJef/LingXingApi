@@ -909,10 +909,10 @@ class SalesAPI(BaseAPI):
                     "sid": 1,
                     # 亚马逊卖家SKU (Listing.msku)
                     "msku": "SKU*******",
-                    # 预估FBA费用 [原字段 'fba_fee']
-                    "expect_fba_fee": 2.39
-                    # 实际FBA费用 [原字段 'fba_fee_report']
-                    "actual_fba_fee": 2.39
+                    # FBA费用预估值(来源:API) [原字段 'fba_fee']
+                    "fba_fee_estimated": 2.39
+                    # FBA费用预览值(来源:报表) [原字段 'fba_fee_report']
+                    "fba_fee_preview": 2.39
                     # 预估FBA费用货币代码 [原字段 'fba_fee_currency_code']
                     "currency_code": "EUR"
                 },
