@@ -1193,7 +1193,8 @@ class AdsAPI(BaseAPI):
                         # 广告标题
                         "title": None,
                     },
-                    "creative_landing_page": {
+                    # 广告创意着陆页
+                    "landing_page": {
                         # 着陆页类型 [原字段 'pageType']
                         "page_type": "DETAIL_PAGE",
                         # 着陆页URL [原字段 'url']

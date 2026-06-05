@@ -461,8 +461,8 @@ class SbCreative(BaseModel):
     creative_type: str
     # 广告创意设置 [原字段 'creative']
     creative_config: SbCreativeConfig = Field(validation_alias="creative")
-    # 广告创意着陆页 [原字段 'landing_page']
-    creative_landing_page: SbCreativeLandingPage = Field(validation_alias="landing_page")
+    # 广告创意着陆页
+    landing_page: SbCreativeLandingPage | None = None
     # 广告创意 ASIN 列表 [原字段 'asin']
     asins: list[str] | None = Field(None, validation_alias="asin")
     # 广告状态
