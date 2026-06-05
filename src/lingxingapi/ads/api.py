@@ -1152,7 +1152,7 @@ class AdsAPI(BaseAPI):
                         # 品牌名称 [原字段 'brandName']
                         "brand_name": "High yield ink cartridges",
                         # 品牌Logo素材ID [原字段 'brandLogoAssetID']
-                        "logo_asset_id": "amzn1.assetlibrary.asset1.****:version_v1",
+                        "brand_logo_asset_id": "amzn1.assetlibrary.asset1.****:version_v1",
                         # 品牌Logo链接 [原字段 'brandLogoUrl']
                         "brand_logo_url": "https://m.media-amazon.com/images/S/al-na-***.jpg",
                         # 头条

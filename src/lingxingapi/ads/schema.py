@@ -402,7 +402,7 @@ class SbCreativeConfig(BaseModel):
     # 品牌名称 [原字段 'brandName']
     brand_name: StrOrNone2Blank = Field(None, validation_alias="brandName")
     # 品牌Logo素材ID [原字段 'brandLogoAssetID']
-    logo_asset_id: StrOrNone2Blank = Field(None, validation_alias="brandLogoAssetID")
+    brand_logo_asset_id: StrOrNone2Blank = Field(None, validation_alias="brandLogoAssetID")
     # 品牌Logo链接 [原字段 'brandLogoUrl']
     brand_logo_url: StrOrNone2Blank = Field(None, validation_alias="brandLogoUrl")
     # 头条
