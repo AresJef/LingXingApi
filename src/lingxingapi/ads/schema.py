@@ -318,12 +318,6 @@ class SbCampaign(BaseModel):
     bid_multiplier: FloatOrNone2Zero
     # 是否使用自动竞价 (0: 否, 1: 是)
     bid_optimization: IntOrNone2Zero
-    # 广告着陆页 (JSON 字符串)
-    landing_page: StrOrNone2Blank
-    # 广告创意结构 (JSON 字符串)
-    creative: StrOrNone2Blank
-    # 广告创意类型
-    creative_type: StrOrNone2Blank
     # 开始时间 [原字段 'start_date']
     start_time: StrOrNone2Blank = Field(validation_alias="start_date")
     # 结束时间 [原字段 'end_date']
