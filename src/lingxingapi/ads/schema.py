@@ -369,9 +369,90 @@ class SbAdGroups(ResponseV1Token):
 
 
 # . SB Creatives
+class SbCreativeCustomImage(BaseModel):
+    """SB 广告创意图片配置"""
+
+    # 图片素材ID [原字段 'assetId']
+    image_asset_id: str = Field(validation_alias="assetId")
+    # 图片链接 [原字段 'url']
+    image_url: str = Field(validation_alias="url")
+
+
+class SbCreativeSubpage(BaseModel):
+    """SB 广告创意子页面配置"""
+
+    # 子页面ASIN [原字段 'asin']
+    asin: StrOrNone2Blank = Field(None, validation_alias="asin")
+    # 子页面标题 [原字段 'pageTitle']
+    page_title: StrOrNone2Blank = Field(None, validation_alias="pageTitle")
+    # 子页面URL [原字段 'url']
+    page_url: str = Field(validation_alias="url")
+
+
+class SbCreativeConfig(BaseModel):
+    """SB 广告创意设置"""
+
+    # fmt: off
+    # 广告创意类型 [原字段 'type']
+    creative_type: str = Field(validation_alias="type")
+    # 广告创意状态 [原字段 'creativeStatus']
+    creative_status: str = Field(validation_alias="creativeStatus")
+    # 广告创意版本 [原字段 'creativeVersion']
+    creative_version: int = Field(validation_alias="creativeVersion")
+    # 广告创意 ASIN 列表
+    asins: list[str] | None = None
+    # 广告创意排除 ASIN 列表 [原字段 'asinExclusions']
+    asin_excluded: list[str] | None = Field(None, validation_alias="asinExclusions")
+    # 是否同意翻译 [原字段 'consentToTranslate']
+    consent_to_translate: bool = Field(False, validation_alias="consentToTranslate")
+    # 品牌名称 [原字段 'brandName']
+    brand_name: StrOrNone2Blank = Field(None, validation_alias="brandName")
+    # 品牌Logo素材ID [原字段 'brandLogoAssetID']
+    logo_asset_id: StrOrNone2Blank = Field(None, validation_alias="brandLogoAssetID")
+    # 品牌Logo链接 [原字段 'brandLogoUrl']
+    brand_logo_url: StrOrNone2Blank = Field(None, validation_alias="brandLogoUrl")
+    # 头条
+    headline: StrOrNone2Blank = None
+    # 头条列表
+    headlines: list[str] | None = None
+    # 原始头条 [原字段 'originalHeadline']
+    headline_original: StrOrNone2Blank = Field(None, validation_alias="originalHeadline")
+    # 原始头条列表 [原字段 'originalHeadlines']
+    headlines_original: list[str] | None = Field(None, validation_alias="originalHeadlines")
+    # 图片素材ID [原字段 'customImageAssetId']
+    custom_image_asset_id: StrOrNone2Blank = Field(None, validation_alias="customImageAssetId")
+    # 图片链接 [原字段 'customImageUrl']
+    custom_image_url: StrOrNone2Blank = Field(None, validation_alias="customImageUrl")
+    # 图片素材列表 [原字段 'customImages']
+    custom_images: list[SbCreativeCustomImage] | None = Field(None, validation_alias="customImages")
+    # 优化属性列表 [原字段 'creativePropertiesToOptimize']
+    optimize_properties: list[str] | None = Field(None, validation_alias="creativePropertiesToOptimize")
+    # 视频素材ID列表 [原字段 'videoAssetIds']
+    video_asset_ids: list[str] | None = Field(None, validation_alias="videoAssetIds")
+    # 原始素材ID列表 [原字段 'originalVideoAssetIds']
+    video_original_asset_ids: list[str] | None = Field(None, validation_alias="originalVideoAssetIds")
+    # 商品集类型 [原字段 'collectionType']
+    collection_type: StrOrNone2Blank = Field(None, validation_alias="collectionType")
+    # 子页面列表
+    subpages: list[SbCreativeSubpage] | None = None
+    # 广告标题
+    title: StrOrNone2Blank = None
+    # fmt: on
+
+
+class SbCreativeLandingPage(BaseModel):
+    """SB 广告创意着陆页"""
+
+    # 着陆页类型 [原字段 'pageType']
+    page_type: str = Field(validation_alias="pageType")
+    # 着陆页URL [原字段 'url']
+    page_url: StrOrNone2Blank = Field(None, validation_alias="url")
+
+
 class SbCreative(BaseModel):
     """SB 广告创意"""
 
+    # fmt: off
     # 亚马逊店铺ID (广告帐号ID)
     profile_id: int
     # 广告活动ID
@@ -382,8 +463,14 @@ class SbCreative(BaseModel):
     creative_id: int = Field(validation_alias="ad_creative_id")
     # 广告创意名称 [原字段 'name']
     creative_name: StrOrNone2Blank = Field(validation_alias="name")
+    # 广告创意类型
+    creative_type: str
+    # 广告创意设置 [原字段 'creative']
+    creative_config: SbCreativeConfig = Field(validation_alias="creative")
+    # 广告创意着陆页 [原字段 'landing_page']
+    creative_landing_page: SbCreativeLandingPage = Field(validation_alias="landing_page")
     # 广告创意 ASIN 列表 [原字段 'asin']
-    asins: list[str] = Field(validation_alias="asin")
+    asins: list[str] | None = Field(None, validation_alias="asin")
     # 广告状态
     state: StrOrNone2Blank
     # 服务状态 [原字段 'serving_status']
@@ -392,6 +479,7 @@ class SbCreative(BaseModel):
     create_time_ts: IntOrNone2Zero = Field(validation_alias="creation_date")
     # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
     update_time_ts: IntOrNone2Zero = Field(validation_alias="last_updated_date")
+    # fmt: on
 
 
 class SbCreatives(ResponseV1Token):
