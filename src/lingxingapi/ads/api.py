@@ -952,12 +952,6 @@ class AdsAPI(BaseAPI):
                     "bid_multiplier": 0.0,
                     # 是否使用自动竞价 (0: 否, 1: 是)
                     "bid_optimization": 0,
-                    # 广告着陆页 (JSON 字符串)
-                    "landing_page": '{"url": "https://www.amazon.de/dp/B07*******", "pageType": "detailPage"}',
-                    # 广告创意结构 (JSON 字符串)
-                    "creative": '{"type": "video", "asins": ["B07*******"], "videoMediaIds": ["amzn1.adex.media1.d9cd46ae-1a24-4ffe-b29f-74d7e131e16d"]}',
-                    # 广告创意类型
-                    "creative_type": "COLLECTION",
                     # 开始时间 [原字段 'start_date']
                     "start_time": "2025-05-05 00:00:00",
                     # 结束时间 [原字段 'end_date']
@@ -1130,25 +1124,91 @@ class AdsAPI(BaseAPI):
             "data": [
                 {
                     # 亚马逊店铺ID (广告帐号ID)
-                    "profile_id": 494************,
+                    "profile_id": 494383675863017,
                     # 广告活动ID
-                    "campaign_id": 378************,
+                    "campaign_id": 282221570803635,
                     # 广告组ID
-                    "ad_group_id": 454************,
+                    "ad_group_id": 560416129592263,
                     # 广告创意ID [原字段 'ad_creative_id']
-                    "creative_id": 283************,
+                    "creative_id": 283590081032001,
                     # 广告创意名称 [原字段 'name']
-                    "creative_name": "商品集 广告 - 4/19/2025 17:56:42.987",
+                    "creative_name": "视频 广告 - 1/16/2025 16:57:17.448",
+                    # 广告创意类型
+                    "creative_type": "PRODUCT_COLLECTION",
+                    # 广告创意设置 [原字段 'creative']
+                    "creative_config": {
+                        # 广告创意类型 [原字段 'type']
+                        "creative_type": "PRODUCT_COLLECTION",
+                        # 广告创意状态 [原字段 'creativeStatus']
+                        "creative_status": "PUBLISHED",
+                        # 广告创意版本 [原字段 'creativeVersion']
+                        "creative_version": 6,
+                        # 广告创意 ASIN 列表
+                        "asins": ["B0DYTPY000", "B0F18JN000", "B0DQLHH000"],
+                        # 广告创意排除 ASIN 列表 [原字段 'asinExclusions']
+                        "asin_excluded": None,
+                        # 是否同意翻译 [原字段 'consentToTranslate']
+                        "consent_to_translate": False,
+                        # 品牌名称 [原字段 'brandName']
+                        "brand_name": "High yield ink cartridges",
+                        # 品牌Logo素材ID [原字段 'brandLogoAssetID']
+                        "logo_asset_id": "amzn1.assetlibrary.asset1.****:version_v1",
+                        # 品牌Logo链接 [原字段 'brandLogoUrl']
+                        "brand_logo_url": "https://m.media-amazon.com/images/S/al-na-***.jpg",
+                        # 头条
+                        "headline": "High Yield 63XL Ink Cartridges",
+                        # 头条列表
+                        "headlines": ["High Yield 63XL Ink Cartridges"],
+                        # 原始头条 [原字段 'originalHeadline']
+                        "headline_original": "High Yield 63XL Ink Cartridges",
+                        # 原始头条列表 [原字段 'originalHeadlines']
+                        "headlines_original": ["High Yield 63XL Ink Cartridges"],
+                        # 图片素材ID [原字段 'customImageAssetId']
+                        "custom_image_asset_id": "amzn1.assetlibrary.asset1.***:version_v1",
+                        # 图片链接 [原字段 'customImageUrl']
+                        "custom_image_url": "https://m.media-amazon.com/images/S/***.jpg",
+                        # 图片素材列表 [原字段 'customImages']
+                        "custom_images": [
+                            {
+                                # 图片素材ID [原字段 'assetId']
+                                "image_asset_id": "amzn1.assetlibrary.asset1.***:version_v1",
+                                # 图片链接 [原字段 'url']
+                                "image_url": "https://m.media-amazon.com/images/S/***.jpg",
+                            }
+                        ],
+                        # 优化属性列表 [原字段 'creativePropertiesToOptimize']
+                        "optimize_properties": ["HEADLINE"],
+                        # 视频素材ID列表 [原字段 'videoAssetIds']
+                        "video_asset_ids": None,
+                        # 原始素材ID列表 [原字段 'originalVideoAssetIds']
+                        "video_original_asset_ids": None,
+                        # 商品集类型 [原字段 'collectionType']
+                        "collection_type": None,
+                        # 子页面列表
+                        "subpages": {
+                            "asin": "B0DRJJT000",
+                            "page_title": "Product Title",
+                            "page_url": "https://www.amazon.com/dp/B0DRJJT000",
+                        },
+                        # 广告标题
+                        "title": None,
+                    },
+                    "creative_landing_page": {
+                        # 着陆页类型 [原字段 'pageType']
+                        "page_type": "DETAIL_PAGE",
+                        # 着陆页URL [原字段 'url']
+                        "page_url": "https://www.amazon.com/dp/B0DRJJT38Q",
+                    },
                     # 广告创意 ASIN 列表 [原字段 'asin']
-                    "asins": ["B0D*******"],
+                    "asins": ["B0DYTPY000", "B0F18JN000", "B0DQLHH000"],
                     # 广告状态
                     "state": "enabled",
                     # 服务状态 [原字段 'serving_status']
-                    "status": "AD_STATUS_LIVE",
+                    "status": "PORTFOLIO_OUT_OF_BUDGET",
                     # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
-                    "create_time_ts": 1745056822757,
+                    "create_time_ts": 1737020153891,
                     # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
-                    "update_time_ts": 1752331081315,
+                    "update_time_ts": 1737027219081,
                 },
                 ...
             ],
