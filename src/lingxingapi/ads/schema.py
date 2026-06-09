@@ -2103,14 +2103,14 @@ class SbAsinAttributionReport(BaseModel):
     new_to_brand_units_14d: int = Field(validation_alias="new_to_brand_units_sold14d")
     # 品牌新买家成交商品件数占比14天 [原字段 'new_to_brand_units_sold_percentage14d']
     # (品牌新买家14天成交商品件数 / 广告14天成交商品件数 x 100%)
-    new_to_brand_units_pct_14d: float = Field(validation_alias="new_to_brand_units_sold_percentage14d")
+    new_to_brand_units_pct_14d: FloatOrNone2Zero = Field(validation_alias="new_to_brand_units_sold_percentage14d")
     # 广告14天销售
     sales_14d: float = Field(validation_alias="sales14d")
     # 品牌新买家14天销售额 [原字段 'new_to_brand_sales14d']
     new_to_brand_sales_14d: float = Field(validation_alias="new_to_brand_sales14d")
     # 品牌新买家销售额占比14天 [原字段 'new_to_brand_sales_percentage14d']
     # (品牌新买家14天销售额 / 广告14天销售 x 100%)
-    new_to_brand_sales_pct_14d: float = Field(validation_alias="new_to_brand_sales_percentage14d")
+    new_to_brand_sales_pct_14d: FloatOrNone2Zero = Field(validation_alias="new_to_brand_sales_percentage14d")
     # 报告日期
     report_date: str
     # fmt: on
