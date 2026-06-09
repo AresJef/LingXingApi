@@ -2079,13 +2079,13 @@ class SbAsinAttributionReport(BaseModel):
     # 亚马逊店铺ID (广告帐号ID)
     profile_id: int
     # 广告活动ID
-    campaign_id: int
+    campaign_id: IntOrNone2Zero
     # 广告活动名称
-    campaign_name: str
+    campaign_name: StrOrNone2Blank
     # 广告组ID
-    ad_group_id: int
+    ad_group_id: IntOrNone2Zero
     # 广告组名称
-    ad_group_name: str
+    ad_group_name: StrOrNone2Blank
     # 归因类型
     attribution_type: str
     # 商品ASIN
