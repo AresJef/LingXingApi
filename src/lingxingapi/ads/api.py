@@ -4203,7 +4203,6 @@ class AdsAPI(BaseAPI):
             # 响应数据
             "data": [
                 {
-                    {
                     # 亚马逊店铺ID (广告帐号ID)
                     "profile_id": 494************,
                     # 广告活动ID
