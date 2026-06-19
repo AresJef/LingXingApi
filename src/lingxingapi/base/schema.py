@@ -22,7 +22,7 @@ class TagInfo(BaseModel):
     """商品的标签信息."""
 
     # 领星标签ID (GlobalTag.tag_id) [原字段 'global_tag_id']
-    tag_id: str = Field(validation_alias="global_tag_id")
+    tag_id: int = Field(validation_alias="global_tag_id")
     # 领星标签名称 (GlobalTag.tag_name) [原字段 'tag_name']
     tag_name: str = Field(validation_alias="tag_name")
     # 领星标签颜色 (如: "#FF0000") [原字段 'color']
