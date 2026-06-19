@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-c
 from Crypto.Cipher import AES
 from aiohttp import ClientTimeout
+from aiohttp_socks import ProxyConnector
 from lingxingapi import errors
 from lingxingapi.base import schema
 from lingxingapi.base.api import BaseAPI
@@ -47,6 +48,7 @@ class API(BaseAPI):
         ignore_internet_connection_wait: int | float = 1,
         ignore_internet_connection_retry: int = 10,
         max_tcp_connections: int = 100,
+        proxy_connector: ProxyConnector | None = None,
     ) -> None:
         """初始化领星 API 客户端
 
@@ -105,6 +107,8 @@ class API(BaseAPI):
             默认为 `10`, 仅在 `ignore_internet_connection` 为 `True` 时生效, 若设置为 `-1` 则表示无限重试
 
         :param max_tcp_connections `<'int'>`: HTTP 会话的最大 TCP 连接数, 用于控制并发请求的数量, 默认为 100
+
+        :param proxy_connector `<'ProxyConnector/None'>`: 可选的 SOCKS 代理连接器, 用于通过 SOCKS 代理发送请求, 默认 `None`
         """
         # 验证参数
         # . API 凭证
@@ -195,6 +199,14 @@ class API(BaseAPI):
                 "最大 TCP 连接数必须为非负整数, 而非 %r" % (max_tcp_connections,)
             )
         max_tcp_connections: int = max_tcp_connections
+        # . SOCKS 代理连接器
+        if not proxy_connector is None and not isinstance(
+            proxy_connector, ProxyConnector
+        ):
+            raise errors.ApiSettingsError(
+                "SOCKS 代理连接器必须为 ProxyConnector 实例或 None, 而非 %r"
+                % (proxy_connector,)
+            )
         # 初始化
         kwargs = {
             "app_id": app_id,
@@ -214,6 +226,7 @@ class API(BaseAPI):
             "ignore_internet_connection_wait": ignore_internet_connection_wait,
             "ignore_internet_connection_retry": ignore_internet_connection_retry,
             "max_tcp_connections": max_tcp_connections,
+            "proxy_connector": proxy_connector,
         }
         super().__init__(**kwargs)
         self._basic: BasicAPI = BasicAPI(**kwargs)

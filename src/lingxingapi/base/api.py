@@ -4,6 +4,7 @@ from typing import Literal
 from typing_extensions import Self
 from orjson import loads as _orjson_loads
 from Crypto.Cipher._mode_ecb import EcbMode
+from aiohttp_socks import ProxyConnector
 from aiohttp import TCPConnector, ClientTimeout, ClientSession
 from lingxingapi import utils, errors
 from lingxingapi.base import route, schema
@@ -47,6 +48,7 @@ class BaseAPI:
         ignore_internet_connection_wait: int | float,
         ignore_internet_connection_retry: int,
         max_tcp_connections: int,
+        proxy_connector: ProxyConnector,
     ) -> None:
         """领星 API 基础类, 提供公共方法和属性供子类继承使用
 
@@ -110,6 +112,8 @@ class BaseAPI:
             仅在 `ignore_internet_connection` 为 `True` 时生效, 若设置为 `-1` 则表示无限重试
 
         :param max_tcp_connections `<'int'>`: HTTP 会话的最大 TCP 连接数, 用于控制并发请求的数量
+
+        :param proxy_connector `<'ProxyConnector/None'>`: 可选的 SOCKS 代理连接器, 用于通过 SOCKS 代理发送请求
         """
         # API 凭证
         self._app_id: str = app_id
@@ -152,6 +156,9 @@ class BaseAPI:
         self._infinite_internet_connection_retry: bool = (
             ignore_internet_connection_retry == -1
         )
+
+        # . SOCKS 代理连接器
+        self._proxy_connector: ProxyConnector | None = proxy_connector
 
     async def __aenter__(self) -> Self:
         """进入 API 客户端异步上下文管理器
@@ -270,11 +277,15 @@ class BaseAPI:
         while True:
             # 确保 HTTP 会话可用
             if BaseAPI._session is None or BaseAPI._session.closed:
+                if self._proxy_connector is None:
+                    connector = TCPConnector(limit=self._max_tcp_connections)
+                else:
+                    connector = self._proxy_connector
                 BaseAPI._session = ClientSession(
                     route.API_SERVER,
                     headers={"Content-Type": "application/json"},
                     timeout=self._timeout,
-                    connector=TCPConnector(limit=self._max_tcp_connections),
+                    connector=connector,
                 )
 
             # 发送请求
@@ -313,7 +324,7 @@ class BaseAPI:
                     )
                     await asyncio.sleep(self._ignore_api_limit_wait)
                     continue
-                
+
                 err = self._add_request_notes(err, params, body, retry_count)
                 raise err
 
