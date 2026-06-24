@@ -753,14 +753,16 @@ class AdsAPI(BaseAPI):
                     "campaign_id": 397************,
                     # 广告组ID
                     "ad_group_id": 0,
+                    # 否定关键词ID [原字段 'target_id']
+                    "negative_keyword_id": 389************,
                     # 否定关键词文本 [原字段 'negative_text']
-                    "keyword_text": "inexpensive",
+                    "negative_keyword_text": "edible",
                     # 否定匹配方式 [原字段 'negative_match_type']
-                    "match_type": "negativePhrase",
+                    "negative_keyword_match_type": "negativePhrase",
                     # 广告状态
                     "state": "enabled",
                     # 服务状态 [原字段 'serving_status']
-                    "status": "PORTFOLIO_OUT_OF_BUDGET",
+                    "status": "CAMPAIGN_PAUSED",
                     # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
                     "create_time_ts": 1744989374515,
                     # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
@@ -845,18 +847,20 @@ class AdsAPI(BaseAPI):
                     "campaign_id": 397************,
                     # 广告组ID
                     "ad_group_id": 335************,
-                    # 否定投放类型 [原字段 'negative_type']
-                    "target_type": "negativeAsin",
-                    # 否定投放文本 [原字段 'negative_text']
-                    "target_text": "B0C*******",
+                    # 否定目标ID [原字段 'target_id']
+                    "negative_target_id": 295************,
+                    # 否定目标文本 [原字段 'negative_text']
+                    "negative_target_text": "B07*******",
+                    # 否定目标匹配类型 [原字段 'negative_type']
+                    "negative_target_match_type": "negativeAsin",
                     # 广告状态
                     "state": "enabled",
                     # 服务状态 [原字段 'serving_status']
-                    "status": "PORTFOLIO_OUT_OF_BUDGET",
+                    "status": "CAMPAIGN_PAUSED",
                     # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
-                    "create_time_ts": 1744989374515,
+                    "create_time_ts": 1750758047854,
                     # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
-                    "update_time_ts": 1744989374649,
+                    "update_time_ts": 1750758047998,
                 },
                 ...
             ],

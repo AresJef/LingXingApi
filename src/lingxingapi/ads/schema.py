@@ -247,10 +247,12 @@ class SpNegativeKeyword(BaseModel):
     campaign_id: int
     # 广告组ID
     ad_group_id: IntOrNone2Zero
+    # 否定关键词ID [原字段 'target_id']
+    negative_keyword_id: int = Field(validation_alias="target_id")
     # 否定关键词文本 [原字段 'negative_text']
-    keyword_text: StrOrNone2Blank = Field(validation_alias="negative_text")
+    negative_keyword_text: str = Field(validation_alias="negative_text")
     # 否定匹配方式 [原字段 'negative_match_type']
-    match_type: StrOrNone2Blank = Field(validation_alias="negative_match_type")
+    negative_keyword_match_type: str = Field(validation_alias="negative_match_type")
     # 广告状态
     state: StrOrNone2Blank
     # 服务状态 [原字段 'serving_status']
@@ -277,10 +279,12 @@ class SpNegativeTarget(BaseModel):
     campaign_id: int
     # 广告组ID
     ad_group_id: IntOrNone2Zero
-    # 否定目标类型 [原字段 'negative_type']
-    target_type: str = Field(validation_alias="negative_type")
+    # 否定目标ID [原字段 'target_id']
+    negative_target_id: int = Field(validation_alias="target_id")
     # 否定目标文本 [原字段 'negative_text']
-    target_text: StrOrNone2Blank = Field(validation_alias="negative_text")
+    negative_target_text: StrOrNone2Blank = Field(validation_alias="negative_text")
+    # 否定目标匹配类型 [原字段 'negative_type']
+    negative_target_match_type: str = Field(validation_alias="negative_type")
     # 广告状态
     state: StrOrNone2Blank
     # 服务状态 [原字段 'serving_status']
