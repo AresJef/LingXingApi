@@ -4035,6 +4035,8 @@ class AdsAPI(BaseAPI):
                     # 广告销售额
                     "sales": 149.4,
                     # 直接广告销售额 [原字段 'same_sales']
+                    "direct_sales": 149.4,
+                    # 品牌新买家销售额
                     "new_to_brand_sales": 149.4,
                     # 广告可见率 - View Through Rate
                     # (可见展示次数 / 总展示次数 x 100%)

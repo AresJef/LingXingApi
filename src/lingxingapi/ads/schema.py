@@ -1708,6 +1708,8 @@ class SbAdGroupReport(BaseModel):
     new_to_brand_units: int
     # 广告销售额
     sales: float
+    # 直接广告销售额 [原字段 'same_sales']
+    direct_sales: float = Field(validation_alias="same_sales")
     # 品牌新买家销售额
     new_to_brand_sales: float
     # 广告可见率 - View Through Rate
