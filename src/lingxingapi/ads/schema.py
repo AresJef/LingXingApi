@@ -562,12 +562,12 @@ class SbNegativeKeyword(BaseModel):
     campaign_id: int
     # 广告组ID
     ad_group_id: IntOrNone2Zero
-    # 否定关键词ID
-    keyword_id: int
-    # 否定关键词文本
-    keyword_text: StrOrNone2Blank
-    # 否定关键词匹配类型
-    match_type: StrOrNone2Blank
+    # 否定关键词ID [原字段 'keyword_id']
+    negative_keyword_id: int = Field(validation_alias="keyword_id")
+    # 否定关键词文本 [原字段 'negative_text']
+    negative_keyword_text: str = Field(validation_alias="keyword_text")
+    # 否定匹配方式 [原字段 'negative_match_type']
+    negative_keyword_match_type: str = Field(validation_alias="match_type")
     # 广告状态
     state: StrOrNone2Blank
     # 服务状态 [原字段 'serving_status']
@@ -588,20 +588,21 @@ class SbNegativeKeywords(ResponseV1Token):
 class SbNegativeTarget(BaseModel):
     """SB 否定目标商品投放"""
 
+    # fmt: off
     # 亚马逊店铺ID (广告帐号ID)
     profile_id: int
     # 广告活动ID
     campaign_id: int
     # 广告组ID
     ad_group_id: IntOrNone2Zero
-    # 否定目标商品广告ID
-    target_id: int
-    # 否定目标定位类型
-    expression_type: str
-    # 否定目标定位表达式 (JSON 字符串)
-    expression: str
-    # 否定目标定位解析表达式 (JSON 字符串) [原字段 'resolved_expression']
-    expression_resolved: str = Field(validation_alias="resolved_expression")
+    # 否定目标ID [原字段 'target_id']
+    negative_target_id: int = Field(validation_alias="target_id")
+    # 否定定位表达式 (JSON 字符串) [原字段 'expression']
+    negative_expression: str = Field(validation_alias="expression")
+    # 否定定位解析表达式 (JSON 字符串) [原字段 'resolved_expression']
+    negative_expression_resolved: str = Field(validation_alias="resolved_expression")
+    # 否定定位类型 [原字段 'expression_type']
+    negative_expression_type: StrOrNone2Blank = Field(validation_alias="expression_type")
     # 广告状态
     state: StrOrNone2Blank
     # 服务状态 [原字段 'serving_status']
@@ -610,6 +611,7 @@ class SbNegativeTarget(BaseModel):
     create_time_ts: IntOrNone2Zero = Field(validation_alias="creation_date")
     # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
     update_time_ts: IntOrNone2Zero = Field(validation_alias="last_updated_date")
+    # fmt: on
 
 
 class SbNegativeTargets(ResponseV1Token):
@@ -763,20 +765,21 @@ class SdTargets(ResponseV1Token):
 class SdNegativeTarget(BaseModel):
     """SD 否定目标商品投放"""
 
+    # fmt: off
     # 亚马逊店铺ID (广告帐号ID)
     profile_id: int
     # 广告活动ID
     campaign_id: int
     # 广告组ID
     ad_group_id: IntOrNone2Zero
-    # 否定目标商品广告ID
-    target_id: int
-    # 否定目标定位类型
-    expression_type: str
-    # 否定目标定位表达式 (JSON 字符串)
-    expression: str
-    # 否定目标定位解析表达式 (JSON 字符串) [原字段 'resolved_expression']
-    expression_resolved: str = Field(validation_alias="resolved_expression")
+    # 否定目标ID [原字段 'target_id']
+    negative_target_id: int = Field(validation_alias="target_id")
+    # 否定定位表达式 (JSON 字符串) [原字段 'expression']
+    negative_expression: str = Field(validation_alias="expression")
+    # 否定定位解析表达式 (JSON 字符串) [原字段 'resolved_expression']
+    negative_expression_resolved: str = Field(validation_alias="resolved_expression")
+    # 否定定位类型 [原字段 'expression_type']
+    negative_expression_type: StrOrNone2Blank = Field(validation_alias="expression_type")
     # 广告状态
     state: StrOrNone2Blank
     # 服务状态 [原字段 'serving_status']
@@ -785,6 +788,7 @@ class SdNegativeTarget(BaseModel):
     create_time_ts: IntOrNone2Zero = Field(validation_alias="creation_date")
     # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
     update_time_ts: IntOrNone2Zero = Field(validation_alias="last_updated_date")
+    # fmt: on
 
 
 class SdNegativeTargets(ResponseV1Token):

@@ -1492,12 +1492,12 @@ class AdsAPI(BaseAPI):
                     "campaign_id": 517************,
                     # 广告组ID
                     "ad_group_id": 434************,
-                    # 否定关键词ID
-                    "keyword_id": 562************,
-                    # 否定关键词文本
-                    "keyword_text": "cheap",
-                    # 否定关键词匹配类型
-                    "match_type": "negativePhrase",
+                    # 否定关键词ID [原字段 'keyword_id']
+                    "negative_keyword_id": 562************,
+                    # 否定关键词文本 [原字段 'negative_text']
+                    "negative_keyword_text": "cheap",
+                    # 否定匹配方式 [原字段 'negative_match_type']
+                    "negative_keyword_match_type": "negativePhrase",
                     # 广告状态
                     "state": "enabled",
                     # 服务状态 [原字段 'serving_status']
@@ -1589,14 +1589,14 @@ class AdsAPI(BaseAPI):
                     "campaign_id": 517************,
                     # 广告组ID
                     "ad_group_id": 434************,
-                    # 否定目标商品广告ID
-                    "target_id": 562************,
-                    # 否定目标定位类型
-                    "expression_type": "manual",
-                    # 否定目标定位表达式 (JSON 字符串)
-                    "expression": '[{"type": "asinSameAs", "value": "B00*******"}]',
-                    # 否定目标定位解析表达式 (JSON 字符串) [原字段 'resolved_expression']
-                    "expression_resolved": '[{"type": "asinSameAs", "value": "B00*******"}]',
+                    # 否定目标ID [原字段 'target_id']
+                    "negative_target_id": 562************,
+                    # 否定定位表达式 (JSON 字符串) [原字段 'expression']
+                    "negative_expression": '[{"type": "asinSameAs", "value": "B00*******"}]',
+                    # 否定定位解析表达式 (JSON 字符串) [原字段 'resolved_expression']
+                    "negative_expression_resolved": '[{"type": "asinSameAs", "value": "B00*******"}]',
+                    # 否定定位类型 [原字段 'expression_type']
+                    "negative_expression_type": "manual",
                     # 广告状态
                     "state": "enabled",
                     # 服务状态 [原字段 'serving_status']
@@ -2089,14 +2089,14 @@ class AdsAPI(BaseAPI):
                     "campaign_id": 536************,
                     # 广告组ID
                     "ad_group_id": 385************,
-                    # 否定目标商品广告ID
-                    "target_id": 560************,
-                    # 否定目标定位类型
-                    "expression_type": "manual",
-                    # 否定目标定位表达式 (JSON 字符串)
-                    "expression": '[{"type": "asinSameAs", "value": "B0C*******"}]',
-                    # 否定目标定位解析表达式 (JSON 字符串) [原字段 'resolved_expression']
-                    "expression_resolved": '[{"type": "asinSameAs", "value": "B0C*******"}]',
+                    # 否定目标ID [原字段 'target_id']
+                    "negative_target_id": 560************,
+                    # 否定定位表达式 (JSON 字符串) [原字段 'expression']
+                    "negative_expression": '[{"type": "asinSameAs", "value": "B0C*******"}]',
+                    # 否定定位解析表达式 (JSON 字符串) [原字段 'resolved_expression']
+                    "negative_expression_resolved": '[{"type": "asinSameAs", "value": "B0C*******"}]',
+                    # 否定定位类型 [原字段 'expression_type']
+                    "negative_expression_type": "manual",
                     # 广告状态
                     "state": "enabled",
                     # 服务状态 [原字段 'serving_status']
