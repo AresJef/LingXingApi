@@ -119,7 +119,7 @@ class SbTargetingReports(AdReports):
 class SbQueryReports(AdReports):
     """查询 SB 用户搜索词报告参数"""
 
-    # 投放目标类型 ('keyword', 'product' - 当前只支持'keyword')
+    # 投放目标类型 ('keyword', 'target')
     target_type: NonEmptyStr
 
 

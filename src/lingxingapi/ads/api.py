@@ -4385,7 +4385,6 @@ class AdsAPI(BaseAPI):
             "profile_id": profile_id,
             "ad_type": "ALL",
             "target_type": "keyword",
-            "show_detail": 0,
             "next_token": next_token,
             "offset": offset,
             "length": length,
@@ -4414,7 +4413,7 @@ class AdsAPI(BaseAPI):
         """查询 SB 关键词的用户搜索词报告
 
         ## Docs
-        - 新广告 - 报告: [SB用户搜索词报表](https://apidoc.lingxing.com/#/docs/newAd/report/hsaQueryWordReports)
+        - 新广告 - 报告: [SB用户搜索词报表(keyword)](https://apidoc.lingxing.com/#/docs/newAd/report/hsaQueryWordReports)
 
         :param report_date `<'str/date/datetime'>`: 报告日期
         :param sid `<'int'>`: 领星店铺ID
@@ -4459,8 +4458,21 @@ class AdsAPI(BaseAPI):
                     "clicks": 1,
                     # 广告订单数
                     "orders": 1,
+                    # 直接广告订单数 [原字段 'same_orders']
+                    "direct_orders": 1,
+                    # 品牌新买家广告订单数
+                    "new_to_brand_orders": 0,
+                    # 品牌新买家订单占比 [原字段 'new_to_brand_order_percentage']
+                    # (品牌新买家广告订单数 / 广告订单数 x 100%)
+                    "new_to_brand_order_pct": 0.0,
+                    # 品牌新买家订单转化率
+                    "new_to_brand_order_rate": 0.0,
                     # 广告销售额
                     "sales": 39.89,
+                    # 直接广告销售额 [原字段 'same_sales']
+                    "direct_sales": 39.89,
+                    # 品牌新买家销售额
+                    "new_to_brand_sales": 0.0,
                     # 视频广告播放25%次数 [原字段 'video_first_quartile_views']
                     "video_25pct_views": 0,
                     # 视频广告播放50%次数 [原字段 'video_midpoint_views']
@@ -4498,7 +4510,6 @@ class AdsAPI(BaseAPI):
             "sid": sid,
             "profile_id": profile_id,
             "target_type": "keyword",
-            "show_detail": 0,
             "next_token": next_token,
             "offset": offset,
             "length": length,
@@ -4513,6 +4524,121 @@ class AdsAPI(BaseAPI):
             "POST", url, body=p.model_dump_params(), headers={"X-API-VERSION": "2"}
         )
         return schema.SbKeywordQueryReports.model_validate(data)
+
+    async def SbKeywordPlacementReports(
+        self,
+        report_date: str | datetime.date | datetime.datetime,
+        sid: int,
+        profile_id: int,
+        *,
+        next_token: str | None = None,
+        offset: int | None = None,
+        length: int | None = None,
+    ) -> schema.SbKeywordPlacementReports:
+        """查询 SB 关键词投放位置报告
+
+        ## Docs
+        - 新广告 - 报告: [SB关键词-广告位报告](https://apidoc.lingxing.com/#/docs/newAd/report/listHsaKeywordPlacementReport)
+
+        :param report_date `<'str/date/datetime'>`: 报告日期
+        :param sid `<'int'>`: 领星店铺ID
+        :param profile_id `<'int'>`: 亚马逊店铺ID (广告帐号ID), 参数来源 `AdsProfiles.profile_id`
+        :param next_token `<'str/None'>`: 分页游标, 上次分页结果中的 `next_token`,
+            第一分页无需填写, 当 next_token 和 offset 同时传入时以 next_token 为主, 默认 `None`
+        :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
+        :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
+        :returns `<'SbKeywordPlacementReports'>`: 返回查询到的 SB 关键词投放位置报告
+        ```python
+        {
+            # 状态码
+            "code": 0,
+            # 提示信息
+            "message": "success",
+            # 错误信息
+            "errors": [],
+            # 请求ID
+            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
+            # 响应时间
+            "response_time": "2025-08-13 19:23:04",
+            # 响应数据量
+            "response_count": 2,
+            # 总数据量
+            "total_count": 2,
+            # 响应数据
+            "data": [
+                {
+                    # 亚马逊店铺ID (广告帐号ID)
+                    "profile_id": 6031***********,
+                    # 广告活动ID
+                    "campaign_id": 14432*************,
+                    # 关键词ID
+                    "keyword_id": 14412*************,
+                    # 关键词文本
+                    "keyword_text": "+apple",
+                    # 关键词匹配类型
+                    "match_type": "broad",
+                    # 广告位类型 (1: Other Placements, 2: Other on-Amazon, 3: Top of Search)
+                    "placement_type": 1,
+                    # 广告创意类型
+                    "creative_type": "all",
+                    # 广告花费
+                    "cost": 0.0,
+                    # 总展示次数
+                    "impressions": 4,
+                    # 总点击次数
+                    "clicks": 0,
+                    # 广告订单数
+                    "orders": 0,
+                    # 品牌新买家广告订单数
+                    "new_to_brand_orders": 0,
+                    # 品牌新买家订单占比 [原字段 'new_to_brand_order_percentage']
+                    # (品牌新买家广告订单数 / 广告订单数 x 100%)
+                    "new_to_brand_order_pct": 0.0,
+                    # 品牌新买家订单转化率
+                    # (品牌新买家广告订单数 / 总点击次数 x 100%)
+                    "new_to_brand_order_rate": 0.0,
+                    # 广告销售额
+                    "sales": 0.0,
+                    # 品牌新买家销售额
+                    "new_to_brand_sales": 0.0,
+                    # 广告成交商品件数
+                    "units": 0,
+                    # 直接广告成交商品件数 [原字段 'same_units']
+                    "direct_units": 0,
+                    # 品牌新买家成交商品件数
+                    "new_to_brand_units": 0,
+                    # 报告日期
+                    "report_date": "2026-06-23",
+                },
+                ...
+            ],
+            # 分页游标
+            "next_token": "MjgxNTExNTQ0MTc4ODM1",
+        }
+        ```
+        """
+        url = route.SB_KEYWORD_PLACEMENT_REPORTS
+        # 解析并验证参数
+        args = {
+            "sid": sid,
+            "profile_id": profile_id,
+            "sponsored_type": "ALL",
+            "target_type": "keyword",
+            "report_date": report_date,
+            "next_token": next_token,
+            "offset": offset,
+            "length": length,
+        }
+        try:
+            p = param.SbTargetingReports.model_validate(args)
+        except Exception as err:
+            raise errors.InvalidParametersError(err, url, args) from err
+
+        # 发送请求
+        data = await self._request_with_sign(
+            "POST", url, body=p.model_dump_params(), headers={"X-API-VERSION": "2"}
+        )
+        return schema.SbKeywordPlacementReports.model_validate(data)
 
     async def SbTargetReports(
         self,
@@ -4614,7 +4740,6 @@ class AdsAPI(BaseAPI):
             "profile_id": profile_id,
             "ad_type": "ALL",
             "target_type": "product",
-            "show_detail": 0,
             "next_token": next_token,
             "offset": offset,
             "length": length,
@@ -4629,6 +4754,128 @@ class AdsAPI(BaseAPI):
             "POST", url, body=p.model_dump_params(), headers={"X-API-VERSION": "2"}
         )
         return schema.SbTargetReports.model_validate(data)
+
+    async def SbTargetQueryReports(
+        self,
+        report_date: str | datetime.date | datetime.datetime,
+        sid: int,
+        profile_id: int,
+        *,
+        next_token: str | None = None,
+        offset: int | None = None,
+        length: int | None = None,
+    ) -> schema.SbTargetQueryReports:
+        """查询 SB 目标商品投放的用户搜索词报告
+
+        ## Docs
+        - 新广告 - 报告: [SB用户搜索词报表(target)](https://apidoc.lingxing.com/#/docs/newAd/report/hsaQueryWordReports)
+
+        :param report_date `<'str/date/datetime'>`: 报告日期
+        :param sid `<'int'>`: 领星店铺ID
+        :param profile_id `<'int'>`: 亚马逊店铺ID (广告帐号ID), 参数来源 `AdsProfiles.profile_id`
+        :param next_token `<'str/None'>`: 分页游标, 上次分页结果中的 `next_token`,
+            第一分页无需填写, 当 next_token 和 offset 同时传入时以 next_token 为主, 默认 `None`
+        :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
+        :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
+        :returns `<'SbKeywordQueryReports'>`: 返回查询到的 SB 目标商品投放的用户搜索词报告
+        ```python
+        {
+            # 状态码
+            "code": 0,
+            # 提示信息
+            "message": "success",
+            # 错误信息
+            "errors": [],
+            # 请求ID
+            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
+            # 响应时间
+            "response_time": "2025-08-13 19:23:04",
+            # 响应数据量
+            "response_count": 2,
+            # 总数据量
+            "total_count": 2,
+            # 响应数据
+            "data": [
+                {
+                    # 亚马逊店铺ID (广告帐号ID)
+                    "profile_id": 3375************,
+                    # 广告活动ID
+                    "campaign_id": 3043**********,
+                    # 广告组ID
+                    "ad_group_id": 4966***********,
+                    # 用户使用搜索词 [原字段 'query']
+                    "query_text": "apple",
+                    # 广告花费
+                    "cost": 0.88,
+                    # 总展示次数
+                    "impressions": 1,
+                    # 可见展示次数
+                    "viewable_impressions": 1,
+                    # 总点击次数
+                    "clicks": 1,
+                    # 广告订单数
+                    "orders": 1,
+                    # 浏览后归因订单数
+                    "view_orders": 1,
+                    # 广告销售额
+                    "sales": 24.98,
+                    # 浏览后归因销售额
+                    "view_sales": 24.98,
+                    # 视频广告播放25%次数 [原字段 'video_first_quartile_views']
+                    "video_25pct_views": 0,
+                    # 视频广告播放50%次数 [原字段 'video_midpoint_views']
+                    "video_50pct_views": 0,
+                    # 视频广告播放75%次数 [原字段 'video_third_quartile_views']
+                    "video_75pct_views": 0,
+                    # 视频广告播放100%次数 [原字段 'video_complete_views']
+                    "video_100pct_views": 0,
+                    # 视频广告播放5秒次数 [原字段 'video_5_second_views']
+                    "video_5sec_views": 0,
+                    # 视频广告播放5秒观看率 [原字段 'video_5_second_view_rate']
+                    "video_5sec_view_rate": 0.0,
+                    # 视频广告静音取消次数 [原字段 'video_unmutes']
+                    "video_unmutes": 0,
+                    # 加入购物车次数 [原字段 'add_to_list']
+                    "add_to_cart_times": 0,
+                    # 通过点击加入购物次数 [原字段 'add_to_list_from_clicks']
+                    "click_add_to_cart_times": 0,
+                    # 报告日期
+                    "report_date": "2026-06-28",
+                    # 目标商品投放ID
+                    "target_id": 25149272739674,
+                    # 目标商品投放文本
+                    "target_text": "",
+                    # 是否为 ASIN 商品投放 (1: 是, 0: 否) [原字段 'is_asin']
+                    "is_asin_target": 0,
+                },
+                ...
+            ],
+            # 分页游标
+            "next_token": "MjgxNTExNTQ0MTc4ODM1",
+        }
+        ```
+        """
+        url = route.SB_QUERY_REPORTS
+        # 解析并验证参数
+        args = {
+            "report_date": report_date,
+            "sid": sid,
+            "profile_id": profile_id,
+            "target_type": "target",
+            "next_token": next_token,
+            "offset": offset,
+            "length": length,
+        }
+        try:
+            p = param.SbQueryReports.model_validate(args)
+        except Exception as err:
+            raise errors.InvalidParametersError(err, url, args) from err
+
+        # 发送请求
+        data = await self._request_with_sign(
+            "POST", url, body=p.model_dump_params(), headers={"X-API-VERSION": "2"}
+        )
+        return schema.SbTargetQueryReports.model_validate(data)
 
     async def SbTargetingHourData(
         self,

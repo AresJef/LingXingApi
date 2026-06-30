@@ -1917,6 +1917,129 @@ class SbKeywordReports(ResponseV1Token):
     data: list[SbKeywordReport]
 
 
+# . SB Keyword Query Reports
+class SbKeywordQueryReport(BaseModel):
+    """SB 关键词的用户搜索词报告"""
+
+    # fmt: off
+    # 亚马逊店铺ID (广告帐号ID)
+    profile_id: int
+    # 广告活动ID
+    campaign_id: int
+    # 广告组ID
+    ad_group_id: IntOrNone2Zero
+    # 用户使用搜索词 [原字段 'query']
+    query_text: str = Field(validation_alias="query")
+    # 广告花费
+    cost: float
+    # 总展示次数
+    impressions: int
+    # 总点击次数
+    clicks: int
+    # 广告订单数
+    orders: int
+    # 直接广告订单数 [原字段 'same_orders']
+    direct_orders: IntOrNone2Zero = Field(validation_alias="same_orders")
+    # 品牌新买家广告订单数
+    new_to_brand_orders: IntOrNone2Zero
+    # 品牌新买家订单占比 [原字段 'new_to_brand_order_percentage']
+    # (品牌新买家广告订单数 / 广告订单数 x 100%)
+    new_to_brand_order_pct: FloatOrNone2Zero = Field(validation_alias="new_to_brand_order_percentage")
+    # 品牌新买家订单转化率
+    # (品牌新买家广告订单数 / 总点击次数 x 100%)
+    new_to_brand_order_rate: FloatOrNone2Zero
+    # 广告销售额
+    sales: float
+    # 直接广告销售额 [原字段 'same_sales']
+    direct_sales: FloatOrNone2Zero = Field(validation_alias="same_sales")
+    # 品牌新买家销售额
+    new_to_brand_sales: FloatOrNone2Zero
+    # 视频广告播放25%次数 [原字段 'video_first_quartile_views']
+    video_25pct_views: IntOrNone2Zero = Field(validation_alias="video_first_quartile_views")
+    # 视频广告播放50%次数 [原字段 'video_midpoint_views']
+    video_50pct_views: IntOrNone2Zero = Field(validation_alias="video_midpoint_views")
+    # 视频广告播放75%次数 [原字段 'video_third_quartile_views']
+    video_75pct_views: IntOrNone2Zero = Field(validation_alias="video_third_quartile_views")
+    # 视频广告播放100%次数 [原字段 'video_complete_views']
+    video_100pct_views: IntOrNone2Zero = Field(validation_alias="video_complete_views")
+    # 视频广告播放5秒次数 [原字段 'video_5_second_views']
+    video_5sec_views: IntOrNone2Zero = Field(validation_alias="video_5_second_views")
+    # 视频广告播放5秒观看率 [原字段 'video_5_second_view_rate']
+    video_5sec_view_rate: FloatOrNone2Zero = Field(validation_alias="video_5_second_view_rate")
+    # 视频广告静音取消次数 [原字段 'video_unmutes']
+    video_unmutes: IntOrNone2Zero = Field(validation_alias="video_unmutes")
+    # 报告日期
+    report_date: str
+    # 关键词ID [原字段 'target_id']
+    keyword_id: int = Field(validation_alias="target_id")
+    # 关键词文本 [原字段 'target_text']
+    keyword_text: StrOrNone2Blank = Field(validation_alias="target_text")
+    # 关键词匹配类型
+    match_type: StrOrNone2Blank
+    # fmt: on
+
+
+class SbKeywordQueryReports(ResponseV1Token):
+    """SB 关键词的用户搜索词报告列表"""
+
+    data: list[SbKeywordQueryReport]
+
+
+# . SB Keyword Placement Reports
+class SbKeywordPlacementReport(BaseModel):
+    """SB 关键词投放位置报告"""
+
+    # fmt: off
+    # 亚马逊店铺ID (广告帐号ID)
+    profile_id: int
+    # 广告活动ID
+    campaign_id: int
+    # 关键词ID
+    keyword_id: int
+    # 关键词文本
+    keyword_text: str
+    # 关键词匹配类型
+    match_type: StrOrNone2Blank
+    # 广告位类型 (1: Other Placements, 2: Other on-Amazon, 3: Top of Search)
+    placement_type: int
+    # 广告创意类型
+    creative_type: str
+    # 广告花费
+    cost: float
+    # 总展示次数
+    impressions: int
+    # 总点击次数
+    clicks: int
+    # 广告订单数
+    orders: int
+    # 品牌新买家广告订单数
+    new_to_brand_orders: IntOrNone2Zero
+    # 品牌新买家订单占比 [原字段 'new_to_brand_order_percentage']
+    # (品牌新买家广告订单数 / 广告订单数 x 100%)
+    new_to_brand_order_pct: FloatOrNone2Zero = Field(validation_alias="new_to_brand_order_percentage")
+    # 品牌新买家订单转化率
+    # (品牌新买家广告订单数 / 总点击次数 x 100%)
+    new_to_brand_order_rate: FloatOrNone2Zero
+    # 广告销售额
+    sales: float
+    # 品牌新买家销售额
+    new_to_brand_sales: FloatOrNone2Zero
+    # 广告成交商品件数
+    units: int
+    # 直接广告成交商品件数 [原字段 'same_units']
+    direct_units: IntOrNone2Zero = Field(validation_alias="same_units")
+    # 品牌新买家成交商品件数
+    new_to_brand_units: IntOrNone2Zero
+    # 报告日期
+    report_date: str
+
+
+class SbKeywordPlacementReports(ResponseV1Token):
+    """SB 关键词投放位置报告列表"""
+
+    data: list[SbKeywordPlacementReport]
+
+
 # . SB Target Reports
 class SbTargetReport(BaseModel):
     """SB 目标商品投放报告"""
@@ -1973,6 +2096,70 @@ class SbTargetReports(ResponseV1Token):
     data: list[SbTargetReport]
 
 
+# . SB Target Query Reports
+class SbTargetQueryReport(BaseModel):
+    """SB 目标商品投放的用户搜索词报告"""
+
+    # fmt: off
+    # 亚马逊店铺ID (广告帐号ID)
+    profile_id: int
+    # 广告活动ID
+    campaign_id: int
+    # 广告组ID
+    ad_group_id: IntOrNone2Zero
+    # 用户使用搜索词 [原字段 'query']
+    query_text: str = Field(validation_alias="query")
+    # 广告花费
+    cost: float
+    # 总展示次数
+    impressions: int
+    # 可见展示次数
+    viewable_impressions: IntOrNone2Zero
+    # 总点击次数
+    clicks: int
+    # 广告订单数
+    orders: int
+    # 浏览后归因订单数
+    view_orders: IntOrNone2Zero
+    # 广告销售额
+    sales: float
+    # 浏览后归因销售额
+    view_sales: FloatOrNone2Zero
+    # 视频广告播放25%次数 [原字段 'video_first_quartile_views']
+    video_25pct_views: IntOrNone2Zero = Field(validation_alias="video_first_quartile_views")
+    # 视频广告播放50%次数 [原字段 'video_midpoint_views']
+    video_50pct_views: IntOrNone2Zero = Field(validation_alias="video_midpoint_views")
+    # 视频广告播放75%次数 [原字段 'video_third_quartile_views']
+    video_75pct_views: IntOrNone2Zero = Field(validation_alias="video_third_quartile_views")
+    # 视频广告播放100%次数 [原字段 'video_complete_views']
+    video_100pct_views: IntOrNone2Zero = Field(validation_alias="video_complete_views")
+    # 视频广告播放5秒次数 [原字段 'video_5_second_views']
+    video_5sec_views: IntOrNone2Zero = Field(validation_alias="video_5_second_views")
+    # 视频广告播放5秒观看率 [原字段 'video_5_second_view_rate']
+    video_5sec_view_rate: FloatOrNone2Zero = Field(validation_alias="video_5_second_view_rate")
+    # 视频广告静音取消次数 [原字段 'video_unmutes']
+    video_unmutes: IntOrNone2Zero = Field(validation_alias="video_unmutes")
+    # 加入购物车次数 [原字段 'add_to_list']
+    add_to_cart_times: IntOrNone2Zero = Field(validation_alias="add_to_list")
+    # 通过点击加入购物次数 [原字段 'add_to_list_from_clicks']
+    click_add_to_cart_times: IntOrNone2Zero = Field(validation_alias="add_to_list_from_clicks")
+    # 报告日期
+    report_date: str
+    # 目标商品投放ID
+    target_id: int
+    # 目标商品投放文本
+    target_text: StrOrNone2Blank
+    # 是否为 ASIN 商品投放 (1: 是, 0: 否) [原字段 'is_asin']
+    is_asin_target: int = Field(validation_alias="is_asin")
+    # fmt: on
+
+
+class SbTargetQueryReports(ResponseV1Token):
+    """SB 目标商品投放的用户搜索词报告列表"""
+
+    data: list[SbTargetQueryReport]
+
+
 # . SB Targeting Hour Data
 class SbTargetingHour(BaseModel):
     """SB 目标关键词或商品投放小时数据"""
@@ -2025,60 +2212,6 @@ class SbTargetingHourData(ResponseV1):
     """SB 目标关键词或商品投放小时数据列表"""
 
     data: list[SbTargetingHour]
-
-
-# . SB Query Keyword Reports
-class SbKeywordQueryReport(BaseModel):
-    """SB 关键词的用户搜索词报告"""
-
-    # fmt: off
-    # 亚马逊店铺ID (广告帐号ID)
-    profile_id: int
-    # 广告活动ID
-    campaign_id: int
-    # 广告组ID
-    ad_group_id: IntOrNone2Zero
-    # 用户使用搜索词 [原字段 'query']
-    query_text: str = Field(validation_alias="query")
-    # 广告花费
-    cost: float
-    # 总展示次数
-    impressions: int
-    # 总点击次数
-    clicks: int
-    # 广告订单数
-    orders: int
-    # 广告销售额
-    sales: float
-    # 视频广告播放25%次数 [原字段 'video_first_quartile_views']
-    video_25pct_views: IntOrNone2Zero = Field(validation_alias="video_first_quartile_views")
-    # 视频广告播放50%次数 [原字段 'video_midpoint_views']
-    video_50pct_views: IntOrNone2Zero = Field(validation_alias="video_midpoint_views")
-    # 视频广告播放75%次数 [原字段 'video_third_quartile_views']
-    video_75pct_views: IntOrNone2Zero = Field(validation_alias="video_third_quartile_views")
-    # 视频广告播放100%次数 [原字段 'video_complete_views']
-    video_100pct_views: IntOrNone2Zero = Field(validation_alias="video_complete_views")
-    # 视频广告播放5秒次数 [原字段 'video_5_second_views']
-    video_5sec_views: IntOrNone2Zero = Field(validation_alias="video_5_second_views")
-    # 视频广告播放5秒观看率 [原字段 'video_5_second_view_rate']
-    video_5sec_view_rate: FloatOrNone2Zero = Field(validation_alias="video_5_second_view_rate")
-    # 视频广告静音取消次数 [原字段 'video_unmutes']
-    video_unmutes: IntOrNone2Zero = Field(validation_alias="video_unmutes")
-    # 报告日期
-    report_date: str
-    # 关键词ID [原字段 'target_id']
-    keyword_id: int = Field(validation_alias="target_id")
-    # 关键词文本 [原字段 'target_text']
-    keyword_text: StrOrNone2Blank = Field(validation_alias="target_text")
-    # 关键词匹配类型
-    match_type: StrOrNone2Blank
-    # fmt: on
-
-
-class SbKeywordQueryReports(ResponseV1Token):
-    """SB 关键词的用户搜索词报告列表"""
-
-    data: list[SbKeywordQueryReport]
 
 
 # . SB ASIN Attribution Reports

@@ -91,10 +91,12 @@ SB_AD_GROUP_HOUR_DATA: str = "/pb/openapi/newad/sbAdGroupHourData"
 SB_CREATIVE_REPORTS: str = "/pb/openapi/newad/listHsaProductAdReport"
 # https://apidoc.lingxing.com/#/docs/newAd/report/listHsaTargetingReport
 SB_TARGETING_REPORTS: str = "/pb/openapi/newad/listHsaTargetingReport"
-# https://apidoc.lingxing.com/#/docs/newAd/report/sbTargetHourData
-SB_TARGETING_HOUR_DATA: str = "/pb/openapi/newad/sbTargetHourData"
 # https://apidoc.lingxing.com/#/docs/newAd/report/hsaQueryWordReports
 SB_QUERY_REPORTS: str = "/pb/openapi/newad/hsaQueryWordReports"
+# https://apidoc.lingxing.com/#/docs/newAd/report/sbTargetHourData
+SB_TARGETING_HOUR_DATA: str = "/pb/openapi/newad/sbTargetHourData"
+# https://apidoc.lingxing.com/#/docs/newAd/report/listHsaKeywordPlacementReport
+SB_KEYWORD_PLACEMENT_REPORTS: str = "/pb/openapi/newad/listHsaKeywordPlacementReport"
 # https://apidoc.lingxing.com/#/docs/newAd/report/hsaPurchasedAsinReports
 SB_ASIN_ATTRIBUTION_REPORTS: str = "/pb/openapi/newad/hsaPurchasedAsinReports"
 # https://apidoc.lingxing.com/#/docs/newAd/baseData/newadsbDivideAsinReports
