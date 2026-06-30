@@ -26,37 +26,37 @@ class ListingDimension(BaseModel):
     """
 
     # 商品高度
-    item_height: FloatOrNone2Zero
+    item_height: FloatOrNone2Zero = 0.0
     # 商品高度单位 [原字段 'item_height_units_type']
-    item_height_unit: str = Field(validation_alias="item_height_units_type")
+    item_height_unit: str = Field("", validation_alias="item_height_units_type")
     # 商品长度
-    item_length: FloatOrNone2Zero
+    item_length: FloatOrNone2Zero = 0.0
     # 商品长度单位 [原字段 'item_length_units_type']
-    item_length_unit: str = Field(validation_alias="item_length_units_type")
+    item_length_unit: str = Field("", validation_alias="item_length_units_type")
     # 商品宽度
-    item_width: FloatOrNone2Zero
+    item_width: FloatOrNone2Zero = 0.0
     # 商品宽度单位 [原字段 'item_width_units_type']
-    item_width_unit: str = Field(validation_alias="item_width_units_type")
+    item_width_unit: str = Field("", validation_alias="item_width_units_type")
     # 商品重量
-    item_weight: FloatOrNone2Zero
+    item_weight: FloatOrNone2Zero = 0.0
     # 商品重量单位 [原字段 'item_weight_units_type']
-    item_weight_unit: str = Field(validation_alias="item_weight_units_type")
+    item_weight_unit: str = Field("", validation_alias="item_weight_units_type")
     # 商品包装高度
-    package_height: FloatOrNone2Zero
+    package_height: FloatOrNone2Zero = 0.0
     # 商品包装高度单位 [原字段 'package_height_units_type']
-    package_height_unit: str = Field(validation_alias="package_height_units_type")
+    package_height_unit: str = Field("", validation_alias="package_height_units_type")
     # 商品包装长度
-    package_length: FloatOrNone2Zero
+    package_length: FloatOrNone2Zero = 0.0
     # 商品包装长度单位 [原字段 'package_length_units_type']
-    package_length_unit: str = Field(validation_alias="package_length_units_type")
+    package_length_unit: str = Field("", validation_alias="package_length_units_type")
     # 商品包装宽度
-    package_width: FloatOrNone2Zero
+    package_width: FloatOrNone2Zero = 0.0
     # 商品包装宽度单位 [原字段 'package_width_units_type']
-    package_width_unit: str = Field(validation_alias="package_width_units_type")
+    package_width_unit: str = Field("", validation_alias="package_width_units_type")
     # 商品包装重量
-    package_weight: FloatOrNone2Zero
+    package_weight: FloatOrNone2Zero = 0.0
     # 商品包装重量单位 [原字段 'package_weight_units_type']
-    package_weight_unit: str = Field(validation_alias="package_weight_units_type")
+    package_weight_unit: str = Field("", validation_alias="package_weight_units_type")
 
 
 class ListingOperator(BaseModel):
