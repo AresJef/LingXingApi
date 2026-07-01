@@ -1997,7 +1997,7 @@ class SbKeywordPlacementReport(BaseModel):
     # 关键词ID
     keyword_id: int
     # 关键词文本
-    keyword_text: str
+    keyword_text: StrOrNone2Blank
     # 关键词匹配类型
     match_type: StrOrNone2Blank
     # 广告位类型 (1: Other Placements, 2: Other on-Amazon, 3: Top of Search)
