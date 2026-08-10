@@ -2854,15 +2854,15 @@ class AdsOperationLog(BaseModel):
     # 广告类型 [原字段 'sponsored_type']
     ad_type: str = Field(validation_alias="sponsored_type")
     # 操作用户ID [原字段 'user_id']
-    operator_id: int = Field(validation_alias="user_id")
+    operator_id: IntOrNone2Zero = Field(validation_alias="user_id")
     # 操作用户名称 [原字段 'user_name']
-    operator_name: str = Field(validation_alias="user_name")
+    operator_name: StrOrNone2Blank = Field(validation_alias="user_name")
     # 操作对象 [原字段 'operate_type']
-    operation_target: str = Field(validation_alias="operate_type")
+    operation_target: StrOrNone2Blank = Field(validation_alias="operate_type")
     # 操作类型 [原字段 'change_type']
     operation_type: StrOrNone2Blank = Field(validation_alias="change_type")
     # 操作来源 [原字段 'function_name']
-    operation_source: str = Field(validation_alias="function_name")
+    operation_source: StrOrNone2Blank = Field(validation_alias="function_name")
     # 操作时间 [原字段 'operate_time']
     operation_time: str = Field(validation_alias="operate_time")
     # 操作前列表 [原字段 'operate_before']
