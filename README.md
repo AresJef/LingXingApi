@@ -1,3 +1,5 @@
+
+
 ## An async API client for LingXing (领星) ERP
 
 Created to be used in a project, this package is published to github for ease of management and installation across different modules.
@@ -26,12 +28,12 @@ pip install git+https://github.com/AresJef/LingXingApi.git
 from lingxingapi import API
 
 # Context Manager
-async def test(self, app_id: str, app_secret: str) -> None:
+async def test(app_id: str, app_secret: str) -> None:
     async with API(app_id, app_secret) as api:
         sellers = await api.basic.Sellers()
 
 # Close Manually
-async def test(self, app_id: str, app_secret: str) -> None:
+async def test(app_id: str, app_secret: str) -> None:
     api = API(app_id, app_secret)
     sellers = await api.basic.Sellers()
     await api.close()
