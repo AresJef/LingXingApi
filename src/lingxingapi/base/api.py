@@ -22,6 +22,7 @@ class _ClientState:
         self.session: ClientSession | None = None
         self.access_token: str | None = None
         self.refresh_token: str | None = None
+        self.token_version: int = 0
         self._token_lock: asyncio.Lock | None = None
         self._token_loop: asyncio.AbstractEventLoop | None = None
 
@@ -229,6 +230,7 @@ class BaseAPI:
         res = schema.Token.model_validate(data)
         self._state.access_token = res.access_token
         self._state.refresh_token = res.refresh_token
+        self._state.token_version += 1
         return res
 
     async def _RefreshToken(self, refresh_token: str) -> schema.Token:
@@ -259,13 +261,17 @@ class BaseAPI:
         res = schema.Token.model_validate(data)
         self._state.access_token = res.access_token
         self._state.refresh_token = res.refresh_token
+        self._state.token_version += 1
         return res
 
-    async def _UpdateToken(self) -> None:
+    async def _UpdateToken(self, *, expected_version: int | None = None) -> None:
         """(internal) 获取或刷新 access_token, 如果缓存了 refresh_token,
-        则优先基于 refresh_token 进行刷新
+        则优先基于 refresh_token 进行刷新。
+        指定 expected_version 时，仅在该版本尚未被其他请求更新时刷新。
         """
         async with self._state.token_lock:
+            if expected_version is not None and self._state.token_version != expected_version:
+                return None
             # 如果存在 refresh token, 则使用它刷新 access token
             if self._state.refresh_token is not None:
                 try:
@@ -459,43 +465,46 @@ class BaseAPI:
         :param extract_data `<'bool'>`: 是否提取响应数据中的 `data` 字段并直接返回, 默认为 `False`
         :returns `<'list/dict'>`: 返回解析并验证后响应数据
         """
-        # 确保 access token 可用
-        if self._state.access_token is None:
-            await self._UpdateToken()
+        while True:
+            # 确保 access token 可用
+            if self._state.access_token is None:
+                await self._UpdateToken()
 
-        # 构建参数
-        reqs_params = {
-            "app_key": self._app_id,
-            "access_token": self._state.access_token,
-            "timestamp": utils.now_ts(),
-        }
+            token_version = self._state.token_version
 
-        if isinstance(params, dict):
-            reqs_params.update(params)
+            # 构建参数
+            reqs_params = {
+                "app_key": self._app_id,
+                "access_token": self._state.access_token,
+                "timestamp": utils.now_ts(),
+            }
 
-        sign_params = dict(reqs_params)
+            if isinstance(params, dict):
+                reqs_params.update(params)
 
-        if isinstance(body, dict):
-            sign_params.update(body)
+            sign_params = dict(reqs_params)
 
-        # 生成签名
-        reqs_params["sign"] = utils.generate_sign(sign_params, self._app_cipher)
+            if isinstance(body, dict):
+                sign_params.update(body)
 
-        # 发送请求
-        try:
-            return await self._request(
-                method,
-                url,
-                reqs_params,
-                body=body,
-                headers=headers,
-                extract_data=extract_data,
-            )
+            # 生成签名
+            reqs_params["sign"] = utils.generate_sign(sign_params, self._app_cipher)
 
-        # 处理过期 Token 或 Signature
-        except (errors.TokenError, errors.SignatureExpiredError):
-            await self._UpdateToken()  # 刷新 Token
-            return await self._request_with_sign(method, url, params, body)
+            # 发送请求
+            try:
+                return await self._request(
+                    method,
+                    url,
+                    reqs_params,
+                    body=body,
+                    headers=headers,
+                    extract_data=extract_data,
+                )
+
+            # 处理过期 Token 或 Signature
+            except (errors.TokenError, errors.SignatureExpiredError):
+                await self._UpdateToken(expected_version=token_version)
+                continue
 
     def _handle_response_data(
         self,
