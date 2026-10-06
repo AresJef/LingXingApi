@@ -15,6 +15,32 @@ logger = logging.getLogger(__name__)
 REQUEST_METHOD = Literal["GET", "POST", "PUT", "DELETE"]
 
 
+class _ClientState:
+    """同一客户端及其业务模块共享的连接与令牌状态。"""
+
+    def __init__(self) -> None:
+        self.session: ClientSession | None = None
+        self.access_token: str | None = None
+        self.refresh_token: str | None = None
+        self._token_lock: asyncio.Lock | None = None
+        self._token_loop: asyncio.AbstractEventLoop | None = None
+
+    @property
+    def token_lock(self) -> asyncio.Lock:
+        """令牌操作在当前事件循环内共用一把锁。"""
+        loop = asyncio.get_running_loop()
+        if self._token_loop is not loop:
+            if self._token_loop is not None and (
+                self._token_loop.is_running()
+                or self._token_lock.locked()
+                or (self.session is not None and not self.session.closed)
+            ):
+                raise RuntimeError("API 客户端仍在其他事件循环中使用，请先关闭会话")
+            self._token_lock = asyncio.Lock()
+            self._token_loop = loop
+        return self._token_lock
+
+
 # API ------------------------------------------------------------------------------------------------------------------
 class BaseAPI:
     """领星 API 基础类, 提供公共方法和属性, 用于子类继承
@@ -22,12 +48,6 @@ class BaseAPI:
     ## Notice
     请勿直接实例化此类
     """
-
-    # HTTP 会话
-    _session: ClientSession | None = None
-    # Token 令牌
-    _access_token: str | None = None
-    _refresh_token: str | None = None
 
     def __init__(
         self,
@@ -115,6 +135,8 @@ class BaseAPI:
 
         :param proxy_connector `<'ProxyConnector/None'>`: 可选的 SOCKS 代理连接器, 用于通过 SOCKS 代理发送请求
         """
+        self._state = _ClientState()
+
         # API 凭证
         self._app_id: str = app_id
         self._app_secret: str = app_secret
@@ -173,9 +195,10 @@ class BaseAPI:
 
     async def close(self) -> None:
         """关闭 API 客户端的 HTTP 会话"""
-        if BaseAPI._session is not None:
-            await BaseAPI._session.close()
-        BaseAPI._session = None
+        session = self._state.session
+        self._state.session = None
+        if session is not None:
+            await session.close()
 
     # 公共 API --------------------------------------------------------------------------------------
     # . Token 令牌
@@ -204,8 +227,8 @@ class BaseAPI:
             extract_data=True,
         )
         res = schema.Token.model_validate(data)
-        BaseAPI._access_token = res.access_token
-        BaseAPI._refresh_token = res.refresh_token
+        self._state.access_token = res.access_token
+        self._state.refresh_token = res.refresh_token
         return res
 
     async def _RefreshToken(self, refresh_token: str) -> schema.Token:
@@ -234,23 +257,24 @@ class BaseAPI:
             extract_data=True,
         )
         res = schema.Token.model_validate(data)
-        BaseAPI._access_token = res.access_token
-        BaseAPI._refresh_token = res.refresh_token
+        self._state.access_token = res.access_token
+        self._state.refresh_token = res.refresh_token
         return res
 
     async def _UpdateToken(self) -> None:
         """(internal) 获取或刷新 access_token, 如果缓存了 refresh_token,
         则优先基于 refresh_token 进行刷新
         """
-        # 如果存在 refresh token, 则使用它刷新 access token
-        if BaseAPI._refresh_token is not None:
-            try:
-                await self._RefreshToken(BaseAPI._refresh_token)
-                return None
-            except errors.TokenError:
-                pass
-        # 如果不存在 refresh token, 则重新获取 access token
-        await self._AccessToken()
+        async with self._state.token_lock:
+            # 如果存在 refresh token, 则使用它刷新 access token
+            if self._state.refresh_token is not None:
+                try:
+                    await self._RefreshToken(self._state.refresh_token)
+                    return None
+                except errors.TokenError:
+                    pass
+            # 如果不存在 refresh token, 则重新获取 access token
+            await self._AccessToken()
 
     # 核心 HTTP 逻辑 ---------------------------------------------------------------------------------
     async def _request(
@@ -276,12 +300,12 @@ class BaseAPI:
 
         while True:
             # 确保 HTTP 会话可用
-            if BaseAPI._session is None or BaseAPI._session.closed:
+            if self._state.session is None or self._state.session.closed:
                 if self._proxy_connector is None:
                     connector = TCPConnector(limit=self._max_tcp_connections)
                 else:
                     connector = self._proxy_connector
-                BaseAPI._session = ClientSession(
+                self._state.session = ClientSession(
                     route.API_SERVER,
                     headers={"Content-Type": "application/json"},
                     timeout=self._timeout,
@@ -290,7 +314,7 @@ class BaseAPI:
 
             # 发送请求
             try:
-                async with BaseAPI._session.request(
+                async with self._state.session.request(
                     method,
                     url,
                     params=params,
@@ -436,13 +460,13 @@ class BaseAPI:
         :returns `<'list/dict'>`: 返回解析并验证后响应数据
         """
         # 确保 access token 可用
-        if BaseAPI._access_token is None:
+        if self._state.access_token is None:
             await self._UpdateToken()
 
         # 构建参数
         reqs_params = {
             "app_key": self._app_id,
-            "access_token": BaseAPI._access_token,
+            "access_token": self._state.access_token,
             "timestamp": utils.now_ts(),
         }
 

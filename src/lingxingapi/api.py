@@ -239,6 +239,11 @@ class API(BaseAPI):
         self._finance: FinanceAPI = FinanceAPI(**kwargs)
         self._tools: ToolsAPI = ToolsAPI(**kwargs)
         self._source: SourceAPI = SourceAPI(**kwargs)
+        for module in (
+            self._basic, self._sales, self._fba, self._product, self._purchase,
+            self._warehouse, self._ads, self._finance, self._tools, self._source,
+        ):
+            module._state = self._state
 
     # 公共 API --------------------------------------------------------------------------------------
     # . 授权
@@ -260,7 +265,8 @@ class API(BaseAPI):
         }
         ```
         """
-        return await self._AccessToken()
+        async with self._state.token_lock:
+            return await self._AccessToken()
 
     async def RefreshToken(self, refresh_token: str) -> schema.Token:
         """基于 refresh_token 刷新领星 API 的访问令牌
@@ -281,7 +287,8 @@ class API(BaseAPI):
         }
         ```
         """
-        return await self._RefreshToken(refresh_token)
+        async with self._state.token_lock:
+            return await self._RefreshToken(refresh_token)
 
     # . 基础数据
     @property
