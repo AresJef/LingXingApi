@@ -1052,7 +1052,7 @@ class IncomeStatement(BaseModel):
     # (fba&fbm_product_sales_qty + fba_mcf_fulfillment_qty + fba&fbm_reshipment_qty - fba_returns_saleable_qty)
     cost_of_goods_qty: IntOrNone2Zero = Field(validation_alias="cgQuantity")
     # 成本 - 重成本数量绝对值 [原字段 'cgAbsQuantity']
-    cost_of_goods_abs_qty: int = Field(validation_alias="cgAbsQuantity")
+    cost_of_goods_abs_qty: IntOrNone2Zero = Field(validation_alias="cgAbsQuantity")
     # 成本 - 总成本金额 (COGS) [原字段 'totalCost']
     # (purchase_cost + logistics_cost + other_costs)
     cost_of_goods: float = Field(validation_alias="totalCost")
@@ -1061,7 +1061,7 @@ class IncomeStatement(BaseModel):
     # 成本 - 总采购成本 (COGS) [原字段 'cgPriceTotal']
     purchase_cost: float = Field(validation_alias="cgPriceTotal")
     # 成本 - 总采购绝对成本 [原字段 'cgPriceAbsTotal']
-    purchase_abs_cost: float = Field(validation_alias="cgPriceAbsTotal")
+    purchase_abs_cost: FloatOrNone2Zero = Field(validation_alias="cgPriceAbsTotal")
     # 成本 - 单品成本 [原字段 'cgUnitPrice']
     purchase_unit_cost: float = Field(validation_alias="cgUnitPrice")
     # 成本 - 采购成本占比 [原字段 'proportionOfCg']

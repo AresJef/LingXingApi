@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from typing import Any
 from aiohttp import ClientPayloadError, ClientConnectionError
+from aiohttp_socks import ProxyConnectionError, ProxyTimeoutError
 
 
 # Base errors -----------------------------------------------------------------------------------------------------------

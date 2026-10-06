@@ -1419,8 +1419,6 @@ class FbaAPI(BaseAPI):
                     "shipping_mode": "GROUND_SMALL_PARCEL",
                     # 运输解决方案 [原字段 'shippingSolution']
                     "shipping_solution": "AMAZON_PARTNERED_CARRIER",
-                    # 运输费用 [原字段 'carrierFee']
-                    "shipping_fee": 0.0,
                 },
                 ...
             ],

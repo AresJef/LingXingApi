@@ -26,7 +26,11 @@ class Parameter(BaseModel):
         fallback=None,
         serialize_as_any=False,
     ) -> dict:
-        """将模型转换为字典, 并按字母顺序排序键 `<'dict'>`."""
+        """将模型转换为字典, 并按字母顺序排序键 `<'dict'>`.
+
+        非 None 的 fallback 转交给 Pydantic 的 BaseModel.model_dump，需该版本支持此参数。
+        """
+        dump_kwargs = {"fallback": fallback} if fallback is not None else {}
         res = self.model_dump(
             mode="python",
             include=include,
@@ -38,8 +42,8 @@ class Parameter(BaseModel):
             exclude_none=exclude_none,
             round_trip=round_trip,
             warnings=warnings,
-            fallback=fallback,
             serialize_as_any=serialize_as_any,
+            **dump_kwargs,
         )
         return dict(sorted(res.items()))
 

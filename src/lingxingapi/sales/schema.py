@@ -1537,6 +1537,17 @@ class FbmOrderDetailData(ResponseV1):
 
 
 # 销售 - 促销管理 ----------------------------------------------------------------------------------------------------------------
+class _PromotionListResponse(ResponseV1):
+    """成功促销响应的显式空 data 按空列表解析。"""
+
+    @model_validator(mode="before")
+    @classmethod
+    def _empty_data(cls, value):
+        if isinstance(value, dict) and "data" in value and value["data"] is None:
+            return {**value, "data": []}
+        return value
+
+
 # . Promotion Coupon
 class PromotionCoupon(BaseModel):
     """促销 - 优惠券"""
@@ -1578,7 +1589,7 @@ class PromotionCoupon(BaseModel):
     last_sync_time: str
 
 
-class PromotionCoupons(ResponseV1):
+class PromotionCoupons(_PromotionListResponse):
     """促销 - 优惠券列表"""
 
     data: list[PromotionCoupon]
@@ -1631,7 +1642,7 @@ class PromotionDeal(BaseModel):
     # fmt: on
 
 
-class PromotionDeals(ResponseV1):
+class PromotionDeals(_PromotionListResponse):
     """促销 - Deal 列表"""
 
     data: list[PromotionDeal]
@@ -1689,7 +1700,7 @@ class PromotionActivity(BaseModel):
     # fmt: on
 
 
-class PromotionActivities(ResponseV1):
+class PromotionActivities(_PromotionListResponse):
     """促销 - 活动列表"""
 
     data: list[PromotionActivity]
@@ -1724,7 +1735,7 @@ class PromotionDiscount(BaseModel):
     update_time: StrOrNone2Blank
 
 
-class PromotionDiscounts(ResponseV1):
+class PromotionDiscounts(_PromotionListResponse):
     """促销 - 价格折扣列表"""
 
     data: list[PromotionDiscount]
@@ -1807,7 +1818,7 @@ class PromotionOnListing(BaseModel):
     # fmt: on
 
 
-class PromotionOnListings(ResponseV1):
+class PromotionOnListings(_PromotionListResponse):
     """促销 - Listing的促销信息列表"""
 
     data: list[PromotionOnListing]

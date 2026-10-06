@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-c
 import asyncio, logging
-from typing import Literal
+from typing import Callable, Literal
 from typing_extensions import Self
 from orjson import loads as _orjson_loads
 from Crypto.Cipher._mode_ecb import EcbMode
@@ -8,6 +8,7 @@ from aiohttp_socks import ProxyConnector
 from aiohttp import TCPConnector, ClientTimeout, ClientSession
 from lingxingapi import utils, errors
 from lingxingapi.base import route, schema
+from lingxingapi.finance import route as finance_route
 
 logger = logging.getLogger(__name__)
 
@@ -183,6 +184,13 @@ class BaseAPI:
         # . SOCKS 代理连接器
         self._proxy_connector: ProxyConnector | None = proxy_connector
 
+        # . 特殊route (返回code=1)
+        self._code1_routes: set[str] = {
+            finance_route.LEDGER_DETAIL,
+            finance_route.LEDGER_SUMMARY,
+            finance_route.SHIPMENT_SETTLEMENT,
+        }
+
     async def __aenter__(self) -> Self:
         """进入 API 客户端异步上下文管理器
 
@@ -221,17 +229,10 @@ class BaseAPI:
         }
         ```
         """
-        data = await self._request(
-            "POST",
+        return await self._request_token(
             route.AUTH_GET_TOKEN,
             {"appId": self._app_id, "appSecret": self._app_secret},
-            extract_data=True,
         )
-        res = schema.Token.model_validate(data)
-        self._state.access_token = res.access_token
-        self._state.refresh_token = res.refresh_token
-        self._state.token_version += 1
-        return res
 
     async def _RefreshToken(self, refresh_token: str) -> schema.Token:
         """(Internal) 基于 refresh_token 刷新领星 API 的访问令牌
@@ -252,34 +253,40 @@ class BaseAPI:
         }
         ```
         """
-        data = await self._request(
-            "POST",
+        return await self._request_token(
             route.AUTH_REFRESH_TOKEN,
             {"appId": self._app_id, "refreshToken": str(refresh_token)},
-            extract_data=True,
         )
+
+    async def _request_token(self, url: str, params: dict) -> schema.Token:
+        data = await self._request("POST", url, params, extract_data=True)
         res = schema.Token.model_validate(data)
         self._state.access_token = res.access_token
         self._state.refresh_token = res.refresh_token
         self._state.token_version += 1
         return res
 
-    async def _UpdateToken(self, *, expected_version: int | None = None) -> None:
-        """(internal) 获取或刷新 access_token, 如果缓存了 refresh_token,
-        则优先基于 refresh_token 进行刷新。
-        指定 expected_version 时，仅在该版本尚未被其他请求更新时刷新。
-        """
+    async def _UpdateToken(
+        self,
+        *,
+        expected_version: int | None = None,
+        only_if_missing: bool = False,
+    ) -> None:
+        """获取或刷新令牌；锁内检查首次获取及其他请求已更新的版本。"""
         async with self._state.token_lock:
-            if expected_version is not None and self._state.token_version != expected_version:
+            if only_if_missing and self._state.access_token is not None:
                 return None
-            # 如果存在 refresh token, 则使用它刷新 access token
+            if (
+                expected_version is not None
+                and self._state.token_version != expected_version
+            ):
+                return None
             if self._state.refresh_token is not None:
                 try:
                     await self._RefreshToken(self._state.refresh_token)
                     return None
                 except errors.TokenError:
                     pass
-            # 如果不存在 refresh token, 则重新获取 access token
             await self._AccessToken()
 
     # 核心 HTTP 逻辑 ---------------------------------------------------------------------------------
@@ -291,6 +298,8 @@ class BaseAPI:
         body: dict | None = None,
         headers: dict | None = None,
         extract_data: bool = False,
+        *,
+        _prepare_signed_request: Callable[[], tuple[dict, dict | None]] | None = None,
     ) -> dict | list:
         """(internal) 发送基础 HTTP 请求, 并对状态码与业务响应数据进行校验
 
@@ -302,11 +311,16 @@ class BaseAPI:
         :param extract_data `<'bool'>`: 是否提取响应数据中的 `data` 字段并直接返回, 默认为 `False`
         :returns `<'list/dict'>`: 返回解析并验证后响应数据
         """
-        retry_count = 0
+        api_limit_retry_count = 0
+        internal_server_error_retry_count = 0
+        internet_connection_retry_count = 0
+        timeout_retry_count = 0
 
         while True:
             # 确保 HTTP 会话可用
             if self._state.session is None or self._state.session.closed:
+                # 建立会话前检查事件循环归属，不获取令牌锁。
+                self._state.token_lock
                 if self._proxy_connector is None:
                     connector = TCPConnector(limit=self._max_tcp_connections)
                 else:
@@ -319,6 +333,8 @@ class BaseAPI:
                 )
 
             # 发送请求
+            if _prepare_signed_request is not None:
+                params, body = _prepare_signed_request()
             try:
                 async with self._state.session.request(
                     method,
@@ -329,7 +345,11 @@ class BaseAPI:
                 ) as res:
                     # . 检查响应状态码
                     if res.status != 200:
-                        if res.status in (501, 502, 504):
+                        if res.status == 429:
+                            raise errors.ApiLimitError(
+                                "领星API请求被限流", url, res.reason, res.status
+                            )
+                        if res.status in (500, 501, 502, 503, 504):
                             raise errors.InternalServerError(
                                 "领星API服务器内部错误", url, res.reason, res.status
                             )
@@ -343,29 +363,34 @@ class BaseAPI:
             # 请求限流错误处理
             except errors.ApiLimitError as err:
                 if self._ignore_api_limit and (
-                    self._infinite_retry or retry_count < self._ignore_api_limit_retry
+                    self._infinite_retry
+                    or api_limit_retry_count < self._ignore_api_limit_retry
                 ):
-                    retry_count += 1
+                    api_limit_retry_count += 1
                     logger.warning(
                         "领星API请求被限流, 等待 %.1f 秒后重试(%d)",
                         self._ignore_api_limit_wait,
-                        retry_count,
+                        api_limit_retry_count,
                         stacklevel=3,
                     )
                     await asyncio.sleep(self._ignore_api_limit_wait)
                     continue
 
-                err = self._add_request_notes(err, params, body, retry_count)
+                err = self._add_request_notes(err, params, body, api_limit_retry_count)
                 raise err
 
             # 服务器内部错误处理
             except errors.InternalServerError as err:
                 if self._ignore_internal_server_error and (
                     self._infinite_internal_server_error_retry
-                    or retry_count < self._ignore_internal_server_error_retry
+                    or internal_server_error_retry_count
+                    < self._ignore_internal_server_error_retry
                 ):
-                    retry_count += 1
-                    if self._infinite_retry and retry_count > 60:
+                    internal_server_error_retry_count += 1
+                    if (
+                        self._infinite_internal_server_error_retry
+                        and internal_server_error_retry_count > 60
+                    ):
                         log_level = logging.ERROR
                     else:
                         log_level = logging.WARNING
@@ -373,14 +398,16 @@ class BaseAPI:
                         log_level,
                         "领星API服务器内部错误, 等待 %.1f 秒后重试(%d) | %s.",
                         self._ignore_internal_server_error_wait,
-                        retry_count,
+                        internal_server_error_retry_count,
                         err,
                         stacklevel=3,
                     )
                     await asyncio.sleep(self._ignore_internal_server_error_wait)
                     continue
 
-                err = self._add_request_notes(err, params, body, retry_count)
+                err = self._add_request_notes(
+                    err, params, body, internal_server_error_retry_count
+                )
                 raise err
 
             # 网络 / 超时 / 协议错误处理
@@ -388,18 +415,21 @@ class BaseAPI:
                 TimeoutError,
                 errors.ClientConnectionError,
                 errors.ClientPayloadError,
+                errors.ProxyConnectionError,
+                errors.ProxyTimeoutError,
             ) as err:
                 # . 无法连接互联网
                 if not await utils.check_internet_tcp():
                     if self._ignore_internet_connection and (
                         self._infinite_internet_connection_retry
-                        or retry_count < self._ignore_internet_connection_retry
+                        or internet_connection_retry_count
+                        < self._ignore_internet_connection_retry
                     ):
-                        retry_count += 1
+                        internet_connection_retry_count += 1
                         logger.warning(
                             "无法连接互联网, 等待 %.1f 秒后重试(%d)",
                             self._ignore_internet_connection_wait,
-                            retry_count,
+                            internet_connection_retry_count,
                             stacklevel=3,
                         )
                         await asyncio.sleep(self._ignore_internet_connection_wait)
@@ -408,16 +438,18 @@ class BaseAPI:
                     exc = errors.InternetConnectionError(
                         "无法连接互联网, 请检查网络连接", url, str(err)
                     )
-                    exc = self._add_request_notes(exc, params, body, retry_count)
+                    exc = self._add_request_notes(
+                        exc, params, body, internet_connection_retry_count
+                    )
                     raise exc from err
 
                 # . 请求超时 / 网络连接 / 协议异常
                 if self._ignore_timeout and (
                     self._infinite_timeout_retry
-                    or retry_count < self._ignore_timeout_retry
+                    or timeout_retry_count < self._ignore_timeout_retry
                 ):
-                    retry_count += 1
-                    if self._infinite_retry and retry_count > 60:
+                    timeout_retry_count += 1
+                    if self._infinite_timeout_retry and timeout_retry_count > 60:
                         log_level = logging.ERROR
                     else:
                         log_level = logging.WARNING
@@ -426,7 +458,7 @@ class BaseAPI:
                         "领星API请求超时或网络错误, 若无网络问题, 请检查IP白名单设置, "
                         "等待 %.1f 秒后重试(%d) | %s",
                         self._ignore_timeout_wait,
-                        retry_count,
+                        timeout_retry_count,
                         err,
                         stacklevel=3,
                     )
@@ -438,12 +470,12 @@ class BaseAPI:
                     url,
                     str(err),
                 )
-                exc = self._add_request_notes(exc, params, body, retry_count)
+                exc = self._add_request_notes(exc, params, body, timeout_retry_count)
                 raise exc from err
 
             # 其他异常处理
             except Exception as err:
-                err = self._add_request_notes(err, params, body, retry_count)
+                err = self._add_request_notes(err, params, body, 0)
                 raise err
 
     async def _request_with_sign(
@@ -457,6 +489,9 @@ class BaseAPI:
     ) -> dict | list:
         """(internal) 基于 params 和 body 生成签名, 并发送带签名的 HTTP 请求，自动处理过期 Access Token 的获取与刷新
 
+        每次实际发送前更新时间戳和签名。认证失败首次立即处理，后续每次等待 1 秒，
+        无次数上限；等待不占用单次 HTTP 超时。
+
         :param method `<'str'>`: HTTP 请求方法, 如: `"GET"`, `"POST"`, `"PUT"`, `"DELETE"`
         :param url `<'str'>`: 业务请求路径, 如: `"/api/auth-server/oauth/access-token"`
         :param params `<'dict/None'>`: 可选请求参数, 默认 `None`
@@ -465,45 +500,49 @@ class BaseAPI:
         :param extract_data `<'bool'>`: 是否提取响应数据中的 `data` 字段并直接返回, 默认为 `False`
         :returns `<'list/dict'>`: 返回解析并验证后响应数据
         """
-        while True:
-            # 确保 access token 可用
-            if self._state.access_token is None:
-                await self._UpdateToken()
+        token_version = self._state.token_version
 
+        def prepare_signed_request() -> tuple[dict, dict | None]:
+            nonlocal token_version
             token_version = self._state.token_version
-
-            # 构建参数
+            request_body = body.copy() if isinstance(body, dict) else body
             reqs_params = {
                 "app_key": self._app_id,
                 "access_token": self._state.access_token,
                 "timestamp": utils.now_ts(),
             }
-
             if isinstance(params, dict):
                 reqs_params.update(params)
-
             sign_params = dict(reqs_params)
-
-            if isinstance(body, dict):
-                sign_params.update(body)
-
-            # 生成签名
+            if isinstance(request_body, dict):
+                sign_params.update(request_body)
             reqs_params["sign"] = utils.generate_sign(sign_params, self._app_cipher)
+            return reqs_params, request_body
+
+        auth_retried = False
+        while True:
+            # 确保 access token 可用
+            if self._state.access_token is None:
+                await self._UpdateToken(only_if_missing=True)
 
             # 发送请求
             try:
                 return await self._request(
                     method,
                     url,
-                    reqs_params,
+                    params if isinstance(params, dict) else {},
                     body=body,
                     headers=headers,
                     extract_data=extract_data,
+                    _prepare_signed_request=prepare_signed_request,
                 )
 
             # 处理过期 Token 或 Signature
             except (errors.TokenError, errors.SignatureExpiredError):
+                if auth_retried and self._state.token_version == token_version:
+                    await asyncio.sleep(1)
                 await self._UpdateToken(expected_version=token_version)
+                auth_retried = True
                 continue
 
     def _handle_response_data(
@@ -533,12 +572,16 @@ class BaseAPI:
             raise errors.ResponseDataError("响应数据错误, 缺少 code 字段", url, data)
 
         if code == 1:
-            if data.get("msg", "") == "服务内部错误":
+            if data.get("msg") == "服务内部错误":
                 raise errors.InternalServerError(
                     "领星 API 服务器发生内部错误", url, data, code
                 )
+            # 特定route放回code=1, 但success=True的情况, 视为成功
+            if url in self._code1_routes and data.get("success") is True:
+                pass
             # 未知错误码
-            raise errors.UnknownRequestError("未知的 api 错误", url, data, code)
+            else:
+                raise errors.UnknownRequestError("未知的 api 错误", url, data, code)
 
         elif code not in (0, "200"):
             try:
@@ -683,5 +726,5 @@ class BaseAPI:
         if body is not None:
             err.add_note("请求实体: %r" % body)
         if retry_count > 0:
-            err.add_note("请求重试: %d" % retry_count)
+            err.add_note("重试次数: %d" % retry_count)
         return err

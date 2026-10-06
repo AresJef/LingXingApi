@@ -860,8 +860,6 @@ class ShipmentTransport(BaseModel):
     shipping_mode: str = Field(validation_alias="shippingMode")
     # 运输解决方案 [原字段 'shippingSolution']
     shipping_solution: str = Field(validation_alias="shippingSolution")
-    # 运输费用 [原字段 'carrierFee']
-    shipping_fee: FloatOrNone2Zero = Field(validation_alias="carrierFee")
 
 
 class ShipmentTransports(ResponseV2):
