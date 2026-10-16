@@ -28,7 +28,7 @@ class RenameSeller(Parameter):
 
     sid: NonNegativeInt = Field(
         description="领星店铺ID (Seller.sid)",
-        examples=[1],
+        examples=[10041],
     )
     name: NonEmptyStr = Field(
         description="新的店铺名称",
@@ -41,7 +41,7 @@ class RenameSellers(Parameter):
 
     renames: list = Field(
         description="修改店铺名称参数列表",
-        examples=[[{"name": "sample-1", "sid": 1}]],
+        examples=[[{"name": "sample-1", "sid": 10041}]],
         # - - - - - - - - - -
         alias="sid_name_list",
     )
@@ -77,7 +77,7 @@ class RenameSellers(Parameter):
 
 # . Excahnge Rate ---------------------------------------------------------------------------------------------------------------
 class ExchangeRate(Parameter):
-    """汇率查询参数；按现有解析器提取年月，当前不支持 None。"""
+    """汇率查询参数；日期解析后提取年月，不支持 None。"""
 
     date: str = Field(
         description='日期, 格式为 "YYYY-MM"',
@@ -92,7 +92,7 @@ class ExchangeRate(Parameter):
 
         Args:
             v: 交给 utils.validate_datetime 的原始日期，常见为字符串或
-                date/datetime 对象；None 也交由解析器处理，当前会失败。
+                date/datetime 对象；None 无法通过参数校验。
 
         Returns:
             str: 格式为 YYYY-MM 的年月字符串。
