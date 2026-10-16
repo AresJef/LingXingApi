@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
+from __future__ import annotations
+
+from cytimes import parse as _parse
 from pydantic import BaseModel, Field, field_validator
+from lingxingapi import utils
 from lingxingapi.fields import IntOrNone2Zero
 from lingxingapi.base.schema import ResponseV1, ResponseResult
 
@@ -234,7 +238,20 @@ class RenameSellers(BaseModel):
 
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     @field_validator("failure_detail", mode="before")
-    def _validate_failure_detail(cls, v):
+    def _validate_failure_detail(cls, v: object) -> list[RenameSellersFailureDetail]:
+        """将原始失败详情逐项解析为模型列表。
+
+        Args:
+            v: 未经字段校验的原始值；None 转为空列表，其余值按迭代协议处理。
+
+        Returns:
+            list[RenameSellersFailureDetail]: 保持原迭代顺序的失败详情列表；
+                空可迭代值返回空列表。
+
+        Raises:
+            TypeError: 原始值不支持迭代。
+            pydantic.ValidationError: 任一元素无法解析为失败详情模型。
+        """
         if v is None:
             return []
         return [RenameSellersFailureDetail.model_validate(i) for i in v]
@@ -373,7 +390,21 @@ class ExchangeRate(BaseModel):
     @field_validator("date", mode="after")
     @classmethod
     def _validate_date(cls, v: str) -> str:
-        return v + "-01"
+        """解析汇率日期并输出 YYYY-MM-DD 字符串。
+
+        缺省分量使用 DEFAULT_DATE（1970-01-01）；月份输入补1日，完整日期
+        保留实际日。沿用cytimes的宽松解析，不另加严格日历校验。
+
+        Args:
+            v: 已通过字段字符串校验的日期文本。
+
+        Returns:
+            str: 解析结果格式化得到的日期，仍为字符串。
+
+        Raises:
+            ValueError: 解析失败；模型校验时由Pydantic转换为ValidationError。
+        """
+        return _parse(v, default=utils.DEFAULT_DATE).strftime("%Y-%m-%d")
 
 
 class ExchangeRates(ResponseV1):
