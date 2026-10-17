@@ -454,7 +454,7 @@ class BasicAPI(BaseAPI):
                             # 中国银行官方汇率 (对比人民币) [原字段 'rate_org']
                             "boc_rate": 1.0,
                             # 用户汇率 (对比人民币) [原字段 'my_rate']
-                            "user_rate": 1.0000000013,
+                            "user_rate": 1.0,
                             # 用户汇率修改时间 (北京时间)
                             "update_time": '2001-05-07 05:55:00',
                         },

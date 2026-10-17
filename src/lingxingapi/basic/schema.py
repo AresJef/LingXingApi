@@ -19,33 +19,48 @@ class Marketplace(BaseModel):
     )
     region: str = Field(
         description="站点区域",
-        examples=['NA'],
+        examples=["NA"],
     )
     region_aws: str = Field(
         description="站点亚马逊仓库所属区域 [原字段 'aws_region']",
-        examples=['NA'],
+        examples=["NA"],
         # - - - - - - - - - -
         validation_alias="aws_region",
     )
     country: str = Field(
         description="站点国家 (中文)",
-        examples=['美国'],
+        examples=["美国"],
     )
     country_code: str = Field(
         description="站点国家代码 [原字段 'code']",
-        examples=['US'],
+        examples=["US"],
         # - - - - - - - - - -
         validation_alias="code",
     )
     marketplace_id: str = Field(
         description="亚马逊市场ID",
-        examples=['ATVPDKIKX0DER'],
+        examples=["ATVPDKIKX0DER"],
     )
+
 
 class Marketplaces(ResponseV1):
     """亚马逊站点查询结果."""
 
-    data: list[Marketplace]
+    data: list[Marketplace] = Field(
+        description="亚马逊站点查询结果.",
+        examples=[
+            [
+                {
+                    "mid": 1,
+                    "region": "NA",
+                    "region_aws": "NA",
+                    "country": "美国",
+                    "country_code": "US",
+                    "marketplace_id": "ATVPDKIKX0DER",
+                },
+            ],
+        ],
+    )
 
 
 # . States
@@ -54,17 +69,17 @@ class State(BaseModel):
 
     country_code: str = Field(
         description="国家代码",
-        examples=['US'],
+        examples=["US"],
     )
     state: str = Field(
         description="省/州名称 [原字段 'state_or_province_name']",
-        examples=['AL-Alabama'],
+        examples=["AL-Alabama"],
         # - - - - - - - - - -
         validation_alias="state_or_province_name",
     )
     state_code: str = Field(
         description="省/州代码 [原字段 'code']",
-        examples=['AL'],
+        examples=["AL"],
         # - - - - - - - - - -
         validation_alias="code",
     )
@@ -73,7 +88,18 @@ class State(BaseModel):
 class States(ResponseV1):
     """国家的省/州查询结果."""
 
-    data: list[State]
+    data: list[State] = Field(
+        description="国家的省/州查询结果.",
+        examples=[
+            [
+                {
+                    "country_code": "US",
+                    "state": "AL-Alabama",
+                    "state_code": "AL",
+                },
+            ],
+        ],
+    )
 
 
 # . Sellers
@@ -90,11 +116,11 @@ class Seller(BaseModel):
     )
     seller_id: str = Field(
         description="亚马逊卖家ID",
-        examples=['AA0AAAA00A0CN'],
+        examples=["AA0AAAA00A0CN"],
     )
     seller_name: str = Field(
         description="领星店铺名称 (含国家信息) [原字段 'name']",
-        examples=['000-名称店-IH'],
+        examples=["000-名称店-IH"],
         # - - - - - - - - - -
         validation_alias="name",
     )
@@ -106,19 +132,19 @@ class Seller(BaseModel):
     )
     account_name: str = Field(
         description="领星店铺帐号名称",
-        examples=['000-BU'],
+        examples=["000-BU"],
     )
     marketplace_id: str = Field(
         description="亚马逊市场ID (Marketplace.marketplace_id)",
-        examples=['A1F83G8C2ARO7P'],
+        examples=["A1F83G8C2ARO7P"],
     )
     region: str = Field(
         description="店铺区域",
-        examples=['EU'],
+        examples=["EU"],
     )
     country: str = Field(
         description="店铺国家 (中文)",
-        examples=['英国'],
+        examples=["英国"],
     )
     status: int = Field(
         description="店铺状态 (0: 停止同步, 1: 正常, 2: 授权异常, 3: 欠费停服)",
@@ -135,7 +161,26 @@ class Seller(BaseModel):
 class Sellers(ResponseV1):
     """领星店铺查询结果."""
 
-    data: list[Seller]
+    data: list[Seller] = Field(
+        description="领星店铺查询结果.",
+        examples=[
+            [
+                {
+                    "mid": 4,
+                    "sid": 10041,
+                    "seller_id": "AA0AAAA00A0CN",
+                    "seller_name": "000-名称店-IH",
+                    "account_id": 3035,
+                    "account_name": "000-BU",
+                    "marketplace_id": "A1F83G8C2ARO7P",
+                    "region": "EU",
+                    "country": "英国",
+                    "status": 2,
+                    "ads_authorized": 1,
+                },
+            ],
+        ],
+    )
 
 
 # . Concept Sellers
@@ -156,11 +201,11 @@ class ConceptSeller(BaseModel):
     )
     seller_id: str = Field(
         description="亚马逊卖家ID",
-        examples=['A00A0AA0000AAT'],
+        examples=["A00A0AA0000AAT"],
     )
     seller_name: str = Field(
         description="领星概念店铺名称 (含区域信息) [原字段 'name']",
-        examples=['000-AA-DE'],
+        examples=["000-AA-DE"],
         # - - - - - - - - - -
         validation_alias="name",
     )
@@ -172,17 +217,17 @@ class ConceptSeller(BaseModel):
     )
     account_name: str = Field(
         description="领星概念店铺帐号名称 [原字段 'seller_account_name']",
-        examples=['000-AO'],
+        examples=["000-AO"],
         # - - - - - - - - - -
         validation_alias="seller_account_name",
     )
     region: str = Field(
         description="概念店铺区域",
-        examples=['NA'],
+        examples=["NA"],
     )
     country: str = Field(
-        description="概念店铺国家, 如: \"北美共享\", \"欧洲共享\"",
-        examples=['北美共享'],
+        description='概念店铺国家, 如: "北美共享", "欧洲共享"',
+        examples=["北美共享"],
     )
     status: int = Field(
         description="概念店铺状态 (1: 启用, 2: 停用)",
@@ -193,7 +238,24 @@ class ConceptSeller(BaseModel):
 class ConceptSellers(ResponseV1):
     """领星概念店铺查询结果."""
 
-    data: list[ConceptSeller]
+    data: list[ConceptSeller] = Field(
+        description="领星概念店铺查询结果.",
+        examples=[
+            [
+                {
+                    "cmid": 1000000,
+                    "csid": 200000000000000001,
+                    "seller_id": "A00A0AA0000AAT",
+                    "seller_name": "000-AA-DE",
+                    "account_id": 3001,
+                    "account_name": "000-AO",
+                    "region": "NA",
+                    "country": "北美共享",
+                    "status": 1,
+                },
+            ],
+        ],
+    )
 
 
 # . Rename Sellers
@@ -206,11 +268,11 @@ class RenameSellersFailureDetail(BaseModel):
     )
     name: str = Field(
         description="新店铺名称",
-        examples=['TEST'],
+        examples=["TEST"],
     )
     message: str = Field(
         description="失败信息 [原字段 'error']",
-        examples=['店铺记录不存在'],
+        examples=["店铺记录不存在"],
         # - - - - - - - - - -
         validation_alias="error",
     )
@@ -227,13 +289,13 @@ class RenameSellers(BaseModel):
     )
     failure: IntOrNone2Zero = Field(
         description="修改失败数量 [原字段 'failure_num']",
-        examples=[0],
+        examples=[1],
         # - - - - - - - - - -
         validation_alias="failure_num",
     )
     failure_detail: list[RenameSellersFailureDetail] = Field(
         description="修改失败详情",
-        examples=[[{'sid': 0, 'name': 'TEST', 'message': '店铺记录不存在'}]],
+        examples=[[{"sid": 0, "name": "TEST", "message": "店铺记录不存在"}]],
     )
 
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -260,7 +322,22 @@ class RenameSellers(BaseModel):
 class RenameSellersResult(ResponseResult):
     """批量修改店铺名称的响应结果."""
 
-    data: RenameSellers
+    data: RenameSellers = Field(
+        description="批量修改店铺名称的响应结果.",
+        examples=[
+            {
+                "success": 0,
+                "failure": 1,
+                "failure_detail": [
+                    {
+                        "sid": 0,
+                        "name": "TEST",
+                        "message": "店铺记录不存在",
+                    },
+                ],
+            },
+        ],
+    )
 
 
 # . Accounts
@@ -285,39 +362,39 @@ class Account(BaseModel):
     )
     role: str = Field(
         description="帐号角色",
-        examples=['运营'],
+        examples=["运营"],
     )
     display_name: str = Field(
         description="领星帐号显示的姓名 [原字段 'realname']",
-        examples=['用户名店告'],
+        examples=["用户名店告"],
         # - - - - - - - - - -
         validation_alias="realname",
     )
     username: str = Field(
         description="领星帐号登陆用户名",
-        examples=['a.0000AAaaaa1F'],
+        examples=["a.0000AAaaaa1F"],
     )
     email: str = Field(
         description="领星帐号电子邮箱",
-        examples=['aaaaaad@xxxxxxxx.test'],
+        examples=["aaaaaad@xxxxxxxx.test"],
     )
     phone: str = Field(
         description="领星帐号电话号码 [原字段 'mobile']",
-        examples=['00000000002'],
+        examples=["00000000002"],
         # - - - - - - - - - -
         validation_alias="mobile",
     )
     create_time: str = Field(
         description="领星帐号创建时间 (北京时间)",
-        examples=['2001-05-07 05:15'],
+        examples=["2001-05-07 05:15"],
     )
     last_login_time: str = Field(
         description="领星帐号最后登录时间 (北京时间)",
-        examples=['-'],
+        examples=["-"],
     )
     last_login_ip: str = Field(
         description="领星帐号最后登录IP",
-        examples=[''],
+        examples=[""],
     )
     login_count: int = Field(
         description="领星帐号登录次数 [原字段 'login_num']",
@@ -331,7 +408,9 @@ class Account(BaseModel):
     )
     sellers: str = Field(
         description="关联的领星店铺名称, 逗号分隔 [原字段 'seller']",
-        examples=['000-AA-GQ,aaaa-288,000-AA-GO,000-名称-店铺名-称店铺-JE,000-AA-色丁,000-AA-GK,000-AA-IF,000-AA-AA-BV,Aaaa角己,000-AA名称-店铺名、称店铺-KG,000-名称-IK,000-名称-JC,Aaaaaaaaaaaa-LB,000-名称店-铺名称-KF,000-AA-广店,000-名称店铺名-称店铺-KE,000-AA-EP,000-AA-EK,000-AA-EG,000-AA-EJ,000-AA-EH,000-AA-EL,000-AA-EN,000-AA-EO,000-AA-EM,000-AA-EF,000-AA-HR,000-AA-BE,000-AA-BB,000-AA名称-店铺名-JD,000-名称店铺名-称店铺-KC,000-AP,000-AH,000-AC,000-AF,000-AD,000-AL,000-AN,000-名称店-铺名称-KD,000-AO,000-AA-EV,000-AM,000-AA-EU,000-AB,000-AA-EY,000-AA-CL,000-AA-EX,000-AA-CJ,000-AA-GI,000-BQ,名称店铺-00000000000000-LH,000-BL,000-AA-GN,000-BG,000-AA-GL,000-BJ,000-BH,000-BM,000-BO,000-BP,000-BN,000-BF,000-AA-CZ,000-AA-CX,000-AA-DD,000-AA-DB,000-AA-DH,000-CH,000-BY,000-BS,000-BW,000-BT,000-CD,000-CF,000-CG,000-CE,000-BR,000-AA-CW,000-AA-CR,000-AA-CN,000-AA-CQ,000-AA-CO,000-AA-CS,000-AA-CU,000-AA-CV,aaaaa-aaa-aalf,000-AA-CT,000-AA-CM,Aaaaaaaaa 角辛,000-AA-GH,000-AA-GF,000-AA-BA,000-AA-AV,000-AA-AR,000-AA-AU,000-AA-AS,000-AA-AW,000-AA-AY,000-AA-AZ,000-AA-AX,000-AA-AQ,000-DS,000-DO,000-DJ,000-DM,000-DK,000-DP,000-DR,000-DQ,000-DI,000-HP,AaaaaAks,000-HI,Aaaaaaaaa 角庚,000-HD,000-HG,000-HE,000-HL,000-HN,000-HO,000-HM,000-HC,000-AA-HS,000-AA-FG,000-BZ,000-AA-FE,000-AA-名称-IM,000-AA-JB,000-AA-IY,000-AA-IZ,aaaaaaaaale,aaaaa-aaa-lg,000-AA-EE,000-AA-EA,000-AA-DV,Aaaaaaa角戊,000-AA-DY,000-AA-DW,000-AA-EB,000-AA-ED,000-AA-EC,000-AA-DU,000-AA-GE,000-AA-GC,000-AA-GB,aaaa-289,000-AA-FY,000-AA-FZ,000-BK,AaaaaAaaaaaa-la,000-AA-FD,000-AA-FC,000-AA-DZ,000-DN,000-名称店-IH,000-AG,000-AA-AA-名色角,000-HH,000-BX,000-AA-FK,000-GW,000-AA-FH,000-JX,000-AA-FI,000-JT,000-JV,000-JU,000-JY,000-KA,000-JZ,000-JS,000-JW,000-JM,000-JG,000-JK,000-JH,000-JN,000-JP,000-JO,000-AA-FS,000-JF,000-AA-FO,000-AA名称店-铺名称 店铺名-JR,000-JL,000-AA-FP,000-AA-FB,000-AA-EZ,000-AA-FX,000-AA-FV,000-IS,000-AA-DF,000-AA-HJ,000-AA-CB,000-AA-ES,000-AA-EQ,Aaaaaa-aaaaa-akz,000-名称-店铺名-IL,000-HB,000-GX,000-GS,000-GV,000-AA-名称店-DT,000-GT,000-名称-II,000-GY,000-HA,000-GZ,000-GR,000-IX,000-IT,000-IO,000-IR,000-AA-IC,000-IP,000-AA-FN,000-AA-HY,000-IU,000-AA-AK,000-AA-HU,000-IW,000-AA-AI,000-AA-HX,000-IV,000-AA-HV,000-IN,000-AA-HZ,000-AA-IB,000-AA-IA,000-AA-HT,000-Aaaaaci,000-示店店,000-AA名称店-铺名称，店铺名-IE,000-名称-IJ,000-AA名称店-KR,000-AA名称店-KN,000-AA名称店-KJ,000-AA名称店-KL,000-AA名称店-KK,000-AA名称店-KO,000-AA名称店-KQ,000-AA名称店-KP,000-AA名称店-KI,000-AA名称店-KM,000-AA-FL,Aaaaaa-aaaaa-aaky,000-AA-CA,AAAAAKX,000-AA-FU,000-AA-FT'],
+        examples=[
+            "000-AA-GQ,aaaa-288,000-AA-GO,000-名称-店铺名-称店铺-JE,000-AA-色丁,000-AA-GK,000-AA-IF,000-AA-AA-BV,Aaaa角己,000-AA名称-店铺名、称店铺-KG,000-名称-IK,000-名称-JC,Aaaaaaaaaaaa-LB,000-名称店-铺名称-KF,000-AA-广店,000-名称店铺名-称店铺-KE,000-AA-EP,000-AA-EK,000-AA-EG,000-AA-EJ,000-AA-EH,000-AA-EL,000-AA-EN,000-AA-EO,000-AA-EM,000-AA-EF,000-AA-HR,000-AA-BE,000-AA-BB,000-AA名称-店铺名-JD,000-名称店铺名-称店铺-KC,000-AP,000-AH,000-AC,000-AF,000-AD,000-AL,000-AN,000-名称店-铺名称-KD,000-AO,000-AA-EV,000-AM,000-AA-EU,000-AB,000-AA-EY,000-AA-CL,000-AA-EX,000-AA-CJ,000-AA-GI,000-BQ,名称店铺-00000000000000-LH,000-BL,000-AA-GN,000-BG,000-AA-GL,000-BJ,000-BH,000-BM,000-BO,000-BP,000-BN,000-BF,000-AA-CZ,000-AA-CX,000-AA-DD,000-AA-DB,000-AA-DH,000-CH,000-BY,000-BS,000-BW,000-BT,000-CD,000-CF,000-CG,000-CE,000-BR,000-AA-CW,000-AA-CR,000-AA-CN,000-AA-CQ,000-AA-CO,000-AA-CS,000-AA-CU,000-AA-CV,aaaaa-aaa-aalf,000-AA-CT,000-AA-CM,Aaaaaaaaa 角辛,000-AA-GH,000-AA-GF,000-AA-BA,000-AA-AV,000-AA-AR,000-AA-AU,000-AA-AS,000-AA-AW,000-AA-AY,000-AA-AZ,000-AA-AX,000-AA-AQ,000-DS,000-DO,000-DJ,000-DM,000-DK,000-DP,000-DR,000-DQ,000-DI,000-HP,AaaaaAks,000-HI,Aaaaaaaaa 角庚,000-HD,000-HG,000-HE,000-HL,000-HN,000-HO,000-HM,000-HC,000-AA-HS,000-AA-FG,000-BZ,000-AA-FE,000-AA-名称-IM,000-AA-JB,000-AA-IY,000-AA-IZ,aaaaaaaaale,aaaaa-aaa-lg,000-AA-EE,000-AA-EA,000-AA-DV,Aaaaaaa角戊,000-AA-DY,000-AA-DW,000-AA-EB,000-AA-ED,000-AA-EC,000-AA-DU,000-AA-GE,000-AA-GC,000-AA-GB,aaaa-289,000-AA-FY,000-AA-FZ,000-BK,AaaaaAaaaaaa-la,000-AA-FD,000-AA-FC,000-AA-DZ,000-DN,000-名称店-IH,000-AG,000-AA-AA-名色角,000-HH,000-BX,000-AA-FK,000-GW,000-AA-FH,000-JX,000-AA-FI,000-JT,000-JV,000-JU,000-JY,000-KA,000-JZ,000-JS,000-JW,000-JM,000-JG,000-JK,000-JH,000-JN,000-JP,000-JO,000-AA-FS,000-JF,000-AA-FO,000-AA名称店-铺名称 店铺名-JR,000-JL,000-AA-FP,000-AA-FB,000-AA-EZ,000-AA-FX,000-AA-FV,000-IS,000-AA-DF,000-AA-HJ,000-AA-CB,000-AA-ES,000-AA-EQ,Aaaaaa-aaaaa-akz,000-名称-店铺名-IL,000-HB,000-GX,000-GS,000-GV,000-AA-名称店-DT,000-GT,000-名称-II,000-GY,000-HA,000-GZ,000-GR,000-IX,000-IT,000-IO,000-IR,000-AA-IC,000-IP,000-AA-FN,000-AA-HY,000-IU,000-AA-AK,000-AA-HU,000-IW,000-AA-AI,000-AA-HX,000-IV,000-AA-HV,000-IN,000-AA-HZ,000-AA-IB,000-AA-IA,000-AA-HT,000-Aaaaaci,000-示店店,000-AA名称店-铺名称，店铺名-IE,000-名称-IJ,000-AA名称店-KR,000-AA名称店-KN,000-AA名称店-KJ,000-AA名称店-KL,000-AA名称店-KK,000-AA名称店-KO,000-AA名称店-KQ,000-AA名称店-KP,000-AA名称店-KI,000-AA名称店-KM,000-AA-FL,Aaaaaa-aaaaa-aaky,000-AA-CA,AAAAAKX,000-AA-FU,000-AA-FT"
+        ],
         # - - - - - - - - - -
         validation_alias="seller",
     )
@@ -340,7 +419,29 @@ class Account(BaseModel):
 class Accounts(ResponseV1):
     """领星账号查询结果."""
 
-    data: list[Account]
+    data: list[Account] = Field(
+        description="领星账号查询结果.",
+        examples=[
+            [
+                {
+                    "parent_id": 50000001,
+                    "user_id": 40000001,
+                    "is_master": 1,
+                    "role": "运营",
+                    "display_name": "用户名店告",
+                    "username": "a.0000AAaaaa1F",
+                    "email": "aaaaaad@xxxxxxxx.test",
+                    "phone": "00000000002",
+                    "create_time": "2001-05-07 05:15",
+                    "last_login_time": "-",
+                    "last_login_ip": "",
+                    "login_count": 0,
+                    "status": 1,
+                    "sellers": "000-AA-GQ,aaaa-288,000-AA-GO,000-名称-店铺名-称店铺-JE,000-AA-色丁,000-AA-GK,000-AA-IF,000-AA-AA-BV,Aaaa角己,000-AA名称-店铺名、称店铺-KG,000-名称-IK,000-名称-JC,Aaaaaaaaaaaa-LB,000-名称店-铺名称-KF,000-AA-广店,000-名称店铺名-称店铺-KE,000-AA-EP,000-AA-EK,000-AA-EG,000-AA-EJ,000-AA-EH,000-AA-EL,000-AA-EN,000-AA-EO,000-AA-EM,000-AA-EF,000-AA-HR,000-AA-BE,000-AA-BB,000-AA名称-店铺名-JD,000-名称店铺名-称店铺-KC,000-AP,000-AH,000-AC,000-AF,000-AD,000-AL,000-AN,000-名称店-铺名称-KD,000-AO,000-AA-EV,000-AM,000-AA-EU,000-AB,000-AA-EY,000-AA-CL,000-AA-EX,000-AA-CJ,000-AA-GI,000-BQ,名称店铺-00000000000000-LH,000-BL,000-AA-GN,000-BG,000-AA-GL,000-BJ,000-BH,000-BM,000-BO,000-BP,000-BN,000-BF,000-AA-CZ,000-AA-CX,000-AA-DD,000-AA-DB,000-AA-DH,000-CH,000-BY,000-BS,000-BW,000-BT,000-CD,000-CF,000-CG,000-CE,000-BR,000-AA-CW,000-AA-CR,000-AA-CN,000-AA-CQ,000-AA-CO,000-AA-CS,000-AA-CU,000-AA-CV,aaaaa-aaa-aalf,000-AA-CT,000-AA-CM,Aaaaaaaaa 角辛,000-AA-GH,000-AA-GF,000-AA-BA,000-AA-AV,000-AA-AR,000-AA-AU,000-AA-AS,000-AA-AW,000-AA-AY,000-AA-AZ,000-AA-AX,000-AA-AQ,000-DS,000-DO,000-DJ,000-DM,000-DK,000-DP,000-DR,000-DQ,000-DI,000-HP,AaaaaAks,000-HI,Aaaaaaaaa 角庚,000-HD,000-HG,000-HE,000-HL,000-HN,000-HO,000-HM,000-HC,000-AA-HS,000-AA-FG,000-BZ,000-AA-FE,000-AA-名称-IM,000-AA-JB,000-AA-IY,000-AA-IZ,aaaaaaaaale,aaaaa-aaa-lg,000-AA-EE,000-AA-EA,000-AA-DV,Aaaaaaa角戊,000-AA-DY,000-AA-DW,000-AA-EB,000-AA-ED,000-AA-EC,000-AA-DU,000-AA-GE,000-AA-GC,000-AA-GB,aaaa-289,000-AA-FY,000-AA-FZ,000-BK,AaaaaAaaaaaa-la,000-AA-FD,000-AA-FC,000-AA-DZ,000-DN,000-名称店-IH,000-AG,000-AA-AA-名色角,000-HH,000-BX,000-AA-FK,000-GW,000-AA-FH,000-JX,000-AA-FI,000-JT,000-JV,000-JU,000-JY,000-KA,000-JZ,000-JS,000-JW,000-JM,000-JG,000-JK,000-JH,000-JN,000-JP,000-JO,000-AA-FS,000-JF,000-AA-FO,000-AA名称店-铺名称 店铺名-JR,000-JL,000-AA-FP,000-AA-FB,000-AA-EZ,000-AA-FX,000-AA-FV,000-IS,000-AA-DF,000-AA-HJ,000-AA-CB,000-AA-ES,000-AA-EQ,Aaaaaa-aaaaa-akz,000-名称-店铺名-IL,000-HB,000-GX,000-GS,000-GV,000-AA-名称店-DT,000-GT,000-名称-II,000-GY,000-HA,000-GZ,000-GR,000-IX,000-IT,000-IO,000-IR,000-AA-IC,000-IP,000-AA-FN,000-AA-HY,000-IU,000-AA-AK,000-AA-HU,000-IW,000-AA-AI,000-AA-HX,000-IV,000-AA-HV,000-IN,000-AA-HZ,000-AA-IB,000-AA-IA,000-AA-HT,000-Aaaaaci,000-示店店,000-AA名称店-铺名称，店铺名-IE,000-名称-IJ,000-AA名称店-KR,000-AA名称店-KN,000-AA名称店-KJ,000-AA名称店-KL,000-AA名称店-KK,000-AA名称店-KO,000-AA名称店-KQ,000-AA名称店-KP,000-AA名称店-KI,000-AA名称店-KM,000-AA-FL,Aaaaaa-aaaaa-aaky,000-AA-CA,AAAAAKX,000-AA-FU,000-AA-FT",
+                },
+            ],
+        ],
+    )
 
 
 # . Exchange Rates
@@ -349,23 +450,23 @@ class ExchangeRate(BaseModel):
 
     date: str = Field(
         description="汇率日期 (格式: YYYY-MM-DD)",
-        examples=['2026-09-01'],
+        examples=["2026-09-01"],
     )
     currency: str = Field(
         description="货币名称 (中文) [原字段 'name']",
-        examples=['人民币'],
+        examples=["人民币"],
         # - - - - - - - - - -
         validation_alias="name",
     )
     currency_code: str = Field(
         description="货币代码 [原字段 'code']",
-        examples=['CNY'],
+        examples=["CNY"],
         # - - - - - - - - - -
         validation_alias="code",
     )
     currency_icon: str = Field(
         description="货币符号 [原字段 'icon']",
-        examples=['￥'],
+        examples=["￥"],
         # - - - - - - - - - -
         validation_alias="icon",
     )
@@ -377,13 +478,13 @@ class ExchangeRate(BaseModel):
     )
     user_rate: float = Field(
         description="用户汇率 (对比人民币, 如: 7.2008000000) [原字段 'my_rate']",
-        examples=[1.0000000013],
+        examples=[1.0],
         # - - - - - - - - - -
         validation_alias="my_rate",
     )
     update_time: str = Field(
         description="用户汇率修改时间 (北京时间)",
-        examples=['2001-05-07 05:55:00'],
+        examples=["2001-05-07 05:55:00"],
     )
 
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -410,4 +511,19 @@ class ExchangeRate(BaseModel):
 class ExchangeRates(ResponseV1):
     """货币汇率查询结果."""
 
-    data: list[ExchangeRate]
+    data: list[ExchangeRate] = Field(
+        description="货币汇率查询结果.",
+        examples=[
+            [
+                {
+                    "date": "2026-09-01",
+                    "currency": "人民币",
+                    "currency_code": "CNY",
+                    "currency_icon": "￥",
+                    "boc_rate": 1.0,
+                    "user_rate": 1.0,
+                    "update_time": "2001-05-07 05:55:00",
+                },
+            ],
+        ],
+    )
