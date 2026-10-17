@@ -40,59 +40,66 @@ class AdsAPI(BaseAPI):
         offset: int | None = None,
         length: int | None = None,
     ) -> schema.AdProfiles:
-        """查询广告账号
+        """查询广告账号列表。
 
         ## Docs
-        - 新广告 - 基础数据: [查询广告账号列表](https://apidoc.lingxing.com/#/docs/newAd/baseData/dspAccountList)
+        领星接口文档: 新广告 - 基础数据.[查询广告账号列表](https://apidoc.lingxing.com/#/docs/newAd/baseData/dspAccountList)
 
-        :param account_type `<'str'>`: 广告账号类型, 默认 `"seller"`, 可选值:
+        Args:
+            profile_type (AD_PROFILE_TYPE): 广告账号类型，默认 "seller"；类型提示列出 "dsp"、"seller"、"vendor"。
+            offset (int | None): 分页偏移量，默认 None；为 None 时SDK省略请求体中的 offset。
+            length (int | None): 分页长度，默认 None；为 None 时SDK省略请求体中的 length。
 
-            - `"dsp"` (DSP账号)
-            - `"seller"` (卖家账号)
-            - `"vendor"` (供应商账号)
+        Returns:
+            ads.schema.AdProfiles: 广告账号的分页查询结果。
 
-        :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
-        :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 20)
-        :returns `<'AdProfiles'>`: 返回查询到的广告帐号结果
-        ```python
-        {
-            # 状态码
-            "code": 0,
-            # 提示信息
-            "message": "success",
-            # 错误信息
-            "errors": [],
-            # 请求ID
-            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
-            # 响应时间
-            "response_time": "2025-08-13 19:23:04",
-            # 响应数据量
-            "response_count": 2,
-            # 总数据量
-            "total_count": 2,
-            # 响应数据
-            "data": [
+        Examples:
+            查询 seller 第一页并查看返回数据。
+
+            .. code-block:: python
+
+                result = await client.ads.AdProfiles(profile_type="seller", offset=0, length=20)
+                print(result.model_dump())
+
+            .. code-block:: python
+
                 {
-                    # 领星店铺ID
-                    "sid": 1,
-                    # 领星店铺名称 [原字段 'name']
-                    "seller_name": "UK-Store",
-                    # 店铺国家代码
-                    "country_code": "UK",
-                    # 店铺货币代码
-                    "currency_code": "GBP",
-                    # 亚马逊店铺ID (广告帐号ID)
-                    "profile_id": 439*************
-                    # 广告帐号类型 [原字段 'type']
-                    "profile_type": "seller",
-                    # 广告帐号状态 [原字段 'status']
-                    # (-1: 删除, 0: 停用, 1: 正常, 2: 异常)
-                    "profile_status": 1,
-                },
-                ...
-            ],
-        }
-        ```
+                    # 状态码
+                    "code": 0,
+                    # 提示信息
+                    "message": 'success',
+                    # 错误信息
+                    "errors": [],
+                    # 请求ID
+                    "request_id": '00000000000000000000000000000000.0000000000031',
+                    # 响应时间
+                    "response_time": '2001-05-07 06:36:00',
+                    # 响应数据量
+                    "response_count": 20,
+                    # 总数据量
+                    "total_count": 240,
+                    # 响应数据
+                    "data": [
+                        {
+                            # 领星店铺ID
+                            "sid": 10105,
+                            # 领星店铺名称 [原字段 'name']
+                            "seller_name": '广告账号名',
+                            # 店铺国家代码
+                            "country_code": 'NL',
+                            # 店铺货币代码
+                            "currency_code": 'EUR',
+                            # 亚马逊店铺ID (广告帐号ID)
+                            "profile_id": 90000000000001,
+                            # 广告帐号类型 [原字段 'type']
+                            "profile_type": 'seller',
+                            # 广告帐号状态 [原字段 'status']
+                            # (-1: 删除, 0: 停用, 1: 正常, 2: 异常)
+                            "profile_status": 1,
+                        },
+                        ...
+                    ],
+                }
         """
         url = route.AD_PROFILES
         # 解析并验证参数
@@ -112,77 +119,82 @@ class AdsAPI(BaseAPI):
 
     async def Portfolios(
         self,
-        sid: int,
-        profile_id: int,
+        sid: int | None = None,
+        profile_id: int | None = None,
         *,
         state: AD_STATE | None = None,
         next_token: str | None = None,
         offset: int | None = None,
         length: int | None = None,
     ) -> schema.Portfolios:
-        """查询广告组合
+        """查询广告组合。
 
         ## Docs
-        - 新广告 - 基础数据: [广告组合](https://apidoc.lingxing.com/#/docs/newAd/baseData/portfolios)
+        领星接口文档: 新广告 - 基础数据.[广告组合](https://apidoc.lingxing.com/#/docs/newAd/baseData/portfolios)
 
-        :param sid `<'int'>`: 领星店铺ID
-        :param profile_id `<'int'>`: 亚马逊店铺ID (广告帐号ID), 参数来源 `AdsProfiles.profile_id`
-        :param state `<'str/None'>`: 广告状态, 默认 `None` (查询所有状态), 可选值:
+        Args:
+            sid (int | None): 领星店铺ID，默认 None。sid 与 profile_id 至少提供一项；同时提供时，以 profile_id 指定的广告账号为准。
+            profile_id (int | None): 广告账号ID，来源为 AdProfiles 返回记录的 profile_id，默认 None；None 不输出到请求字典。
+            state (str | None): 广告组合状态，可传 enabled、paused、archived；默认 None，不输出该请求参数。查询结果可能为空。
+            next_token (str | None): 上一页返回的分页游标，默认 None；与 offset 同时提供时按游标定位。
+            offset (int | None): 按记录数计算的非负分页偏移量，默认 None；None 省略请求键，0 保留。
+            length (int | None): 非负分页长度，默认 None；None 省略请求键，由服务端决定默认分页长度。
 
-            - `"enabled"` (启用)
-            - `"paused"` (暂停)
-            - `"archived"` (归档)
+        Returns:
+            ads.schema.Portfolios: 查询到的广告组合及当前页游标、总数量。
 
-        :param next_token `<'str/None'>`: 分页游标, 上次分页结果中的 `next_token`,
-            第一分页无需填写, 当 next_token 和 offset 同时传入时以 next_token 为主, 默认 `None`
+        Examples:
+            指定广告账号、状态和分页范围查询广告组合并查看返回数据。
 
-        :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
-        :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
-        :returns `<'Portfolios'>`: 返回查询到的广告组合结果
-        ```python
-        {
-            # 状态码
-            "code": 0,
-            # 提示信息
-            "message": "success",
-            # 错误信息
-            "errors": [],
-            # 请求ID
-            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
-            # 响应时间
-            "response_time": "2025-08-13 19:23:04",
-            # 响应数据量
-            "response_count": 2,
-            # 总数据量
-            "total_count": 2,
-            # 响应数据
-            "data": [
+            .. code-block:: python
+
+                result = await client.ads.Portfolios(profile_id=90000000000003, state="enabled", offset=0, length=2)
+                print(result.model_dump())
+
+            .. code-block:: python
+
                 {
-                    # 亚马逊店铺ID (广告帐号ID)
-                    "profile_id": 494************,
-                    # 广告组合ID
-                    "portfolio_id": 180************,
-                    # 广告组合名称
-                    "portfolio_name": "Zero",
-                    # 广告预算 (JSON 字符串)
-                    "budget": '{"policy": "noCap", "currencyCode": "USD"}'
-                    # 当前是否在预算范围内 (0: 超出预算, 1: 在预算内)
-                    "in_budget": 0,
-                    # 广告状态
-                    "state": "enabled",
-                    # 服务状态 [原字段 'serving_status']
-                    "status": "PORTFOLIO_OUT_OF_BUDGET",
-                    # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
-                    "create_time_ts": 1739410536715,
-                    # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
-                    "update_time_ts": 1745401171459,
-                },
-                ...
-            ],
-            # 分页游标
-            "next_token": "Mjc5MDM3NjkxNDM4ODU4",
-        }
-        ```
+                    # 状态码
+                    'code': 0,
+                    # 提示信息
+                    'message': '操作成功',
+                    # 错误信息
+                    'errors': [],
+                    # 请求ID
+                    'request_id': '00000000-0000-0000-0000-000000000010',
+                    # 响应时间
+                    'response_time': '2001-05-07 06:21:00',
+                    # 响应数据量
+                    'response_count': 2,
+                    # 总数据量
+                    'total_count': 56,
+                    # 响应数据
+                    'data': [
+                        {
+                            # 亚马逊店铺ID (广告帐号ID)
+                            'profile_id': 90000000000003,
+                            # 广告组合ID
+                            'portfolio_id': 800000000004,
+                            # 广告组合名称
+                            'portfolio_name': 'A000000AAA-000 0A0A 组',
+                            # 广告预算 (JSON 字符串)
+                            'budget': '{"amount": 1.0, "policy": "dateRange", "startDate": "20260313", "currencyCode": "GBP"}',
+                            # 当前是否在预算范围内 (0: 超出预算, 1: 在预算内)
+                            'in_budget': 0,
+                            # 广告状态
+                            'state': 'enabled',
+                            # 服务状态 [原字段 'serving_status']
+                            'status': 'PORTFOLIO_OUT_OF_BUDGET',
+                            # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
+                            'create_time_ts': 1755676941815,
+                            # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
+                            'update_time_ts': 1773498441693,
+                        },
+                        ...,
+                    ],
+                    # 分页游标
+                    'next_token': 'MTAwMDAwMDAwMDAwMDE=',
+                }
         """
         url = route.PORTFOLIOS
         # 解析并验证参数
@@ -206,89 +218,96 @@ class AdsAPI(BaseAPI):
     # . 基础数据 - Sponsored Products
     async def SpCampaigns(
         self,
-        sid: int,
-        profile_id: int,
+        sid: int | None = None,
+        profile_id: int | None = None,
         *,
         state: AD_STATE | None = None,
         next_token: str | None = None,
         offset: int | None = None,
         length: int | None = None,
     ) -> schema.SpCampaigns:
-        """查询 SP 广告活动
+        """查询 SP 广告活动。
 
         ## Docs
-        - 新广告 - 基础数据: [SP广告活动](https://apidoc.lingxing.com/#/docs/newAd/baseData/spCampaigns)
+        领星接口文档: 新广告 - 基础数据.[SP广告活动](https://apidoc.lingxing.com/#/docs/newAd/baseData/spCampaigns)
 
-        :param sid `<'int'>`: 领星店铺ID
-        :param profile_id `<'int'>`: 亚马逊店铺ID (广告帐号ID), 参数来源 `AdsProfiles.profile_id`
-        :param state `<'str/None'>`: 广告状态, 默认 `None` (查询所有状态), 可选值:
+        Args:
+            sid (int | None): 领星店铺ID，默认 None。sid 与 profile_id 至少提供一项；同时提供时，以 profile_id 指定的广告账号为准。
+            profile_id (int | None): 广告账号ID，来源为 AdProfiles 返回记录的 profile_id，默认 None；None 不输出到请求字典。
+            state (str | None): 广告活动状态，可传 enabled（启用）、paused（暂停）、archived（归档）；默认 None，省略请求参数并查询所有状态。
+            next_token (str | None): 上一页返回的分页游标，默认 None，首次查询无需提供；与 offset 同时提供时按游标定位。
+            offset (int | None): 按记录数计算的非负分页偏移量，默认 None；None 省略请求键，由服务端采用默认值 0，显式传入 0 时保留。
+            length (int | None): 非负分页长度，默认 None；None 省略请求键，由服务端采用默认值 15。
 
-            - `"enabled"` (启用)
-            - `"paused"` (暂停)
-            - `"archived"` (归档)
+        Returns:
+            ads.schema.SpCampaigns: 查询到的 SP 广告活动及当前页游标、总数量；返回记录不包含 tags 字段。
 
-        :param next_token `<'str/None'>`: 分页游标, 上次分页结果中的 `next_token`,
-            第一分页无需填写, 当 next_token 和 offset 同时传入时以 next_token 为主, 默认 `None`
+        Examples:
+            指定广告账号、状态和分页范围查询 SP 广告活动并查看返回数据。
 
-        :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
-        :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
-        :returns `<'SpCampaigns'>`: 返回查询到的 SP 广告活动结果
-        ```python
-        {
-            # 状态码
-            "code": 0,
-            # 提示信息
-            "message": "success",
-            # 错误信息
-            "errors": [],
-            # 请求ID
-            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
-            # 响应时间
-            "response_time": "2025-08-13 19:23:04",
-            # 响应数据量
-            "response_count": 2,
-            # 总数据量
-            "total_count": 2,
-            # 响应数据
-            "data": [
+            .. code-block:: python
+
+                result = await client.ads.SpCampaigns(profile_id=90000000000003, state="enabled", offset=0, length=2)
+                print(result.model_dump())
+
+            .. code-block:: python
+
                 {
-                    # 亚马逊店铺ID (广告帐号ID)
-                    "profile_id": 494************,
-                    # 广告组合ID
-                    "portfolio_id": 0,
-                    # 广告活动ID
-                    "campaign_id": 467************,
-                    # 广告活动名称 [原字段 'name']
-                    "campaign_name": "I13FHH",
-                    # 广告活动类型
-                    "campaign_type": "sponsoredProducts",
-                    # 投放类型
-                    "targeting_type": "manual",
-                    # 溢价报价调整 (0: 不调整, 1: 调整)
-                    "premium_bid_adjustment": 1,
-                    # 每日预算
-                    "daily_budget": 80.0,
-                    # 竞价策略 (JSON 字符串)
-                    "bidding": '{"strategy": "manual", "adjustments": [{"predicate": "placementRestOfSearch", "percentage": 50}]}',
-                    # 开始时间 [原字段 'start_date']
-                    "start_time": "2025-01-17 00:00:00",
-                    # 结束时间 [原字段 'end_date']
-                    "end_time": "",
-                    # 广告状态
-                    "state": "enabled",
-                    # 服务状态 [原字段 'serving_status']
-                    "status": "CAMPAIGN_STATUS_ENABLED",
-                    # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
-                    "create_time_ts": 1737172532791,
-                    # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
-                    "update_time_ts": 1755674682189,
-                },
-                ...
-            ],
-            # 分页游标
-            "next_token": "MTczMjQxNDQ=",
-        }
-        ```
+                    # 状态码
+                    'code': 0,
+                    # 提示信息
+                    'message': '操作成功',
+                    # 错误信息
+                    'errors': [],
+                    # 请求ID
+                    'request_id': '00000000-0000-0000-0000-00000000001c',
+                    # 响应时间
+                    'response_time': '2001-05-07 06:21:00',
+                    # 响应数据量
+                    'response_count': 2,
+                    # 总数据量
+                    'total_count': 259,
+                    # 响应数据
+                    'data': [
+                        {
+                            # 亚马逊店铺ID (广告帐号ID)
+                            'profile_id': 90000000000003,
+                            # 广告组合ID
+                            'portfolio_id': 80000000000012,
+                            # 广告活动ID
+                            'campaign_id': 70000000000010,
+                            # 广告活动名称 [原字段 'name']
+                            'campaign_name': 'AA-000AAA-AAAI',
+                            # 广告活动类型
+                            'campaign_type': 'sponsoredProducts',
+                            # 投放类型
+                            'targeting_type': 'manual',
+                            # 溢价报价调整 (0: 不调整, 1: 调整)
+                            'premium_bid_adjustment': 0,
+                            # 每日预算
+                            'daily_budget': 6.0,
+                            # 时间字符串，格式为 YYYY-MM-DD HH:MM:SS，可为 None [原字段 'lastOverBudgetAt']
+                            'last_over_budget_at': '2026-10-12 22:17:35',
+                            # 竞价策略 (JSON 字符串)
+                            'bidding': '{"strategy": "manual", "adjustments": [{"predicate": "placementRestOfSearch", "percentage": 50}, {"predicate": "placementTop", "percentage": 80}]}',
+                            # 开始时间 [原字段 'start_date']
+                            'start_time': '2019-11-05 00:00:00',
+                            # 结束时间 [原字段 'end_date']
+                            'end_time': '',
+                            # 广告状态
+                            'state': 'enabled',
+                            # 服务状态 [原字段 'serving_status']
+                            'status': 'CAMPAIGN_STATUS_ENABLED',
+                            # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
+                            'create_time_ts': 1572927171000,
+                            # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
+                            'update_time_ts': 1791674172950,
+                        },
+                        ...,
+                    ],
+                    # 分页游标
+                    'next_token': 'MTAwMDA2',
+                }
         """
         url = route.SP_CAMPAIGNS
         # 解析并验证参数
@@ -313,77 +332,82 @@ class AdsAPI(BaseAPI):
 
     async def SpAdGroups(
         self,
-        sid: int,
-        profile_id: int,
+        sid: int | None = None,
+        profile_id: int | None = None,
         *,
         state: AD_STATE | None = None,
         next_token: str | None = None,
         offset: int | None = None,
         length: int | None = None,
     ) -> schema.SpAdGroups:
-        """查询 SP 广告组
+        """查询 SP 广告组。
 
         ## Docs
-        - 新广告 - 基础数据: [SP广告组](https://apidoc.lingxing.com/#/docs/newAd/baseData/spAdGroups)
+        领星接口文档: 新广告 - 基础数据.[SP广告组](https://apidoc.lingxing.com/#/docs/newAd/baseData/spAdGroups)
 
-        :param sid `<'int'>`: 领星店铺ID
-        :param profile_id `<'int'>`: 亚马逊店铺ID (广告帐号ID), 参数来源 `AdsProfiles.profile_id`
-        :param state `<'str/None'>`: 广告状态, 默认 `None` (查询所有状态), 可选值:
+        Args:
+            sid (int | None): 领星店铺ID，默认 None。sid 与 profile_id 至少提供一项；同时提供时，以 profile_id 指定的广告账号为准。
+            profile_id (int | None): 广告账号ID，来源为 AdProfiles 返回记录的 profile_id，默认 None；None 不输出到请求字典。
+            state (str | None): 广告状态，可传 enabled（启用）、paused（暂停）、archived（归档）；默认 None，省略请求参数并查询所有状态。
+            next_token (str | None): 上一页返回的分页游标，默认 None，首次查询无需提供；与 offset 同时提供时按游标定位。
+            offset (int | None): 按记录数计算的非负分页偏移量，默认 None；None 省略请求键，由服务端采用默认值 0，显式传入 0 时保留。
+            length (int | None): 非负分页长度，默认 None；None 省略请求键，由服务端采用默认值 15。
 
-            - `"enabled"` (启用)
-            - `"paused"` (暂停)
-            - `"archived"` (归档)
+        Returns:
+            ads.schema.SpAdGroups: 查询到的 SP 广告组及当前页游标、总数量。
 
-        :param next_token `<'str/None'>`: 分页游标, 上次分页结果中的 `next_token`,
-            第一分页无需填写, 当 next_token 和 offset 同时传入时以 next_token 为主, 默认 `None`
+        Examples:
+            指定广告账号和分页范围查询并查看返回数据。
 
-        :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
-        :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
-        :returns `<'SpAdGroups'>`: 返回查询到的 SP 广告组结果
-        ```python
-        {
-            # 状态码
-            "code": 0,
-            # 提示信息
-            "message": "success",
-            # 错误信息
-            "errors": [],
-            # 请求ID
-            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
-            # 响应时间
-            "response_time": "2025-08-13 19:23:04",
-            # 响应数据量
-            "response_count": 2,
-            # 总数据量
-            "total_count": 2,
-            # 响应数据
-            "data": [
+            .. code-block:: python
+
+                result = await client.ads.SpAdGroups(profile_id=90000000000004, offset=0, length=2)
+                print(result.model_dump())
+
+            .. code-block:: python
+
                 {
-                    # 亚马逊店铺ID (广告帐号ID)
-                    "profile_id": 494************,
-                    # 广告活动ID
-                    "campaign_id": 458************,
-                    # 广告组ID
-                    "ad_group_id": 287************,
-                    # 广告组名称 [原字段 'name']
-                    "ad_group_name": "广告组 - 2/3/2025 23:57:34.612",
-                    # 默认竞价
-                    "default_bid": 1.0,
-                    # 广告状态
-                    "state": "enabled",
-                    # 服务状态 [原字段 'serving_status']
-                    "status": "CAMPAIGN_PAUSED",
-                    # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
-                    "create_time_ts": 1738598311353,
-                    # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
-                    "update_time_ts": 1738598311403,
-                },
-                ...
-            ],
-            # 分页游标
-            "next_token": "Mjg3ODAwODc1NDAxOTkw",
-        }
-        ```
+                    # 状态码
+                    'code': 0,
+                    # 提示信息
+                    'message': '操作成功',
+                    # 错误信息
+                    'errors': [],
+                    # 请求ID
+                    'request_id': '00000000-0000-0000-0000-000000000046',
+                    # 响应时间
+                    'response_time': '2001-05-07 06:36:00',
+                    # 响应数据量
+                    'response_count': 2,
+                    # 总数据量
+                    'total_count': 542,
+                    # 响应数据
+                    'data': [
+                        {
+                            # 亚马逊店铺ID (广告帐号ID)
+                            'profile_id': 90000000000004,
+                            # 广告活动ID
+                            'campaign_id': 700000000000128,
+                            # 广告组ID
+                            'ad_group_id': 600000000066,
+                            # 广告组名称 [原字段 'name']
+                            'ad_group_name': 'AA 000 000广告组广合',
+                            # 默认竞价
+                            'default_bid': 1.13,
+                            # 广告组状态
+                            'state': 'enabled',
+                            # 服务状态 [原字段 'serving_status']
+                            'status': 'CAMPAIGN_PAUSED',
+                            # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
+                            'create_time_ts': 1667273890695,
+                            # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
+                            'update_time_ts': 1667273890695,
+                        },
+                        ...,
+                    ],
+                    # 分页游标
+                    'next_token': 'MTAwMDAwMDAwMDIx',
+                }
         """
         url = route.SP_AD_GROUPS
         # 解析并验证参数
@@ -408,79 +432,102 @@ class AdsAPI(BaseAPI):
 
     async def SpProducts(
         self,
-        sid: int,
-        profile_id: int,
+        sid: int | None = None,
+        profile_id: int | None = None,
         *,
         state: AD_STATE | None = None,
         next_token: str | None = None,
         offset: int | None = None,
         length: int | None = None,
     ) -> schema.SpProducts:
-        """查询 SP 广告商品
+        """查询 SP 广告商品。
 
         ## Docs
-        - 新广告 - 基础数据: [SP广告商品](https://apidoc.lingxing.com/#/docs/newAd/baseData/spProductAds)
+        领星接口文档: 新广告 - 基础数据.[SP广告商品](https://apidoc.lingxing.com/#/docs/newAd/baseData/spProductAds)
 
-        :param sid `<'int'>`: 领星店铺ID
-        :param profile_id `<'int'>`: 亚马逊店铺ID (广告帐号ID), 参数来源 `AdsProfiles.profile_id`
-        :param state `<'str/None'>`: 广告状态, 默认 `None` (查询所有状态), 可选值:
+        Args:
+            sid (int | None): 领星店铺ID，默认 None。sid 与 profile_id 至少提供一项；同时提供时，以 profile_id 指定的广告账号为准。
+            profile_id (int | None): 广告账号ID，来源为 AdProfiles 返回记录的 profile_id，默认 None；None 不输出到请求字典。
+            state (str | None): 广告状态，可传 enabled（启用）、paused（暂停）、archived（归档）；默认 None，省略请求参数并查询所有状态。
+            next_token (str | None): 上一页返回的分页游标，默认 None，首次查询无需提供；与 offset 同时提供时按游标定位。
+            offset (int | None): 按记录数计算的非负分页偏移量，默认 None；None 省略请求键，由服务端采用默认值 0，显式传入 0 时保留。
+            length (int | None): 非负分页长度，默认 None；None 省略请求键，由服务端采用默认值 15。
 
-            - `"enabled"` (启用)
-            - `"paused"` (暂停)
-            - `"archived"` (归档)
+        Returns:
+            ads.schema.SpProducts: 查询到的 SP 广告商品及视频详情及当前页游标、总数量。
 
-        :param next_token `<'str/None'>`: 分页游标, 上次分页结果中的 `next_token`,
-            第一分页无需填写, 当 next_token 和 offset 同时传入时以 next_token 为主, 默认 `None`
+        Examples:
+            指定广告账号和分页范围查询并查看返回数据。
 
-        :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
-        :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
-        :returns `<'SpProducts'>`: 返回查询到的 SP 广告商品结果
-        ```python
-        {
-            # 状态码
-            "code": 0,
-            # 提示信息
-            "message": "success",
-            # 错误信息
-            "errors": [],
-            # 请求ID
-            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
-            # 响应时间
-            "response_time": "2025-08-13 19:23:04",
-            # 响应数据量
-            "response_count": 2,
-            # 总数据量
-            "total_count": 2,
-            # 响应数据
-            "data": [
+            .. code-block:: python
+
+                result = await client.ads.SpProducts(profile_id=90000000000004, offset=0, length=2)
+                print(result.model_dump())
+
+            .. code-block:: python
+
                 {
-                    # 亚马逊店铺ID (广告帐号ID)
-                    "profile_id": 494************,
-                    # 广告活动ID
-                    "campaign_id": 431************,
-                    # 广告组ID
-                    "ad_group_id": 364************,
-                    # 商品广告ID
-                    "ad_id": 560************,
-                    # 商品ASIN
-                    "asin": "B0D*******",
-                    # 亚马逊SKU [原字段 'sku']
-                    "msku": "SKU********",
-                    # 广告状态
-                    "state": "enabled",
-                    # 服务状态 [原字段 'serving_status']
-                    "status": "PORTFOLIO_OUT_OF_BUDGET",
-                    # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
-                    "create_time_ts": 1743694871939,
-                    # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
-                    "update_time_ts": 1743694872065,
-                },
-                ...
-            ],
-            # 分页游标
-            "next_token": "Mjg3ODAwODc1NDAxOTkw",
-        }
-        ```
+                    # 状态码
+                    'code': 0,
+                    # 提示信息
+                    'message': '操作成功',
+                    # 错误信息
+                    'errors': [],
+                    # 请求ID
+                    'request_id': '00000000-0000-0000-0000-000000000017',
+                    # 响应时间
+                    'response_time': '2001-05-07 06:50:00',
+                    # 响应数据量
+                    'response_count': 2,
+                    # 总数据量
+                    'total_count': 1157,
+                    # 响应数据
+                    'data': [
+                        {
+                            # 亚马逊店铺ID (广告帐号ID)
+                            'profile_id': 90000000000004,
+                            # 广告活动ID
+                            'campaign_id': 7000000000264,
+                            # 广告组ID
+                            'ad_group_id': 600000000000026,
+                            # 商品广告ID
+                            'ad_id': 50000000002,
+                            # 商品ASIN
+                            'asin': 'A00A0AAAA4',
+                            # 亚马逊SKU [原字段 'sku']
+                            'msku': '000aaAA 000CY',
+                            # 商品广告视频详情
+                            'video_details': [
+                                {
+                                    # 视频素材ID
+                                    'asset_id': 'amzn1.assetlibrary.asset1.a0000000aa0a0aa0a0aa00000000a0ac',
+                                    # 广告指定的视频素材版本
+                                    'asset_version': 'version_v2',
+                                    # 视频标题
+                                    'headline': 'Aaa Aaaaaab',
+                                    # 视频描述
+                                    'description': 'Aaaaaaa aaa aaaaaa aa aaaaa aaaaaaa aac.',
+                                    # 本地视频素材名称，未匹配素材时为空字符串
+                                    'name': '',
+                                    # 本地视频素材地址，未匹配素材时为空字符串
+                                    'url': '',
+                                },
+                                ...,
+                            ],
+                            # 广告状态
+                            'state': 'enabled',
+                            # 服务状态 [原字段 'serving_status']
+                            'status': 'CAMPAIGN_PAUSED',
+                            # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
+                            'create_time_ts': 1599466635000,
+                            # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
+                            'update_time_ts': 1599466635000,
+                        },
+                        ...,
+                    ],
+                    # 分页游标
+                    'next_token': 'MTAwMDAwMDAwMDI1',
+                }
         """
         url = route.SP_PRODUCTS
         # 解析并验证参数
@@ -505,81 +552,86 @@ class AdsAPI(BaseAPI):
 
     async def SpKeywords(
         self,
-        sid: int,
-        profile_id: int,
+        sid: int | None = None,
+        profile_id: int | None = None,
         *,
         state: AD_STATE | None = None,
         next_token: str | None = None,
         offset: int | None = None,
         length: int | None = None,
     ) -> schema.SpKeywords:
-        """查询 SP 手动关键词投放
+        """查询 SP 关键词。
 
         ## Docs
-        - 新广告 - 基础数据: [SP关键词](https://apidoc.lingxing.com/#/docs/newAd/baseData/spKeywords)
+        领星接口文档: 新广告 - 基础数据.[SP关键词](https://apidoc.lingxing.com/#/docs/newAd/baseData/spKeywords)
 
-        :param sid `<'int'>`: 领星店铺ID
-        :param profile_id `<'int'>`: 亚马逊店铺ID (广告帐号ID), 参数来源 `AdsProfiles.profile_id`
-        :param state `<'str/None'>`: 广告状态, 默认 `None` (查询所有状态), 可选值:
+        Args:
+            sid (int | None): 领星店铺ID，默认 None。sid 与 profile_id 至少提供一项；同时提供时，以 profile_id 指定的广告账号为准。
+            profile_id (int | None): 广告账号ID，来源为 AdProfiles 返回记录的 profile_id，默认 None；None 不输出到请求字典。
+            state (str | None): 广告状态，可传 enabled（启用）、paused（暂停）、archived（归档）；默认 None，省略请求参数并查询所有状态。
+            next_token (str | None): 上一页返回的分页游标，默认 None，首次查询无需提供；与 offset 同时提供时按游标定位。
+            offset (int | None): 按记录数计算的非负分页偏移量，默认 None；None 省略请求键，由服务端采用默认值 0，显式传入 0 时保留。
+            length (int | None): 非负分页长度，默认 None；None 省略请求键，由服务端采用默认值 15。
 
-            - `"enabled"` (启用)
-            - `"paused"` (暂停)
-            - `"archived"` (归档)
+        Returns:
+            ads.schema.SpKeywords: 查询到的 SP 手动关键词投放及当前页游标、总数量。
 
-        :param next_token `<'str/None'>`: 分页游标, 上次分页结果中的 `next_token`,
-            第一分页无需填写, 当 next_token 和 offset 同时传入时以 next_token 为主, 默认 `None`
+        Examples:
+            指定广告账号和分页范围查询并查看返回数据。
 
-        :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
-        :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
-        :returns `<'SpKeywords'>`: 返回查询到的 SP 手动关键词投放结果
-        ```python
-        {
-            # 状态码
-            "code": 0,
-            # 提示信息
-            "message": "success",
-            # 错误信息
-            "errors": [],
-            # 请求ID
-            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
-            # 响应时间
-            "response_time": "2025-08-13 19:23:04",
-            # 响应数据量
-            "response_count": 2,
-            # 总数据量
-            "total_count": 2,
-            # 响应数据
-            "data": [
+            .. code-block:: python
+
+                result = await client.ads.SpKeywords(profile_id=90000000000004, offset=0, length=2)
+                print(result.model_dump())
+
+            .. code-block:: python
+
                 {
-                    # 亚马逊店铺ID (广告帐号ID)
-                    "profile_id": 494************,
-                    # 广告活动ID
-                    "campaign_id": 378************,
-                    # 广告组ID
-                    "ad_group_id": 376************,
-                    # 关键词ID
-                    "keyword_id": 281************,
-                    # 关键词文本
-                    "keyword_text": "color",
-                    # 关键词匹配类型
-                    "match_type": "broad",
-                    # 竞价
-                    "bid": 2.0,
-                    # 广告状态
-                    "state": "enabled",
-                    # 服务状态 [原字段 'serving_status']
-                    "status": "CAMPAIGN_PAUSED",
-                    # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
-                    "create_time_ts": 1741705542679,
-                    # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
-                    "update_time_ts": 1741706022758,
-                },
-                ...
-            ],
-            # 分页游标
-            "next_token": "MjgxNTExNTQ0MTc4ODM1",
-        }
-        ```
+                    # 状态码
+                    'code': 0,
+                    # 提示信息
+                    'message': '操作成功',
+                    # 错误信息
+                    'errors': [],
+                    # 请求ID
+                    'request_id': '00000000-0000-0000-0000-000000000053',
+                    # 响应时间
+                    'response_time': '2001-05-07 07:04:00',
+                    # 响应数据量
+                    'response_count': 2,
+                    # 总数据量
+                    'total_count': 16923,
+                    # 响应数据
+                    'data': [
+                        {
+                            # 亚马逊店铺ID (广告帐号ID)
+                            'profile_id': 90000000000004,
+                            # 广告活动ID
+                            'campaign_id': 700000000000097,
+                            # 广告组ID
+                            'ad_group_id': 60000000000058,
+                            # 关键词ID
+                            'keyword_id': 4000000008,
+                            # 关键词文本
+                            'keyword_text': 'aaaa 0000 aaf',
+                            # 关键词匹配类型
+                            'match_type': 'phrase',
+                            # 竞价
+                            'bid': 0.5,
+                            # 广告状态
+                            'state': 'enabled',
+                            # 服务状态 [原字段 'serving_status']
+                            'status': 'CAMPAIGN_PAUSED',
+                            # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
+                            'create_time_ts': 1583837811000,
+                            # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
+                            'update_time_ts': 1583837811000,
+                        },
+                        ...,
+                    ],
+                    # 分页游标
+                    'next_token': 'MTAwMDAwMDAzNg==',
+                }
         """
         url = route.SP_KEYWORDS
         # 解析并验证参数
@@ -604,83 +656,88 @@ class AdsAPI(BaseAPI):
 
     async def SpTargets(
         self,
-        sid: int,
-        profile_id: int,
+        sid: int | None = None,
+        profile_id: int | None = None,
         *,
         state: AD_STATE | None = None,
         next_token: str | None = None,
         offset: int | None = None,
         length: int | None = None,
     ) -> schema.SpTargets:
-        """查询 SP 自动投放/手动商品投放
+        """查询 SP 商品定位。
 
         ## Docs
-        - 新广告 - 基础数据: [SP商品定位](https://apidoc.lingxing.com/#/docs/newAd/baseData/spTargets)
+        领星接口文档: 新广告 - 基础数据.[SP商品定位](https://apidoc.lingxing.com/#/docs/newAd/baseData/spTargets)
 
-        :param sid `<'int'>`: 领星店铺ID
-        :param profile_id `<'int'>`: 亚马逊店铺ID (广告帐号ID), 参数来源 `AdsProfiles.profile_id`
-        :param state `<'str/None'>`: 广告状态, 默认 `None` (查询所有状态), 可选值:
+        Args:
+            sid (int | None): 领星店铺ID，默认 None。sid 与 profile_id 至少提供一项；同时提供时，以 profile_id 指定的广告账号为准。
+            profile_id (int | None): 广告账号ID，来源为 AdProfiles 返回记录的 profile_id，默认 None；None 不输出到请求字典。
+            state (str | None): 广告状态，可传 enabled（启用）、paused（暂停）、archived（归档）；默认 None，省略请求参数并查询所有状态。
+            next_token (str | None): 上一页返回的分页游标，默认 None，首次查询无需提供；与 offset 同时提供时按游标定位。
+            offset (int | None): 按记录数计算的非负分页偏移量，默认 None；None 省略请求键，由服务端采用默认值 0，显式传入 0 时保留。
+            length (int | None): 非负分页长度，默认 None；None 省略请求键，由服务端采用默认值 15。
 
-            - `"enabled"` (启用)
-            - `"paused"` (暂停)
-            - `"archived"` (归档)
+        Returns:
+            ads.schema.SpTargets: 查询到的 SP 自动投放/手动商品投放及当前页游标、总数量。
 
-        :param next_token `<'str/None'>`: 分页游标, 上次分页结果中的 `next_token`,
-            第一分页无需填写, 当 next_token 和 offset 同时传入时以 next_token 为主, 默认 `None`
+        Examples:
+            指定广告账号和分页范围查询并查看返回数据。
 
-        :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
-        :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
-        :returns `<'SpTargets'>`: 返回查询到的 SP 自动投放/手动商品投放结果
-        ```python
-        {
-            # 状态码
-            "code": 0,
-            # 提示信息
-            "message": "success",
-            # 错误信息
-            "errors": [],
-            # 请求ID
-            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
-            # 响应时间
-            "response_time": "2025-08-13 19:23:04",
-            # 响应数据量
-            "response_count": 2,
-            # 总数据量
-            "total_count": 2,
-            # 响应数据
-            "data": [
+            .. code-block:: python
+
+                result = await client.ads.SpTargets(profile_id=90000000000004, offset=0, length=2)
+                print(result.model_dump())
+
+            .. code-block:: python
+
                 {
-                    # 亚马逊店铺ID (广告帐号ID)
-                    "profile_id": 494************,
-                    # 广告活动ID
-                    "campaign_id": 327************,
-                    # 广告组ID
-                    "ad_group_id": 442************,
-                    # 自动投放/手动商品投放ID
-                    "target_id": 562************,
-                    # 自动/手动投放类型
-                    "expression_type": "manual",
-                    # 自动投放/手动商品投放表达式 (JSON 字符串)
-                    "expression": '[{"type": "asinSameAs", "value": "B00*******"}]',
-                    # 自动投放/手动商品投放表达式表达式解析 (JSON 字符串) [原字段 'resolved_expression']
-                    "expression_resolved": '[{"type": "asinSameAs", "value": "B00*******"}]',
-                    # 竞价
-                    "bid": 2.0,
-                    # 广告状态
-                    "state": "paused",
-                    # 服务状态 [原字段 'serving_status']
-                    "status": "CAMPAIGN_PAUSED",
-                    # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
-                    "create_time_ts": 1747815913398,
-                    # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
-                    "update_time_ts": 1747816012556,
-                },
-                ...
-            ],
-            # 分页游标
-            "next_token": "MjgxNTExNTQ0MTc4ODM1",
-        }
-        ```
+                    # 状态码
+                    'code': 0,
+                    # 提示信息
+                    'message': '操作成功',
+                    # 错误信息
+                    'errors': [],
+                    # 请求ID
+                    'request_id': '00000000-0000-0000-0000-00000000005d',
+                    # 响应时间
+                    'response_time': '2001-05-07 07:16:00',
+                    # 响应数据量
+                    'response_count': 2,
+                    # 总数据量
+                    'total_count': 1510,
+                    # 响应数据
+                    'data': [
+                        {
+                            # 亚马逊店铺ID (广告帐号ID)
+                            'profile_id': 90000000000004,
+                            # 广告活动ID
+                            'campaign_id': 700000000000111,
+                            # 广告组ID
+                            'ad_group_id': 60000000000255,
+                            # 自动投放/手动商品投放ID
+                            'target_id': 300000000003,
+                            # 自动/手动投放类型
+                            'expression_type': 'auto',
+                            # 自动投放/手动商品投放表达式 (JSON 字符串)
+                            'expression': '[{"type": "queryHighRelMatches"}]',
+                            # 自动投放/手动商品投放表达式表达式解析 (JSON 字符串) [原字段 'resolved_expression']
+                            'expression_resolved': '[{"type": "queryHighRelMatches"}]',
+                            # 竞价
+                            'bid': 0.45,
+                            # 广告状态
+                            'state': 'enabled',
+                            # 服务状态 [原字段 'serving_status']
+                            'status': 'CAMPAIGN_PAUSED',
+                            # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
+                            'create_time_ts': 1590133144000,
+                            # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
+                            'update_time_ts': 1599470603000,
+                        },
+                        ...,
+                    ],
+                    # 分页游标
+                    'next_token': 'MTAwMDAwMDAwMDE4',
+                }
         """
         url = route.SP_TARGETS
         # 解析并验证参数
@@ -705,75 +762,84 @@ class AdsAPI(BaseAPI):
 
     async def SpNegativeKeywords(
         self,
-        sid: int,
-        profile_id: int,
+        sid: int | None = None,
+        profile_id: int | None = None,
         *,
-        champaign_id: int | None = None,
+        campaign_id: int | None = None,
         next_token: str | None = None,
         offset: int | None = None,
         length: int | None = None,
     ) -> schema.SpNegativeKeywords:
-        """查询 SP 否定手动关键词投放
+        """查询 SP 否定关键词。
 
         ## Docs
-        - 新广告 - 基础数据: [SP否定投放(keyword)](https://apidoc.lingxing.com/#/docs/newAd/baseData/spNegativeTargetsOrKeywords)
+        领星接口文档: 新广告 - 基础数据.[SP否定投放](https://apidoc.lingxing.com/#/docs/newAd/baseData/spNegativeTargetsOrKeywords)
 
-        :param sid `<'int'>`: 领星店铺ID
-        :param profile_id `<'int'>`: 亚马逊店铺ID (广告帐号ID), 参数来源 `AdsProfiles.profile_id`
-        :param champaign_id `<'int/None'>`: 广告活动ID, 参数来源 `SpCampaigns.campaign_id`, 默认 `None` (查询所有活动)
+        Args:
+            sid (int | None): 领星店铺ID，默认 None。sid 与 profile_id 至少提供一项；同时提供时，以 profile_id 指定的广告账号为准。
+            profile_id (int | None): 广告账号ID，来源为 AdProfiles 返回记录的 profile_id，默认 None；None 不输出到请求字典。
+            campaign_id (int | None): 广告活动ID，来源为 SpCampaigns 返回记录的 campaign_id，默认 None；None 省略请求键并查询所有活动。
+            next_token (str | None): 上一页返回的分页游标，默认 None，首次查询无需提供；与 offset 同时提供时按游标定位。
+            offset (int | None): 按记录数计算的非负分页偏移量，默认 None；None 省略请求键，由服务端采用默认值 0，显式传入 0 时保留。
+            length (int | None): 非负分页长度，默认 None；None 省略请求键，由服务端采用默认值 15。
 
-        :param next_token `<'str/None'>`: 分页游标, 上次分页结果中的 `next_token`,
-            第一分页无需填写, 当 next_token 和 offset 同时传入时以 next_token 为主, 默认 `None`
+        Returns:
+            ads.schema.SpNegativeKeywords: 查询到的 SP 否定关键词及当前页游标、总数量。返回记录不包含 negative_type 字段。
 
-        :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
-        :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
-        :returns `<'SpNegativeKeywords'>`: 返回查询到的 SP 否定手动关键词投放结果
-        ```python
-        {
-            # 状态码
-            "code": 0,
-            # 提示信息
-            "message": "success",
-            # 错误信息
-            "errors": [],
-            # 请求ID
-            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
-            # 响应时间
-            "response_time": "2025-08-13 19:23:04",
-            # 响应数据量
-            "response_count": 2,
-            # 总数据量
-            "total_count": 2,
-            # 响应数据
-            "data": [
+        Examples:
+            指定广告账号和分页范围查询并查看返回数据。
+
+            .. code-block:: python
+
+                result = await client.ads.SpNegativeKeywords(profile_id=90000000000004, offset=0, length=2)
+                print(result.model_dump())
+
+            .. code-block:: python
+
                 {
-                    # 亚马逊店铺ID (广告帐号ID)
-                    "profile_id": 494************,
-                    # 广告活动ID
-                    "campaign_id": 397************,
-                    # 广告组ID
-                    "ad_group_id": 0,
-                    # 否定关键词ID [原字段 'target_id']
-                    "negative_keyword_id": 389************,
-                    # 否定关键词文本 [原字段 'negative_text']
-                    "negative_keyword_text": "edible",
-                    # 否定匹配方式 [原字段 'negative_match_type']
-                    "negative_keyword_match_type": "negativePhrase",
-                    # 广告状态
-                    "state": "enabled",
-                    # 服务状态 [原字段 'serving_status']
-                    "status": "CAMPAIGN_PAUSED",
-                    # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
-                    "create_time_ts": 1744989374515,
-                    # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
-                    "update_time_ts": 1744989374649,
-                },
-                ...
-            ],
-            # 分页游标
-            "next_token": "MjgxNTExNTQ0MTc4ODM1",
-        }
-        ```
+                    # 状态码
+                    'code': 0,
+                    # 提示信息
+                    'message': '操作成功',
+                    # 错误信息
+                    'errors': [],
+                    # 请求ID
+                    'request_id': '00000000-0000-0000-0000-00000000001f',
+                    # 响应时间
+                    'response_time': '2001-05-07 07:29:00',
+                    # 响应数据量
+                    'response_count': 2,
+                    # 总数据量
+                    'total_count': 576,
+                    # 响应数据
+                    'data': [
+                        {
+                            # 亚马逊店铺ID (广告帐号ID)
+                            'profile_id': 90000000000004,
+                            # 广告活动ID
+                            'campaign_id': 70000000000079,
+                            # 广告组ID
+                            'ad_group_id': 0,
+                            # 否定关键词ID [原字段 'target_id']
+                            'negative_keyword_id': 400000000000001,
+                            # 否定关键词文本 [原字段 'negative_text']
+                            'negative_keyword_text': 'aa 0000  aag',
+                            # 否定匹配方式 [原字段 'negative_match_type']
+                            'negative_keyword_match_type': 'negativePhrase',
+                            # 广告状态
+                            'state': 'enabled',
+                            # 服务状态 [原字段 'serving_status']
+                            'status': 'CAMPAIGN_PAUSED',
+                            # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
+                            'create_time_ts': 1530580497000,
+                            # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
+                            'update_time_ts': 1530580497000,
+                        },
+                        ...,
+                    ],
+                    # 分页游标
+                    'next_token': 'MTAwMDAxNg==',
+                }
         """
         url = route.SP_NEGATIVE_TARGETING
         # 解析并验证参数
@@ -781,7 +847,7 @@ class AdsAPI(BaseAPI):
             "sid": sid,
             "profile_id": profile_id,
             "target_type": "keyword",
-            "champaign_id": champaign_id,
+            "campaign_id": campaign_id,
             "next_token": next_token,
             "offset": offset,
             "length": length,
@@ -799,75 +865,84 @@ class AdsAPI(BaseAPI):
 
     async def SpNegativeTargets(
         self,
-        sid: int,
-        profile_id: int,
+        sid: int | None = None,
+        profile_id: int | None = None,
         *,
-        champaign_id: int | None = None,
+        campaign_id: int | None = None,
         next_token: str | None = None,
         offset: int | None = None,
         length: int | None = None,
     ) -> schema.SpNegativeTargets:
-        """查询 SP 否定自动投放/手动商品投放
+        """查询 SP 否定目标。
 
         ## Docs
-        - 新广告 - 基础数据: [SP否定投放(target)](https://apidoc.lingxing.com/#/docs/newAd/baseData/spNegativeTargetsOrKeywords)
+        领星接口文档: 新广告 - 基础数据.[SP否定投放](https://apidoc.lingxing.com/#/docs/newAd/baseData/spNegativeTargetsOrKeywords)
 
-        :param sid `<'int'>`: 领星店铺ID
-        :param profile_id `<'int'>`: 亚马逊店铺ID (广告帐号ID), 参数来源 `AdsProfiles.profile_id`
-        :param champaign_id `<'int/None'>`: 广告活动ID, 参数来源 `SpCampaigns.campaign_id`, 默认 `None` (查询所有活动)
+        Args:
+            sid (int | None): 领星店铺ID，默认 None。sid 与 profile_id 至少提供一项；同时提供时，以 profile_id 指定的广告账号为准。
+            profile_id (int | None): 广告账号ID，来源为 AdProfiles 返回记录的 profile_id，默认 None；None 不输出到请求字典。
+            campaign_id (int | None): 广告活动ID，来源为 SpCampaigns 返回记录的 campaign_id，默认 None；None 省略请求键并查询所有活动。
+            next_token (str | None): 上一页返回的分页游标，默认 None，首次查询无需提供；与 offset 同时提供时按游标定位。
+            offset (int | None): 按记录数计算的非负分页偏移量，默认 None；None 省略请求键，由服务端采用默认值 0，显式传入 0 时保留。
+            length (int | None): 非负分页长度，默认 None；None 省略请求键，由服务端采用默认值 15。
 
-        :param next_token `<'str/None'>`: 分页游标, 上次分页结果中的 `next_token`,
-            第一分页无需填写, 当 next_token 和 offset 同时传入时以 next_token 为主, 默认 `None`
+        Returns:
+            ads.schema.SpNegativeTargets: 查询到的 SP 否定目标及当前页游标、总数量。返回记录不包含 negative_match_type 字段。
 
-        :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
-        :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
-        :returns `<'SpNegativeTargets'>`: 返回查询到的 SP 否定自动投放/手动商品投放结果
-        ```python
-        {
-            # 状态码
-            "code": 0,
-            # 提示信息
-            "message": "success",
-            # 错误信息
-            "errors": [],
-            # 请求ID
-            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
-            # 响应时间
-            "response_time": "2025-08-13 19:23:04",
-            # 响应数据量
-            "response_count": 2,
-            # 总数据量
-            "total_count": 2,
-            # 响应数据
-            "data": [
+        Examples:
+            指定广告账号和分页范围查询并查看返回数据。
+
+            .. code-block:: python
+
+                result = await client.ads.SpNegativeTargets(profile_id=90000000000004, offset=0, length=2)
+                print(result.model_dump())
+
+            .. code-block:: python
+
                 {
-                    # 亚马逊店铺ID (广告帐号ID)
-                    "profile_id": 494************,
-                    # 广告活动ID
-                    "campaign_id": 397************,
-                    # 广告组ID
-                    "ad_group_id": 335************,
-                    # 否定目标ID [原字段 'target_id']
-                    "negative_target_id": 295************,
-                    # 否定目标文本 [原字段 'negative_text']
-                    "negative_target_text": "B07*******",
-                    # 否定目标匹配类型 [原字段 'negative_type']
-                    "negative_target_match_type": "negativeAsin",
-                    # 广告状态
-                    "state": "enabled",
-                    # 服务状态 [原字段 'serving_status']
-                    "status": "CAMPAIGN_PAUSED",
-                    # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
-                    "create_time_ts": 1750758047854,
-                    # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
-                    "update_time_ts": 1750758047998,
-                },
-                ...
-            ],
-            # 分页游标
-            "next_token": "MjgxNTExNTQ0MTc4ODM1",
-        }
-        ```
+                    # 状态码
+                    'code': 0,
+                    # 提示信息
+                    'message': '操作成功',
+                    # 错误信息
+                    'errors': [],
+                    # 请求ID
+                    'request_id': '00000000-0000-0000-0000-00000000005b',
+                    # 响应时间
+                    'response_time': '2001-05-07 07:40:00',
+                    # 响应数据量
+                    'response_count': 2,
+                    # 总数据量
+                    'total_count': 988,
+                    # 响应数据
+                    'data': [
+                        {
+                            # 亚马逊店铺ID (广告帐号ID)
+                            'profile_id': 90000000000004,
+                            # 广告活动ID
+                            'campaign_id': 700000000000087,
+                            # 广告组ID
+                            'ad_group_id': 600000000000031,
+                            # 否定目标ID [原字段 'target_id']
+                            'negative_target_id': 30000000000002,
+                            # 否定目标文本 [原字段 'negative_text']
+                            'negative_target_text': 'Aaaaaab',
+                            # 否定目标类型 [原字段 'negative_type']
+                            'negative_target_match_type': 'negativeBrand',
+                            # 广告状态
+                            'state': 'enabled',
+                            # 服务状态 [原字段 'serving_status']
+                            'status': 'CAMPAIGN_PAUSED',
+                            # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
+                            'create_time_ts': 1573797409000,
+                            # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
+                            'update_time_ts': 1573797409000,
+                        },
+                        ...,
+                    ],
+                    # 分页游标
+                    'next_token': 'MTAwMDMz',
+                }
         """
         url = route.SP_NEGATIVE_TARGETING
         # 解析并验证参数
@@ -875,7 +950,7 @@ class AdsAPI(BaseAPI):
             "sid": sid,
             "profile_id": profile_id,
             "target_type": "target",
-            "champaign_id": champaign_id,
+            "campaign_id": campaign_id,
             "next_token": next_token,
             "offset": offset,
             "length": length,
@@ -894,83 +969,93 @@ class AdsAPI(BaseAPI):
     # . 基础数据 - Sponsored Brands
     async def SbCampaigns(
         self,
-        sid: int,
-        profile_id: int,
+        sid: int | None = None,
+        profile_id: int | None = None,
         *,
         state: AD_STATE | None = None,
         next_token: str | None = None,
         offset: int | None = None,
         length: int | None = None,
     ) -> schema.SbCampaigns:
-        """查询 SB 广告活动
+        """查询SB 广告活动。
 
         ## Docs
-        - 新广告 - 基础数据: [SB广告活动](https://apidoc.lingxing.com/#/docs/newAd/baseData/hsaCampaigns)
+        领星接口文档: [新广告 - 基础数据 - SB广告活动](https://apidoc.lingxing.com/new/api-docs/newAd/baseData/hsaCampaigns/)
 
-        :param sid `<'int'>`: 领星店铺ID
-        :param profile_id `<'int'>`: 亚马逊店铺ID (广告帐号ID), 参数来源 `AdsProfiles.profile_id`
-        :param state `<'str/None'>`: 广告状态, 默认 `None` (查询所有状态), 可选值:
+        Args:
+            sid (int | None): 领星店铺ID，默认 None。sid 与 profile_id 至少提供一项；同时提供时，以 profile_id 指定的广告账号为准。
+            profile_id (int | None): 广告账号ID，来源为 AdProfiles 返回记录的 profile_id，默认 None；None 不输出到请求字典。
+            state (str | None): enabled、paused或archived；默认None，省略并查询所有状态。
+            next_token (str | None): 上次响应的分页游标；默认None；同时传offset时以游标定位。
+            offset (int | None): 非负记录偏移量，默认None，由服务端采用0；显式0保留。
+            length (int | None): 非负分页长度，默认None，由服务端采用15。
 
-            - `"enabled"` (启用)
-            - `"paused"` (暂停)
-            - `"archived"` (归档)
+        Returns:
+            ads.schema.SbCampaigns: SB 广告活动及当前页游标、总数量。
 
-        :param next_token `<'str/None'>`: 分页游标, 上次分页结果中的 `next_token`,
-            第一分页无需填写, 当 next_token 和 offset 同时传入时以 next_token 为主, 默认 `None`
+        Examples:
+            指定广告账号和分页范围查询并查看公开字段。
 
-        :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
-        :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
-        :returns `<'SbCampaigns'>`: 返回查询到的 SB 广告活动结果
-        ```python
-        {
-            # 状态码
-            "code": 0,
-            # 提示信息
-            "message": "success",
-            # 错误信息
-            "errors": [],
-            # 请求ID
-            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
-            # 响应时间
-            "response_time": "2025-08-13 19:23:04",
-            # 响应数据量
-            "response_count": 2,
-            # 总数据量
-            "total_count": 2,
-            # 响应数据
-            "data": [
+            .. code-block:: python
+
+                result = await client.ads.SbCampaigns(profile_id=90000000000006, offset=0, length=2)
+                print(result.model_dump())
+
+            .. code-block:: python
+
                 {
-                    # 亚马逊店铺ID (广告帐号ID)
-                    "profile_id": 494************,
-                    # 广告组合ID
-                    "portfolio_id": 0,
-                    # 广告活动ID
-                    "campaign_id": 560************,
-                    # 广告活动名称 [原字段 'name']
-                    "campaign_name": "SBV-TR9ZFH",
-                    # 广告预算
-                    "budget": 10.0,
-                    # 广告预算类型
-                    "budget_type": "daily",
-                    # 自定义竞价调整
-                    "bid_multiplier": 0.0,
-                    # 是否使用自动竞价 (0: 否, 1: 是)
-                    "bid_optimization": 0,
-                    # 开始时间 [原字段 'start_date']
-                    "start_time": "2025-05-05 00:00:00",
-                    # 结束时间 [原字段 'end_date']
-                    "end_time": "",
-                    # 广告状态
-                    "state": "paused",
-                    # 服务状态 [原字段 'serving_status']
-                    "status": "CAMPAIGN_PAUSED",
-                },
-                ...
-            ],
-            # 分页游标
-            "next_token": "MjgxNTExNTQ0MTc4ODM1",
-        }
-        ```
+                    # 状态码，0表示成功
+                    'code': 0,
+                    # 消息提示
+                    'message': '操作成功',
+                    # 错误明细
+                    'errors': [
+                    ],
+                    # 请求链路ID
+                    'request_id': '00000000-0000-0000-0000-00000000004d',
+                    # 响应时间
+                    'response_time': '2001-05-07 07:50:00',
+                    # 当前页数量
+                    'response_count': 2,
+                    # 总数量
+                    'total_count': 37,
+                    # 响应数据
+                    'data': [
+                        {
+                            # 亚马逊店铺ID (广告帐号ID)
+                            'profile_id': 90000000000006,
+                            # 广告组合ID
+                            'portfolio_id': 800000000000005,
+                            # 广告活动ID
+                            'campaign_id': 7000000000280,
+                            # 广告活动名称 [原字段 'name']
+                            'campaign_name': '000 0A0A 广告示示广-告铺',
+                            # 广告创意类型
+                            'creative_type': 'COLLECTION',
+                            # 广告预算
+                            'budget': 1.0,
+                            # 广告预算类型
+                            'budget_type': 'daily',
+                            # 时间字符串，格式为 YYYY-MM-DD HH:MM:SS，可为 None [原字段 'lastOverBudgetAt']
+                            'last_over_budget_at': '2026-10-12 22:17:35',
+                            # 自定义竞价调整
+                            'bid_multiplier': 0.0,
+                            # 是否使用自动竞价 (0: 否, 1: 是)
+                            'bid_optimization': 1,
+                            # 开始时间 [原字段 'start_date']
+                            'start_time': '2022-11-17 00:00:00',
+                            # 结束时间 [原字段 'end_date']
+                            'end_time': '',
+                            # 广告状态
+                            'state': 'enabled',
+                            # 服务状态 [原字段 'serving_status']
+                            'status': 'CAMPAIGN_STATUS_ENABLED',
+                        },
+                        ...,
+                    ],
+                    # 分页游标
+                    'next_token': 'MTAwMDAwMDAwMDAwMzc=',
+                }
         """
         url = route.SB_CAMPAIGNS
         # 解析并验证参数
@@ -995,75 +1080,72 @@ class AdsAPI(BaseAPI):
 
     async def SbAdGroups(
         self,
-        sid: int,
-        profile_id: int,
+        sid: int | None = None,
+        profile_id: int | None = None,
         *,
         state: AD_STATE | None = None,
         next_token: str | None = None,
         offset: int | None = None,
         length: int | None = None,
     ) -> schema.SbAdGroups:
-        """查询 SB 广告组
+        """查询 SB 广告组。
 
         ## Docs
-        - 新广告 - 基础数据: [SB广告组](https://apidoc.lingxing.com/#/docs/newAd/baseData/hsaAdGroups)
+        领星接口文档: [新广告 - 基础数据 - SB 广告组](https://apidoc.lingxing.com/new/api-docs/newAd/baseData/hsaAdGroups/)
 
-        :param sid `<'int'>`: 领星店铺ID
-        :param profile_id `<'int'>`: 亚马逊店铺ID (广告帐号ID), 参数来源 `AdsProfiles.profile_id`
-        :param state `<'str/None'>`: 广告状态, 默认 `None` (查询所有状态), 可选值:
+        Args:
+            sid (int | None): 领星店铺ID，默认 None。sid 与 profile_id 至少提供一项；同时提供时，以 profile_id 指定的广告账号为准。
+            profile_id (int | None): 广告账号ID，来源为 AdProfiles 返回记录的 profile_id，默认 None；None 不输出到请求字典。
+            state (str | None): enabled、paused或archived；默认None，省略并查询所有状态。
+            next_token (str | None): 上次响应的分页游标；默认None；同时传offset时以游标定位。
+            offset (int | None): 非负记录偏移量，默认None，由服务端采用0；显式0保留。
+            length (int | None): 非负分页长度，默认None，由服务端采用15。
 
-            - `"enabled"` (启用)
-            - `"paused"` (暂停)
-            - `"archived"` (归档)
+        Returns:
+            ads.schema.SbAdGroups: SB 广告组及当前页游标、总数量。
 
-        :param next_token `<'str/None'>`: 分页游标, 上次分页结果中的 `next_token`,
-            第一分页无需填写, 当 next_token 和 offset 同时传入时以 next_token 为主, 默认 `None`
+        Examples:
+            指定广告账号和分页范围查询并查看公开字段。
 
-        :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
-        :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
-        :returns `<'SbAdGroups'>`: 返回查询到的 SB 广告组结果
-        ```python
-        {
-            # 状态码
-            "code": 0,
-            # 提示信息
-            "message": "success",
-            # 错误信息
-            "errors": [],
-            # 请求ID
-            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
-            # 响应时间
-            "response_time": "2025-08-13 19:23:04",
-            # 响应数据量
-            "response_count": 2,
-            # 总数据量
-            "total_count": 2,
-            # 响应数据
-            "data": [
-                {
-                    # 亚马逊店铺ID (广告帐号ID)
-                    "profile_id": 494************,
-                    # 广告活动ID
-                    "campaign_id": 476************,
-                    # 广告组ID
-                    "ad_group_id": 297************,
-                    # 广告组名称 [原字段 'name']
-                    "ad_group_name": "广告组 - 4/19/2025 17:56:43.450",
-                    # 广告组状态
-                    "state": "enabled",
-                    # 服务状态 [原字段 'serving_status']
-                    "status": "AD_GROUP_STATUS_ENABLED",
-                    # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
-                    "create_time_ts": 1745056819692,
-                    # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
-                    "update_time_ts": 1745056819692,
-                },
-                ...
-            ],
-            # 分页游标
-            "next_token": "MjgxNTExNTQ0MTc4ODM1",
-        }
-        ```
+            .. code-block:: python
+
+                result = await client.ads.SbAdGroups(profile_id=90000000000004, offset=0, length=2)
+                print(result.model_dump())
+
+            .. code-block:: python
+
+                {'code': 0,
+                 # 消息提示
+                 'message': '操作成功',
+                 # 错误明细
+                 'errors': [],
+                 # 请求链路ID
+                 'request_id': '00000000-0000-0000-0000-000000000002',
+                 # 响应时间
+                 'response_time': '2001-05-07 07:50:00',
+                 # 当前页数量
+                 'response_count': 2,
+                 # 总数量
+                 'total_count': 37,
+                 # 响应数据
+                 'data': [{'profile_id': 90000000000004,
+                           # 广告活动ID
+                           'campaign_id': 700000000000112,
+                           # 广告组ID
+                           'ad_group_id': 60000000000208,
+                           # 广告组名称 [原字段 'name']
+                           'ad_group_name': '000 000广告组-广甲',
+                           # 广告状态
+                           'state': 'enabled',
+                           # 服务状态 [原字段 'serving_status']
+                           'status': 'CAMPAIGN_PAUSED',
+                           # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
+                           'create_time_ts': 1670754552292,
+                           # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
+                           'update_time_ts': 1670754552292},
+                          ...],
+                 # 分页游标
+                 'next_token': 'MTAwMDAwMDAwMDAwMzA='}
         """
         url = route.SB_AD_GROUPS
         # 解析并验证参数
@@ -1088,139 +1170,167 @@ class AdsAPI(BaseAPI):
 
     async def SbCreatives(
         self,
-        sid: int,
-        profile_id: int,
+        sid: int | None = None,
+        profile_id: int | None = None,
         *,
         next_token: str | None = None,
         offset: int | None = None,
         length: int | None = None,
     ) -> schema.SbCreatives:
-        """查询 SB 广告创意
+        """查询 SB 广告创意。
 
         ## Docs
-        - 新广告 - 基础数据: [SB广告创意](https://apidoc.lingxing.com/#/docs/newAd/baseData/sbAdHasProductAds)
+        领星接口文档: [新广告 - 基础数据 - SB广告创意](https://apidoc.lingxing.com/new/api-docs/newAd/baseData/sbAdHasProductAds/)
 
-        :param sid `<'int'>`: 领星店铺ID
-        :param profile_id `<'int'>`: 亚马逊店铺ID (广告帐号ID), 参数来源 `AdsProfiles.profile_id`
-        :param next_token `<'str/None'>`: 分页游标, 上次分页结果中的 `next_token`,
-            第一分页无需填写, 当 next_token 和 offset 同时传入时以 next_token 为主, 默认 `None`
+        Args:
+            sid (int | None): 领星店铺ID，默认 None。sid 与 profile_id 至少提供一项；同时提供时，以 profile_id 指定的广告账号为准。
+            profile_id (int | None): 广告账号ID，来源为 AdProfiles 返回记录的 profile_id，默认 None；None 不输出到请求字典。
+            next_token (str | None): 上次响应的分页游标；默认None；同时传offset时以游标定位。
+            offset (int | None): 非负记录偏移量，默认None，由服务端采用0；显式0保留。
+            length (int | None): 非负分页长度，默认None，由服务端采用15。
 
-        :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
-        :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
-        :returns `<'SbCreatives'>`: 返回查询到的 SB 广告创意结果
-        ```python
-        {
-            # 状态码
-            "code": 0,
-            # 提示信息
-            "message": "success",
-            # 错误信息
-            "errors": [],
-            # 请求ID
-            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
-            # 响应时间
-            "response_time": "2025-08-13 19:23:04",
-            # 响应数据量
-            "response_count": 2,
-            # 总数据量
-            "total_count": 2,
-            # 响应数据
-            "data": [
+        Returns:
+            ads.schema.SbCreatives: 广告创意、创意配置、着陆页、视频创意列表，以及当前页游标、总数量。
+
+        使用 offset/length 或 next_token 分页时，返回结果可能出现重复或遗漏；
+        分段查询结果不保证与单次查询一致，去重也不能保证恢复完整数据。
+
+        Examples:
+            指定广告账号和分页范围查询并查看公开字段。
+
+            .. code-block:: python
+
+                result = await client.ads.SbCreatives(profile_id=90000000000007, offset=0, length=2)
+                print(result.model_dump())
+
+            .. code-block:: python
+
                 {
-                    # 亚马逊店铺ID (广告帐号ID)
-                    "profile_id": 494383675863017,
-                    # 广告活动ID
-                    "campaign_id": 282221570803635,
-                    # 广告组ID
-                    "ad_group_id": 560416129592263,
-                    # 广告创意ID [原字段 'ad_creative_id']
-                    "creative_id": 283590081032001,
-                    # 广告创意名称 [原字段 'name']
-                    "creative_name": "视频 广告 - 1/16/2025 16:57:17.448",
-                    # 广告创意类型
-                    "creative_type": "PRODUCT_COLLECTION",
-                    # 广告创意设置 [原字段 'creative']
-                    "creative_config": {
-                        # 广告创意类型 [原字段 'type']
-                        "creative_type": "PRODUCT_COLLECTION",
-                        # 广告创意状态 [原字段 'creativeStatus']
-                        "creative_status": "PUBLISHED",
-                        # 广告创意版本 [原字段 'creativeVersion']
-                        "creative_version": 6,
-                        # 广告创意 ASIN 列表
-                        "asins": ["B0DYTPY000", "B0F18JN000", "B0DQLHH000"],
-                        # 广告创意排除 ASIN 列表 [原字段 'asinExclusions']
-                        "asin_excluded": None,
-                        # 是否同意翻译 [原字段 'consentToTranslate']
-                        "consent_to_translate": False,
-                        # 品牌名称 [原字段 'brandName']
-                        "brand_name": "High yield ink cartridges",
-                        # 品牌Logo素材ID [原字段 'brandLogoAssetID']
-                        "brand_logo_asset_id": "amzn1.assetlibrary.asset1.****:version_v1",
-                        # 品牌Logo链接 [原字段 'brandLogoUrl']
-                        "brand_logo_url": "https://m.media-amazon.com/images/S/al-na-***.jpg",
-                        # 头条
-                        "headline": "High Yield 63XL Ink Cartridges",
-                        # 头条列表
-                        "headlines": ["High Yield 63XL Ink Cartridges"],
-                        # 原始头条 [原字段 'originalHeadline']
-                        "headline_original": "High Yield 63XL Ink Cartridges",
-                        # 原始头条列表 [原字段 'originalHeadlines']
-                        "headlines_original": ["High Yield 63XL Ink Cartridges"],
-                        # 图片素材ID [原字段 'customImageAssetId']
-                        "custom_image_asset_id": "amzn1.assetlibrary.asset1.***:version_v1",
-                        # 图片链接 [原字段 'customImageUrl']
-                        "custom_image_url": "https://m.media-amazon.com/images/S/***.jpg",
-                        # 图片素材列表 [原字段 'customImages']
-                        "custom_images": [
-                            {
-                                # 图片素材ID [原字段 'assetId']
-                                "image_asset_id": "amzn1.assetlibrary.asset1.***:version_v1",
-                                # 图片链接 [原字段 'url']
-                                "image_url": "https://m.media-amazon.com/images/S/***.jpg",
-                            }
-                        ],
-                        # 优化属性列表 [原字段 'creativePropertiesToOptimize']
-                        "optimize_properties": ["HEADLINE"],
-                        # 视频素材ID列表 [原字段 'videoAssetIds']
-                        "video_asset_ids": None,
-                        # 原始素材ID列表 [原字段 'originalVideoAssetIds']
-                        "video_original_asset_ids": None,
-                        # 商品集类型 [原字段 'collectionType']
-                        "collection_type": None,
-                        # 子页面列表
-                        "subpages": {
-                            "asin": "B0DRJJT000",
-                            "page_title": "Product Title",
-                            "page_url": "https://www.amazon.com/dp/B0DRJJT000",
+                    # 状态码，0表示成功
+                    "code": 0,
+                    # 消息提示
+                    "message": "操作成功",
+                    # 错误明细
+                    "errors": [],
+                    # 请求链路ID
+                    "request_id": "00000000-0000-0000-0000-00000000002d",
+                    # 响应时间
+                    "response_time": "2001-05-07 08:20:00",
+                    # 当前页数量
+                    "response_count": 2,
+                    # 总数量
+                    "total_count": 258,
+                    # 响应数据
+                    "data": [
+                        {
+                            # 亚马逊店铺ID (广告帐号ID)
+                            "profile_id": 90000000000007,
+                            # 广告活动ID
+                            "campaign_id": 700000000000170,
+                            # 广告组ID
+                            "ad_group_id": 600000000000278,
+                            # 广告创意ID [原字段 'ad_creative_id']
+                            "creative_id": 500000000000004,
+                            # 广告创意名称 [原字段 'name']
+                            "creative_name": "广告 示示 - 00.0.0004",
+                            # 广告创意类型
+                            "creative_type": "VIDEO",
+                            # 广告创意设置 [原字段 'creative']
+                            "creative_config": {
+                                # 广告创意类型
+                                "creative_type": "VIDEO",
+                                # 广告创意状态 [原字段 'creativeStatus']
+                                "creative_status": "PUBLISHED",
+                                # 广告创意版本 [原字段 'creativeVersion']
+                                "creative_version": 1,
+                                # 广告创意 ASIN 列表 [原字段 'asin']
+                                "asins": ["A0AAA0AA6O"],
+                                # 广告创意排除 ASIN 列表 [原字段 'asinExclusions']
+                                "asin_excluded": ["A0A0A0AAJN", ...],
+                                # 是否同意翻译 [原字段 'consentToTranslate']
+                                "consent_to_translate": False,
+                                # 品牌名称 [原字段 'brandName']
+                                "brand_name": None,
+                                # 品牌Logo素材ID [原字段 'brandLogoAssetID']
+                                "brand_logo_asset_id": None,
+                                # 品牌Logo链接 [原字段 'brandLogoUrl']
+                                "brand_logo_url": None,
+                                # 头条
+                                "headline": None,
+                                # 头条列表
+                                "headlines": None,
+                                # 原始头条 [原字段 'originalHeadline']
+                                "headline_original": None,
+                                # 原始头条列表 [原字段 'originalHeadlines']
+                                "headlines_original": None,
+                                # 图片素材ID [原字段 'customImageAssetId']
+                                "custom_image_asset_id": None,
+                                # 图片链接 [原字段 'customImageUrl']
+                                "custom_image_url": None,
+                                # 图片素材列表 [原字段 'customImages']
+                                "custom_images": None,
+                                # 优化属性列表 [原字段 'creativePropertiesToOptimize']
+                                "optimize_properties": None,
+                                # 视频素材ID列表 [原字段 'videoAssetIds']
+                                "video_asset_ids": [
+                                    "amzn1.assetlibrary.asset1.0000a0000aaa0a00aaa0aaa000aa023s:version_v1",
+                                ],
+                                # 原始素材ID列表 [原字段 'originalVideoAssetIds']
+                                "video_original_asset_ids": [
+                                    "amzn1.assetlibrary.asset1.0000a0000aaa0a00aaa0aaa000aa023s:version_v1",
+                                ],
+                                # 商品集类型 [原字段 'collectionType']
+                                "collection_type": "THEMED",
+                                # 子页面列表
+                                "subpages": [
+                                    {
+                                        "asin": "A0000AAADB",
+                                        "page_title": "aaa RT",
+                                        "page_url": "https://aaa.aaaaaa.aaa/aaaaaa/aaaa/A0AA0000-00AA-0A0A-A00A-0A000AAA0883",
+                                    },
+                                    ...,
+                                ],
+                                # 广告标题
+                                "title": "000AA AA & AAA - 0000+ Aaaaao",
+                            },
+                            # 视频创意列表
+                            "video_creatives": [
+                                {
+                                    "creative_version": "3",
+                                    "creative_status": "PUBLISHED",
+                                    "creative_type": "VIDEO",
+                                    "videos": [
+                                        {
+                                            "asset_id": "amzn1.assetlibrary.asset1.0000a0000aaa0a00aaa0aaa000aa023s:version_v1",
+                                            "versions": [],
+                                        }
+                                    ],
+                                },
+                                ...,
+                            ],
+                            # 广告创意着陆页
+                            "landing_page": {
+                                # 着陆页类型 [原字段 'pageType']
+                                "page_type": "DETAIL_PAGE",
+                                # 着陆页URL [原字段 'url']
+                                "page_url": "https://aaa.aaaaaa.aa/aa/A0AAA0AA0M",
+                            },
+                            # 广告创意 ASIN 列表 [原字段 'asin']
+                            "asins": ["A0AAA0AA6O"],
+                            # 广告状态
+                            "state": "enabled",
+                            # 服务状态 [原字段 'serving_status']
+                            "status": "CAMPAIGN_PAUSED",
+                            # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
+                            "create_time_ts": 1758692404896,
+                            # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
+                            "update_time_ts": 1781581969786,
                         },
-                        # 广告标题
-                        "title": None,
-                    },
-                    # 广告创意着陆页
-                    "landing_page": {
-                        # 着陆页类型 [原字段 'pageType']
-                        "page_type": "DETAIL_PAGE",
-                        # 着陆页URL [原字段 'url']
-                        "page_url": "https://www.amazon.com/dp/B0DRJJT38Q",
-                    },
-                    # 广告创意 ASIN 列表 [原字段 'asin']
-                    "asins": ["B0DYTPY000", "B0F18JN000", "B0DQLHH000"],
-                    # 广告状态
-                    "state": "enabled",
-                    # 服务状态 [原字段 'serving_status']
-                    "status": "PORTFOLIO_OUT_OF_BUDGET",
-                    # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
-                    "create_time_ts": 1737020153891,
-                    # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
-                    "update_time_ts": 1737027219081,
-                },
-                ...
-            ],
-            # 分页游标
-            "next_token": "MjgxNTExNTQ0MTc4ODM1",
-        }
-        ```
+                        ...,
+                    ],
+                    # 分页游标
+                    "next_token": "MTAwMDI1",
+                }
         """
         url = route.SB_CREATIVES
         # 解析并验证参数
@@ -1244,79 +1354,85 @@ class AdsAPI(BaseAPI):
 
     async def SbKeywords(
         self,
-        sid: int,
-        profile_id: int,
+        sid: int | None = None,
+        profile_id: int | None = None,
         ad_type: AD_SB_TYPE = "ALL",
         *,
         next_token: str | None = None,
         offset: int | None = None,
         length: int | None = None,
     ) -> schema.SbKeywords:
-        """查询 SB 关键词投放
+        """查询SB 关键词投放。
 
         ## Docs
-        - 新广告 - 基础数据: [SB广告的投放(keyword)](https://apidoc.lingxing.com/#/docs/newAd/baseData/sbTargeting)
+        领星接口文档: [新广告 - 基础数据 - SB广告的投放](https://apidoc.lingxing.com/new/api-docs/newAd/baseData/sbTargeting/)
 
-        :param sid `<'int'>`: 领星店铺ID
-        :param profile_id `<'int'>`: 亚马逊店铺ID (广告帐号ID), 参数来源 `AdsProfiles.profile_id`
-        :param ad_type `<'str'>`: SB 广告类型, 默认 `"ALL"`, 可选值:
+        Args:
+            sid (int | None): 领星店铺ID，默认 None。sid 与 profile_id 至少提供一项；同时提供时，以 profile_id 指定的广告账号为准。
+            profile_id (int | None): 广告账号ID，来源为 AdProfiles 返回记录的 profile_id，默认 None；None 不输出到请求字典。
+            ad_type (str): 广告类型，SB、SBV或ALL；默认ALL。只查询关键词投放。
+            next_token (str | None): 上次响应的分页游标；默认None；同时传offset时以游标定位。
+            offset (int | None): 非负记录偏移量，默认None，由服务端采用0；显式0保留。
+            length (int | None): 非负分页长度，默认None，由服务端采用15。
 
-            - `"SB"` (SB 广告)
-            - `"SBV"` (SB 视频广告)
-            - `"ALL"` (所有 SB 广告类型)
+        Returns:
+            ads.schema.SbKeywords: SB 关键词投放及当前页游标、总数量。
 
-        :param next_token `<'str/None'>`: 分页游标, 上次分页结果中的 `next_token`,
-            第一分页无需填写, 当 next_token 和 offset 同时传入时以 next_token 为主, 默认 `None`
+        Examples:
+            指定广告账号和分页范围查询并查看公开字段。
 
-        :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
-        :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
-        :returns `<'SbKeywords'>`: 返回查询到的 SB 关键词投放结果
-        ```python
-        {
-            # 状态码
-            "code": 0,
-            # 提示信息
-            "message": "success",
-            # 错误信息
-            "errors": [],
-            # 请求ID
-            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
-            # 响应时间
-            "response_time": "2025-08-13 19:23:04",
-            # 响应数据量
-            "response_count": 2,
-            # 总数据量
-            "total_count": 2,
-            # 响应数据
-            "data": [
+            .. code-block:: python
+
+                result = await client.ads.SbKeywords(profile_id=90000000000006, offset=0, length=2)
+                print(result.model_dump())
+
+            .. code-block:: python
+
                 {
-                    # 亚马逊店铺ID (广告帐号ID)
-                    "profile_id": 494************,
-                    # 广告活动ID
-                    "campaign_id": 369************,
-                    # 广告组ID
-                    "ad_group_id": 450************,
-                    # 广告类型 [原字段 'ads_type']
-                    "ad_type": "SB",
-                    # 投放目标类型
-                    "targeting_type": "keyword",
-                    # 关键词ID
-                    "keyword_id": 281************,
-                    # 关键词文本
-                    "keyword_text": "+color",
-                    # 关键词匹配类型
-                    "match_type": "broad",
-                    # 竞价 [原字段 'keyword_bid']
-                    "bid": 1.1,
-                    # 广告状态 [原字段 'keyword_state']
-                    "state": "enabled",
-                },
-                ...
-            ],
-            # 分页游标
-            "next_token": "MjgxNTExNTQ0MTc4ODM1",
-        }
-        ```
+                    # 状态码，0表示成功
+                    'code': 0,
+                    # 消息提示
+                    'message': '操作成功',
+                    # 错误明细
+                    'errors': [
+                    ],
+                    # 请求链路ID
+                    'request_id': '00000000-0000-0000-0000-000000000011',
+                    # 响应时间
+                    'response_time': '2001-05-07 08:18:00',
+                    # 当前页数量
+                    'response_count': 2,
+                    # 总数量
+                    'total_count': 3804,
+                    # 响应数据
+                    'data': [
+                        {
+                            # 亚马逊店铺ID (广告帐号ID)
+                            'profile_id': 90000000000006,
+                            # 广告活动ID
+                            'campaign_id': 700000000000090,
+                            # 广告组ID
+                            'ad_group_id': 600000000000028,
+                            # 广告类型 [原字段 'ads_type']
+                            'ad_type': 'SB',
+                            # 投放目标类型
+                            'targeting_type': 'keyword',
+                            # 关键词ID
+                            'keyword_id': 400000000020,
+                            # 关键词文本
+                            'keyword_text': '+aaaaa +000ab',
+                            # 关键词匹配类型
+                            'match_type': 'broad',
+                            # 竞价 [原字段 'keyword_bid']
+                            'bid': 0.8,
+                            # 广告状态 [原字段 'keyword_state']
+                            'state': 'paused',
+                        },
+                        ...,
+                    ],
+                    # 分页游标
+                    'next_token': 'MTAwMDAwMDAwMDAxOQ==',
+                }
         """
         url = route.SB_TARGETING
         # 解析并验证参数
@@ -1342,79 +1458,85 @@ class AdsAPI(BaseAPI):
 
     async def SbTargets(
         self,
-        sid: int,
-        profile_id: int,
+        sid: int | None = None,
+        profile_id: int | None = None,
         ad_type: AD_SB_TYPE = "ALL",
         *,
         next_token: str | None = None,
         offset: int | None = None,
         length: int | None = None,
     ) -> schema.SbTargets:
-        """查询 SB 目标商品投放
+        """查询SB 目标商品投放。
 
         ## Docs
-        - 新广告 - 基础数据: [SB广告的投放](https://apidoc.lingxing.com/#/docs/newAd/baseData/sbTargeting)
+        领星接口文档: [新广告 - 基础数据 - SB广告的投放](https://apidoc.lingxing.com/new/api-docs/newAd/baseData/sbTargeting/)
 
-        :param sid `<'int'>`: 领星店铺ID
-        :param profile_id `<'int'>`: 亚马逊店铺ID (广告帐号ID), 参数来源 `AdsProfiles.profile_id`
-        :param ad_type `<'str'>`: SB 广告类型, 默认 `"ALL"`, 可选值:
+        Args:
+            sid (int | None): 领星店铺ID，默认 None。sid 与 profile_id 至少提供一项；同时提供时，以 profile_id 指定的广告账号为准。
+            profile_id (int | None): 广告账号ID，来源为 AdProfiles 返回记录的 profile_id，默认 None；None 不输出到请求字典。
+            ad_type (str): 广告类型，SB、SBV或ALL；默认ALL。只查询商品投放。
+            next_token (str | None): 上次响应的分页游标；默认None；同时传offset时以游标定位。
+            offset (int | None): 非负记录偏移量，默认None，由服务端采用0；显式0保留。
+            length (int | None): 非负分页长度，默认None，由服务端采用15。
 
-            - `"SB"` (SB 广告)
-            - `"SBV"` (SB 视频广告)
-            - `"ALL"` (所有 SB 广告类型)
+        Returns:
+            ads.schema.SbTargets: SB 目标商品投放及当前页游标、总数量。
 
-        :param next_token `<'str/None'>`: 分页游标, 上次分页结果中的 `next_token`,
-            第一分页无需填写, 当 next_token 和 offset 同时传入时以 next_token 为主, 默认 `None`
+        Examples:
+            指定广告账号和分页范围查询并查看公开字段。
 
-        :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
-        :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
-        :returns `<'SbTargets'>`: 返回查询到的 SB 目标商品投放结果
-        ```python
-        {
-            # 状态码
-            "code": 0,
-            # 提示信息
-            "message": "success",
-            # 错误信息
-            "errors": [],
-            # 请求ID
-            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
-            # 响应时间
-            "response_time": "2025-08-13 19:23:04",
-            # 响应数据量
-            "response_count": 2,
-            # 总数据量
-            "total_count": 2,
-            # 响应数据
-            "data": [
+            .. code-block:: python
+
+                result = await client.ads.SbTargets(profile_id=90000000000006, offset=0, length=2)
+                print(result.model_dump())
+
+            .. code-block:: python
+
                 {
-                    # 亚马逊店铺ID (广告帐号ID)
-                    "profile_id": 494************,
-                    # 广告活动ID
-                    "campaign_id": 369************,
-                    # 广告组ID
-                    "ad_group_id": 450************,
-                    # 广告类型 [原字段 'ads_type']
-                    "ad_type": "SB",
-                    # 投放目标类型
-                    "targeting_type": "producttarget",
-                    # 目标商品广告ID
-                    "target_id": 285************,
-                    # 目标定位表达式 (JSON 字符串)
-                    "expression": '[{"type": "asinSameAs", "value": "B0B*******"}]',
-                    # 目标定位解析表达式 (JSON 字符串) [原字段 'resolved_expression']
-                    "expression_resolved": '[{"type": "asinSameAs", "value": "B0B*******"}]',
-                    # 竞价 [原字段 'target_bid']
-                    "bid": 1.0,
-                    # 广告状态 [原字段 'target_state']
-                    "state": "enabled",
-                },
-                ...
-            ],
-            # 分页游标
-            "next_token": "MjgxNTExNTQ0MTc4ODM1",
-        }
-        ```
+                    # 状态码，0表示成功
+                    'code': 0,
+                    # 消息提示
+                    'message': '操作成功',
+                    # 错误明细
+                    'errors': [
+                    ],
+                    # 请求链路ID
+                    'request_id': '00000000-0000-0000-0000-00000000005b',
+                    # 响应时间
+                    'response_time': '2001-05-07 08:31:00',
+                    # 当前页数量
+                    'response_count': 2,
+                    # 总数量
+                    'total_count': 11,
+                    # 响应数据
+                    'data': [
+                        {
+                            # 亚马逊店铺ID (广告帐号ID)
+                            'profile_id': 90000000000006,
+                            # 广告活动ID
+                            'campaign_id': 700000000000000039,
+                            # 广告组ID
+                            'ad_group_id': 600000000000000041,
+                            # 广告类型 [原字段 'ads_type']
+                            'ad_type': 'SB',
+                            # 投放目标类型
+                            'targeting_type': 'producttarget',
+                            # 目标商品广告ID
+                            'target_id': 300000000000000003,
+                            # 目标定位表达式 (JSON 字符串)
+                            'expression': '[{"type": "asinSameAs", "value": "A00AA0AAFG"}]',
+                            # 目标定位解析表达式 (JSON 字符串) [原字段 'resolved_expression']
+                            'expression_resolved': '[{"type": "asinSameAs", "value": "A00AA0AAFG"}]',
+                            # 竞价 [原字段 'target_bid']
+                            'bid': 1.0,
+                            # 广告状态 [原字段 'target_state']
+                            'state': 'paused',
+                        },
+                        ...,
+                    ],
+                    # 分页游标
+                    'next_token': 'MTAwMDAwMDAwMDAwMDAwMDA5',
+                }
         """
         url = route.SB_TARGETING
         # 解析并验证参数
@@ -1440,79 +1562,76 @@ class AdsAPI(BaseAPI):
 
     async def SbNegativeKeywords(
         self,
-        sid: int,
-        profile_id: int,
+        sid: int | None = None,
+        profile_id: int | None = None,
         *,
         state: AD_STATE | None = None,
         next_token: str | None = None,
         offset: int | None = None,
         length: int | None = None,
     ) -> schema.SbNegativeKeywords:
-        """查询 SB 否定关键词投放
+        """查询 SB 否定关键词投放。
 
         ## Docs
-        - 新广告 - 基础数据: [SB否定关键词](https://apidoc.lingxing.com/#/docs/newAd/baseData/hsaNegativeKeywords)
+        领星接口文档: [新广告 - 基础数据 - SB 否定关键词投放](https://apidoc.lingxing.com/new/api-docs/newAd/baseData/hsaNegativeKeywords/)
 
-        :param sid `<'int'>`: 领星店铺ID
-        :param profile_id `<'int'>`: 亚马逊店铺ID (广告帐号ID), 参数来源 `AdsProfiles.profile_id`
-        :param state `<'str/None'>`: 广告状态, 默认 `None` (查询所有状态), 可选值:
+        Args:
+            sid (int | None): 领星店铺ID，默认 None。sid 与 profile_id 至少提供一项；同时提供时，以 profile_id 指定的广告账号为准。
+            profile_id (int | None): 广告账号ID，来源为 AdProfiles 返回记录的 profile_id，默认 None；None 不输出到请求字典。
+            state (str | None): enabled、paused或archived；默认None，省略并查询所有状态。
+            next_token (str | None): 上次响应的分页游标；默认None；同时传offset时以游标定位。
+            offset (int | None): 非负记录偏移量，默认None，由服务端采用0；显式0保留。
+            length (int | None): 非负分页长度，默认None，由服务端采用15。
 
-            - `"enabled"` (启用)
-            - `"paused"` (暂停)
-            - `"archived"` (归档)
+        Returns:
+            ads.schema.SbNegativeKeywords: SB 否定关键词投放及当前页游标、总数量。
 
-        :param next_token `<'str/None'>`: 分页游标, 上次分页结果中的 `next_token`,
-            第一分页无需填写, 当 next_token 和 offset 同时传入时以 next_token 为主, 默认 `None`
+        Examples:
+            指定广告账号和分页范围查询并查看公开字段。
 
-        :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
-        :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
-        :returns `<'SbNegativeKeywords'>`: 返回查询到的 SB 否定关键词投放结果
-        ```python
-        {
-            # 状态码
-            "code": 0,
-            # 提示信息
-            "message": "success",
-            # 错误信息
-            "errors": [],
-            # 请求ID
-            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
-            # 响应时间
-            "response_time": "2025-08-13 19:23:04",
-            # 响应数据量
-            "response_count": 2,
-            # 总数据量
-            "total_count": 2,
-            # 响应数据
-            "data": [
-                {
-                    # 亚马逊店铺ID (广告帐号ID)
-                    "profile_id": 494************,
-                    # 广告活动ID
-                    "campaign_id": 517************,
-                    # 广告组ID
-                    "ad_group_id": 434************,
-                    # 否定关键词ID [原字段 'keyword_id']
-                    "negative_keyword_id": 562************,
-                    # 否定关键词文本 [原字段 'negative_text']
-                    "negative_keyword_text": "cheap",
-                    # 否定匹配方式 [原字段 'negative_match_type']
-                    "negative_keyword_match_type": "negativePhrase",
-                    # 广告状态
-                    "state": "enabled",
-                    # 服务状态 [原字段 'serving_status']
-                    "status": "",
-                    # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
-                    "create_time_ts": 1741601265137,
-                    # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
-                    "update_time_ts": 1741601265144,
-                },
-                ...
-            ],
-            # 分页游标
-            "next_token": "MjgxNTExNTQ0MTc4ODM1",
-        }
-        ```
+            .. code-block:: python
+
+                result = await client.ads.SbNegativeKeywords(profile_id=90000000000004, offset=0, length=2)
+                print(result.model_dump())
+
+            .. code-block:: python
+
+                {'code': 0,
+                 # 消息提示
+                 'message': '操作成功',
+                 # 错误明细
+                 'errors': [],
+                 # 请求链路ID
+                 'request_id': '00000000-0000-0000-0000-000000000019',
+                 # 响应时间
+                 'response_time': '2001-05-07 08:04:00',
+                 # 当前页数量
+                 'response_count': 2,
+                 # 总数量
+                 'total_count': 128,
+                 # 响应数据
+                 'data': [{'profile_id': 90000000000004,
+                           # 广告活动ID
+                           'campaign_id': 700000000000128,
+                           # 广告组ID
+                           'ad_group_id': 60000000000285,
+                           # 否定关键词ID [原字段 'keyword_id']
+                           'negative_keyword_id': 40000000000006,
+                           # 否定关键词文本 [原字段 'keyword_text']
+                           'negative_keyword_text': 'aaaaa 000 ag',
+                           # 否定匹配方式 [原字段 'match_type']
+                           'negative_keyword_match_type': 'negativeExact',
+                           # 广告状态
+                           'state': 'enabled',
+                           # 服务状态 [原字段 'serving_status']
+                           'status': '',
+                           # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
+                           'create_time_ts': 1743039447981,
+                           # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
+                           'update_time_ts': 1743039448036},
+                          ...],
+                 # 分页游标
+                 'next_token': 'MTAwMDAwMDAwMDAwMjA='}
         """
         url = route.SB_NEGATIVE_KEYWORDS
         # 解析并验证参数
@@ -1537,81 +1656,87 @@ class AdsAPI(BaseAPI):
 
     async def SbNegativeTargets(
         self,
-        sid: int,
-        profile_id: int,
+        sid: int | None = None,
+        profile_id: int | None = None,
         *,
         state: AD_STATE | None = None,
         next_token: str | None = None,
         offset: int | None = None,
         length: int | None = None,
     ) -> schema.SbNegativeTargets:
-        """查询 SB 否定目标商品投放
+        """查询 SB 否定目标商品投放。
 
         ## Docs
-        - 新广告 - 基础数据: [SB否定商品投放](https://apidoc.lingxing.com/#/docs/newAd/baseData/hsaNegativeTargets)
+        领星接口文档: [新广告 - 基础数据 - SB否定商品投放](https://apidoc.lingxing.com/new/api-docs/newAd/baseData/hsaNegativeTargets/)
 
-        :param sid `<'int'>`: 领星店铺ID
-        :param profile_id `<'int'>`: 亚马逊店铺ID (广告帐号ID), 参数来源 `AdsProfiles.profile_id`
-        :param state `<'str/None'>`: 广告状态, 默认 `None` (查询所有状态), 可选值:
+        Args:
+            sid (int | None): 领星店铺ID，默认 None。sid 与 profile_id 至少提供一项；同时提供时，以 profile_id 指定的广告账号为准。
+            profile_id (int | None): 广告账号ID，来源为 AdProfiles 返回记录的 profile_id，默认 None；None 不输出到请求字典。
+            state (str | None): enabled、paused或archived；默认None，省略并查询所有状态。
+            next_token (str | None): 上次响应的分页游标；默认None；同时传offset时以游标定位。
+            offset (int | None): 非负记录偏移量，默认None，由服务端采用0；显式0保留。
+            length (int | None): 非负分页长度，默认None，由服务端采用15。
 
-            - `"enabled"` (启用)
-            - `"paused"` (暂停)
-            - `"archived"` (归档)
+        Returns:
+            ads.schema.SbNegativeTargets: SB否定目标商品投放及当前页游标、总数量。
 
-        :param next_token `<'str/None'>`: 分页游标, 上次分页结果中的 `next_token`,
-            第一分页无需填写, 当 next_token 和 offset 同时传入时以 next_token 为主, 默认 `None`
+        Examples:
+            指定广告账号和分页范围查询并查看公开字段。
 
-        :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
-        :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
-        :returns `<'SbNegativeTargets'>`: 返回查询到的 SB 否定目标商品投放结果
-        ```python
-        {
-            # 状态码
-            "code": 0,
-            # 提示信息
-            "message": "success",
-            # 错误信息
-            "errors": [],
-            # 请求ID
-            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
-            # 响应时间
-            "response_time": "2025-08-13 19:23:04",
-            # 响应数据量
-            "response_count": 2,
-            # 总数据量
-            "total_count": 2,
-            # 响应数据
-            "data": [
+            .. code-block:: python
+
+                result = await client.ads.SbNegativeTargets(profile_id=900000000000001, offset=0, length=2)
+                print(result.model_dump())
+
+            .. code-block:: python
+
                 {
-                    # 亚马逊店铺ID (广告帐号ID)
-                    "profile_id": 494************,
-                    # 广告活动ID
-                    "campaign_id": 517************,
-                    # 广告组ID
-                    "ad_group_id": 434************,
-                    # 否定目标ID [原字段 'target_id']
-                    "negative_target_id": 562************,
-                    # 否定定位表达式 (JSON 字符串) [原字段 'expression']
-                    "negative_expression": '[{"type": "asinSameAs", "value": "B00*******"}]',
-                    # 否定定位解析表达式 (JSON 字符串) [原字段 'resolved_expression']
-                    "negative_expression_resolved": '[{"type": "asinSameAs", "value": "B00*******"}]',
-                    # 否定定位类型 [原字段 'expression_type']
-                    "negative_expression_type": "manual",
-                    # 广告状态
-                    "state": "enabled",
-                    # 服务状态 [原字段 'serving_status']
-                    "status": "",
-                    # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
-                    "create_time_ts": 1741601265137,
-                    # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
-                    "update_time_ts": 1741601265144,
-                },
-                ...
-            ],
-            # 分页游标
-            "next_token": "MjgxNTExNTQ0MTc4ODM1",
-        }
-        ```
+                    # 状态码，0表示成功
+                    'code': 0,
+                    # 消息提示
+                    'message': '操作成功',
+                    # 错误明细
+                    'errors': [
+                    ],
+                    # 请求链路ID
+                    'request_id': '00000000-0000-0000-0000-00000000007e',
+                    # 响应时间
+                    'response_time': '2001-05-07 08:18:00',
+                    # 当前页数量
+                    'response_count': 2,
+                    # 总数量
+                    'total_count': 34,
+                    # 响应数据
+                    'data': [
+                        {
+                            # 亚马逊店铺ID (广告帐号ID)
+                            'profile_id': 900000000000001,
+                            # 广告活动ID
+                            'campaign_id': 700000000000000038,
+                            # 广告组ID
+                            'ad_group_id': 600000000000000037,
+                            # 否定目标ID [原字段 'target_id']
+                            'negative_target_id': 300000000000000001,
+                            # 否定定位表达式 (JSON 字符串) [原字段 'expression']
+                            'negative_expression': '[{"type": "asinSameAs", "value": "A000AAA0A3"}]',
+                            # 否定定位解析表达式 (JSON 字符串) [原字段 'resolved_expression']
+                            'negative_expression_resolved': '[{"type": "asinSameAs", "value": "A000AAA0A3"}]',
+                            # 否定定位类型 [原字段 'expression_type']
+                            'negative_expression_type': '',
+                            # 广告状态
+                            'state': 'archived',
+                            # 服务状态 [原字段 'serving_status']
+                            'status': '',
+                            # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
+                            'create_time_ts': 1598667375000,
+                            # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
+                            'update_time_ts': 1761061319939,
+                        },
+                        ...,
+                    ],
+                    # 分页游标
+                    'next_token': 'MTAwMDAwMDAwMDAwMDAwMDA4',
+                }
         """
         url = route.SB_NEGATIVE_TARGETS
         # 解析并验证参数
@@ -1637,87 +1762,85 @@ class AdsAPI(BaseAPI):
     # . 基础数据 - Sponsored Display
     async def SdCampaigns(
         self,
-        sid: int,
-        profile_id: int,
+        sid: int | None = None,
+        profile_id: int | None = None,
         *,
         state: AD_STATE | None = None,
         next_token: str | None = None,
         offset: int | None = None,
         length: int | None = None,
     ) -> schema.SdCampaigns:
-        """查询 SD 广告活动
+        """查询SD广告活动。
 
         ## Docs
-        - 新广告 - 基础数据: [SD广告活动](https://apidoc.lingxing.com/#/docs/newAd/baseData/sdCampaigns)
+        领星接口文档: 新广告 - 基础数据.[SD广告活动](https://apidoc.lingxing.com/new/api-docs/newAd/baseData/sdCampaigns/)
 
-        :param sid `<'int'>`: 领星店铺ID
-        :param profile_id `<'int'>`: 亚马逊店铺ID (广告帐号ID), 参数来源 `AdsProfiles.profile_id`
-        :param state `<'str/None'>`: 广告状态, 默认 `None` (查询所有状态), 可选值:
+        Args:
+            sid (int | None): 领星店铺ID，默认 None；与 profile_id 至少提供一项，同时提供时以 profile_id 指定的广告账号为准。
+            profile_id (int | None): 广告账号ID，来源为 AdProfiles 返回记录的 profile_id，默认 None；None 不输出到请求字典。
+            state (str | None): 广告状态，可传 enabled（启用）、paused（暂停）、archived（归档）；默认 None，省略请求参数并查询所有状态。
+            next_token (str | None): 上一页返回的分页游标，默认 None，首次查询无需提供；与 offset 同时提供时按游标定位。
+            offset (int | None): 按记录数计算的非负分页偏移量，默认 None；None 省略请求键，由服务端采用默认值0，显式0保留。
+            length (int | None): 非负分页长度，默认 None；None 省略请求键，由服务端采用默认值15。
 
-            - `"enabled"` (启用)
-            - `"paused"` (暂停)
-            - `"archived"` (归档)
+        Returns:
+            ads.schema.SdCampaigns: 查询到的SD广告活动及当前页游标、总数量。
 
-        :param next_token `<'str/None'>`: 分页游标, 上次分页结果中的 `next_token`,
-            第一分页无需填写, 当 next_token 和 offset 同时传入时以 next_token 为主, 默认 `None`
+        Examples:
+            指定广告账号和分页范围查询并查看返回数据。
 
-        :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
-        :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
-        :returns `<'SdCampaigns'>`: 返回查询到的 SD 广告活动结果
-        ```python
-        {
-            # 状态码
-            "code": 0,
-            # 提示信息
-            "message": "success",
-            # 错误信息
-            "errors": [],
-            # 请求ID
-            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
-            # 响应时间
-            "response_time": "2025-08-13 19:23:04",
-            # 响应数据量
-            "response_count": 2,
-            # 总数据量
-            "total_count": 2,
-            # 响应数据
-            "data": [
+            .. code-block:: python
+
+                result = await client.ads.SdCampaigns(profile_id=90000000000007, offset=0, length=2)
+                print(result.model_dump())
+
+            .. code-block:: python
+
                 {
-                    # 亚马逊店铺ID (广告帐号ID)
-                    "profile_id": 494************,
-                    # 广告组合ID
-                    "portfolio_id": 0,
-                    # 广告活动ID
-                    "campaign_id": 303************,
-                    # 广告活动名称 [原字段 'name']
-                    "campaign_name": "SD-TEST",
-                    # 投放类型
-                    "tactic": "T00030",
-                    # 竞价类型 [原字段 'cost_type']
-                    "bid_type": "cpc",
-                    # 每日预算
-                    "budget": 3.0,
-                    # 预算类型
-                    "budget_type": "daily",
-                    # 开始时间 [原字段 'start_date']
-                    "start_time": "2025-07-11 00:00:00",
-                    # 结束时间 [原字段 'end_date']
-                    "end_time": "",
-                    # 广告状态
-                    "state": "paused",
-                    # 服务状态 [原字段 'serving_status']
-                    "status": "CAMPAIGN_PAUSED",
-                    # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
-                    "create_time_ts": 1752293593320,
-                    # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date
-                    "update_time_ts": 1752761805148,
-                },
-                ...
-            ],
-            # 分页游标
-            "next_token": "MjgxNTExNTQ0MTc4ODM1",
-        }
-        ```
+                    'code': 0,
+                    'message': 'success',
+                    'errors': [],
+                    'request_id': '00000000-0000-0000-0000-0000000001af',
+                    'response_time': '2001-05-07 09:48:00',
+                    'response_count': 2,
+                    'total_count': 2,
+                    'data': [
+                        {
+                            # 亚马逊店铺ID (广告帐号ID)
+                            'profile_id': 90000000000007,
+                            # 广告组合ID
+                            'portfolio_id': 0,
+                            # 广告活动ID
+                            'campaign_id': 7000000000202,
+                            # 广告活动名称 [原字段 'name']
+                            'campaign_name': '00-广告角',
+                            # 投放类型
+                            'tactic': 'T00020',
+                            # 竞价类型 [原字段 'cost_type']
+                            'bid_type': 'cpc',
+                            # 每日预算
+                            'budget': 14.0,
+                            # 预算类型
+                            'budget_type': 'daily',
+                            # 时间字符串，格式为 YYYY-MM-DD HH:MM:SS，可为 None [原字段 'lastOverBudgetAt']
+                            'last_over_budget_at': '2026-10-12 22:17:35',
+                            # 开始时间 [原字段 'start_date']
+                            'start_time': '2020-09-29 00:00:00',
+                            # 结束时间 [原字段 'end_date']
+                            'end_time': '',
+                            # 广告状态
+                            'state': 'paused',
+                            # 服务状态 [原字段 'serving_status']
+                            'status': 'CAMPAIGN_PAUSED',
+                            # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
+                            'create_time_ts': 1601345109000,
+                            # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
+                            'update_time_ts': 1792105230609,
+                        },
+                        ...,
+                    ],
+                    'next_token': 'MTAwMDAwMDAwMDAwMjM=',
+                }
         """
         url = route.SD_CAMPAIGNS
         # 解析并验证参数
@@ -1742,79 +1865,76 @@ class AdsAPI(BaseAPI):
 
     async def SdAdGroups(
         self,
-        sid: int,
-        profile_id: int,
+        sid: int | None = None,
+        profile_id: int | None = None,
         *,
         state: AD_STATE | None = None,
         next_token: str | None = None,
         offset: int | None = None,
         length: int | None = None,
     ) -> schema.SdAdGroups:
-        """查询 SD 广告组
+        """查询SD广告组。
 
         ## Docs
-        - 新广告 - 基础数据: [SD广告组](https://apidoc.lingxing.com/#/docs/newAd/baseData/sdAdGroups)
+        领星接口文档: 新广告 - 基础数据.[SD广告组](https://apidoc.lingxing.com/new/api-docs/newAd/baseData/sdAdGroups/)
 
-        :param sid `<'int'>`: 领星店铺ID
-        :param profile_id `<'int'>`: 亚马逊店铺ID (广告帐号ID), 参数来源 `AdsProfiles.profile_id`
-        :param state `<'str/None'>`: 广告状态, 默认 `None` (查询所有状态), 可选值:
+        Args:
+            sid (int | None): 领星店铺ID，默认 None；与 profile_id 至少提供一项，同时提供时以 profile_id 指定的广告账号为准。
+            profile_id (int | None): 广告账号ID，来源为 AdProfiles 返回记录的 profile_id，默认 None；None 不输出到请求字典。
+            state (str | None): 广告状态，可传 enabled（启用）、paused（暂停）、archived（归档）；默认 None，省略请求参数并查询所有状态。
+            next_token (str | None): 上一页返回的分页游标，默认 None，首次查询无需提供；与 offset 同时提供时按游标定位。
+            offset (int | None): 按记录数计算的非负分页偏移量，默认 None；None 省略请求键，由服务端采用默认值0，显式0保留。
+            length (int | None): 非负分页长度，默认 None；None 省略请求键，由服务端采用默认值15。
 
-            - `"enabled"` (启用)
-            - `"paused"` (暂停)
-            - `"archived"` (归档)
+        Returns:
+            ads.schema.SdAdGroups: 查询到的SD广告组及当前页游标、总数量。
 
-        :param next_token `<'str/None'>`: 分页游标, 上次分页结果中的 `next_token`,
-            第一分页无需填写, 当 next_token 和 offset 同时传入时以 next_token 为主, 默认 `None`
+        Examples:
+            指定广告账号和分页范围查询并查看返回数据。
 
-        :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
-        :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
-        :returns `<'SdAdGroups'>`: 返回查询到的 SD 广告组结果
-        ```python
-        {
-            # 状态码
-            "code": 0,
-            # 提示信息
-            "message": "success",
-            # 错误信息
-            "errors": [],
-            # 请求ID
-            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
-            # 响应时间
-            "response_time": "2025-08-13 19:23:04",
-            # 响应数据量
-            "response_count": 2,
-            # 总数据量
-            "total_count": 2,
-            # 响应数据
-            "data": [
+            .. code-block:: python
+
+                result = await client.ads.SdAdGroups(profile_id=90000000000006, offset=0, length=2)
+                print(result.model_dump())
+
+            .. code-block:: python
+
                 {
-                    # 亚马逊店铺ID (广告帐号ID)
-                    "profile_id": 494************,
-                    # 广告活动ID
-                    "campaign_id": 414************,
-                    # 广告组ID
-                    "ad_group_id": 301************,
-                    # 广告组名称 [原字段 'name']
-                    "ad_group_name": "广告组 - 3/11/2025 15:00:48.627",
-                    # 默认竞价
-                    "default_bid": 0.02,
-                    # 竞价优化方式
-                    "bid_optimization": "clicks",
-                    # 广告组状态
-                    "state": "paused",
-                    # 服务状态 [原字段 'serving_status']
-                    "status": "CAMPAIGN_PAUSED",
-                    # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
-                    "create_time_ts": 1741677037099,
-                    # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
-                    "update_time_ts": 1747663132380,
-                },
-                ...
-            ],
-            # 分页游标
-            "next_token": "MjgxNTExNTQ0MTc4ODM1",
-        }
-        ```
+                    'code': 0,
+                    'message': 'success',
+                    'errors': [],
+                    'request_id': '00000000-0000-0000-0000-0000000000a9',
+                    'response_time': '2001-05-07 10:02:00',
+                    'response_count': 2,
+                    'total_count': 2,
+                    'data': [
+                        {
+                            # 亚马逊店铺ID (广告帐号ID)
+                            'profile_id': 90000000000006,
+                            # 广告活动ID
+                            'campaign_id': 70000000000077,
+                            # 广告组ID
+                            'ad_group_id': 60000000000072,
+                            # 广告组名称 [原字段 'name']
+                            'ad_group_name': 'aa-00-广名',
+                            # 默认竞价
+                            'default_bid': 0.6,
+                            # 竞价优化方式
+                            'bid_optimization': 'clicks',
+                            # 广告组状态
+                            'state': 'enabled',
+                            # 服务状态 [原字段 'serving_status']
+                            'status': 'CAMPAIGN_PAUSED',
+                            # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
+                            'create_time_ts': 1599816989000,
+                            # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
+                            'update_time_ts': 1599816989000,
+                        },
+                        ...,
+                    ],
+                    # 下一页游标
+                    'next_token': 'MTAwMDAwMDAwMDAwMzQ=',
+                }
         """
         url = route.SD_AD_GROUPS
         # 解析并验证参数
@@ -1839,79 +1959,76 @@ class AdsAPI(BaseAPI):
 
     async def SdProducts(
         self,
-        sid: int,
-        profile_id: int,
+        sid: int | None = None,
+        profile_id: int | None = None,
         *,
         state: AD_STATE | None = None,
         next_token: str | None = None,
         offset: int | None = None,
         length: int | None = None,
     ) -> schema.SdProducts:
-        """查询 SD 商品投放
+        """查询SD商品投放。
 
         ## Docs
-        - 新广告 - 基础数据: [SD广告商品](https://apidoc.lingxing.com/#/docs/newAd/baseData/sdProductAds)
+        领星接口文档: 新广告 - 基础数据.[SD商品投放](https://apidoc.lingxing.com/new/api-docs/newAd/baseData/sdProductAds/)
 
-        :param sid `<'int'>`: 领星店铺ID
-        :param profile_id `<'int'>`: 亚马逊店铺ID (广告帐号ID), 参数来源 `AdsProfiles.profile_id`
-        :param state `<'str/None'>`: 广告状态, 默认 `None` (查询所有状态), 可选值:
+        Args:
+            sid (int | None): 领星店铺ID，默认 None；与 profile_id 至少提供一项，同时提供时以 profile_id 指定的广告账号为准。
+            profile_id (int | None): 广告账号ID，来源为 AdProfiles 返回记录的 profile_id，默认 None；None 不输出到请求字典。
+            state (str | None): 广告状态，可传 enabled（启用）、paused（暂停）、archived（归档）；默认 None，省略请求参数并查询所有状态。
+            next_token (str | None): 上一页返回的分页游标，默认 None，首次查询无需提供；与 offset 同时提供时按游标定位。
+            offset (int | None): 按记录数计算的非负分页偏移量，默认 None；None 省略请求键，由服务端采用默认值0，显式0保留。
+            length (int | None): 非负分页长度，默认 None；None 省略请求键，由服务端采用默认值15。
 
-            - `"enabled"` (启用)
-            - `"paused"` (暂停)
-            - `"archived"` (归档)
+        Returns:
+            ads.schema.SdProducts: 查询到的SD商品投放及当前页游标、总数量。
 
-        :param next_token `<'str/None'>`: 分页游标, 上次分页结果中的 `next_token`,
-            第一分页无需填写, 当 next_token 和 offset 同时传入时以 next_token 为主, 默认 `None`
+        Examples:
+            指定广告账号和分页范围查询并查看返回数据。
 
-        :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
-        :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
-        :returns `<'SdProducts'>`: 返回查询到的 SD 商品投放结果
-        ```python
-        {
-            # 状态码
-            "code": 0,
-            # 提示信息
-            "message": "success",
-            # 错误信息
-            "errors": [],
-            # 请求ID
-            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
-            # 响应时间
-            "response_time": "2025-08-13 19:23:04",
-            # 响应数据量
-            "response_count": 2,
-            # 总数据量
-            "total_count": 2,
-            # 响应数据
-            "data": [
+            .. code-block:: python
+
+                result = await client.ads.SdProducts(profile_id=90000000000006, offset=0, length=2)
+                print(result.model_dump())
+
+            .. code-block:: python
+
                 {
-                    # 亚马逊店铺ID (广告帐号ID)
-                    "profile_id": 494************,
-                    # 广告活动ID
-                    "campaign_id": 303************,
-                    # 广告组ID
-                    "ad_group_id": 429************,
-                    # 商品广告ID
-                    "ad_id": 556************,
-                    # 商品ASIN
-                    "asin": "B0D*******",
-                    # 亚马逊SKU [原字段 'sku']
-                    "msku": "SKU********",
-                    # 广告状态
-                    "state": "enabled",
-                    # 服务状态 [原字段 'serving_status']
-                    "status": "CAMPAIGN_PAUSED",
-                    # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
-                    "create_time_ts": 1752293594049,
-                    # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
-                    "update_time_ts": 1752294110214,
-                },
-                ...
-            ],
-            # 分页游标
-            "next_token": "MjgxNTExNTQ0MTc4ODM1",
-        }
-        ```
+                    'code': 0,
+                    'message': 'success',
+                    'errors': [],
+                    'request_id': '00000000-0000-0000-0000-000000000013',
+                    'response_time': '2001-05-07 10:15:00',
+                    'response_count': 2,
+                    'total_count': 2,
+                    'data': [
+                        {
+                            # 亚马逊店铺ID (广告帐号ID)
+                            'profile_id': 90000000000006,
+                            # 广告活动ID
+                            'campaign_id': 700000000000168,
+                            # 广告组ID
+                            'ad_group_id': 600000000000108,
+                            # 商品广告ID
+                            'ad_id': 5000000000005,
+                            # 商品ASIN
+                            'asin': 'A00AAAA0AL',
+                            # 亚马逊SKU [原字段 'sku']
+                            'msku': '000aa*2X',
+                            # 广告状态
+                            'state': 'paused',
+                            # 服务状态 [原字段 'serving_status']
+                            'status': 'AD_PAUSED',
+                            # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
+                            'create_time_ts': 1600853070000,
+                            # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
+                            'update_time_ts': 1696439612959,
+                        },
+                        ...,
+                    ],
+                    # 下一页游标
+                    'next_token': 'MTAwMDAwMDAwMDAzNg==',
+                }
         """
         url = route.SD_PRODUCTS
         # 解析并验证参数
@@ -1936,83 +2053,79 @@ class AdsAPI(BaseAPI):
 
     async def SdTargets(
         self,
-        sid: int,
-        profile_id: int,
+        sid: int | None = None,
+        profile_id: int | None = None,
         *,
         state: AD_STATE | None = None,
         next_token: str | None = None,
         offset: int | None = None,
         length: int | None = None,
     ) -> schema.SdTargets:
-        """查询 SD 目标商品投放
+        """查询SD目标商品投放。
 
         ## Docs
-        - 新广告 - 基础数据: [SD商品定位](https://apidoc.lingxing.com/#/docs/newAd/baseData/sdTargets)
+        领星接口文档: 新广告 - 基础数据.[SD目标商品投放](https://apidoc.lingxing.com/new/api-docs/newAd/baseData/sdTargets/)
 
-        :param sid `<'int'>`: 领星店铺ID
-        :param profile_id `<'int'>`: 亚马逊店铺ID (广告帐号ID), 参数来源 `AdsProfiles.profile_id`
-        :param state `<'str/None'>`: 广告状态, 默认 `None` (查询所有状态), 可选值:
+        Args:
+            sid (int | None): 领星店铺ID，默认 None；与 profile_id 至少提供一项，同时提供时以 profile_id 指定的广告账号为准。
+            profile_id (int | None): 广告账号ID，来源为 AdProfiles 返回记录的 profile_id，默认 None；None 不输出到请求字典。
+            state (str | None): 广告状态，可传 enabled（启用）、paused（暂停）、archived（归档）；默认 None，省略请求参数并查询所有状态。
+            next_token (str | None): 上一页返回的分页游标，默认 None，首次查询无需提供；与 offset 同时提供时按游标定位。
+            offset (int | None): 按记录数计算的非负分页偏移量，默认 None；None 省略请求键，由服务端采用默认值0，显式0保留。
+            length (int | None): 非负分页长度，默认 None；None 省略请求键，由服务端采用默认值15。
 
-            - `"enabled"` (启用)
-            - `"paused"` (暂停)
-            - `"archived"` (归档)
+        Returns:
+            ads.schema.SdTargets: 查询到的SD目标商品投放及当前页游标、总数量。
 
-        :param next_token `<'str/None'>`: 分页游标, 上次分页结果中的 `next_token`,
-            第一分页无需填写, 当 next_token 和 offset 同时传入时以 next_token 为主, 默认 `None`
+        Examples:
+            指定广告账号和分页范围查询并查看返回数据。
 
-        :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
-        :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
-        :returns `<'SdTargets'>`: 返回查询到的 SD 目标商品投放结果
-        ```python
-        {
-            # 状态码
-            "code": 0,
-            # 提示信息
-            "message": "success",
-            # 错误信息
-            "errors": [],
-            # 请求ID
-            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
-            # 响应时间
-            "response_time": "2025-08-13 19:23:04",
-            # 响应数据量
-            "response_count": 2,
-            # 总数据量
-            "total_count": 2,
-            # 响应数据
-            "data": [
+            .. code-block:: python
+
+                result = await client.ads.SdTargets(profile_id=90000000000007, offset=0, length=2)
+                print(result.model_dump())
+
+            .. code-block:: python
+
                 {
-                    # 亚马逊店铺ID (广告帐号ID)
-                    "profile_id": 494************,
-                    # 广告活动ID
-                    "campaign_id": 536************,
-                    # 广告组ID
-                    "ad_group_id": 385************,
-                    # 目标商品广告ID
-                    "target_id": 560************,
-                    # 目标定位类型
-                    "expression_type": "manual",
-                    # 目标定位表达式 (JSON 字符串)
-                    "expression": '[{"type": "asinSameAs", "value": "B0C*******"}]',
-                    # 目标定位解析表达式 (JSON 字符串) [原字段 'resolved_expression']
-                    "expression_resolved": '[{"type": "asinSameAs", "value": "B0C*******"}]',
-                    # 竞价
-                    "bid": 1.0,
-                    # 广告状态
-                    "state": "enabled",
-                    # 服务状态 [原字段 'serving_status']
-                    "status": "CAMPAIGN_PAUSED",
-                    # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
-                    "create_time_ts": 1738163058574,
-                    # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
-                    "update_time_ts": 1738163058579,
-                },
-                ...
-            ],
-            # 分页游标
-            "next_token": "MjgxNTExNTQ0MTc4ODM1",
-        }
-        ```
+                    'code': 0,
+                    'message': 'success',
+                    'errors': [],
+                    'request_id': '00000000-0000-0000-0000-000000000146',
+                    'response_time': '2001-05-07 10:28:00',
+                    'response_count': 2,
+                    'total_count': 2,
+                    'data': [
+                        {
+                            # 亚马逊店铺ID (广告帐号ID)
+                            'profile_id': 90000000000007,
+                            # 广告活动ID
+                            'campaign_id': 700000000000033,
+                            # 广告组ID
+                            'ad_group_id': 600000000000106,
+                            # 目标商品广告ID
+                            'target_id': 300000000015,
+                            # 目标定位类型
+                            'expression_type': 'manual',
+                            # 目标定位表达式 (JSON 字符串)
+                            'expression': '[{"type": "asinSameAs", "value": "A00AAAAABI"}]',
+                            # 目标定位解析表达式 (JSON 字符串) [原字段 'resolved_expression']
+                            'expression_resolved': '[{"type": "asinSameAs", "value": "A00AAAAABI"}]',
+                            # 竞价
+                            'bid': 0.3,
+                            # 广告状态
+                            'state': 'enabled',
+                            # 服务状态 [原字段 'serving_status']
+                            'status': 'CAMPAIGN_PAUSED',
+                            # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
+                            'create_time_ts': 1601344253000,
+                            # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
+                            'update_time_ts': 1601344253000,
+                        },
+                        ...,
+                    ],
+                    'next_token': 'MTAwMDAwMDAwMDgx',
+                }
         """
         url = route.SD_TARGETS
         # 解析并验证参数
@@ -2037,81 +2150,78 @@ class AdsAPI(BaseAPI):
 
     async def SdNegativeTargets(
         self,
-        sid: int,
-        profile_id: int,
+        sid: int | None = None,
+        profile_id: int | None = None,
         *,
         state: AD_STATE | None = None,
         next_token: str | None = None,
         offset: int | None = None,
         length: int | None = None,
     ) -> schema.SdNegativeTargets:
-        """查询 SD 否定目标商品投放
+        """查询SD否定目标商品投放。
 
         ## Docs
-        - 新广告 - 基础数据: [SD否定商品定位](https://apidoc.lingxing.com/#/docs/newAd/baseData/sdNegativeTargets)
+        领星接口文档: 新广告 - 基础数据.[SD否定目标商品投放](https://apidoc.lingxing.com/new/api-docs/newAd/baseData/sdNegativeTargets/)
 
-        :param sid `<'int'>`: 领星店铺ID
-        :param profile_id `<'int'>`: 亚马逊店铺ID (广告帐号ID), 参数来源 `AdsProfiles.profile_id`
-        :param state `<'str/None'>`: 广告状态, 默认 `None` (查询所有状态), 可选值:
+        Args:
+            sid (int | None): 领星店铺ID，默认 None；与 profile_id 至少提供一项，同时提供时以 profile_id 指定的广告账号为准。
+            profile_id (int | None): 广告账号ID，来源为 AdProfiles 返回记录的 profile_id，默认 None；None 不输出到请求字典。
+            state (str | None): 广告状态，可传 enabled（启用）、paused（暂停）、archived（归档）；默认 None，省略请求参数并查询所有状态。
+            next_token (str | None): 上一页返回的分页游标，默认 None，首次查询无需提供；与 offset 同时提供时按游标定位。
+            offset (int | None): 按记录数计算的非负分页偏移量，默认 None；None 省略请求键，由服务端采用默认值0，显式0保留。
+            length (int | None): 非负分页长度，默认 None；None 省略请求键，由服务端采用默认值15。
 
-            - `"enabled"` (启用)
-            - `"paused"` (暂停)
-            - `"archived"` (归档)
+        Returns:
+            ads.schema.SdNegativeTargets: 查询到的SD否定目标商品投放及当前页游标、总数量。
 
-        :param next_token `<'str/None'>`: 分页游标, 上次分页结果中的 `next_token`,
-            第一分页无需填写, 当 next_token 和 offset 同时传入时以 next_token 为主, 默认 `None`
+        Examples:
+            指定广告账号和分页范围查询并查看返回数据。
 
-        :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
-        :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
-        :returns `<'SdNegativeTargets'>`: 返回查询到的 SD 否定目标商品投放结果
-        ```python
-        {
-            # 状态码
-            "code": 0,
-            # 提示信息
-            "message": "success",
-            # 错误信息
-            "errors": [],
-            # 请求ID
-            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
-            # 响应时间
-            "response_time": "2025-08-13 19:23:04",
-            # 响应数据量
-            "response_count": 2,
-            # 总数据量
-            "total_count": 2,
-            # 响应数据
-            "data": [
+            .. code-block:: python
+
+                result = await client.ads.SdNegativeTargets(profile_id=900000000000001, offset=0, length=2)
+                print(result.model_dump())
+
+            .. code-block:: python
+
                 {
-                    # 亚马逊店铺ID (广告帐号ID)
-                    "profile_id": 494************,
-                    # 广告活动ID
-                    "campaign_id": 536************,
-                    # 广告组ID
-                    "ad_group_id": 385************,
-                    # 否定目标ID [原字段 'target_id']
-                    "negative_target_id": 560************,
-                    # 否定定位表达式 (JSON 字符串) [原字段 'expression']
-                    "negative_expression": '[{"type": "asinSameAs", "value": "B0C*******"}]',
-                    # 否定定位解析表达式 (JSON 字符串) [原字段 'resolved_expression']
-                    "negative_expression_resolved": '[{"type": "asinSameAs", "value": "B0C*******"}]',
-                    # 否定定位类型 [原字段 'expression_type']
-                    "negative_expression_type": "manual",
-                    # 广告状态
-                    "state": "enabled",
-                    # 服务状态 [原字段 'serving_status']
-                    "status": "CAMPAIGN_PAUSED",
-                    # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
-                    "create_time_ts": 1738163058574,
-                    # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
-                    "update_time_ts": 1738163058579,
-                },
-                ...
-            ],
-            # 分页游标
-            "next_token": "MjgxNTExNTQ0MTc4ODM1",
-        }
-        ```
+                    'code': 0,
+                    'message': 'success',
+                    'errors': [],
+                    'request_id': '00000000-0000-0000-0000-000000000052',
+                    'response_time': '2001-05-07 10:42:00',
+                    'response_count': 2,
+                    'total_count': 2,
+                    'data': [
+                        {
+                            # 亚马逊店铺ID (广告帐号ID)
+                            'profile_id': 900000000000001,
+                            # 广告活动ID
+                            'campaign_id': 70000000000159,
+                            # 广告组ID
+                            'ad_group_id': 600000000000057,
+                            # 否定目标ID [原字段 'target_id']
+                            'negative_target_id': 30000000000020,
+                            # 否定定位表达式 (JSON 字符串) [原字段 'expression']
+                            'negative_expression': '[{"type": "asinSameAs", "value": "A00AA0AAFV"}]',
+                            # 否定定位解析表达式 (JSON 字符串) [原字段 'resolved_expression']
+                            'negative_expression_resolved': '[{"type": "asinSameAs", "value": "A00AA0AAFV"}]',
+                            # 否定定位类型 [原字段 'expression_type']
+                            'negative_expression_type': 'manual',
+                            # 广告状态
+                            'state': 'enabled',
+                            # 服务状态 [原字段 'serving_status']
+                            'status': 'CAMPAIGN_PAUSED',
+                            # 创建时间 (UTC毫秒时间戳) [原字段 'creation_date']
+                            'create_time_ts': 1659405193284,
+                            # 更新时间 (UTC毫秒时间戳) [原字段 'last_updated_date']
+                            'update_time_ts': 1659405193284,
+                        },
+                        ...,
+                    ],
+                    # 下一页游标
+                    'next_token': 'MTAwMDAwMDAwMDAwMDIz',
+                }
         """
         url = route.SD_NEGATIVE_TARGETS
         # 解析并验证参数
@@ -2146,71 +2256,82 @@ class AdsAPI(BaseAPI):
         offset: int | None = None,
         length: int | None = None,
     ) -> schema.SpCampaignReports:
-        """查询 SP 广告活动报告
+        """查询SP广告活动日报。
 
         ## Docs
-        - 新广告 - 报告: [SP广告活动报表](https://apidoc.lingxing.com/#/docs/newAd/report/spCampaignReports)
+        领星接口文档: 新广告 - 报告.[SP广告活动日报](https://apidoc.lingxing.com/new/api-docs/newAd/report/spCampaignReports/)
 
-        :param report_date `<'str/date/datetime'>`: 报告日期
-        :param sid `<'int'>`: 领星店铺ID
-        :param profile_id `<'int'>`: 亚马逊店铺ID (广告帐号ID), 参数来源 `AdsProfiles.profile_id`
-        :param next_token `<'str/None'>`: 分页游标, 上次分页结果中的 `next_token`,
-            第一分页无需填写, 当 next_token 和 offset 同时传入时以 next_token 为主, 默认 `None`
-        :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
-        :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
-        :returns `<'SpCampaignReports'>`: 返回查询到的 SP 广告活动报告结果
-        ```python
-        {
-            # 状态码
-            "code": 0,
-            # 提示信息
-            "message": "success",
-            # 错误信息
-            "errors": [],
-            # 请求ID
-            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
-            # 响应时间
-            "response_time": "2025-08-13 19:23:04",
-            # 响应数据量
-            "response_count": 2,
-            # 总数据量
-            "total_count": 2,
-            # 响应数据
-            "data": [
+        Args:
+            report_date (str | datetime.date | datetime.datetime): 报告日期，按传入日期的年月日查询，建议提供完整YYYY-MM-DD。
+            sid (int): 领星店铺ID；与profile_id至少提供一项，使用profile_id查询时可显式传None。
+            profile_id (int): 广告账号ID，来源为AdProfiles.profile_id；使用sid查询时可显式传None。
+            next_token (str | None): 上一页返回的游标，默认None；与offset同时提供时按游标定位。
+            offset (int | None): 非负记录偏移量，默认None并省略，由接口采用0；显式0保留。
+            length (int | None): 非负分页长度，默认None并省略，由接口采用15；显式0保留。
+
+        Returns:
+            ads.schema.SpCampaignReports: 返回默认归因范围的日报指标，不提供完整归因期开关。
+
+        Examples:
+            查询报告并查看返回数据。
+
+            .. code-block:: python
+
+                result = await client.ads.SpCampaignReports(report_date="2026-10-01", sid=None, profile_id=90000000000007, offset=0, length=2)
+                print(result.model_dump())
+
+            .. code-block:: python
+
                 {
-                    # 亚马逊店铺ID (广告帐号ID)
-                    "profile_id": 494************,
-                    # 广告活动ID
-                    "campaign_id": 541************,
-                    # 投放目标类型
-                    "targeting_type": "",
-                    # 广告花费
-                    "cost": 41.6,
-                    # 总展示次数
-                    "impressions": 1569,
-                    # 总点击次数
-                    "clicks": 14,
-                    # 广告订单数
-                    "orders": 7,
-                    # 直接广告订单数 [原字段 'same_orders']
-                    "direct_orders": 7,
-                    # 广告成交商品件数
-                    "units": 7,
-                    # 直接广告成交商品件数 [原字段 'same_units']
-                    "direct_units": 7,
-                    # 广告销售额
-                    "sales": 181.23,
-                    # 直接广告销售额 [原字段 'same_sales']
-                    "direct_sales": 181.23,
-                    # 报告日期
-                    "report_date": "2025-08-23",
-                },
-                ...
-            ],
-            # 分页游标
-            "next_token": "MjgxNTExNTQ0MTc4ODM1",
-        }
-        ```
+                    # 状态码
+                    "code": 0,
+                    # 提示信息
+                    "message": "操作成功",
+                    # 错误信息
+                    "errors": [],
+                    # 请求ID
+                    "request_id": "00000000-0000-0000-0000-00000000014c",
+                    # 响应时间
+                    "response_time": "2001-05-07 10:44:00",
+                    # 响应数据量
+                    "response_count": 2,
+                    # 总数据量
+                    "total_count": 33,
+                    # SP 广告活动报告列表
+                    "data": [
+                        {
+                            # 亚马逊店铺ID (广告帐号ID)
+                            "profile_id": 90000000000007,
+                            # 广告活动ID
+                            "campaign_id": 70000000000204,
+                            # 投放目标类型
+                            "targeting_type": "",
+                            # 广告花费
+                            "cost": 1.5,
+                            # 总展示次数
+                            "impressions": 177,
+                            # 总点击次数
+                            "clicks": 1,
+                            # 广告订单数
+                            "orders": 1,
+                            # 直接广告订单数 [原字段 'same_orders']
+                            "direct_orders": 1,
+                            # 广告成交商品件数
+                            "units": 1,
+                            # 直接广告成交商品件数 [原字段 'same_units']
+                            "direct_units": 1,
+                            # 广告销售额
+                            "sales": 16.66,
+                            # 直接广告销售额 [原字段 'same_sales']
+                            "direct_sales": 16.66,
+                            # 报告日期
+                            "report_date": "2026-10-01",
+                        },
+                        ...,
+                    ],
+                    # 分页游标
+                    "next_token": "MTAwMDAwMDAwMDAwMTk=",
+                }
         """
         url = route.SP_CAMPAIGN_REPORTS
         # 解析并验证参数
@@ -2239,76 +2360,88 @@ class AdsAPI(BaseAPI):
         report_date: str | datetime.date | datetime.datetime,
         campaign_id: int,
     ) -> schema.SpCampaignHourData:
-        """查询 SP 广告活动小时数据
+        """查询SP广告活动小时数据。
 
         ## Docs
-        - 新广告 - 报告: [SP广告活动小时数据](https://apidoc.lingxing.com/#/docs/newAd/report/spCampaignHourData)
+        领星接口文档: 新广告 - 报告.[SP广告活动小时数据](https://apidoc.lingxing.com/new/api-docs/newAd/report/spCampaignHourData/)
 
-        :param report_date `<'str/date/datetime'>`: 报告日期
-        :param campaign_id `<'int'>`: 广告活动ID, 参数来源 `SpCampaign.campaign_id`
-        :returns `<'SpCampaignHourData'>`: 返回查询到的 SP 广告活动小时数据结果
-        ```python
-        {
-            # 状态码
-            "code": 0,
-            # 提示信息
-            "message": "success",
-            # 错误信息
-            "errors": [],
-            # 请求ID
-            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
-            # 响应时间
-            "response_time": "2025-08-13 19:23:04",
-            # 响应数据量
-            "response_count": 2,
-            # 总数据量
-            "total_count": 2,
-            # 响应数据
-            "data": [
+        Args:
+            report_date (str | datetime.date | datetime.datetime): 报告日期，按传入日期的年月日查询，建议提供完整YYYY-MM-DD。接口支持最近60天。
+            campaign_id (int): 广告活动ID，可取同日日报或SpCampaigns返回的campaign_id。
+
+        Returns:
+            ads.schema.SpCampaignHourData: 按小时返回，不提供分页参数。
+
+        Examples:
+            查询报告并查看返回数据。
+
+            .. code-block:: python
+
+                result = await client.ads.SpCampaignHourData(campaign_id=70000000000006, report_date="2026-10-01")
+                print(result.model_dump())
+
+            .. code-block:: python
+
                 {
-                    # 亚马逊店铺ID (广告帐号ID)
-                    "profile_id": 494************,
-                    # 广告活动ID
-                    "campaign_id": 287************,
-                    # 广告花费
-                    "cost": 1.48,
-                    # 总展示次数
-                    "impressions": 14,
-                    # 总点击次数
-                    "clicks": 1,
-                    # 广告订单数
-                    "orders": 1,
-                    # 直接广告订单数 [原字段 'same_orders']
-                    "direct_orders": 1,
-                    # 广告成交商品件数
-                    "units": 1,
-                    # 直接广告成交商品件数 [原字段 'same_units']
-                    "direct_units": 1,
-                    # 广告销售额
-                    "sales": 35.0,
-                    # 直接广告销售额 [原字段 'same_sales']
-                    "direct_sales": 35.0,
-                    # 点击率 - Click Through Rate (总点击次数 / 总展示次数)
-                    "ctr": 0.0714,
-                    # 转化率 - Conversion Rate (广告订单数 / 总点击次数)
-                    "cvr": 1.0,
-                    # 平均点击花费 - Cost Per Click (广告花费 / 总点击次数)
-                    "cpc": 1.48,
-                    # 平均订单花费 - Cost Per Acquisition (广告花费 / 广告订单数)
-                    "cpa": 1.48,
-                    # 广告花费占比 - Ad Cost of Sales (广告花费 / 广告销售额)
-                    "acos": 0.0423,
-                    # 广告投入回报 - Return On Ad Spend (广告销售额 / 广告花费)
-                    "roas": 23.65,
-                    # 数据所属小时 (0-23)
-                    "hour": 0,
-                    # 报告日期
-                    "report_date": "2025-08-25",
-                },
-                ...
-            ],
-        }
-        ```
+                    # 状态码
+                    "code": 0,
+                    # 提示信息
+                    "message": "操作成功",
+                    # 错误信息
+                    "errors": [],
+                    # 请求ID
+                    "request_id": "00000000-0000-0000-0000-00000000008d",
+                    # 响应时间
+                    "response_time": "2001-05-07 12:21:00",
+                    # 响应数据量
+                    "response_count": 21,
+                    # 总数据量
+                    "total_count": 21,
+                    # SP 广告活动小时数据列表
+                    "data": [
+                        {
+                            # 亚马逊店铺ID (广告帐号ID)
+                            "profile_id": 90000000000004,
+                            # 广告活动ID
+                            "campaign_id": 70000000000006,
+                            # 广告花费
+                            "cost": 1.5,
+                            # 总展示次数
+                            "impressions": 12,
+                            # 总点击次数
+                            "clicks": 1,
+                            # 广告订单数
+                            "orders": 1,
+                            # 直接广告订单数 [原字段 'same_orders']
+                            "direct_orders": 1,
+                            # 广告成交商品件数
+                            "units": 1,
+                            # 直接广告成交商品件数 [原字段 'same_units']
+                            "direct_units": 1,
+                            # 广告销售额
+                            "sales": 16.66,
+                            # 直接广告销售额 [原字段 'same_sales']
+                            "direct_sales": 16.66,
+                            # 点击率 - Click Through Rate (总点击次数 / 总展示次数)
+                            "ctr": 0.0833,
+                            # 转化率 - Conversion Rate (广告订单数 / 总点击次数)
+                            "cvr": 1.0,
+                            # 平均点击花费 - Cost Per Click (广告花费 / 总点击次数)
+                            "cpc": 1.5,
+                            # 平均订单花费 - Cost Per Acquisition (广告花费 / 广告订单数)
+                            "cpa": 1.5,
+                            # 广告花费占比 - Ad Cost of Sales (广告花费 / 广告销售额)
+                            "acos": 0.09,
+                            # 广告投入回报 - Return On Ad Spend (广告销售额 / 广告花费)
+                            "roas": 11.11,
+                            # 数据所属小时 (0-23)
+                            "hour": 20,
+                            # 报告日期
+                            "report_date": "2026-10-01",
+                        },
+                        ...,
+                    ],
+                }
         """
         url = route.SP_CAMPAIGN_HOUR_DATA
         # 解析并验证参数
@@ -2335,71 +2468,82 @@ class AdsAPI(BaseAPI):
         offset: int | None = None,
         length: int | None = None,
     ) -> schema.SpPlacementReports:
-        """查询 SP 广告活动投放位置报告
+        """查询SP广告位日报。
 
         ## Docs
-        - 新广告 - 报告: [SP广告位报告](https://apidoc.lingxing.com/#/docs/newAd/report/campaignPlacementReports)
+        领星接口文档: 新广告 - 报告.[SP广告位日报](https://apidoc.lingxing.com/new/api-docs/newAd/report/campaignPlacementReports/)
 
-        :param report_date `<'str/date/datetime'>`: 报告日期
-        :param sid `<'int'>`: 领星店铺ID
-        :param profile_id `<'int'>`: 亚马逊店铺ID (广告帐号ID), 参数来源 `AdsProfiles.profile_id`
-        :param next_token `<'str/None'>`: 分页游标, 上次分页结果中的 `next_token`,
-            第一分页无需填写, 当 next_token 和 offset 同时传入时以 next_token 为主, 默认 `None`
-        :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
-        :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
-        :returns `<'SpPlacementReports'>`: 返回查询到的 SP 广告活动投放位置报告结果
-        ```python
-        {
-            # 状态码
-            "code": 0,
-            # 提示信息
-            "message": "success",
-            # 错误信息
-            "errors": [],
-            # 请求ID
-            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
-            # 响应时间
-            "response_time": "2025-08-13 19:23:04",
-            # 响应数据量
-            "response_count": 2,
-            # 总数据量
-            "total_count": 2,
-            # 响应数据
-            "data": [
+        Args:
+            report_date (str | datetime.date | datetime.datetime): 报告日期，按传入日期的年月日查询，建议提供完整YYYY-MM-DD。
+            sid (int): 领星店铺ID；与profile_id至少提供一项，使用profile_id查询时可显式传None。
+            profile_id (int): 广告账号ID，来源为AdProfiles.profile_id；使用sid查询时可显式传None。
+            next_token (str | None): 上一页返回的游标，默认None；与offset同时提供时按游标定位。
+            offset (int | None): 非负记录偏移量，默认None并省略，由接口采用0；显式0保留。
+            length (int | None): 非负分页长度，默认None并省略，由接口采用15；显式0保留。
+
+        Returns:
+            ads.schema.SpPlacementReports: 返回默认归因范围的日报指标，不提供完整归因期开关。
+
+        Examples:
+            查询报告并查看返回数据。
+
+            .. code-block:: python
+
+                result = await client.ads.SpPlacementReports(report_date="2026-10-01", sid=None, profile_id=90000000000004, offset=0, length=2)
+                print(result.model_dump())
+
+            .. code-block:: python
+
                 {
-                    # 亚马逊店铺ID (广告帐号ID)
-                    "profile_id": 494************,
-                    # 广告活动ID
-                    "campaign_id": 548************,
-                    # 广告投放位置 [原字段 'placement_type']
-                    "placement": "OTHER ON-AMAZON",
-                    # 广告花费
-                    "cost": 38.4,
-                    # 总展示次数
-                    "impressions": 1213,
-                    # 总点击次数
-                    "clicks": 12,
-                    # 广告订单数
-                    "orders": 6,
-                    # 直接广告订单数 [原字段 'same_orders']
-                    "direct_orders": 6,
-                    # 广告成交商品件数
-                    "units": 6,
-                    # 直接广告成交商品件数 [原字段 'same_units']
-                    "direct_units": 6,
-                    # 广告销售额
-                    "sales": 155.34,
-                    # 直接广告销售额 [原字段 'same_sales']
-                    "direct_sales": 155.34,
-                    # 报告日期
-                    "report_date": "2025-08-23",
-                },
-                ...
-            ],
-            # 分页游标
-            "next_token": "MjgxNTExNTQ0MTc4ODM1",
-        }
-        ```
+                    # 状态码
+                    "code": 0,
+                    # 提示信息
+                    "message": "操作成功",
+                    # 错误信息
+                    "errors": [],
+                    # 请求ID
+                    "request_id": "00000000-0000-0000-0000-000000000101",
+                    # 响应时间
+                    "response_time": "2001-05-07 10:56:00",
+                    # 响应数据量
+                    "response_count": 2,
+                    # 总数据量
+                    "total_count": 75,
+                    # SP 广告活动投放位置报告列表
+                    "data": [
+                        {
+                            # 亚马逊店铺ID (广告帐号ID)
+                            "profile_id": 90000000000004,
+                            # 广告活动ID
+                            "campaign_id": 700000000000008,
+                            # 广告投放位置 [原字段 'placement_type']
+                            "placement": "OTHER ON-AMAZON",
+                            # 广告花费
+                            "cost": 1.35,
+                            # 总展示次数
+                            "impressions": 19,
+                            # 总点击次数
+                            "clicks": 1,
+                            # 广告订单数
+                            "orders": 1,
+                            # 直接广告订单数 [原字段 'same_orders']
+                            "direct_orders": 1,
+                            # 广告成交商品件数
+                            "units": 1,
+                            # 直接广告成交商品件数 [原字段 'same_units']
+                            "direct_units": 1,
+                            # 广告销售额
+                            "sales": 19.77,
+                            # 直接广告销售额 [原字段 'same_sales']
+                            "direct_sales": 19.77,
+                            # 报告日期
+                            "report_date": "2026-10-01",
+                        },
+                        ...,
+                    ],
+                    # 分页游标
+                    "next_token": "MDAwYTAwYWEwYWEwMDBhMDBhYTBhMDBhYTAwYTAwMDU=",
+                }
         """
         url = route.SP_PLACEMENT_REPORTS
         # 解析并验证参数
@@ -2428,78 +2572,90 @@ class AdsAPI(BaseAPI):
         report_date: str | datetime.date | datetime.datetime,
         campaign_id: int,
     ) -> schema.SpPlacementHourData:
-        """查询 SP 广告活动投放位置小时数据
+        """查询SP广告位小时数据。
 
         ## Docs
-        - 新广告 - 报告: [SP广告位小时数据](https://apidoc.lingxing.com/#/docs/newAd/report/spAdPlacementHourData)
+        领星接口文档: 新广告 - 报告.[SP广告位小时数据](https://apidoc.lingxing.com/new/api-docs/newAd/report/spAdPlacementHourData/)
 
-        :param report_date `<'str/date/datetime'>`: 报告日期
-        :param campaign_id `<'int'>`: 广告活动ID, 参数来源 `SpCampaign.campaign_id`
-        :returns `<'SpPlacementHourData'>`: 返回查询到的 SP 广告活动投放位置小时数据结果
-        ```python
-        {
-            # 状态码
-            "code": 0,
-            # 提示信息
-            "message": "success",
-            # 错误信息
-            "errors": [],
-            # 请求ID
-            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
-            # 响应时间
-            "response_time": "2025-08-13 19:23:04",
-            # 响应数据量
-            "response_count": 2,
-            # 总数据量
-            "total_count": 2,
-            # 响应数据
-            "data": [
+        Args:
+            report_date (str | datetime.date | datetime.datetime): 报告日期，按传入日期的年月日查询，建议提供完整YYYY-MM-DD。接口支持最近60天。
+            campaign_id (int): 广告活动ID，可取同日日报或SpCampaigns返回的campaign_id。
+
+        Returns:
+            ads.schema.SpPlacementHourData: 按小时返回，不提供分页参数。
+
+        Examples:
+            查询报告并查看返回数据。
+
+            .. code-block:: python
+
+                result = await client.ads.SpPlacementHourData(campaign_id=70000000000006, report_date="2026-10-01")
+                print(result.model_dump())
+
+            .. code-block:: python
+
                 {
-                    # 亚马逊店铺ID (广告帐号ID)
-                    "profile_id": 494************,
-                    # 广告活动ID
-                    "campaign_id": 287************,
-                    # 广告投放位置
-                    "placement": "Other on-Amazon",
-                    # 广告花费
-                    "cost": 1.48,
-                    # 总展示次数
-                    "impressions": 14,
-                    # 总点击次数
-                    "clicks": 1,
-                    # 广告订单数
-                    "orders": 1,
-                    # 直接广告订单数 [原字段 'same_orders']
-                    "direct_orders": 1,
-                    # 广告成交商品件数
-                    "units": 1,
-                    # 直接广告成交商品件数 [原字段 'same_units']
-                    "direct_units": 1,
-                    # 广告销售额
-                    "sales": 35.0,
-                    # 直接广告销售额 [原字段 'same_sales']
-                    "direct_sales": 35.0,
-                    # 点击率 - Click Through Rate (总点击次数 / 总展示次数)
-                    "ctr": 0.0714,
-                    # 转化率 - Conversion Rate (广告订单数 / 总点击次数)
-                    "cvr": 1.0,
-                    # 平均点击花费 - Cost Per Click (广告花费 / 总点击次数)
-                    "cpc": 1.48,
-                    # 平均订单花费 - Cost Per Acquisition (广告花费 / 广告订单数)
-                    "cpa": 1.48,
-                    # 广告花费占比 - Ad Cost of Sales (广告花费 / 广告销售额)
-                    "acos": 0.0423,
-                    # 广告投入回报 - Return On Ad Spend (广告销售额 / 广告花费)
-                    "roas": 23.65,
-                    # 数据所属小时 (0-23)
-                    "hour": 0,
-                    # 报告日期
-                    "report_date": "2025-08-25",
-                },
-                ...
-            ],
-        }
-        ```
+                    # 状态码
+                    "code": 0,
+                    # 提示信息
+                    "message": "操作成功",
+                    # 错误信息
+                    "errors": [],
+                    # 请求ID
+                    "request_id": "00000000-0000-0000-0000-0000000000c7",
+                    # 响应时间
+                    "response_time": "2001-05-07 12:23:00",
+                    # 响应数据量
+                    "response_count": 50,
+                    # 总数据量
+                    "total_count": 50,
+                    # SP 广告活动投放位置小时数据列表
+                    "data": [
+                        {
+                            # 亚马逊店铺ID (广告帐号ID)
+                            "profile_id": 90000000000004,
+                            # 广告活动ID
+                            "campaign_id": 70000000000006,
+                            # 广告投放位置
+                            "placement": "Other on-Amazon",
+                            # 广告花费
+                            "cost": 1.5,
+                            # 总展示次数
+                            "impressions": 5,
+                            # 总点击次数
+                            "clicks": 1,
+                            # 广告订单数
+                            "orders": 1,
+                            # 直接广告订单数 [原字段 'same_orders']
+                            "direct_orders": 1,
+                            # 广告成交商品件数
+                            "units": 1,
+                            # 直接广告成交商品件数 [原字段 'same_units']
+                            "direct_units": 1,
+                            # 广告销售额
+                            "sales": 16.66,
+                            # 直接广告销售额 [原字段 'same_sales']
+                            "direct_sales": 16.66,
+                            # 点击率 - Click Through Rate (总点击次数 / 总展示次数)
+                            "ctr": 0.2,
+                            # 转化率 - Conversion Rate (广告订单数 / 总点击次数)
+                            "cvr": 1.0,
+                            # 平均点击花费 - Cost Per Click (广告花费 / 总点击次数)
+                            "cpc": 1.5,
+                            # 平均订单花费 - Cost Per Acquisition (广告花费 / 广告订单数)
+                            "cpa": 1.5,
+                            # 广告花费占比 - Ad Cost of Sales (广告花费 / 广告销售额)
+                            "acos": 0.09,
+                            # 广告投入回报 - Return On Ad Spend (广告销售额 / 广告花费)
+                            "roas": 11.11,
+                            # 数据所属小时 (0-23)
+                            "hour": 20,
+                            # 报告日期
+                            "report_date": "2026-10-01",
+                        },
+                        ...,
+                    ],
+                }
         """
         url = route.SP_PLACEMENT_HOUR_DATA
         # 解析并验证参数
@@ -2526,71 +2682,82 @@ class AdsAPI(BaseAPI):
         offset: int | None = None,
         length: int | None = None,
     ) -> schema.SpAdGroupReports:
-        """查询 SP 广告组报告
+        """查询SP广告组日报。
 
         ## Docs
-        - 新广告 - 报告: [SP广告组报表](https://apidoc.lingxing.com/#/docs/newAd/report/spAdGroupReports)
+        领星接口文档: 新广告 - 报告.[SP广告组日报](https://apidoc.lingxing.com/new/api-docs/newAd/report/spAdGroupReports/)
 
-        :param report_date `<'str/date/datetime'>`: 报告日期
-        :param sid `<'int'>`: 领星店铺ID
-        :param profile_id `<'int'>`: 亚马逊店铺ID (广告帐号ID), 参数来源 `AdsProfiles.profile_id`
-        :param next_token `<'str/None'>`: 分页游标, 上次分页结果中的 `next_token`,
-            第一分页无需填写, 当 next_token 和 offset 同时传入时以 next_token 为主, 默认 `None`
-        :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
-        :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
-        :returns `<'SpAdGroupReports'>`: 返回查询到的 SP 广告组报告结果
-        ```python
-        {
-            # 状态码
-            "code": 0,
-            # 提示信息
-            "message": "success",
-            # 错误信息
-            "errors": [],
-            # 请求ID
-            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
-            # 响应时间
-            "response_time": "2025-08-13 19:23:04",
-            # 响应数据量
-            "response_count": 2,
-            # 总数据量
-            "total_count": 2,
-            # 响应数据
-            "data": [
+        Args:
+            report_date (str | datetime.date | datetime.datetime): 报告日期，按传入日期的年月日查询，建议提供完整YYYY-MM-DD。
+            sid (int): 领星店铺ID；与profile_id至少提供一项，使用profile_id查询时可显式传None。
+            profile_id (int): 广告账号ID，来源为AdProfiles.profile_id；使用sid查询时可显式传None。
+            next_token (str | None): 上一页返回的游标，默认None；与offset同时提供时按游标定位。
+            offset (int | None): 非负记录偏移量，默认None并省略，由接口采用0；显式0保留。
+            length (int | None): 非负分页长度，默认None并省略，由接口采用15；显式0保留。
+
+        Returns:
+            ads.schema.SpAdGroupReports: 返回默认归因范围的日报指标，不提供完整归因期开关。
+
+        Examples:
+            查询报告并查看返回数据。
+
+            .. code-block:: python
+
+                result = await client.ads.SpAdGroupReports(report_date="2026-10-01", sid=None, profile_id=90000000000004, offset=0, length=2)
+                print(result.model_dump())
+
+            .. code-block:: python
+
                 {
-                    # 亚马逊店铺ID (广告帐号ID)
-                    "profile_id": 494************,
-                    # 广告活动ID
-                    "campaign_id": 548************,
-                    # 广告组ID
-                    "ad_group_id": 511************,
-                    # 广告花费
-                    "cost": 41.6,
-                    # 总展示次数
-                    "impressions": 1569,
-                    # 总点击次数
-                    "clicks": 14,
-                    # 广告订单数
-                    "orders": 7,
-                    # 直接广告订单数 [原字段 'same_orders']
-                    "direct_orders": 7,
-                    # 广告成交商品件数
-                    "units": 7,
-                    # 直接广告成交商品件数 [原字段 'same_units']
-                    "direct_units": 7,
-                    # 广告销售额
-                    "sales": 181.23,
-                    # 直接广告销售额 [原字段 'same_sales']
-                    "direct_sales": 181.23,
-                    # 报告日期
-                    "report_date": "2025-08-23",
-                },
-                ...
-            ],
-            # 分页游标
-            "next_token": "MjgxNTExNTQ0MTc4ODM1",
-        }
-        ```
+                    # 状态码
+                    "code": 0,
+                    # 提示信息
+                    "message": "操作成功",
+                    # 错误信息
+                    "errors": [],
+                    # 请求ID
+                    "request_id": "00000000-0000-0000-0000-00000000004f",
+                    # 响应时间
+                    "response_time": "2001-05-07 11:08:00",
+                    # 响应数据量
+                    "response_count": 2,
+                    # 总数据量
+                    "total_count": 33,
+                    # SP 广告组报告列表
+                    "data": [
+                        {
+                            # 亚马逊店铺ID (广告帐号ID)
+                            "profile_id": 90000000000004,
+                            # 广告活动ID
+                            "campaign_id": 70000000000011,
+                            # 广告组ID
+                            "ad_group_id": 600000000000001,
+                            # 广告花费
+                            "cost": 2.64,
+                            # 总展示次数
+                            "impressions": 1106,
+                            # 总点击次数
+                            "clicks": 2,
+                            # 广告订单数
+                            "orders": 2,
+                            # 直接广告订单数 [原字段 'same_orders']
+                            "direct_orders": 2,
+                            # 广告成交商品件数
+                            "units": 2,
+                            # 直接广告成交商品件数 [原字段 'same_units']
+                            "direct_units": 2,
+                            # 广告销售额
+                            "sales": 33.32,
+                            # 直接广告销售额 [原字段 'same_sales']
+                            "direct_sales": 33.32,
+                            # 报告日期
+                            "report_date": "2026-10-01",
+                        },
+                        ...,
+                    ],
+                    # 分页游标
+                    "next_token": "MTAwMDAwMDAwMDAwMjM=",
+                }
         """
         url = route.SP_AD_GROUP_REPORTS
         # 解析并验证参数
@@ -2619,78 +2786,90 @@ class AdsAPI(BaseAPI):
         report_date: str | datetime.date | datetime.datetime,
         campaign_id: int,
     ) -> schema.SpAdGroupHourData:
-        """查询 SP 广告组小时数据
+        """查询SP广告组小时数据。
 
         ## Docs
-        - 新广告 - 报告: [SP广告组小时数据](https://apidoc.lingxing.com/#/docs/newAd/report/spAdGroupHourData)
+        领星接口文档: 新广告 - 报告.[SP广告组小时数据](https://apidoc.lingxing.com/new/api-docs/newAd/report/spAdGroupHourData/)
 
-        :param report_date `<'str/date/datetime'>`: 报告日期
-        :param campaign_id `<'int'>`: 广告活动ID, 参数来源 `SpCampaign.campaign_id`
-        :returns `<'SpAdGroupHourData'>`: 返回查询到的 SP 广告组小时数据结果
-        ```python
-        {
-            # 状态码
-            "code": 0,
-            # 提示信息
-            "message": "success",
-            # 错误信息
-            "errors": [],
-            # 请求ID
-            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
-            # 响应时间
-            "response_time": "2025-08-13 19:23:04",
-            # 响应数据量
-            "response_count": 2,
-            # 总数据量
-            "total_count": 2,
-            # 响应数据
-            "data": [
+        Args:
+            report_date (str | datetime.date | datetime.datetime): 报告日期，按传入日期的年月日查询，建议提供完整YYYY-MM-DD。接口支持最近60天。
+            campaign_id (int): 广告活动ID，可取同日日报或SpCampaigns返回的campaign_id。
+
+        Returns:
+            ads.schema.SpAdGroupHourData: 按小时返回，不提供分页参数。
+
+        Examples:
+            查询报告并查看返回数据。
+
+            .. code-block:: python
+
+                result = await client.ads.SpAdGroupHourData(campaign_id=70000000000006, report_date="2026-10-01")
+                print(result.model_dump())
+
+            .. code-block:: python
+
                 {
-                    # 亚马逊店铺ID (广告帐号ID)
-                    "profile_id": 494************,
-                    # 广告活动ID
-                    "campaign_id": 287************,
-                    # 广告组ID [原字段 'group_id']
-                    "ad_group_id": 367************,
-                    # 广告花费
-                    "cost": 1.48,
-                    # 总展示次数
-                    "impressions": 14,
-                    # 总点击次数
-                    "clicks": 1,
-                    # 广告订单数
-                    "orders": 1,
-                    # 直接广告订单数 [原字段 'same_orders']
-                    "direct_orders": 1,
-                    # 广告成交商品件数
-                    "units": 1,
-                    # 直接广告成交商品件数 [原字段 'same_units']
-                    "direct_units": 1,
-                    # 广告销售额
-                    "sales": 35.0,
-                    # 直接广告销售额 [原字段 'same_sales']
-                    "direct_sales": 35.0,
-                    # 点击率 - Click Through Rate (总点击次数 / 总展示次数)
-                    "ctr": 0.0714,
-                    # 转化率 - Conversion Rate (广告订单数 / 总点击次数)
-                    "cvr": 1.0,
-                    # 平均点击花费 - Cost Per Click (广告花费 / 总点击次数)
-                    "cpc": 1.48,
-                    # 平均订单花费 - Cost Per Acquisition (广告花费 / 广告订单数)
-                    "cpa": 1.48,
-                    # 广告花费占比 - Ad Cost of Sales (广告花费 / 广告销售额)
-                    "acos": 0.0423,
-                    # 广告投入回报 - Return On Ad Spend (广告销售额 / 广告花费)
-                    "roas": 23.65,
-                    # 数据所属小时 (0-23)
-                    "hour": 0,
-                    # 报告日期
-                    "report_date": "2025-08-25",
-                },
-                ...
-            ],
-        }
-        ```
+                    # 状态码
+                    "code": 0,
+                    # 提示信息
+                    "message": "操作成功",
+                    # 错误信息
+                    "errors": [],
+                    # 请求ID
+                    "request_id": "00000000-0000-0000-0000-000000000177",
+                    # 响应时间
+                    "response_time": "2001-05-07 12:25:00",
+                    # 响应数据量
+                    "response_count": 21,
+                    # 总数据量
+                    "total_count": 21,
+                    # SP 广告组小时数据列表
+                    "data": [
+                        {
+                            # 亚马逊店铺ID (广告帐号ID)
+                            "profile_id": 90000000000004,
+                            # 广告活动ID
+                            "campaign_id": 70000000000006,
+                            # 广告组ID [原字段 'group_id']
+                            "ad_group_id": 600000000000002,
+                            # 广告花费
+                            "cost": 1.5,
+                            # 总展示次数
+                            "impressions": 12,
+                            # 总点击次数
+                            "clicks": 1,
+                            # 广告订单数
+                            "orders": 1,
+                            # 直接广告订单数 [原字段 'same_orders']
+                            "direct_orders": 1,
+                            # 广告成交商品件数
+                            "units": 1,
+                            # 直接广告成交商品件数 [原字段 'same_units']
+                            "direct_units": 1,
+                            # 广告销售额
+                            "sales": 16.66,
+                            # 直接广告销售额 [原字段 'same_sales']
+                            "direct_sales": 16.66,
+                            # 点击率 - Click Through Rate (总点击次数 / 总展示次数)
+                            "ctr": 0.0833,
+                            # 转化率 - Conversion Rate (广告订单数 / 总点击次数)
+                            "cvr": 1.0,
+                            # 平均点击花费 - Cost Per Click (广告花费 / 总点击次数)
+                            "cpc": 1.5,
+                            # 平均订单花费 - Cost Per Acquisition (广告花费 / 广告订单数)
+                            "cpa": 1.5,
+                            # 广告花费占比 - Ad Cost of Sales (广告花费 / 广告销售额)
+                            "acos": 0.09,
+                            # 广告投入回报 - Return On Ad Spend (广告销售额 / 广告花费)
+                            "roas": 11.11,
+                            # 数据所属小时 (0-23)
+                            "hour": 20,
+                            # 报告日期
+                            "report_date": "2026-10-01",
+                        },
+                        ...,
+                    ],
+                }
         """
         url = route.SP_AD_GROUP_HOUR_DATA
         # 解析并验证参数
@@ -2717,77 +2896,88 @@ class AdsAPI(BaseAPI):
         offset: int | None = None,
         length: int | None = None,
     ) -> schema.SpProductReports:
-        """查询 SP 广告报告
+        """查询SP广告商品日报。
 
         ## Docs
-        - 新广告 - 报告: [SP广告商品报表](https://apidoc.lingxing.com/#/docs/newAd/report/spProductAdReports)
+        领星接口文档: 新广告 - 报告.[SP广告商品日报](https://apidoc.lingxing.com/new/api-docs/newAd/report/spProductAdReports/)
 
-        :param report_date `<'str/date/datetime'>`: 报告日期
-        :param sid `<'int'>`: 领星店铺ID
-        :param profile_id `<'int'>`: 亚马逊店铺ID (广告帐号ID), 参数来源 `AdsProfiles.profile_id`
-        :param next_token `<'str/None'>`: 分页游标, 上次分页结果中的 `next_token`,
-            第一分页无需填写, 当 next_token 和 offset 同时传入时以 next_token 为主, 默认 `None`
-        :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
-        :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
-        :returns `<'SpProductReports'>`: 返回查询到的 SP 广告报告结果
-        ```python
-        {
-            # 状态码
-            "code": 0,
-            # 提示信息
-            "message": "success",
-            # 错误信息
-            "errors": [],
-            # 请求ID
-            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
-            # 响应时间
-            "response_time": "2025-08-13 19:23:04",
-            # 响应数据量
-            "response_count": 2,
-            # 总数据量
-            "total_count": 2,
-            # 响应数据
-            "data": [
+        Args:
+            report_date (str | datetime.date | datetime.datetime): 报告日期，按传入日期的年月日查询，建议提供完整YYYY-MM-DD。
+            sid (int): 领星店铺ID；与profile_id至少提供一项，使用profile_id查询时可显式传None。
+            profile_id (int): 广告账号ID，来源为AdProfiles.profile_id；使用sid查询时可显式传None。
+            next_token (str | None): 上一页返回的游标，默认None；与offset同时提供时按游标定位。
+            offset (int | None): 非负记录偏移量，默认None并省略，由接口采用0；显式0保留。
+            length (int | None): 非负分页长度，默认None并省略，由接口采用15；显式0保留。
+
+        Returns:
+            ads.schema.SpProductReports: 返回默认归因范围的日报指标，不提供完整归因期开关。
+
+        Examples:
+            查询报告并查看返回数据。
+
+            .. code-block:: python
+
+                result = await client.ads.SpProductReports(report_date="2026-10-01", sid=None, profile_id=90000000000007, offset=0, length=2)
+                print(result.model_dump())
+
+            .. code-block:: python
+
                 {
-                    # 亚马逊店铺ID (广告帐号ID)
-                    "profile_id": 494************,
-                    # 广告活动ID
-                    "campaign_id": 512************,
-                    # 广告组ID
-                    "ad_group_id": 367************,
-                    # 商品广告ID
-                    "ad_id": 537************,
-                    # 商品ASIN
-                    "asin": "B0D*******",
-                    # 亚马逊SKU [原字段 'sku']
-                    "msku": "SKU*********",
-                    # 广告花费
-                    "cost": 18.7,
-                    # 总展示次数
-                    "impressions": 1102,
-                    # 总点击次数
-                    "clicks": 8,
-                    # 广告订单数
-                    "orders": 5,
-                    # 直接广告订单数 [原字段 'same_orders']
-                    "direct_orders": 5,
-                    # 广告成交商品件数
-                    "units": 5,
-                    # 直接广告成交商品件数 [原字段 'same_units']
-                    "direct_units": 5,
-                    # 广告销售额
-                    "sales": 149.4,
-                    # 直接广告销售额 [原字段 'same_sales']
-                    "direct_sales": 149.4,
-                    # 报告日期
-                    "report_date": "2025-08-23",
-                },
-                ...
-            ],
-            # 分页游标
-            "next_token": "MjgxNTExNTQ0MTc4ODM1",
-        }
-        ```
+                    # 状态码
+                    "code": 0,
+                    # 提示信息
+                    "message": "操作成功",
+                    # 错误信息
+                    "errors": [],
+                    # 请求ID
+                    "request_id": "00000000-0000-0000-0000-0000000000ea",
+                    # 响应时间
+                    "response_time": "2001-05-07 11:20:00",
+                    # 响应数据量
+                    "response_count": 2,
+                    # 总数据量
+                    "total_count": 33,
+                    # SP 商品投放报告列表
+                    "data": [
+                        {
+                            # 亚马逊店铺ID (广告帐号ID)
+                            "profile_id": 90000000000007,
+                            # 广告活动ID
+                            "campaign_id": 70000000000305,
+                            # 广告组ID
+                            "ad_group_id": 600000000000013,
+                            # 商品广告ID
+                            "ad_id": 500000000000003,
+                            # 商品ASIN
+                            "asin": "A0AAAA0A7X",
+                            # 亚马逊SKU [原字段 'sku']
+                            "msku": "AA-000*3M",
+                            # 广告花费
+                            "cost": 2.64,
+                            # 总展示次数
+                            "impressions": 1106,
+                            # 总点击次数
+                            "clicks": 2,
+                            # 广告订单数
+                            "orders": 2,
+                            # 直接广告订单数 [原字段 'same_orders']
+                            "direct_orders": 2,
+                            # 广告成交商品件数
+                            "units": 2,
+                            # 直接广告成交商品件数 [原字段 'same_units']
+                            "direct_units": 2,
+                            # 广告销售额
+                            "sales": 33.32,
+                            # 直接广告销售额 [原字段 'same_sales']
+                            "direct_sales": 33.32,
+                            # 报告日期
+                            "report_date": "2026-10-01",
+                        },
+                        ...,
+                    ],
+                    # 分页游标
+                    "next_token": "MTAwMDAwMDAwMDAwMDA3",
+                }
         """
         url = route.SP_PRODUCT_REPORTS
         # 解析并验证参数
@@ -2816,84 +3006,96 @@ class AdsAPI(BaseAPI):
         report_date: str | datetime.date | datetime.datetime,
         campaign_id: int,
     ) -> schema.SpProductHourData:
-        """查询 SP 商品投放小时数据
+        """查询SP广告商品小时数据。
 
         ## Docs
-        - 新广告 - 报告: [SP广告小时数据(ad)](https://apidoc.lingxing.com/#/docs/newAd/report/spAdvertiseHourData)
+        领星接口文档: 新广告 - 报告.[SP广告商品小时数据](https://apidoc.lingxing.com/new/api-docs/newAd/report/spAdvertiseHourData/)
 
-        :param report_date `<'str/date/datetime'>`: 报告日期
-        :param campaign_id `<'int'>`: 广告活动ID, 参数来源 `SpCampaign.campaign_id`
-        :returns `<'SpProductHourData'>`: 返回查询到的 SP 商品投放小时数据结果
-        ```python
-        {
-            # 状态码
-            "code": 0,
-            # 提示信息
-            "message": "success",
-            # 错误信息
-            "errors": [],
-            # 请求ID
-            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
-            # 响应时间
-            "response_time": "2025-08-13 19:23:04",
-            # 响应数据量
-            "response_count": 2,
-            # 总数据量
-            "total_count": 2,
-            # 响应数据
-            "data": [
+        Args:
+            report_date (str | datetime.date | datetime.datetime): 报告日期，按传入日期的年月日查询，建议提供完整YYYY-MM-DD。接口支持最近60天。
+            campaign_id (int): 广告活动ID，可取同日日报或SpCampaigns返回的campaign_id。
+
+        Returns:
+            ads.schema.SpProductHourData: 按广告维度返回，不提供分页参数。
+
+        Examples:
+            查询报告并查看返回数据。
+
+            .. code-block:: python
+
+                result = await client.ads.SpProductHourData(campaign_id=70000000000006, report_date="2026-10-01")
+                print(result.model_dump())
+
+            .. code-block:: python
+
                 {
-                    # 亚马逊店铺ID (广告帐号ID)
-                    "profile_id": 494************,
-                    # 广告活动ID
-                    "campaign_id": 494************,
-                    # 广告组ID [原字段 'group_id']
-                    "ad_group_id": 340************,
-                    # 商品广告ID
-                    "ad_id": 282************,
-                    # 商品ASIN
-                    "asin": "B0F*******",
-                    # 亚马逊SKU
-                    "msku": "SKU*********",
-                    # 广告花费
-                    "cost": 77.96,
-                    # 总展示次数
-                    "impressions": 369,
-                    # 总点击次数
-                    "clicks": 13,
-                    # 广告订单数
-                    "orders": 3,
-                    # 直接广告订单数 [原字段 'same_orders']
-                    "direct_orders": 3,
-                    # 广告成交商品件数
-                    "units": 3,
-                    # 直接广告成交商品件数 [原字段 'same_units']
-                    "direct_units": 3,
-                    # 广告销售额
-                    "sales": 119.67,
-                    # 直接广告销售额 [原字段 'same_sales']
-                    "direct_sales": 119.67,
-                    # 点击率 - Click Through Rate (总点击次数 / 总展示次数)
-                    "ctr": 0.0352,
-                    # 转化率 - Conversion Rate (广告订单数 / 总点击次数)
-                    "cvr": 0.2308,
-                    # 平均点击花费 - Cost Per Click (广告花费 / 总点击次数)
-                    "cpc": 6.0,
-                    # 平均订单花费 - Cost Per Acquisition (广告花费 / 广告订单数)
-                    "cpa": 25.99,
-                    # 广告花费占比 - Ad Cost of Sales (广告花费 / 广告销售额)
-                    "acos": 0.6515,
-                    # 广告投入回报 - Return On Ad Spend (广告销售额 / 广告花费)
-                    "roas": 1.54,
-                    # 数据所属小时 (0-23)
-                    "hour": 18,
-                    # 报告日期
-                    "report_date": "2025-08-25",
-                },
-                ...
-            ],
-        }
-        ```
+                    # 状态码
+                    "code": 0,
+                    # 提示信息
+                    "message": "操作成功",
+                    # 错误信息
+                    "errors": [],
+                    # 请求ID
+                    "request_id": "00000000-0000-0000-0000-00000000005f",
+                    # 响应时间
+                    "response_time": "2001-05-07 12:27:00",
+                    # 响应数据量
+                    "response_count": 21,
+                    # 总数据量
+                    "total_count": 21,
+                    # SP 商品投放小时数据列表
+                    "data": [
+                        {
+                            # 亚马逊店铺ID (广告帐号ID)
+                            "profile_id": 90000000000004,
+                            # 广告活动ID
+                            "campaign_id": 70000000000006,
+                            # 广告组ID [原字段 'group_id']
+                            "ad_group_id": 600000000000002,
+                            # 商品广告ID
+                            "ad_id": 500000000000002,
+                            # 商品ASIN
+                            "asin": "A0AAAA0A0F",
+                            # 亚马逊SKU
+                            "msku": "AA-000*0C",
+                            # 广告花费
+                            "cost": 1.5,
+                            # 总展示次数
+                            "impressions": 12,
+                            # 总点击次数
+                            "clicks": 1,
+                            # 广告订单数
+                            "orders": 1,
+                            # 直接广告订单数 [原字段 'same_orders']
+                            "direct_orders": 1,
+                            # 广告成交商品件数
+                            "units": 1,
+                            # 直接广告成交商品件数 [原字段 'same_units']
+                            "direct_units": 1,
+                            # 广告销售额
+                            "sales": 16.66,
+                            # 直接广告销售额 [原字段 'same_sales']
+                            "direct_sales": 16.66,
+                            # 点击率 - Click Through Rate (总点击次数 / 总展示次数)
+                            "ctr": 0.0833,
+                            # 转化率 - Conversion Rate (广告订单数 / 总点击次数)
+                            "cvr": 1.0,
+                            # 平均点击花费 - Cost Per Click (广告花费 / 总点击次数)
+                            "cpc": 1.5,
+                            # 平均订单花费 - Cost Per Acquisition (广告花费 / 广告订单数)
+                            "cpa": 1.5,
+                            # 广告花费占比 - Ad Cost of Sales (广告花费 / 广告销售额)
+                            "acos": 0.09,
+                            # 广告投入回报 - Return On Ad Spend (广告销售额 / 广告花费)
+                            "roas": 11.11,
+                            # 数据所属小时 (0-23)
+                            "hour": 20,
+                            # 报告日期
+                            "report_date": "2026-10-01",
+                        },
+                        ...,
+                    ],
+                }
         """
         url = route.SP_PRODUCT_KEYWORD_HOUR_DATA
         # 解析并验证参数
@@ -2921,77 +3123,88 @@ class AdsAPI(BaseAPI):
         offset: int | None = None,
         length: int | None = None,
     ) -> schema.SpKeywordReports:
-        """查询 SP 手动关键词投放报告
+        """查询SP关键词日报。
 
         ## Docs
-        - 新广告 - 报告: [SP关键词报表](https://apidoc.lingxing.com/#/docs/newAd/report/spKeywordReports)
+        领星接口文档: 新广告 - 报告.[SP关键词日报](https://apidoc.lingxing.com/new/api-docs/newAd/report/spKeywordReports/)
 
-        :param report_date `<'str/date/datetime'>`: 报告日期
-        :param sid `<'int'>`: 领星店铺ID
-        :param profile_id `<'int'>`: 亚马逊店铺ID (广告帐号ID), 参数来源 `AdsProfiles.profile_id`
-        :param next_token `<'str/None'>`: 分页游标, 上次分页结果中的 `next_token`,
-            第一分页无需填写, 当 next_token 和 offset 同时传入时以 next_token 为主, 默认 `None`
-        :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
-        :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
-        :returns `<'SpKeywordReports'>`: 返回查询到的 SP 手动关键词投放报告结果
-        ```python
-        {
-            # 状态码
-            "code": 0,
-            # 提示信息
-            "message": "success",
-            # 错误信息
-            "errors": [],
-            # 请求ID
-            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
-            # 响应时间
-            "response_time": "2025-08-13 19:23:04",
-            # 响应数据量
-            "response_count": 2,
-            # 总数据量
-            "total_count": 2,
-            # 响应数据
-            "data": [
+        Args:
+            report_date (str | datetime.date | datetime.datetime): 报告日期，按传入日期的年月日查询，建议提供完整YYYY-MM-DD。
+            sid (int): 领星店铺ID；与profile_id至少提供一项，使用profile_id查询时可显式传None。
+            profile_id (int): 广告账号ID，来源为AdProfiles.profile_id；使用sid查询时可显式传None。
+            next_token (str | None): 上一页返回的游标，默认None；与offset同时提供时按游标定位。
+            offset (int | None): 非负记录偏移量，默认None并省略，由接口采用0；显式0保留。
+            length (int | None): 非负分页长度，默认None并省略，由接口采用15；显式0保留。
+
+        Returns:
+            ads.schema.SpKeywordReports: 返回默认归因范围的日报指标，不提供完整归因期开关。
+
+        Examples:
+            查询报告并查看返回数据。
+
+            .. code-block:: python
+
+                result = await client.ads.SpKeywordReports(report_date="2026-10-01", sid=None, profile_id=90000000000007, offset=0, length=2)
+                print(result.model_dump())
+
+            .. code-block:: python
+
                 {
-                    # 亚马逊店铺ID (广告帐号ID)
-                    "profile_id": 494************,
-                    # 广告活动ID
-                    "campaign_id": 512************,
-                    # 广告组ID
-                    "ad_group_id": 367************,
-                    # 关键词ID
-                    "keyword_id": 557************,
-                    # 关键词文本
-                    "keyword_text": "color",
-                    # 关键词匹配类型
-                    "match_type": "BROAD",
-                    # 广告花费
-                    "cost": 5.1,
-                    # 总展示次数
-                    "impressions": 167,
-                    # 总点击次数
-                    "clicks": 2,
-                    # 广告订单数
-                    "orders": 1,
-                    # 直接广告订单数 [原字段 'same_orders']
-                    "direct_orders": 1,
-                    # 广告成交商品件数
-                    "units": 1,
-                    # 直接广告成交商品件数 [原字段 'same_units']
-                    "direct_units": 1,
-                    # 广告销售额
-                    "sales": 29.88,
-                    # 直接广告销售额 [原字段 'same_sales']
-                    "direct_sales": 29.88,
-                    # 报告日期
-                    "report_date": "2025-08-23",
-                },
-                ...
-            ],
-            # 分页游标
-            "next_token": "MjgxNTExNTQ0MTc4ODM1",
-        }
-        ```
+                    # 状态码
+                    "code": 0,
+                    # 提示信息
+                    "message": "操作成功",
+                    # 错误信息
+                    "errors": [],
+                    # 请求ID
+                    "request_id": "00000000-0000-0000-0000-000000000066",
+                    # 响应时间
+                    "response_time": "2001-05-07 11:32:00",
+                    # 响应数据量
+                    "response_count": 2,
+                    # 总数据量
+                    "total_count": 180,
+                    # SP 手动关键词投放报告列表
+                    "data": [
+                        {
+                            # 亚马逊店铺ID (广告帐号ID)
+                            "profile_id": 90000000000007,
+                            # 广告活动ID
+                            "campaign_id": 700000000000083,
+                            # 广告组ID
+                            "ad_group_id": 60000000000319,
+                            # 关键词ID
+                            "keyword_id": 4000000000012,
+                            # 关键词文本
+                            "keyword_text": "aa 000cb",
+                            # 关键词匹配类型
+                            "match_type": "EXACT",
+                            # 广告花费
+                            "cost": 0.0,
+                            # 总展示次数
+                            "impressions": 4,
+                            # 总点击次数
+                            "clicks": 0,
+                            # 广告订单数
+                            "orders": 0,
+                            # 直接广告订单数 [原字段 'same_orders']
+                            "direct_orders": 0,
+                            # 广告成交商品件数
+                            "units": 0,
+                            # 直接广告成交商品件数 [原字段 'same_units']
+                            "direct_units": 0,
+                            # 广告销售额
+                            "sales": 0.0,
+                            # 直接广告销售额 [原字段 'same_sales']
+                            "direct_sales": 0.0,
+                            # 报告日期
+                            "report_date": "2026-10-01",
+                        },
+                        ...,
+                    ],
+                    # 分页游标
+                    "next_token": "MTAwMDAwMDAwMDAxMQ==",
+                }
         """
         url = route.SP_KEYWORD_REPORTS
         # 解析并验证参数
@@ -3020,90 +3233,102 @@ class AdsAPI(BaseAPI):
         report_date: str | datetime.date | datetime.datetime,
         campaign_id: int,
     ) -> schema.SpKeywordHourData:
-        """查询 SP 手动关键词投放小时数据
+        """查询SP关键词投放小时数据。
 
         ## Docs
-        - 新广告 - 报告: [SP广告小时数据(both_ad_target)](https://apidoc.lingxing.com/#/docs/newAd/report/spAdvertiseHourData)
+        领星接口文档: 新广告 - 报告.[SP关键词投放小时数据](https://apidoc.lingxing.com/new/api-docs/newAd/report/spAdvertiseHourData/)
 
-        :param report_date `<'str/date/datetime'>`: 报告日期
-        :param campaign_id `<'int'>`: 广告活动ID, 参数来源 `SpCampaign.campaign_id`
-        :returns `<'SpKeywordHourData'>`: 返回查询到的 SP 手动关键词投放小时数据结果
-        ```python
-        {
-            # 状态码
-            "code": 0,
-            # 提示信息
-            "message": "success",
-            # 错误信息
-            "errors": [],
-            # 请求ID
-            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
-            # 响应时间
-            "response_time": "2025-08-13 19:23:04",
-            # 响应数据量
-            "response_count": 2,
-            # 总数据量
-            "total_count": 2,
-            # 响应数据
-            "data": [
+        Args:
+            report_date (str | datetime.date | datetime.datetime): 报告日期，按传入日期的年月日查询，建议提供完整YYYY-MM-DD。接口支持最近60天。
+            campaign_id (int): 广告活动ID，可取同日日报或SpCampaigns返回的campaign_id。
+
+        Returns:
+            ads.schema.SpKeywordHourData: 按广告及投放维度返回，不提供分页参数。
+
+        Examples:
+            查询报告并查看返回数据。
+
+            .. code-block:: python
+
+                result = await client.ads.SpKeywordHourData(campaign_id=70000000000006, report_date="2026-10-01")
+                print(result.model_dump())
+
+            .. code-block:: python
+
                 {
-                    # 亚马逊店铺ID (广告帐号ID)
-                    "profile_id": 494************,
-                    # 广告活动ID
-                    "campaign_id": 494************,
-                    # 广告组ID [原字段 'group_id']
-                    "ad_group_id": 340************,
-                    # 商品广告ID
-                    "ad_id": 282************,
-                    # 关键词ID [原字段 'targeting_id']
-                    "keyword_id": 557************,
-                    # 关键词文本 [原字段 'targeting']
-                    "keyword_text": "color",
-                    # 关键词匹配类型
-                    "match_type": "BROAD",
-                    # 商品ASIN
-                    "asin": "B0F*******",
-                    # 亚马逊SKU
-                    "msku": "SKU*********",
-                    # 广告花费
-                    "cost": 77.96,
-                    # 总展示次数
-                    "impressions": 369,
-                    # 总点击次数
-                    "clicks": 13,
-                    # 广告订单数
-                    "orders": 3,
-                    # 直接广告订单数 [原字段 'same_orders']
-                    "direct_orders": 3,
-                    # 广告成交商品件数
-                    "units": 3,
-                    # 直接广告成交商品件数 [原字段 'same_units']
-                    "direct_units": 3,
-                    # 广告销售额
-                    "sales": 119.67,
-                    # 直接广告销售额 [原字段 'same_sales']
-                    "direct_sales": 119.67,
-                    # 点击率 - Click Through Rate (总点击次数 / 总展示次数)
-                    "ctr": 0.0352,
-                    # 转化率 - Conversion Rate (广告订单数 / 总点击次数)
-                    "cvr": 0.2308,
-                    # 平均点击花费 - Cost Per Click (广告花费 / 总点击次数)
-                    "cpc": 6.0,
-                    # 平均订单花费 - Cost Per Acquisition (广告花费 / 广告订单数)
-                    "cpa": 25.99,
-                    # 广告花费占比 - Ad Cost of Sales (广告花费 / 广告销售额)
-                    "acos": 0.6515,
-                    # 广告投入回报 - Return On Ad Spend (广告销售额 / 广告花费)
-                    "roas": 1.54,
-                    # 数据所属小时 (0-23)
-                    "hour": 18,
-                    # 报告日期
-                    "report_date": "2025-08-25",
-                },
-                ...
-            ],
-        }
-        ```
+                    # 状态码
+                    "code": 0,
+                    # 提示信息
+                    "message": "操作成功",
+                    # 错误信息
+                    "errors": [],
+                    # 请求ID
+                    "request_id": "00000000-0000-0000-0000-000000000096",
+                    # 响应时间
+                    "response_time": "2001-05-07 12:30:00",
+                    # 响应数据量
+                    "response_count": 21,
+                    # 总数据量
+                    "total_count": 21,
+                    # SP 手动关键词投放小时数据列表
+                    "data": [
+                        {
+                            # 亚马逊店铺ID (广告帐号ID)
+                            "profile_id": 90000000000004,
+                            # 广告活动ID
+                            "campaign_id": 70000000000006,
+                            # 广告组ID [原字段 'group_id']
+                            "ad_group_id": 600000000000002,
+                            # 商品广告ID
+                            "ad_id": 500000000000002,
+                            # 关键词ID [原字段 'targeting_id']
+                            "keyword_id": 40000000000006,
+                            # 关键词文本 [原字段 'targeting']
+                            "keyword_text": "000 aaaac",
+                            # 关键词匹配类型
+                            "match_type": "BROAD",
+                            # 商品ASIN
+                            "asin": "A0AAAA0A0F",
+                            # 亚马逊SKU
+                            "msku": "AA-000*0C",
+                            # 广告花费
+                            "cost": 1.5,
+                            # 总展示次数
+                            "impressions": 12,
+                            # 总点击次数
+                            "clicks": 1,
+                            # 广告订单数
+                            "orders": 1,
+                            # 直接广告订单数 [原字段 'same_orders']
+                            "direct_orders": 1,
+                            # 广告成交商品件数
+                            "units": 1,
+                            # 直接广告成交商品件数 [原字段 'same_units']
+                            "direct_units": 1,
+                            # 广告销售额
+                            "sales": 16.66,
+                            # 直接广告销售额 [原字段 'same_sales']
+                            "direct_sales": 16.66,
+                            # 点击率 - Click Through Rate (总点击次数 / 总展示次数)
+                            "ctr": 0.0833,
+                            # 转化率 - Conversion Rate (广告订单数 / 总点击次数)
+                            "cvr": 1.0,
+                            # 平均点击花费 - Cost Per Click (广告花费 / 总点击次数)
+                            "cpc": 1.5,
+                            # 平均订单花费 - Cost Per Acquisition (广告花费 / 广告订单数)
+                            "cpa": 1.5,
+                            # 广告花费占比 - Ad Cost of Sales (广告花费 / 广告销售额)
+                            "acos": 0.09,
+                            # 广告投入回报 - Return On Ad Spend (广告销售额 / 广告花费)
+                            "roas": 11.11,
+                            # 数据所属小时 (0-23)
+                            "hour": 20,
+                            # 报告日期
+                            "report_date": "2026-10-01",
+                        },
+                        ...,
+                    ],
+                }
         """
         url = route.SP_PRODUCT_KEYWORD_HOUR_DATA
         # 解析并验证参数
@@ -3131,79 +3356,90 @@ class AdsAPI(BaseAPI):
         offset: int | None = None,
         length: int | None = None,
     ) -> schema.SpKeywordQueryReports:
-        """查询 SP 手动关键词的用户搜索词报告
+        """查询SP关键词用户搜索词日报。
 
         ## Docs
-        - 新广告 - 报告: [SP用户搜索词报表(keyword)](https://apidoc.lingxing.com/#/docs/newAd/report/queryWordReports)
+        领星接口文档: 新广告 - 报告.[SP关键词用户搜索词日报](https://apidoc.lingxing.com/new/api-docs/newAd/report/queryWordReports/)
 
-        :param report_date `<'str/date/datetime'>`: 报告日期
-        :param sid `<'int'>`: 领星店铺ID
-        :param profile_id `<'int'>`: 亚马逊店铺ID (广告帐号ID), 参数来源 `AdsProfiles.profile_id`
-        :param next_token `<'str/None'>`: 分页游标, 上次分页结果中的 `next_token`,
-            第一分页无需填写, 当 next_token 和 offset 同时传入时以 next_token 为主, 默认 `None`
-        :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
-        :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
-        :returns `<'SpKeywordQueryReports'>`: 返回查询到的 SP 手动关键词的用户搜索词报告结果
-        ```python
-        {
-            # 状态码
-            "code": 0,
-            # 提示信息
-            "message": "success",
-            # 错误信息
-            "errors": [],
-            # 请求ID
-            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
-            # 响应时间
-            "response_time": "2025-08-13 19:23:04",
-            # 响应数据量
-            "response_count": 2,
-            # 总数据量
-            "total_count": 2,
-            # 响应数据
-            "data": [
+        Args:
+            report_date (str | datetime.date | datetime.datetime): 报告日期，按传入日期的年月日查询，建议提供完整YYYY-MM-DD。
+            sid (int): 领星店铺ID；与profile_id至少提供一项，使用profile_id查询时可显式传None。
+            profile_id (int): 广告账号ID，来源为AdProfiles.profile_id；使用sid查询时可显式传None。
+            next_token (str | None): 上一页返回的游标，默认None；与offset同时提供时按游标定位。
+            offset (int | None): 非负记录偏移量，默认None并省略，由接口采用0；显式0保留。
+            length (int | None): 非负分页长度，默认None并省略，由接口采用15；显式0保留。
+
+        Returns:
+            ads.schema.SpKeywordQueryReports: 返回默认归因范围的日报指标，不提供完整归因期开关。
+
+        Examples:
+            查询报告并查看返回数据。
+
+            .. code-block:: python
+
+                result = await client.ads.SpKeywordQueryReports(report_date="2026-10-01", sid=None, profile_id=90000000000007, offset=0, length=2)
+                print(result.model_dump())
+
+            .. code-block:: python
+
                 {
-                    # 亚马逊店铺ID (广告帐号ID)
-                    "profile_id": 494************,
-                    # 广告活动ID
-                    "campaign_id": 336************,
-                    # 广告组ID
-                    "ad_group_id": 351************,
-                    # 用户使用搜索词 [原字段 'query']
-                    "query_text": "canon pixma ts3120 color ink cartridges",
-                    # 广告花费
-                    "cost": 2.55,
-                    # 总展示次数
-                    "impressions": 2,
-                    # 总点击次数
-                    "clicks": 1,
-                    # 广告订单数
-                    "orders": 1,
-                    # 直接广告订单数 [原字段 'same_orders']
-                    "direct_orders": 1,
-                    # 广告成交商品件数
-                    "units": 1,
-                    # 直接广告成交商品件数 [原字段 'same_units']
-                    "direct_units": 1,
-                    # 广告销售额
-                    "sales": 29.88,
-                    # 直接广告销售额 [原字段 'same_sales']
-                    "direct_sales": 29.88,
-                    # 报告日期
-                    "report_date": "2025-08-23",
-                    # 关键词ID [原字段 'target_id']
-                    "keyword_id": 508************,
-                    # 关键词文本 [原字段 'target_text']
-                    "keyword_text": "canon ts3120 ink cartridges",
-                    # 关键词匹配类型
-                    "match_type": "BROAD",
-                },
-                ...
-            ],
-            # 分页游标
-            "next_token": "MjgxNTExNTQ0MTc4ODM1",
-        }
-        ```
+                    # 状态码
+                    "code": 0,
+                    # 提示信息
+                    "message": "操作成功",
+                    # 错误信息
+                    "errors": [],
+                    # 请求ID
+                    "request_id": "00000000-0000-0000-0000-00000000009b",
+                    # 响应时间
+                    "response_time": "2001-05-07 11:44:00",
+                    # 响应数据量
+                    "response_count": 2,
+                    # 总数据量
+                    "total_count": 22,
+                    # SP 手动关键词的用户搜索词报告列表
+                    "data": [
+                        {
+                            # 亚马逊店铺ID (广告帐号ID)
+                            "profile_id": 90000000000007,
+                            # 广告活动ID
+                            "campaign_id": 700000000000215,
+                            # 广告组ID
+                            "ad_group_id": 600000000000183,
+                            # 用户使用搜索词 [原字段 'query']
+                            "query_text": "aa 008",
+                            # 广告花费
+                            "cost": 1.35,
+                            # 总展示次数
+                            "impressions": 1,
+                            # 总点击次数
+                            "clicks": 1,
+                            # 广告订单数
+                            "orders": 1,
+                            # 直接广告订单数 [原字段 'same_orders']
+                            "direct_orders": 1,
+                            # 广告成交商品件数
+                            "units": 1,
+                            # 直接广告成交商品件数 [原字段 'same_units']
+                            "direct_units": 1,
+                            # 广告销售额
+                            "sales": 19.77,
+                            # 直接广告销售额 [原字段 'same_sales']
+                            "direct_sales": 19.77,
+                            # 报告日期
+                            "report_date": "2026-10-01",
+                            # 关键词ID [原字段 'target_id']
+                            "keyword_id": 400000000000003,
+                            # 关键词文本 [原字段 'target_text']
+                            "keyword_text": "aa 0043",
+                            # 关键词匹配类型
+                            "match_type": "BROAD",
+                        },
+                        ...,
+                    ],
+                    # 分页游标
+                    "next_token": "MDAwYWEwMDAwYTBhMGEwMDBhYWEwMDAwMDAwMGEwMmY=",
+                }
         """
         url = route.SP_QUERY_REPORTS
         # 解析并验证参数
@@ -3238,77 +3474,88 @@ class AdsAPI(BaseAPI):
         offset: int | None = None,
         length: int | None = None,
     ) -> schema.SpTargetReports:
-        """查询 SP 自动投放/手动商品投放报告
+        """查询SP商品投放日报。
 
         ## Docs
-        - 新广告 - 报告: [SP商品定位报表](https://apidoc.lingxing.com/#/docs/newAd/report/spTargetReports)
+        领星接口文档: 新广告 - 报告.[SP商品投放日报](https://apidoc.lingxing.com/new/api-docs/newAd/report/spTargetReports/)
 
-        :param report_date `<'str/date/datetime'>`: 报告日期
-        :param sid `<'int'>`: 领星店铺ID
-        :param profile_id `<'int'>`: 亚马逊店铺ID (广告帐号ID), 参数来源 `AdsProfiles.profile_id`
-        :param next_token `<'str/None'>`: 分页游标, 上次分页结果中的 `next_token`,
-            第一分页无需填写, 当 next_token 和 offset 同时传入时以 next_token 为主, 默认 `None`
-        :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
-        :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
-        :returns `<'SpTargetReports'>`: 返回查询到的 SP 自动投放/手动商品投放报告结果
-        ```python
-        {
-            # 状态码
-            "code": 0,
-            # 提示信息
-            "message": "success",
-            # 错误信息
-            "errors": [],
-            # 请求ID
-            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
-            # 响应时间
-            "response_time": "2025-08-13 19:23:04",
-            # 响应数据量
-            "response_count": 2,
-            # 总数据量
-            "total_count": 2,
-            # 响应数据
-            "data": [
+        Args:
+            report_date (str | datetime.date | datetime.datetime): 报告日期，按传入日期的年月日查询，建议提供完整YYYY-MM-DD。
+            sid (int): 领星店铺ID；与profile_id至少提供一项，使用profile_id查询时可显式传None。
+            profile_id (int): 广告账号ID，来源为AdProfiles.profile_id；使用sid查询时可显式传None。
+            next_token (str | None): 上一页返回的游标，默认None；与offset同时提供时按游标定位。
+            offset (int | None): 非负记录偏移量，默认None并省略，由接口采用0；显式0保留。
+            length (int | None): 非负分页长度，默认None并省略，由接口采用15；显式0保留。
+
+        Returns:
+            ads.schema.SpTargetReports: 返回默认归因范围的日报指标，不提供完整归因期开关。
+
+        Examples:
+            查询报告并查看返回数据。
+
+            .. code-block:: python
+
+                result = await client.ads.SpTargetReports(report_date="2026-10-01", sid=None, profile_id=90000000000007, offset=0, length=2)
+                print(result.model_dump())
+
+            .. code-block:: python
+
                 {
-                    # 亚马逊店铺ID (广告帐号ID)
-                    "profile_id": 494************,
-                    # 广告活动ID
-                    "campaign_id": 363************,
-                    # 广告组ID
-                    "ad_group_id": 353************,
-                    # 自动投放/手动商品投放ID
-                    "target_id": 529************,
-                    # 投放匹配类型 [原字段 'targeting_type']
-                    "expression_type": "TARGETING_EXPRESSION",
-                    # 自动投放/手动商品投放表达式 (JSON 字符串)
-                    "expression": '"[{\\"type\\": \\"asinSameAs\\", \\"value\\": \\"B06*******\\"}]"',
-                    # 广告花费
-                    "cost": 4.8,
-                    # 总展示次数
-                    "impressions": 157,
-                    # 总点击次数
-                    "clicks": 2,
-                    # 广告订单数
-                    "orders": 1,
-                    # 直接广告订单数 [原字段 'same_orders']
-                    "direct_orders": 1,
-                    # 广告成交商品件数
-                    "units": 1,
-                    # 直接广告成交商品件数 [原字段 'same_units']
-                    "direct_units": 1,
-                    # 广告销售额
-                    "sales": 39.89,
-                    # 直接广告销售额 [原字段 'same_sales']
-                    "direct_sales": 39.89,
-                    # 报告日期
-                    "report_date": "2025-08-23",
-                },
-                ...
-            ],
-            # 分页游标
-            "next_token": "MjgxNTExNTQ0MTc4ODM1",
-        }
-        ```
+                    # 状态码
+                    "code": 0,
+                    # 提示信息
+                    "message": "操作成功",
+                    # 错误信息
+                    "errors": [],
+                    # 请求ID
+                    "request_id": "00000000-0000-0000-0000-00000000009d",
+                    # 响应时间
+                    "response_time": "2001-05-07 11:56:00",
+                    # 响应数据量
+                    "response_count": 2,
+                    # 总数据量
+                    "total_count": 41,
+                    # SP 自动投放/手动商品投放报告列表
+                    "data": [
+                        {
+                            # 亚马逊店铺ID (广告帐号ID)
+                            "profile_id": 90000000000007,
+                            # 广告活动ID
+                            "campaign_id": 700000000000227,
+                            # 广告组ID
+                            "ad_group_id": 600000000000287,
+                            # 自动投放/手动商品投放ID
+                            "target_id": 3000000000027,
+                            # 投放匹配类型 [原字段 'targeting_type']
+                            "expression_type": "TARGETING_EXPRESSION",
+                            # 自动投放/手动商品投放表达式 (JSON 字符串)
+                            "expression": "\\"[{\\\\\\"type\\\\\\": \\\\\\"asinExpandedFrom\\\\\\", \\\\\\"value\\\\\\": \\\\\\"0000000001\\\\\\"}]\\"",
+                            # 广告花费
+                            "cost": 0.0,
+                            # 总展示次数
+                            "impressions": 2,
+                            # 总点击次数
+                            "clicks": 0,
+                            # 广告订单数
+                            "orders": 0,
+                            # 直接广告订单数 [原字段 'same_orders']
+                            "direct_orders": 0,
+                            # 广告成交商品件数
+                            "units": 0,
+                            # 直接广告成交商品件数 [原字段 'same_units']
+                            "direct_units": 0,
+                            # 广告销售额
+                            "sales": 0.0,
+                            # 直接广告销售额 [原字段 'same_sales']
+                            "direct_sales": 0.0,
+                            # 报告日期
+                            "report_date": "2026-10-01",
+                        },
+                        ...,
+                    ],
+                    # 分页游标
+                    "next_token": "MTAwMDAwMDAwMDAyMQ==",
+                }
         """
         url = route.SP_TARGET_REPORTS
         # 解析并验证参数
@@ -3337,90 +3584,102 @@ class AdsAPI(BaseAPI):
         report_date: str | datetime.date | datetime.datetime,
         campaign_id: int,
     ) -> schema.SpTargetHourData:
-        """查询 SP 自动投放/手动商品投放小时数据
+        """查询SP投放小时数据。
 
         ## Docs
-        - 新广告 - 报告: [SP投放小时数据(both_ad_target)](https://apidoc.lingxing.com/#/docs/newAd/report/spTargetHourData)
+        领星接口文档: 新广告 - 报告.[SP投放小时数据](https://apidoc.lingxing.com/new/api-docs/newAd/report/spTargetHourData/)
 
-        :param report_date `<'str/date/datetime'>`: 报告日期
-        :param campaign_id `<'int'>`: 广告活动ID, 参数来源 `SpCampaign.campaign_id`
-        :returns `<'SpTargetHourData'>`: 返回查询到的 SP 自动投放/手动商品投放小时数据结果
-        ```python
-        {
-            # 状态码
-            "code": 0,
-            # 提示信息
-            "message": "success",
-            # 错误信息
-            "errors": [],
-            # 请求ID
-            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
-            # 响应时间
-            "response_time": "2025-08-13 19:23:04",
-            # 响应数据量
-            "response_count": 2,
-            # 总数据量
-            "total_count": 2,
-            # 响应数据
-            "data": [
+        Args:
+            report_date (str | datetime.date | datetime.datetime): 报告日期，按传入日期的年月日查询，建议提供完整YYYY-MM-DD。投放小时接口允许当天至向前第61天（含两端）。
+            campaign_id (int): 广告活动ID，可取同日日报或SpCampaigns返回的campaign_id。
+
+        Returns:
+            ads.schema.SpTargetHourData: 按广告及投放维度返回，不提供分页参数。结果可包含关键词投放，未在本地按投放类型筛选。
+
+        Examples:
+            查询报告并查看返回数据。
+
+            .. code-block:: python
+
+                result = await client.ads.SpTargetHourData(campaign_id=70000000000006, report_date="2026-10-01")
+                print(result.model_dump())
+
+            .. code-block:: python
+
                 {
-                    # 亚马逊店铺ID (广告帐号ID)
-                    "profile_id": 494************,
-                    # 广告活动ID
-                    "campaign_id": 442************,
-                    # 广告组ID [原字段 'group_id']
-                    "ad_group_id": 297************,
-                    # 商品广告ID
-                    "ad_id": 401************,
-                    # 自动投放/手动商品投放ID [原字段 'targeting_id']
-                    "target_id": 297************,
-                    # 自动投放/手动商品投放文本 [原字段 'targeting']
-                    "target_text": 'asin="B01*******"',
-                    # 投放匹配类型 [原字段 'match_type']
-                    "target_type": "TARGETING_EXPRESSION",
-                    # 商品ASIN
-                    "asin": "B0F*******",
-                    # 亚马逊SKU
-                    "msku": "SKU*********",
-                    # 广告花费
-                    "cost": 2.4,
-                    # 广告花费
-                    "impressions": 28,
-                    # 总点击次数
-                    "clicks": 1,
-                    # 广告订单数
-                    "orders": 1,
-                    # 直接广告订单数 [原字段 'same_orders']
-                    "direct_orders": 1,
-                    # 广告成交商品件数
-                    "units": 1,
-                    # 直接广告成交商品件数 [原字段 'same_units']
-                    "direct_units": 1,
-                    # 广告销售额
-                    "sales": 39.89,
-                    # 直接广告销售额 [原字段 'same_sales']
-                    "direct_sales": 39.89,
-                    # 点击率 - Click Through Rate (总点击次数 / 总展示次数)
-                    "ctr": 0.0357,
-                    # 转化率 - Conversion Rate (广告订单数 / 总点击次数)
-                    "cvr": 1.0,
-                    # 平均点击花费 - Cost Per Click (广告花费 / 总点击次数)
-                    "cpc": 2.4,
-                    # 平均订单花费 - Cost Per Acquisition (广告花费 / 广告订单数)
-                    "cpa": 2.4,
-                    # 广告花费占比 - Ad Cost of Sales (广告花费 / 广告销售额)
-                    "acos": 0.0602,
-                    # 广告投入回报 - Return On Ad Spend (广告销售额 / 广告花费)
-                    "roas": 16.62,
-                    # 数据所属小时 (0-23)
-                    "hour": 20,
-                    # 报告日期
-                    "report_date": "2025-08-25",
-                },
-                ...
-            ],
-        }
-        ```
+                    # 状态码
+                    "code": 0,
+                    # 提示信息
+                    "message": "操作成功",
+                    # 错误信息
+                    "errors": [],
+                    # 请求ID
+                    "request_id": "00000000-0000-0000-0000-000000000072",
+                    # 响应时间
+                    "response_time": "2001-05-07 12:32:00",
+                    # 响应数据量
+                    "response_count": 21,
+                    # 总数据量
+                    "total_count": 21,
+                    # SP投放小时数据列表
+                    "data": [
+                        {
+                            # 亚马逊店铺ID (广告帐号ID)
+                            "profile_id": 90000000000004,
+                            # 广告活动ID
+                            "campaign_id": 70000000000006,
+                            # 广告组ID [原字段 'group_id']
+                            "ad_group_id": 600000000000002,
+                            # 商品广告ID
+                            "ad_id": 500000000000002,
+                            # 投放ID [原字段 'targeting_id']
+                            "target_id": 40000000000006,
+                            # 投放文本 [原字段 'targeting']
+                            "target_text": "000 aaaac",
+                            # 投放匹配类型 [原字段 'match_type']
+                            "target_type": "BROAD",
+                            # 商品ASIN
+                            "asin": "A0AAAA0A0F",
+                            # 亚马逊SKU
+                            "msku": "AA-000*0C",
+                            # 广告花费
+                            "cost": 1.5,
+                            # 总展示次数
+                            "impressions": 12,
+                            # 总点击次数
+                            "clicks": 1,
+                            # 广告订单数
+                            "orders": 1,
+                            # 直接广告订单数 [原字段 'same_orders']
+                            "direct_orders": 1,
+                            # 广告成交商品件数
+                            "units": 1,
+                            # 直接广告成交商品件数 [原字段 'same_units']
+                            "direct_units": 1,
+                            # 广告销售额
+                            "sales": 16.66,
+                            # 直接广告销售额 [原字段 'same_sales']
+                            "direct_sales": 16.66,
+                            # 点击率 - Click Through Rate (总点击次数 / 总展示次数)
+                            "ctr": 0.0833,
+                            # 转化率 - Conversion Rate (广告订单数 / 总点击次数)
+                            "cvr": 1.0,
+                            # 平均点击花费 - Cost Per Click (广告花费 / 总点击次数)
+                            "cpc": 1.5,
+                            # 平均订单花费 - Cost Per Acquisition (广告花费 / 广告订单数)
+                            "cpa": 1.5,
+                            # 广告花费占比 - Ad Cost of Sales (广告花费 / 广告销售额)
+                            "acos": 0.09,
+                            # 广告投入回报 - Return On Ad Spend (广告销售额 / 广告花费)
+                            "roas": 11.11,
+                            # 数据所属小时 (0-23)
+                            "hour": 20,
+                            # 报告日期
+                            "report_date": "2026-10-01",
+                        },
+                        ...,
+                    ],
+                }
         """
         url = route.SP_TARGET_HOUR_DATA
         # 解析并验证参数
@@ -3448,79 +3707,90 @@ class AdsAPI(BaseAPI):
         offset: int | None = None,
         length: int | None = None,
     ) -> schema.SpTargetQueryReports:
-        """查询 SP 自动投放/手动商品投的用户搜索词报告
+        """查询SP商品投放及关键词组用户搜索词日报。
 
         ## Docs
-        - 新广告 - 报告: [SP用户搜索词报表(target)](https://apidoc.lingxing.com/#/docs/newAd/report/queryWordReports)
+        领星接口文档: 新广告 - 报告.[SP商品投放及关键词组用户搜索词日报](https://apidoc.lingxing.com/new/api-docs/newAd/report/queryWordReports/)
 
-        :param report_date `<'str/date/datetime'>`: 报告日期
-        :param sid `<'int'>`: 领星店铺ID
-        :param profile_id `<'int'>`: 亚马逊店铺ID (广告帐号ID), 参数来源 `AdsProfiles.profile_id`
-        :param next_token `<'str/None'>`: 分页游标, 上次分页结果中的 `next_token`,
-            第一分页无需填写, 当 next_token 和 offset 同时传入时以 next_token 为主, 默认 `None`
-        :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
-        :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
-        :returns `<'SpTargetQueryReports'>`: 返回查询到的 SP 自动投放/手动商品投的用户搜索词报告结果
-        ```python
-        {
-            # 状态码
-            "code": 0,
-            # 提示信息
-            "message": "success",
-            # 错误信息
-            "errors": [],
-            # 请求ID
-            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
-            # 响应时间
-            "response_time": "2025-08-13 19:23:04",
-            # 响应数据量
-            "response_count": 2,
-            # 总数据量
-            "total_count": 2,
-            # 响应数据
-            "data": [
+        Args:
+            report_date (str | datetime.date | datetime.datetime): 报告日期，按传入日期的年月日查询，建议提供完整YYYY-MM-DD。
+            sid (int): 领星店铺ID；与profile_id至少提供一项，使用profile_id查询时可显式传None。
+            profile_id (int): 广告账号ID，来源为AdProfiles.profile_id；使用sid查询时可显式传None。
+            next_token (str | None): 上一页返回的游标，默认None；与offset同时提供时按游标定位。
+            offset (int | None): 非负记录偏移量，默认None并省略，由接口采用0；显式0保留。
+            length (int | None): 非负分页长度，默认None并省略，由接口采用15；显式0保留。
+
+        Returns:
+            ads.schema.SpTargetQueryReports: 返回默认归因范围的日报指标，不提供完整归因期开关。
+
+        Examples:
+            查询报告并查看返回数据。
+
+            .. code-block:: python
+
+                result = await client.ads.SpTargetQueryReports(report_date="2026-10-01", sid=None, profile_id=90000000000004, offset=0, length=2)
+                print(result.model_dump())
+
+            .. code-block:: python
+
                 {
-                    # 亚马逊店铺ID (广告帐号ID)
-                    "profile_id": 494************,
-                    # 广告活动ID
-                    "campaign_id": 336************,
-                    # 广告组ID
-                    "ad_group_id": 351************,
-                    # 用户使用搜索词 [原字段 'query']
-                    "query_text": "canon pixma ts3120 color ink cartridges",
-                    # 广告花费
-                    "cost": 2.55,
-                    # 总展示次数
-                    "impressions": 2,
-                    # 总点击次数
-                    "clicks": 1,
-                    # 广告订单数
-                    "orders": 1,
-                    # 直接广告订单数 [原字段 'same_orders']
-                    "direct_orders": 1,
-                    # 广告成交商品件数
-                    "units": 1,
-                    # 直接广告成交商品件数 [原字段 'same_units']
-                    "direct_units": 1,
-                    # 广告销售额
-                    "sales": 29.88,
-                    # 直接广告销售额 [原字段 'same_sales']
-                    "direct_sales": 29.88,
-                    # 报告日期
-                    "report_date": "2025-08-23",
-                    # 自动投放/手动商品投放ID
-                    "target_id": 529************,
-                    # 自动投放/手动商品投放表达式 (JSON 字符串) [原字段 'target_text']
-                    "expression": '"[{\\"type\\": \\"asinSameAs\\", \\"value\\": \\"B06*******\\"}]"',
-                    # 投放匹配类型
-                    "match_type": "",
-                },
-                ...
-            ],
-            # 分页游标
-            "next_token": "MjgxNTExNTQ0MTc4ODM1",
-        }
-        ```
+                    # 状态码
+                    "code": 0,
+                    # 提示信息
+                    "message": "操作成功",
+                    # 错误信息
+                    "errors": [],
+                    # 请求ID
+                    "request_id": "00000000-0000-0000-0000-000000000116",
+                    # 响应时间
+                    "response_time": "2001-05-07 12:08:00",
+                    # 响应数据量
+                    "response_count": 2,
+                    # 总数据量
+                    "total_count": 8,
+                    # SP 自动投放/手动商品投的用户搜索词报告列表
+                    "data": [
+                        {
+                            # 亚马逊店铺ID (广告帐号ID)
+                            "profile_id": 90000000000004,
+                            # 广告活动ID
+                            "campaign_id": 700000000000007,
+                            # 广告组ID
+                            "ad_group_id": 600000000000003,
+                            # 用户使用搜索词 [原字段 'query']
+                            "query_text": "000 aaaaaaa aab",
+                            # 广告花费
+                            "cost": 1.6,
+                            # 总展示次数
+                            "impressions": 2,
+                            # 总点击次数
+                            "clicks": 1,
+                            # 广告订单数
+                            "orders": 1,
+                            # 直接广告订单数 [原字段 'same_orders']
+                            "direct_orders": 1,
+                            # 广告成交商品件数
+                            "units": 1,
+                            # 直接广告成交商品件数 [原字段 'same_units']
+                            "direct_units": 1,
+                            # 广告销售额
+                            "sales": 16.66,
+                            # 直接广告销售额 [原字段 'same_sales']
+                            "direct_sales": 16.66,
+                            # 报告日期
+                            "report_date": "2026-10-01",
+                            # 自动投放/手动商品投放ID
+                            "target_id": 30000000000004,
+                            # 自动投放/手动商品投放表达式 (JSON 字符串) [原字段 'target_text']
+                            "expression": "\\"[{\\\\\\"type\\\\\\": \\\\\\"keywordGroupSameAs\\\\\\", \\\\\\"value\\\\\\": \\\\\\"category\\\\\\"}]\\"",
+                            # 投放匹配类型
+                            "match_type": "",
+                        },
+                        ...,
+                    ],
+                    # 分页游标
+                    "next_token": "MGEwMDAwMDBhMGFhMGEwMDAwMDAwMDAwYWEwYTAwMDE=",
+                }
         """
         url = route.SP_QUERY_REPORTS
         # 解析并验证参数
@@ -3556,87 +3826,71 @@ class AdsAPI(BaseAPI):
         offset: int | None = None,
         length: int | None = None,
     ) -> schema.SbCampaignReports:
-        """查询 SB 广告活动报告
+        """查询SB广告活动日报。
 
         ## Docs
-        - 新广告 - 报告: [SB广告活动报表](https://apidoc.lingxing.com/#/docs/newAd/report/hsaCampaignReports)
+        领星接口文档: 新广告 - 报告.[SB广告活动日报](https://apidoc.lingxing.com/new/api-docs/newAd/report/hsaCampaignReports/)
 
-        :param report_date `<'str/date/datetime'>`: 报告日期
-        :param sid `<'int'>`: 领星店铺ID
-        :param profile_id `<'int'>`: 亚马逊店铺ID (广告帐号ID), 参数来源 `AdsProfiles.profile_id`
-        :param next_token `<'str/None'>`: 分页游标, 上次分页结果中的 `next_token`,
-            第一分页无需填写, 当 next_token 和 offset 同时传入时以 next_token 为主, 默认 `None`
-        :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
-        :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
-        :returns `<'SbCampaignReports'>`: 返回查询到的 SB 广告活动报告结果
-        ```python
-        {
-            # 状态码
-            "code": 0,
-            # 提示信息
-            "message": "success",
-            # 错误信息
-            "errors": [],
-            # 请求ID
-            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
-            # 响应时间
-            "response_time": "2025-08-13 19:23:04",
-            # 响应数据量
-            "response_count": 2,
-            # 总数据量
-            "total_count": 2,
-            # 响应数据
-            "data": [
+        Args:
+            report_date (str | datetime.date | datetime.datetime): 报告日期，建议提供完整YYYY-MM-DD；按输入日期的年月日查询，不额外换算时区。
+            sid (int): 领星店铺ID，与profile_id至少提供一项；按profile_id查询时显式传None。
+            profile_id (int): 广告账号ID，来源为AdProfiles.profile_id。按sid查询时显式传None。
+            next_token (str | None): 上一页返回的游标，默认None并省略。与offset同时提供时优先使用游标。
+            offset (int | None): 非负记录偏移量，默认None并省略；显式0保留。
+            length (int | None): 非负分页长度，默认None并省略，接口默认15；显式0保留。
+
+        Returns:
+            ads.schema.SbCampaignReports: data集合仅展示首项，数量字段保留完整返回值。两账号标识同时提供时按profile_id定位。
+
+        Raises:
+            errors.InvalidParametersError: 请求参数不符合既有校验规则。
+            errors.RequestError: 请求失败或服务端返回接口错误。
+            pydantic.ValidationError: 返回内容不符合响应模型。
+
+        Examples:
+            查询报告并查看model_dump()返回的数据。
+
+            .. code-block:: python
+
+                result = await client.ads.SbCampaignReports(report_date="2026-10-01", sid=None, profile_id=900000000000001, offset=0, length=2)
+                print(result.model_dump())
+
+            .. code-block:: python
+
                 {
-                    # 亚马逊店铺ID (广告帐号ID)
-                    "profile_id": 494************,
-                    # 广告活动ID
-                    "campaign_id": 372************,
-                    # 广告花费
-                    "cost": 39.62,
-                    # 总展示次数
-                    "impressions": 1694,
-                    # 总点击次数
-                    "clicks": 34,
-                    # 广告订单数
-                    "orders": 11,
-                    # 直接广告订单数 [原字段 'same_orders']
-                    "direct_orders": 11,
-                    # 品牌新买家广告订单数
-                    "new_to_brand_orders": 10,
-                    # 品牌新买家订单占比 [原字段 'new_to_brand_order_percentage']
-                    # (品牌新买家广告订单数 / 广告订单数 x 100%)
-                    "new_to_brand_order_pct": 90.91,
-                    # 品牌新买家订单转化率
-                    # (品牌新买家广告订单数 / 总点击次数 x 100%)
-                    "new_to_brand_order_rate": 29.41,
-                    # 广告成交商品件数
-                    "units": 12,
-                    # 直接广告成交商品件数 [原字段 'same_units']
-                    "direct_units": 12,
-                    # 品牌新买家成交商品件数
-                    "new_to_brand_units": 11,
-                    # 广告销售额
-                    "sales": 430.8,
-                    # 直接广告销售额 [原字段 'same_sales']
-                    "direct_sales": 430.8,
-                    # 品牌新买家销售额
-                    "new_to_brand_sales": 394.9,
-                    # 广告可见率 - View Through Rate
-                    # (可见展示次数 / 总展示次数 x 100%)
-                    "vtr": 27.98,
-                    # 广告可见点击率 - View Click Through Rate
-                    # (总点击次数 / 可见展示次数 x 100%)
-                    "vctr": 7.17,
-                    # 报告日期
-                    "report_date": "2025-08-23",
-                },
-                ...
-            ],
-            # 分页游标
-            "next_token": "MjgxNTExNTQ0MTc4ODM1",
-        }
-        ```
+                    "code": 0,
+                    "message": "操作成功",
+                    "errors": [],
+                    "request_id": "00000000-0000-0000-0000-0000000000b1",
+                    "response_time": "2001-05-07 12:41:00",
+                    "response_count": 2,
+                    "total_count": 5,
+                    "data": [
+                        {
+                            "profile_id": 900000000000001,
+                            "campaign_id": 700000000000001,
+                            "cost": 5.24,
+                            "impressions": 126,
+                            "clicks": 2,
+                            "orders": 1,
+                            "direct_orders": 1,
+                            "new_to_brand_orders": 1,
+                            "new_to_brand_order_pct": 100.0,
+                            "new_to_brand_order_rate": 0.0,
+                            "units": 1,
+                            "direct_units": 0,
+                            "new_to_brand_units": 1,
+                            "sales": 38.99,
+                            "direct_sales": 38.99,
+                            "new_to_brand_sales": 38.99,
+                            "vtr": 0.0,
+                            "vctr": 0.0,
+                            "report_date": "2026-10-01",
+                        },
+                        ...,
+                    ],
+                    "next_token": "MTAwMDAwMDAwMDAwMDEw",
+                }
         """
         url = route.SB_CAMPAIGN_REPORTS
         # 解析并验证参数
@@ -3665,74 +3919,65 @@ class AdsAPI(BaseAPI):
         report_date: str | datetime.date | datetime.datetime,
         campaign_id: int,
     ) -> schema.SbCampaignHourData:
-        """查询 SB 广告活动小时数据
+        """查询SB广告活动小时数据。
 
         ## Docs
-        - 新广告 - 报告: [SB广告活动小时数据](https://apidoc.lingxing.com/#/docs/newAd/report/sbCampaignHourData)
+        领星接口文档: 新广告 - 报告.[SB广告活动小时数据](https://apidoc.lingxing.com/new/api-docs/newAd/report/sbCampaignHourData/)
 
-        :param report_date `<'str/date/datetime'>`: 报告日期
-        :param campaign_id `<'int'>`: 广告活动ID, 参数来源 `SbCampaign.campaign_id`
-        :returns `<'SbCampaignHourData'>`: 返回查询到的 SB 广告活动小时数据结果
-        ```python
-        {
-            # 状态码
-            "code": 0,
-            # 提示信息
-            "message": "success",
-            # 错误信息
-            "errors": [],
-            # 请求ID
-            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
-            # 响应时间
-            "response_time": "2025-08-13 19:23:04",
-            # 响应数据量
-            "response_count": 2,
-            # 总数据量
-            "total_count": 2,
-            # 响应数据
-            "data": [
+        Args:
+            report_date (str | datetime.date | datetime.datetime): 报告日期，建议提供完整YYYY-MM-DD；按输入日期的年月日查询，不额外换算时区。
+            campaign_id (int): 广告活动ID；此方法只查询单个活动。接口支持最近60天。
+
+        Returns:
+            ads.schema.SbCampaignHourData: data集合仅展示首项，数量字段保留完整返回值。按小时返回，不提供分页参数。
+
+        Raises:
+            errors.InvalidParametersError: 请求参数不符合既有校验规则。
+            errors.RequestError: 请求失败或服务端返回接口错误。
+            pydantic.ValidationError: 返回内容不符合响应模型。
+
+        Examples:
+            查询报告并查看model_dump()返回的数据。
+
+            .. code-block:: python
+
+                result = await client.ads.SbCampaignHourData(report_date="2026-10-01", campaign_id=70000000000014)
+                print(result.model_dump())
+
+            .. code-block:: python
+
                 {
-                    # 亚马逊店铺ID (广告帐号ID)
-                    "profile_id": 494************,
-                    # 广告活动ID
-                    "campaign_id": 442************,
-                    # 广告花费
-                    "cost": 2.4,
-                    # 总展示次数
-                    "impressions": 28,
-                    # 总点击次数
-                    "clicks": 1,
-                    # 广告订单数
-                    "orders": 1,
-                    # 直接广告订单数 [原字段 'same_orders']
-                    "direct_orders": 1,
-                    # 广告成交商品件数
-                    "units": 1,
-                    # 广告销售额
-                    "sales": 39.89,
-                    # 直接广告销售额 [原字段 'same_sales']
-                    "direct_sales": 39.89,
-                    # 点击率 - Click Through Rate (总点击次数 / 总展示次数)
-                    "ctr": 0.0357,
-                    # 转化率 - Conversion Rate (广告订单数 / 总点击次数)
-                    "cvr": 1.0,
-                    # 平均点击花费 - Cost Per Click (广告花费 / 总点击次数)
-                    "cpc": 2.4,
-                    # 平均订单花费 - Cost Per Acquisition (广告花费 / 广告订单数)
-                    "cpa": 2.4,
-                    # 广告花费占比 - Ad Cost of Sales (广告花费 / 广告销售额)
-                    "acos": 0.0602,
-                    # 广告投入回报 - Return On Ad Spend (广告销售额 / 广告花费)
-                    "roas": 16.62,
-                    # 数据所属小时 (0-23)
-                    "hour": 20,
-                    # 报告日期
-                    "report_date": "2025-08-25",
-                },
-                ...
-            ],
-        }
-        ```
+                    "code": 0,
+                    "message": "操作成功",
+                    "errors": [],
+                    "request_id": "00000000-0000-0000-0000-000000000159",
+                    "response_time": "2001-05-07 14:17:00",
+                    "response_count": 2,
+                    "total_count": 2,
+                    "data": [
+                        {
+                            "profile_id": 900000000000001,
+                            "campaign_id": 70000000000014,
+                            "cost": 4.28,
+                            "impressions": 67,
+                            "clicks": 1,
+                            "orders": 0,
+                            "direct_orders": 0,
+                            "units": 0,
+                            "sales": 0.0,
+                            "direct_sales": 0.0,
+                            "ctr": 0.0149,
+                            "cvr": 0.0,
+                            "cpc": 4.28,
+                            "cpa": 0.0,
+                            "acos": 0.0,
+                            "roas": 0.0,
+                            "hour": 6,
+                            "report_date": "2026-10-01",
+                        },
+                        ...,
+                    ],
+                }
         """
         url = route.SB_CAMPAIGN_HOUR_DATA
         # 解析并验证参数
@@ -3759,93 +4004,75 @@ class AdsAPI(BaseAPI):
         offset: int | None = None,
         length: int | None = None,
     ) -> schema.SbPlacementReports:
-        """查询 SB 广告活动投放位置报告
+        """查询SB广告活动广告位日报。
 
         ## Docs
-        - 新广告 - 报告: [SB广告活动-广告位报告](https://apidoc.lingxing.com/#/docs/newAd/report/hsaCampaignPlacementReports)
+        领星接口文档: 新广告 - 报告.[SB广告活动广告位日报](https://apidoc.lingxing.com/new/api-docs/newAd/report/hsaCampaignPlacementReports/)
 
-        :param report_date `<'str/date/datetime'>`: 报告日期
-        :param sid `<'int'>`: 领星店铺ID
-        :param profile_id `<'int'>`: 亚马逊店铺ID (广告帐号ID), 参数来源 `AdsProfiles.profile_id`
-        :param next_token `<'str/None'>`: 分页游标, 上次分页结果中的 `next_token`,
-            第一分页无需填写, 当 next_token 和 offset 同时传入时以 next_token 为主, 默认 `None`
-        :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
-        :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
-        :returns `<'SbPlacementReports'>`: 返回查询到的 SB 广告活动投放位置报告结果
-        ```python
-        {
-            # 状态码
-            "code": 0,
-            # 提示信息
-            "message": "success",
-            # 错误信息
-            "errors": [],
-            # 请求ID
-            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
-            # 响应时间
-            "response_time": "2025-08-13 19:23:04",
-            # 响应数据量
-            "response_count": 2,
-            # 总数据量
-            "total_count": 2,
-            # 响应数据
-            "data": [
+        Args:
+            report_date (str | datetime.date | datetime.datetime): 报告日期，建议提供完整YYYY-MM-DD；按输入日期的年月日查询，不额外换算时区。
+            sid (int): 领星店铺ID，与profile_id至少提供一项；按profile_id查询时显式传None。
+            profile_id (int): 广告账号ID，来源为AdProfiles.profile_id。按sid查询时显式传None。
+            next_token (str | None): 上一页返回的游标，默认None并省略。与offset同时提供时优先使用游标。
+            offset (int | None): 非负记录偏移量，默认None并省略；显式0保留。
+            length (int | None): 非负分页长度，默认None并省略，接口默认15；显式0保留。
+
+        Returns:
+            ads.schema.SbPlacementReports: data集合仅展示首项，数量字段保留完整返回值。creative_type已被官方标为作废，创意类型应查询SB广告创意数据。两账号标识同时提供时按profile_id定位。
+
+        Raises:
+            errors.InvalidParametersError: 请求参数不符合既有校验规则。
+            errors.RequestError: 请求失败或服务端返回接口错误。
+            pydantic.ValidationError: 返回内容不符合响应模型。
+
+        Examples:
+            查询报告并查看model_dump()返回的数据。
+
+            .. code-block:: python
+
+                result = await client.ads.SbPlacementReports(report_date="2026-10-01", sid=None, profile_id=900000000000002, offset=0, length=2)
+                print(result.model_dump())
+
+            .. code-block:: python
+
                 {
-                    # 亚马逊店铺ID (广告帐号ID)
-                    "profile_id": 494************,
-                    # 广告活动ID
-                    "campaign_id": 451************,
-                    # 广告投放位置 [原字段 'placement_type']
-                    "placement": "Top of Search on-Amazon",
-                    # 广告创意类型
-                    "creative_type": "all",
-                    # 广告花费
-                    "cost": 4.87,
-                    # 总展示次数
-                    "impressions": 112,
-                    # 总点击次数
-                    "clicks": 5,
-                    # 广告订单数
-                    "orders": 4,
-                    # 品牌新买家广告订单数
-                    "new_to_brand_orders": 3,
-                    # 品牌新买家订单占比 [原字段 'new_to_brand_order_percentage']
-                    # (品牌新买家广告订单数 / 广告订单数 x 100%)
-                    "new_to_brand_order_pct": 75.0,
-                    # 品牌新买家订单转化率
-                    # (品牌新买家广告订单数 / 总点击次数 x 100%)
-                    "new_to_brand_order_rate": 60.0,
-                    # 广告成交商品件数
-                    "units": 4,
-                    # 直接广告成交商品件数 [原字段 'same_units']
-                    "direct_units": 4,
-                    # 品牌新买家成交商品件数
-                    "new_to_brand_units": 3,
-                    # 广告销售额
-                    "sales": 159.56,
-                    # 品牌新买家销售额
-                    "new_to_brand_sales": 119.67,
-                    # 品牌搜索次数 [原字段 'branded_searches']
-                    "brand_searches": 0,
-                    # 视频广告播放25%次数 [原字段 'videofirstquartileviews']
-                    "video_25pct_views": 0,
-                    # 视频广告播放50%次数 [原字段 'videomidpointviews']
-                    "video_50pct_views": 0,
-                    # 视频广告播放75%次数 [原字段 'videothirdquartileviews']
-                    "video_75pct_views": 0,
-                    # 视频广告播放5秒次数 [原字段 'video5secondviews']
-                    "video_5sec_views": 0,
-                    # 视频广告播放5秒观看率 [原字段 'video5secondviewrate']
-                    "video_5sec_view_rate": 0.0,
-                    # 报告日期
-                    "report_date": "2025-08-23",
-                },
-                ...
-            ],
-            # 分页游标
-            "next_token": "MjgxNTExNTQ0MTc4ODM1",
-        }
-        ```
+                    "code": 0,
+                    "message": "操作成功",
+                    "errors": [],
+                    "request_id": "00000000-0000-0000-0000-000000000161",
+                    "response_time": "2001-05-07 12:56:00",
+                    "response_count": 2,
+                    "total_count": 12,
+                    "data": [
+                        {
+                            "profile_id": 900000000000002,
+                            "campaign_id": 700000000000155,
+                            "placement": "Other on-Amazon",
+                            "creative_type": "all",
+                            "cost": 2.94,
+                            "impressions": 47,
+                            "clicks": 1,
+                            "orders": 0,
+                            "new_to_brand_orders": 0,
+                            "new_to_brand_order_pct": 0.0,
+                            "new_to_brand_order_rate": 0.0,
+                            "units": 0,
+                            "direct_units": 0,
+                            "new_to_brand_units": 0,
+                            "sales": 0.0,
+                            "new_to_brand_sales": 0.0,
+                            "brand_searches": 0,
+                            "video_25pct_views": 0,
+                            "video_50pct_views": 0,
+                            "video_75pct_views": 0,
+                            "video_5sec_views": 0,
+                            "video_5sec_view_rate": 0.0,
+                            "report_date": "2026-10-01",
+                        },
+                        ...,
+                    ],
+                    "next_token": "MGFhMGFhMDBhYWEwMDAwYWEwMDAwYTAwYWEwMDAwMWM=",
+                }
         """
         url = route.SB_PLACEMENT_REPORTS
         # 解析并验证参数
@@ -3874,76 +4101,66 @@ class AdsAPI(BaseAPI):
         report_date: str | datetime.date | datetime.datetime,
         campaign_id: int,
     ) -> schema.SbPlacementHourData:
-        """查询 SB 广告活动投放位置小时数据
+        """查询SB广告位小时数据。
 
         ## Docs
-        - 新广告 - 报告: [SB广告位小时数据](https://apidoc.lingxing.com/#/docs/newAd/report/sbAdPlacementHourData)
+        领星接口文档: 新广告 - 报告.[SB广告位小时数据](https://apidoc.lingxing.com/new/api-docs/newAd/report/sbAdPlacementHourData/)
 
-        :param report_date `<'str/date/datetime'>`: 报告日期
-        :param campaign_id `<'int'>`: 广告活动ID, 参数来源 `SbCampaign.campaign_id`
-        :returns `<'SbPlacementHourData'>`: 返回查询到的 SB 广告活动投放位置小时数据结果
-        ```python
-        {
-            # 状态码
-            "code": 0,
-            # 提示信息
-            "message": "success",
-            # 错误信息
-            "errors": [],
-            # 请求ID
-            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
-            # 响应时间
-            "response_time": "2025-08-13 19:23:04",
-            # 响应数据量
-            "response_count": 2,
-            # 总数据量
-            "total_count": 2,
-            # 响应数据
-            "data": [
+        Args:
+            report_date (str | datetime.date | datetime.datetime): 报告日期，建议提供完整YYYY-MM-DD；按输入日期的年月日查询，不额外换算时区。
+            campaign_id (int): 广告活动ID；此方法只查询单个活动。接口支持最近60天。
+
+        Returns:
+            ads.schema.SbPlacementHourData: data集合仅展示首项，数量字段保留完整返回值。按小时返回，不提供分页参数。
+
+        Raises:
+            errors.InvalidParametersError: 请求参数不符合既有校验规则。
+            errors.RequestError: 请求失败或服务端返回接口错误。
+            pydantic.ValidationError: 返回内容不符合响应模型。
+
+        Examples:
+            查询报告并查看model_dump()返回的数据。
+
+            .. code-block:: python
+
+                result = await client.ads.SbPlacementHourData(report_date="2026-10-01", campaign_id=70000000000014)
+                print(result.model_dump())
+
+            .. code-block:: python
+
                 {
-                    # 亚马逊店铺ID (广告帐号ID)
-                    "profile_id": 494************,
-                    # 广告活动ID
-                    "campaign_id": 442************,
-                    # 广告投放位置
-                    "placement: "Other on-Amazon",
-                    # 广告花费
-                    "cost": 2.4,
-                    # 广告花费
-                    "impressions": 28,
-                    # 总点击次数
-                    "clicks": 1,
-                    # 广告订单数
-                    "orders": 1,
-                    # 直接广告订单数 [原字段 'same_orders']
-                    "direct_orders": 1,
-                    # 广告成交商品件数
-                    "units": 1,
-                    # 广告销售额
-                    "sales": 39.89,
-                    # 直接广告销售额 [原字段 'same_sales']
-                    "direct_sales": 39.89,
-                    # 点击率 - Click Through Rate (总点击次数 / 总展示次数)
-                    "ctr": 0.0357,
-                    # 转化率 - Conversion Rate (广告订单数 / 总点击次数)
-                    "cvr": 1.0,
-                    # 平均点击花费 - Cost Per Click (广告花费 / 总点击次数)
-                    "cpc": 2.4,
-                    # 平均订单花费 - Cost Per Acquisition (广告花费 / 广告订单数)
-                    "cpa": 2.4,
-                    # 广告花费占比 - Ad Cost of Sales (广告花费 / 广告销售额)
-                    "acos": 0.0602,
-                    # 广告投入回报 - Return On Ad Spend (广告销售额 / 广告花费)
-                    "roas": 16.62,
-                    # 数据所属小时 (0-23)
-                    "hour": 20,
-                    # 报告日期
-                    "report_date": "2025-08-25",
-                },
-                ...
-            ],
-        }
-        ```
+                    "code": 0,
+                    "message": "操作成功",
+                    "errors": [],
+                    "request_id": "00000000-0000-0000-0000-00000000000f",
+                    "response_time": "2001-05-07 14:20:00",
+                    "response_count": 2,
+                    "total_count": 2,
+                    "data": [
+                        {
+                            "profile_id": 900000000000001,
+                            "campaign_id": 70000000000014,
+                            "placement": "Top of Search on-Amazon",
+                            "cost": 4.28,
+                            "impressions": 9,
+                            "clicks": 1,
+                            "orders": 0,
+                            "direct_orders": 0,
+                            "units": 0,
+                            "sales": 0.0,
+                            "direct_sales": 0.0,
+                            "ctr": 0.1111,
+                            "cvr": 0.0,
+                            "cpc": 4.28,
+                            "cpa": 0.0,
+                            "acos": 0.0,
+                            "roas": 0.0,
+                            "hour": 6,
+                            "report_date": "2026-10-01",
+                        },
+                        ...,
+                    ],
+                }
         """
         url = route.SB_PLACEMENT_HOUR_DATA
         # 解析并验证参数
@@ -3970,89 +4187,72 @@ class AdsAPI(BaseAPI):
         offset: int | None = None,
         length: int | None = None,
     ) -> schema.SbAdGroupReports:
-        """查询 SB 广告组报告
+        """查询SB广告组日报。
 
         ## Docs
-        - 新广告 - 报告: [SB广告组报表](https://apidoc.lingxing.com/#/docs/newAd/report/hsaAdGroupReports)
+        领星接口文档: 新广告 - 报告.[SB广告组日报](https://apidoc.lingxing.com/new/api-docs/newAd/report/hsaAdGroupReports/)
 
-        :param report_date `<'str/date/datetime'>`: 报告日期
-        :param sid `<'int'>`: 领星店铺ID
-        :param profile_id `<'int'>`: 亚马逊店铺ID (广告帐号ID), 参数来源 `AdsProfiles.profile_id`
-        :param next_token `<'str/None'>`: 分页游标, 上次分页结果中的 `next_token`,
-            第一分页无需填写, 当 next_token 和 offset 同时传入时以 next_token 为主, 默认 `None`
-        :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
-        :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
-        :returns `<'SbAdGroupReports'>`: 返回查询到的 SB 广告组报告结果
-        ```python
-        {
-            # 状态码
-            "code": 0,
-            # 提示信息
-            "message": "success",
-            # 错误信息
-            "errors": [],
-            # 请求ID
-            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
-            # 响应时间
-            "response_time": "2025-08-13 19:23:04",
-            # 响应数据量
-            "response_count": 2,
-            # 总数据量
-            "total_count": 2,
-            # 响应数据
-            "data": [
+        Args:
+            report_date (str | datetime.date | datetime.datetime): 报告日期，建议提供完整YYYY-MM-DD；按输入日期的年月日查询，不额外换算时区。
+            sid (int): 领星店铺ID，与profile_id至少提供一项；按profile_id查询时显式传None。
+            profile_id (int): 广告账号ID，来源为AdProfiles.profile_id。按sid查询时显式传None。
+            next_token (str | None): 上一页返回的游标，默认None并省略。与offset同时提供时优先使用游标。
+            offset (int | None): 非负记录偏移量，默认None并省略；显式0保留。
+            length (int | None): 非负分页长度，默认None并省略，接口默认15；显式0保留。
+
+        Returns:
+            ads.schema.SbAdGroupReports: data集合仅展示首项，数量字段保留完整返回值。两账号标识同时提供时按profile_id定位。
+
+        Raises:
+            errors.InvalidParametersError: 请求参数不符合既有校验规则。
+            errors.RequestError: 请求失败或服务端返回接口错误。
+            pydantic.ValidationError: 返回内容不符合响应模型。
+
+        Examples:
+            查询报告并查看model_dump()返回的数据。
+
+            .. code-block:: python
+
+                result = await client.ads.SbAdGroupReports(report_date="2026-10-01", sid=None, profile_id=900000000000001, offset=0, length=2)
+                print(result.model_dump())
+
+            .. code-block:: python
+
                 {
-                    # 亚马逊店铺ID (广告帐号ID)
-                    "profile_id": 494************,
-                    # 广告活动ID
-                    "campaign_id": 536************,
-                    # 广告组ID
-                    "ad_group_id": 445************,
-                    # 广告花费
-                    "cost": 12.88,
-                    # 总展示次数
-                    "impressions": 805,
-                    # 总点击次数
-                    "clicks": 17,
-                    # 广告订单数
-                    "orders": 4,
-                    # 直接广告订单数 [原字段 'same_orders']
-                    "direct_orders": 4,
-                    # 品牌新买家广告订单数
-                    "new_to_brand_orders": 4,
-                    # 品牌新买家订单占比 [原字段 'new_to_brand_order_percentage']
-                    # (品牌新买家广告订单数 / 广告订单数 x 100%)
-                    "new_to_brand_order_pct": 100.0,
-                    # 品牌新买家订单转化率
-                    # (品牌新买家广告订单数 / 总点击次数 x 100%)
-                    "new_to_brand_order_rate": 23.53,
-                    # 广告成交商品件数
-                    "units": 5,
-                    # 直接广告成交商品件数 [原字段 'same_units']
-                    "direct_units": 5,
-                    # 品牌新买家成交商品件数
-                    "new_to_brand_units": 5,
-                    # 广告销售额
-                    "sales": 149.4,
-                    # 直接广告销售额 [原字段 'same_sales']
-                    "direct_sales": 149.4,
-                    # 品牌新买家销售额
-                    "new_to_brand_sales": 149.4,
-                    # 广告可见率 - View Through Rate
-                    # (可见展示次数 / 总展示次数 x 100%)
-                    "vtr": 20.87,
-                    # 广告可见点击率 - View Click Through Rate
-                    # (总点击次数 / 可见展示次数 x 100%)
-                    "vctr": 10.12,
-                    # 报告日期
-                    "report_date": "2025-08-23",
-                },
-                ...
-            ],
-            # 分页游标
-            "next_token": "MjgxNTExNTQ0MTc4ODM1",
-        }
-        ```
+                    "code": 0,
+                    "message": "操作成功",
+                    "errors": [],
+                    "request_id": "00000000-0000-0000-0000-000000000151",
+                    "response_time": "2001-05-07 13:11:00",
+                    "response_count": 2,
+                    "total_count": 6,
+                    "data": [
+                        {
+                            "profile_id": 900000000000001,
+                            "campaign_id": 700000000000001,
+                            "ad_group_id": 600000000000011,
+                            "cost": 5.24,
+                            "impressions": 126,
+                            "clicks": 2,
+                            "orders": 1,
+                            "direct_orders": 1,
+                            "new_to_brand_orders": 1,
+                            "new_to_brand_order_pct": 100.0,
+                            "new_to_brand_order_rate": 0.0,
+                            "units": 1,
+                            "direct_units": 0,
+                            "new_to_brand_units": 1,
+                            "sales": 38.99,
+                            "direct_sales": 38.99,
+                            "new_to_brand_sales": 38.99,
+                            "vtr": 0.0,
+                            "vctr": 0.0,
+                            "report_date": "2026-10-01",
+                        },
+                        ...,
+                    ],
+                    "next_token": "MTAwMDAwMDIw",
+                }
         """
         url = route.SB_AD_GROUP_REPORTS
         # 解析并验证参数
@@ -4081,76 +4281,66 @@ class AdsAPI(BaseAPI):
         report_date: str | datetime.date | datetime.datetime,
         campaign_id: int,
     ) -> schema.SbAdGroupHourData:
-        """查询 SB 广告组小时数据
+        """查询SB广告组小时数据。
 
         ## Docs
-        - 新广告 - 报告: [SB广告组小时数据](https://apidoc.lingxing.com/#/docs/newAd/report/sbAdGroupHourData)
+        领星接口文档: 新广告 - 报告.[SB广告组小时数据](https://apidoc.lingxing.com/new/api-docs/newAd/report/sbAdGroupHourData/)
 
-        :param report_date `<'str/date/datetime'>`: 报告日期
-        :param campaign_id `<'int'>`: 广告活动ID, 参数来源 `SbCampaign.campaign_id`
-        :returns `<'SbAdGroupHourData'>`: 返回查询到的 SB 广告组小时数据结果
-        ```python
-        {
-            # 状态码
-            "code": 0,
-            # 提示信息
-            "message": "success",
-            # 错误信息
-            "errors": [],
-            # 请求ID
-            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
-            # 响应时间
-            "response_time": "2025-08-13 19:23:04",
-            # 响应数据量
-            "response_count": 2,
-            # 总数据量
-            "total_count": 2,
-            # 响应数据
-            "data": [
+        Args:
+            report_date (str | datetime.date | datetime.datetime): 报告日期，建议提供完整YYYY-MM-DD；按输入日期的年月日查询，不额外换算时区。
+            campaign_id (int): 广告活动ID；此方法只查询单个活动。接口支持最近60天。
+
+        Returns:
+            ads.schema.SbAdGroupHourData: data集合仅展示首项，数量字段保留完整返回值。按小时返回，不提供分页参数。
+
+        Raises:
+            errors.InvalidParametersError: 请求参数不符合既有校验规则。
+            errors.RequestError: 请求失败或服务端返回接口错误。
+            pydantic.ValidationError: 返回内容不符合响应模型。
+
+        Examples:
+            查询报告并查看model_dump()返回的数据。
+
+            .. code-block:: python
+
+                result = await client.ads.SbAdGroupHourData(report_date="2026-10-01", campaign_id=70000000000014)
+                print(result.model_dump())
+
+            .. code-block:: python
+
                 {
-                    # 亚马逊店铺ID (广告帐号ID)
-                    "profile_id": 494************,
-                    # 广告活动ID
-                    "campaign_id": 442************,
-                    # 广告组ID [原字段 'group_id']
-                    "ad_group_id": 329************,
-                    # 广告花费
-                    "cost": 2.4,
-                    # 广告花费
-                    "impressions": 28,
-                    # 总点击次数
-                    "clicks": 1,
-                    # 广告订单数
-                    "orders": 1,
-                    # 直接广告订单数 [原字段 'same_orders']
-                    "direct_orders": 1,
-                    # 广告成交商品件数
-                    "units": 1,
-                    # 广告销售额
-                    "sales": 39.89,
-                    # 直接广告销售额 [原字段 'same_sales']
-                    "direct_sales": 39.89,
-                    # 点击率 - Click Through Rate (总点击次数 / 总展示次数)
-                    "ctr": 0.0357,
-                    # 转化率 - Conversion Rate (广告订单数 / 总点击次数)
-                    "cvr": 1.0,
-                    # 平均点击花费 - Cost Per Click (广告花费 / 总点击次数)
-                    "cpc": 2.4,
-                    # 平均订单花费 - Cost Per Acquisition (广告花费 / 广告订单数)
-                    "cpa": 2.4,
-                    # 广告花费占比 - Ad Cost of Sales (广告花费 / 广告销售额)
-                    "acos": 0.0602,
-                    # 广告投入回报 - Return On Ad Spend (广告销售额 / 广告花费)
-                    "roas": 16.62,
-                    # 数据所属小时 (0-23)
-                    "hour": 20,
-                    # 报告日期
-                    "report_date": "2025-08-25",
-                },
-                ...
-            ],
-        }
-        ```
+                    "code": 0,
+                    "message": "操作成功",
+                    "errors": [],
+                    "request_id": "00000000-0000-0000-0000-000000000163",
+                    "response_time": "2001-05-07 14:23:00",
+                    "response_count": 2,
+                    "total_count": 2,
+                    "data": [
+                        {
+                            "profile_id": 900000000000001,
+                            "campaign_id": 70000000000014,
+                            "ad_group_id": 600000000000007,
+                            "cost": 4.28,
+                            "impressions": 67,
+                            "clicks": 1,
+                            "orders": 0,
+                            "direct_orders": 0,
+                            "units": 0,
+                            "sales": 0.0,
+                            "direct_sales": 0.0,
+                            "ctr": 0.0149,
+                            "cvr": 0.0,
+                            "cpc": 4.28,
+                            "cpa": 0.0,
+                            "acos": 0.0,
+                            "roas": 0.0,
+                            "hour": 6,
+                            "report_date": "2026-10-01",
+                        },
+                        ...,
+                    ],
+                }
         """
         url = route.SB_AD_GROUP_HOUR_DATA
         # 解析并验证参数
@@ -4177,91 +4367,73 @@ class AdsAPI(BaseAPI):
         offset: int | None = None,
         length: int | None = None,
     ) -> schema.SbCreativeReports:
-        """查询 SB 广告创意报告
+        """查询SB广告创意日报。
 
         ## Docs
-        - 新广告 - 报告: [SB广告创意报告](https://apidoc.lingxing.com/#/docs/newAd/report/listHsaProductAdReport)
+        领星接口文档: 新广告 - 报告.[SB广告创意日报](https://apidoc.lingxing.com/new/api-docs/newAd/report/listHsaProductAdReport/)
 
-        :param report_date `<'str/date/datetime'>`: 报告日期
-        :param sid `<'int'>`: 领星店铺ID
-        :param profile_id `<'int'>`: 亚马逊店铺ID (广告帐号ID), 参数来源 `AdsProfiles.profile_id`
-        :param next_token `<'str/None'>`: 分页游标, 上次分页结果中的 `next_token`,
-            第一分页无需填写, 当 next_token 和 offset 同时传入时以 next_token 为主, 默认 `None`
-        :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
-        :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
-        :returns `<'SbCreativeReports'>`: 返回查询到的 SB 广告创意报告结果
-        ```python
-        {
-            # 状态码
-            "code": 0,
-            # 提示信息
-            "message": "success",
-            # 错误信息
-            "errors": [],
-            # 请求ID
-            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
-            # 响应时间
-            "response_time": "2025-08-13 19:23:04",
-            # 响应数据量
-            "response_count": 2,
-            # 总数据量
-            "total_count": 2,
-            # 响应数据
-            "data": [
+        Args:
+            report_date (str | datetime.date | datetime.datetime): 报告日期，建议提供完整YYYY-MM-DD；按输入日期的年月日查询，不额外换算时区。
+            sid (int): 领星店铺ID，与profile_id至少提供一项；按profile_id查询时显式传None。
+            profile_id (int): 广告账号ID，来源为AdProfiles.profile_id。按sid查询时显式传None。
+            next_token (str | None): 上一页返回的游标，默认None并省略。与offset同时提供时优先使用游标。
+            offset (int | None): 非负记录偏移量，默认None并省略；显式0保留。
+            length (int | None): 非负分页长度，默认None并省略，接口默认15；显式0保留。
+
+        Returns:
+            ads.schema.SbCreativeReports: data集合仅展示首项，数量字段保留完整返回值。两账号标识同时提供时按profile_id定位。
+
+        Raises:
+            errors.InvalidParametersError: 请求参数不符合既有校验规则。
+            errors.RequestError: 请求失败或服务端返回接口错误。
+            pydantic.ValidationError: 返回内容不符合响应模型。
+
+        Examples:
+            查询报告并查看model_dump()返回的数据。
+
+            .. code-block:: python
+
+                result = await client.ads.SbCreativeReports(report_date="2026-10-01", sid=None, profile_id=900000000000001, offset=0, length=2)
+                print(result.model_dump())
+
+            .. code-block:: python
+
                 {
-                    # 亚马逊店铺ID (广告帐号ID)
-                    "profile_id": 494************,
-                    # 广告活动ID
-                    "campaign_id": 451************,
-                    # 广告组ID
-                    "ad_group_id": 329************,
-                    # 广告创意ID [原字段 'ad_creative_id']
-                    "creative_id": 442************,
-                    # 广告花费
-                    "cost": 7.06,
-                    # 总展示次数
-                    "impressions": 1335,
-                    # 总点击次数
-                    "clicks": 7,
-                    # 广告订单数
-                    "orders": 5,
-                    # 直接广告订单数 [原字段 'same_orders']
-                    "direct_orders": 5,
-                    # 品牌新买家广告订单数
-                    "new_to_brand_orders": 5,
-                    # 品牌新买家订单占比 [原字段 'new_to_brand_order_percentage']
-                    # (品牌新买家广告订单数 / 广告订单数 x 100%)
-                    "new_to_brand_order_pct": 100.0,
-                    # 品牌新买家订单转化率
-                    # (品牌新买家广告订单数 / 总点击次数 x 100%)
-                    "new_to_brand_order_rate": 71.43,
-                    # 广告成交商品件数
-                    "units": 6,
-                    # 直接广告成交商品件数 [原字段 'same_units']
-                    "direct_units": 6,
-                    # 品牌新买家成交商品件数
-                    "new_to_brand_units": 6,
-                    # 广告销售额
-                    "sales": 239.34,
-                    # 直接广告销售额 [原字段 'same_sales']
-                    "direct_sales": 239.34,
-                    # 品牌新买家销售额
-                    "new_to_brand_sales": 239.34,
-                    # 广告可见率 - View Through Rate
-                    # (可见展示次数 / 总展示次数 x 100%)
-                    "vtr": 13.86,
-                    # 广告可见点击率 - View Click Through Rate
-                    # (总点击次数 / 可见展示次数 x 100%)
-                    "vctr": 3.78,
-                    # 报告日期
-                    "report_date": "2025-08-24",
-                },
-                ...
-            ],
-            # 分页游标
-            "next_token": "MjgxNTExNTQ0MTc4ODM1",
-        }
-        ```
+                    "code": 0,
+                    "message": "操作成功",
+                    "errors": [],
+                    "request_id": "00000000-0000-0000-0000-0000000000c2",
+                    "response_time": "2001-05-07 13:26:00",
+                    "response_count": 2,
+                    "total_count": 6,
+                    "data": [
+                        {
+                            "profile_id": 900000000000001,
+                            "campaign_id": 700000000000001,
+                            "ad_group_id": 600000000000011,
+                            "creative_id": 500000000000001,
+                            "cost": 5.24,
+                            "impressions": 127,
+                            "clicks": 2,
+                            "orders": 1,
+                            "direct_orders": 1,
+                            "new_to_brand_orders": 1,
+                            "new_to_brand_order_pct": 100.0,
+                            "new_to_brand_order_rate": 50.0,
+                            "units": 1,
+                            "direct_units": 1,
+                            "new_to_brand_units": 1,
+                            "sales": 38.99,
+                            "direct_sales": 38.99,
+                            "new_to_brand_sales": 38.99,
+                            "vtr": 22.83,
+                            "vctr": 6.9,
+                            "report_date": "2026-10-01",
+                        },
+                        ...,
+                    ],
+                    "next_token": "MTAwMDAwMDE3",
+                }
         """
         url = route.SB_CREATIVE_REPORTS
         # 解析并验证参数
@@ -4295,87 +4467,72 @@ class AdsAPI(BaseAPI):
         offset: int | None = None,
         length: int | None = None,
     ) -> schema.SbKeywordReports:
-        """查询 SB 关键词投放报告
+        """查询SB关键词投放日报。
 
         ## Docs
-        - 新广告 - 报告: [SB广告的投放报告(keyword)](https://apidoc.lingxing.com/#/docs/newAd/report/listHsaTargetingReport)
+        领星接口文档: 新广告 - 报告.[SB关键词投放日报](https://apidoc.lingxing.com/new/api-docs/newAd/report/listHsaTargetingReport/)
 
-        :param report_date `<'str/date/datetime'>`: 报告日期
-        :param sid `<'int'>`: 领星店铺ID
-        :param profile_id `<'int'>`: 亚马逊店铺ID (广告帐号ID), 参数来源 `AdsProfiles.profile_id`
-        :param next_token `<'str/None'>`: 分页游标, 上次分页结果中的 `next_token`,
-            第一分页无需填写, 当 next_token 和 offset 同时传入时以 next_token 为主, 默认 `None`
-        :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
-        :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
-        :returns `<'SbKeywordReports'>`: 返回查询到的 SB 关键词投放报告结果
-        ```python
-        {
-            # 状态码
-            "code": 0,
-            # 提示信息
-            "message": "success",
-            # 错误信息
-            "errors": [],
-            # 请求ID
-            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
-            # 响应时间
-            "response_time": "2025-08-13 19:23:04",
-            # 响应数据量
-            "response_count": 2,
-            # 总数据量
-            "total_count": 2,
-            # 响应数据
-            "data": [
+        Args:
+            report_date (str | datetime.date | datetime.datetime): 报告日期，建议提供完整YYYY-MM-DD；按输入日期的年月日查询，不额外换算时区。
+            sid (int): 领星店铺ID，与profile_id至少提供一项；按profile_id查询时显式传None。
+            profile_id (int): 广告账号ID，来源为AdProfiles.profile_id。按sid查询时显式传None。
+            next_token (str | None): 上一页返回的游标，默认None并省略。与offset同时提供时优先使用游标。
+            offset (int | None): 非负记录偏移量，默认None并省略；显式0保留。
+            length (int | None): 非负分页长度，默认None并省略，接口默认10；显式0保留。
+
+        Returns:
+            ads.schema.SbKeywordReports: data集合仅展示首项，数量字段保留完整返回值。creative_type已被官方标为作废，创意类型应查询SB广告创意数据。两账号标识同时提供时按profile_id定位。
+
+        Raises:
+            errors.InvalidParametersError: 请求参数不符合既有校验规则。
+            errors.RequestError: 请求失败或服务端返回接口错误。
+            pydantic.ValidationError: 返回内容不符合响应模型。
+
+        Examples:
+            查询报告并查看model_dump()返回的数据。
+
+            .. code-block:: python
+
+                result = await client.ads.SbKeywordReports(report_date="2026-10-01", sid=None, profile_id=90000000000005, offset=0, length=2)
+                print(result.model_dump())
+
+            .. code-block:: python
+
                 {
-                    # 亚马逊店铺ID (广告帐号ID)
-                    "profile_id": 494************,
-                    # 广告活动ID
-                    "campaign_id": 404************,
-                    # 广告组ID
-                    "ad_group_id": 328************,
-                    # 关键词ID
-                    "keyword_id": 562************,
-                    # 广告创意类型
-                    "creative_type": "all",
-                    # 广告花费
-                    "cost": 1.49,
-                    # 总展示次数
-                    "impressions": 5,
-                    # 总点击次数
-                    "clicks": 1,
-                    # 广告订单数
-                    "orders": 1,
-                    # 直接广告订单数 [原字段 'same_orders']
-                    "direct_orders": 1,
-                    # 品牌新买家广告订单数
-                    "new_to_brand_orders": 1,
-                    # 品牌新买家订单占比 [原字段 'new_to_brand_order_percentage']
-                    # (品牌新买家广告订单数 / 广告订单数 x 100%)
-                    "new_to_brand_order_pct": 100.0,
-                    # 品牌新买家订单转化率
-                    # (品牌新买家广告订单数 / 总点击次数 x 100%)
-                    "new_to_brand_order_rate": 100.0,
-                    # 广告成交商品件数
-                    "units": 1,
-                    # 直接广告成交商品件数 [原字段 'same_units']
-                    "direct_units": 1,
-                    # 品牌新买家成交商品件数
-                    "new_to_brand_units": 1,
-                    # 广告销售额
-                    "sales": 35.0,
-                    # 直接广告销售额 [原字段 'same_sales']
-                    "direct_sales": 35.0,
-                    # 品牌新买家销售额
-                    "new_to_brand_sales": 35.0,
-                    # 报告日期
-                    "report_date": "2025-08-23",
-                },
-                ...
-            ],
-            # 分页游标
-            "next_token": "MjgxNTExNTQ0MTc4ODM1",
-        }
-        ```
+                    "code": 0,
+                    "message": "操作成功",
+                    "errors": [],
+                    "request_id": "00000000-0000-0000-0000-00000000015a",
+                    "response_time": "2001-05-07 13:39:00",
+                    "response_count": 2,
+                    "total_count": 100,
+                    "data": [
+                        {
+                            "profile_id": 90000000000005,
+                            "campaign_id": 70000000000013,
+                            "ad_group_id": 600000000000005,
+                            "keyword_id": 400000000003,
+                            "creative_type": "all",
+                            "cost": 2.05,
+                            "impressions": 91,
+                            "clicks": 1,
+                            "orders": 0,
+                            "direct_orders": 0,
+                            "new_to_brand_orders": 0,
+                            "new_to_brand_order_pct": 0.0,
+                            "new_to_brand_order_rate": 0.0,
+                            "units": 0,
+                            "direct_units": 0,
+                            "new_to_brand_units": 0,
+                            "sales": 0.0,
+                            "direct_sales": 0.0,
+                            "new_to_brand_sales": 0.0,
+                            "report_date": "2026-10-01",
+                        },
+                        ...,
+                    ],
+                    "next_token": "MTAwMDAwMDAwMDAzOQ==",
+                }
         """
         url = route.SB_TARGETING_REPORTS
         # 解析并验证参数
@@ -4410,98 +4567,79 @@ class AdsAPI(BaseAPI):
         offset: int | None = None,
         length: int | None = None,
     ) -> schema.SbKeywordQueryReports:
-        """查询 SB 关键词的用户搜索词报告
+        """查询SB关键词用户搜索词日报。
 
         ## Docs
-        - 新广告 - 报告: [SB用户搜索词报表(keyword)](https://apidoc.lingxing.com/#/docs/newAd/report/hsaQueryWordReports)
+        领星接口文档: 新广告 - 报告.[SB关键词用户搜索词日报](https://apidoc.lingxing.com/new/api-docs/newAd/report/hsaQueryWordReports/)
 
-        :param report_date `<'str/date/datetime'>`: 报告日期
-        :param sid `<'int'>`: 领星店铺ID
-        :param profile_id `<'int'>`: 亚马逊店铺ID (广告帐号ID), 参数来源 `AdsProfiles.profile_id`
-        :param next_token `<'str/None'>`: 分页游标, 上次分页结果中的 `next_token`,
-            第一分页无需填写, 当 next_token 和 offset 同时传入时以 next_token 为主, 默认 `None`
-        :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
-        :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
-        :returns `<'SbKeywordQueryReports'>`: 返回查询到的 SB 关键词的用户搜索词报告结果
-        ```python
-        {
-            # 状态码
-            "code": 0,
-            # 提示信息
-            "message": "success",
-            # 错误信息
-            "errors": [],
-            # 请求ID
-            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
-            # 响应时间
-            "response_time": "2025-08-13 19:23:04",
-            # 响应数据量
-            "response_count": 2,
-            # 总数据量
-            "total_count": 2,
-            # 响应数据
-            "data": [
+        Args:
+            report_date (str | datetime.date | datetime.datetime): 报告日期，建议提供完整YYYY-MM-DD；按输入日期的年月日查询，不额外换算时区。
+            sid (int): 领星店铺ID，与profile_id至少提供一项；按profile_id查询时显式传None。
+            profile_id (int): 广告账号ID，来源为AdProfiles.profile_id。按sid查询时显式传None。
+            next_token (str | None): 上一页返回的游标，默认None并省略。与offset二选一；官方请求字段为nextToken。
+            offset (int | None): 非负记录偏移量，默认None并省略；显式0保留。
+            length (int | None): 非负分页长度，默认None并省略，接口默认15；显式0保留。
+
+        Returns:
+            ads.schema.SbKeywordQueryReports: data集合仅展示首项，数量字段保留完整返回值。两账号标识同时提供时按profile_id定位。
+
+        Raises:
+            errors.InvalidParametersError: 请求参数不符合既有校验规则。
+            errors.RequestError: 请求失败或服务端返回接口错误。
+            pydantic.ValidationError: 返回内容不符合响应模型。
+
+        Examples:
+            查询报告并查看model_dump()返回的数据。
+
+            .. code-block:: python
+
+                result = await client.ads.SbKeywordQueryReports(report_date="2026-10-01", sid=None, profile_id=90000000000005, offset=0, length=2)
+                print(result.model_dump())
+
+            .. code-block:: python
+
                 {
-                    # 亚马逊店铺ID (广告帐号ID)
-                    "profile_id": 494************,
-                    # 广告活动ID
-                    "campaign_id": 451************,
-                    # 广告组ID
-                    "ad_group_id": 329************,
-                    # 用户使用搜索词 [原字段 'query']
-                    "query_text": "hp envy 5660 ink",
-                    # 广告花费
-                    "cost": 0.62,
-                    # 总展示次数
-                    "impressions": 3,
-                    # 总点击次数
-                    "clicks": 1,
-                    # 广告订单数
-                    "orders": 1,
-                    # 直接广告订单数 [原字段 'same_orders']
-                    "direct_orders": 1,
-                    # 品牌新买家广告订单数
-                    "new_to_brand_orders": 0,
-                    # 品牌新买家订单占比 [原字段 'new_to_brand_order_percentage']
-                    # (品牌新买家广告订单数 / 广告订单数 x 100%)
-                    "new_to_brand_order_pct": 0.0,
-                    # 品牌新买家订单转化率
-                    "new_to_brand_order_rate": 0.0,
-                    # 广告销售额
-                    "sales": 39.89,
-                    # 直接广告销售额 [原字段 'same_sales']
-                    "direct_sales": 39.89,
-                    # 品牌新买家销售额
-                    "new_to_brand_sales": 0.0,
-                    # 视频广告播放25%次数 [原字段 'video_first_quartile_views']
-                    "video_25pct_views": 0,
-                    # 视频广告播放50%次数 [原字段 'video_midpoint_views']
-                    "video_50pct_views": 0,
-                    # 视频广告播放75%次数 [原字段 'video_third_quartile_views']
-                    "video_75pct_views": 0,
-                    # 视频广告播放100%次数 [原字段 'video_complete_views']
-                    "video_100pct_views": 0,
-                    # 视频广告播放5秒次数 [原字段 'video_5_second_views']
-                    "video_5sec_views": 0,
-                    # 视频广告播放5秒观看率 [原字段 'video_5_second_view_rate']
-                    "video_5sec_view_rate": 0.0,
-                    # 视频广告静音取消次数 [原字段 'video_unmutes']
-                    "video_unmutes": 0,
-                    # 报告日期
-                    "report_date": "2025-08-24",
-                    # 关键词ID [原字段 'target_id']
-                    "keyword_id": 431************,
-                    # 关键词文本 [原字段 'target_text']
-                    "keyword_text": "+hp +envy +5660 +ink",
-                    # 关键词匹配类型
-                    "match_type": "broad",
-                },
-                ...
-            ],
-            # 分页游标
-            "next_token": "MjgxNTExNTQ0MTc4ODM1",
-        }
-        ```
+                    "code": 0,
+                    "message": "操作成功",
+                    "errors": [],
+                    "request_id": "00000000-0000-0000-0000-00000000007a",
+                    "response_time": "2001-05-07 13:45:00",
+                    "response_count": 2,
+                    "total_count": 6,
+                    "data": [
+                        {
+                            "profile_id": 90000000000005,
+                            "campaign_id": 70000000000012,
+                            "ad_group_id": 600000000000009,
+                            "query_text": "aaaaa aa-000a aaaaaaa aaa aa-000a aaaa-aaaaaaaaaaaaa a示a aaaac",
+                            "cost": 1.67,
+                            "impressions": 1,
+                            "clicks": 1,
+                            "orders": 1,
+                            "direct_orders": 0,
+                            "new_to_brand_orders": 0,
+                            "new_to_brand_order_pct": 0.0,
+                            "new_to_brand_order_rate": 0.0,
+                            "new_to_brand_units": 0,
+                            "sales": 28.54,
+                            "direct_sales": 0.0,
+                            "new_to_brand_sales": 0.0,
+                            "video_25pct_views": 0,
+                            "video_50pct_views": 0,
+                            "video_75pct_views": 0,
+                            "video_100pct_views": 0,
+                            "video_5sec_views": 0,
+                            "video_5sec_view_rate": 0.0,
+                            "video_unmutes": 0,
+                            "report_date": "2026-10-01",
+                            "keyword_id": 40000000000005,
+                            "keyword_text": "aaaaa aaaaaaaaaaaaaaa 003",
+                            "match_type": "phrase",
+                        },
+                        ...,
+                    ],
+                    "next_token": "MDAwYWFhMGFhMGEwYTAwMDAwMGFhYWEwMDBhYTBhZTE=",
+                }
         """
         url = route.SB_QUERY_REPORTS
         # 解析并验证参数
@@ -4535,87 +4673,72 @@ class AdsAPI(BaseAPI):
         offset: int | None = None,
         length: int | None = None,
     ) -> schema.SbKeywordPlacementReports:
-        """查询 SB 关键词投放位置报告
+        """查询SB关键词广告位日报。
 
         ## Docs
-        - 新广告 - 报告: [SB关键词-广告位报告](https://apidoc.lingxing.com/#/docs/newAd/report/listHsaKeywordPlacementReport)
+        领星接口文档: 新广告 - 报告.[SB关键词广告位日报](https://apidoc.lingxing.com/new/api-docs/newAd/report/listHsaKeywordPlacementReport/)
 
-        :param report_date `<'str/date/datetime'>`: 报告日期
-        :param sid `<'int'>`: 领星店铺ID
-        :param profile_id `<'int'>`: 亚马逊店铺ID (广告帐号ID), 参数来源 `AdsProfiles.profile_id`
-        :param next_token `<'str/None'>`: 分页游标, 上次分页结果中的 `next_token`,
-            第一分页无需填写, 当 next_token 和 offset 同时传入时以 next_token 为主, 默认 `None`
-        :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
-        :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
-        :returns `<'SbKeywordPlacementReports'>`: 返回查询到的 SB 关键词投放位置报告
-        ```python
-        {
-            # 状态码
-            "code": 0,
-            # 提示信息
-            "message": "success",
-            # 错误信息
-            "errors": [],
-            # 请求ID
-            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
-            # 响应时间
-            "response_time": "2025-08-13 19:23:04",
-            # 响应数据量
-            "response_count": 2,
-            # 总数据量
-            "total_count": 2,
-            # 响应数据
-            "data": [
+        Args:
+            report_date (str | datetime.date | datetime.datetime): 报告日期，建议提供完整YYYY-MM-DD；按输入日期的年月日查询，不额外换算时区。
+            sid (int): 领星店铺ID，与profile_id至少提供一项；按profile_id查询时显式传None。
+            profile_id (int): 广告账号ID，来源为AdProfiles.profile_id。按sid查询时显式传None。
+            next_token (str | None): 上一页返回的游标，默认None并省略。建议与offset分别使用。
+            offset (int | None): 非负记录偏移量，默认None并省略；显式0保留。
+            length (int | None): 非负分页长度，默认None并省略，接口默认15；显式0保留。
+
+        Returns:
+            ads.schema.SbKeywordPlacementReports: data集合仅展示首项，数量字段保留完整返回值。
+
+        Raises:
+            errors.InvalidParametersError: 请求参数不符合既有校验规则。
+            errors.RequestError: 请求失败或服务端返回接口错误。
+            pydantic.ValidationError: 返回内容不符合响应模型。
+
+        Examples:
+            查询报告并查看model_dump()返回的数据。
+
+            .. code-block:: python
+
+                result = await client.ads.SbKeywordPlacementReports(report_date="2026-10-01", sid=None, profile_id=9000000000000005, offset=0, length=2)
+                print(result.model_dump())
+
+            .. code-block:: python
+
                 {
-                    # 亚马逊店铺ID (广告帐号ID)
-                    "profile_id": 6031***********,
-                    # 广告活动ID
-                    "campaign_id": 14432*************,
-                    # 关键词ID
-                    "keyword_id": 14412*************,
-                    # 关键词文本
-                    "keyword_text": "+apple",
-                    # 关键词匹配类型
-                    "match_type": "broad",
-                    # 广告位类型 (1: Other Placements, 2: Other on-Amazon, 3: Top of Search)
-                    "placement_type": 1,
-                    # 广告创意类型
-                    "creative_type": "all",
-                    # 广告花费
-                    "cost": 0.0,
-                    # 总展示次数
-                    "impressions": 4,
-                    # 总点击次数
-                    "clicks": 0,
-                    # 广告订单数
-                    "orders": 0,
-                    # 品牌新买家广告订单数
-                    "new_to_brand_orders": 0,
-                    # 品牌新买家订单占比 [原字段 'new_to_brand_order_percentage']
-                    # (品牌新买家广告订单数 / 广告订单数 x 100%)
-                    "new_to_brand_order_pct": 0.0,
-                    # 品牌新买家订单转化率
-                    # (品牌新买家广告订单数 / 总点击次数 x 100%)
-                    "new_to_brand_order_rate": 0.0,
-                    # 广告销售额
-                    "sales": 0.0,
-                    # 品牌新买家销售额
-                    "new_to_brand_sales": 0.0,
-                    # 广告成交商品件数
-                    "units": 0,
-                    # 直接广告成交商品件数 [原字段 'same_units']
-                    "direct_units": 0,
-                    # 品牌新买家成交商品件数
-                    "new_to_brand_units": 0,
-                    # 报告日期
-                    "report_date": "2026-06-23",
-                },
-                ...
-            ],
-            # 分页游标
-            "next_token": "MjgxNTExNTQ0MTc4ODM1",
-        }
-        ```
+                    "code": 0,
+                    "message": "操作成功",
+                    "errors": [],
+                    "request_id": "00000000-0000-0000-0000-000000000158",
+                    "response_time": "2001-05-07 14:27:00",
+                    "response_count": 2,
+                    "total_count": 21,
+                    "data": [
+                        {
+                            "profile_id": 9000000000000005,
+                            "campaign_id": 700000000000198,
+                            "keyword_id": 40000000000116,
+                            "keyword_text": "+aa +aaaa +0009",
+                            "match_type": "broad",
+                            "placement_type": 2,
+                            "creative_type": "all",
+                            "cost": 0.0,
+                            "impressions": 2,
+                            "clicks": 0,
+                            "orders": 0,
+                            "new_to_brand_orders": 0,
+                            "new_to_brand_order_pct": 0.0,
+                            "new_to_brand_order_rate": 0.0,
+                            "sales": 0.0,
+                            "new_to_brand_sales": 0.0,
+                            "units": 0,
+                            "direct_units": 0,
+                            "new_to_brand_units": 0,
+                            "report_date": "2026-10-01",
+                        },
+                        ...,
+                    ],
+                    "next_token": "MTAwMDAwMDAwMDAwMDE3",
+                }
         """
         url = route.SB_KEYWORD_PLACEMENT_REPORTS
         # 解析并验证参数
@@ -4650,87 +4773,72 @@ class AdsAPI(BaseAPI):
         offset: int | None = None,
         length: int | None = None,
     ) -> schema.SbTargetReports:
-        """查询 SB 商品投放报告
+        """查询SB商品投放日报。
 
         ## Docs
-        - 新广告 - 报告: [SB广告的投放报告(product)](https://apidoc.lingxing.com/#/docs/newAd/report/listHsaTargetingReport)
+        领星接口文档: 新广告 - 报告.[SB商品投放日报](https://apidoc.lingxing.com/new/api-docs/newAd/report/listHsaTargetingReport/)
 
-        :param report_date `<'str/date/datetime'>`: 报告日期
-        :param sid `<'int'>`: 领星店铺ID
-        :param profile_id `<'int'>`: 亚马逊店铺ID (广告帐号ID), 参数来源 `AdsProfiles.profile_id`
-        :param next_token `<'str/None'>`: 分页游标, 上次分页结果中的 `next_token`,
-            第一分页无需填写, 当 next_token 和 offset 同时传入时以 next_token 为主, 默认 `None`
-        :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
-        :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
-        :returns `<'SbTargetReports'>`: 返回查询到的 SB 商品投放报告结果
-        ```python
-        {
-            # 状态码
-            "code": 0,
-            # 提示信息
-            "message": "success",
-            # 错误信息
-            "errors": [],
-            # 请求ID
-            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
-            # 响应时间
-            "response_time": "2025-08-13 19:23:04",
-            # 响应数据量
-            "response_count": 2,
-            # 总数据量
-            "total_count": 2,
-            # 响应数据
-            "data": [
+        Args:
+            report_date (str | datetime.date | datetime.datetime): 报告日期，建议提供完整YYYY-MM-DD；按输入日期的年月日查询，不额外换算时区。
+            sid (int): 领星店铺ID，与profile_id至少提供一项；按profile_id查询时显式传None。
+            profile_id (int): 广告账号ID，来源为AdProfiles.profile_id。按sid查询时显式传None。
+            next_token (str | None): 上一页返回的游标，默认None并省略。建议与offset分别使用。
+            offset (int | None): 非负记录偏移量，默认None并省略；显式0保留。
+            length (int | None): 非负分页长度，默认None并省略，接口默认10；显式0保留。
+
+        Returns:
+            ads.schema.SbTargetReports: data集合仅展示首项，数量字段保留完整返回值。creative_type已被官方标为作废，创意类型应查询SB广告创意数据。
+
+        Raises:
+            errors.InvalidParametersError: 请求参数不符合既有校验规则。
+            errors.RequestError: 请求失败或服务端返回接口错误。
+            pydantic.ValidationError: 返回内容不符合响应模型。
+
+        Examples:
+            查询报告并查看model_dump()返回的数据。
+
+            .. code-block:: python
+
+                result = await client.ads.SbTargetReports(report_date="2026-10-01", sid=None, profile_id=9000000000000003, offset=0, length=2)
+                print(result.model_dump())
+
+            .. code-block:: python
+
                 {
-                    # 亚马逊店铺ID (广告帐号ID)
-                    "profile_id": 494************,
-                    # 广告活动ID
-                    "campaign_id": 404************,
-                    # 广告组ID
-                    "ad_group_id": 328************,
-                    # 目标商品广告ID
-                    "target_id": 562************,
-                    # 广告创意类型
-                    "creative_type": "all",
-                    # 广告花费
-                    "cost": 1.49,
-                    # 总展示次数
-                    "impressions": 5,
-                    # 总点击次数
-                    "clicks": 1,
-                    # 广告订单数
-                    "orders": 1,
-                    # 直接广告订单数 [原字段 'same_orders']
-                    "direct_orders": 1,
-                    # 品牌新买家广告订单数
-                    "new_to_brand_orders": 1,
-                    # 品牌新买家订单占比 [原字段 'new_to_brand_order_percentage']
-                    # (品牌新买家广告订单数 / 广告订单数 x 100%)
-                    "new_to_brand_order_pct": 100.0,
-                    # 品牌新买家订单转化率
-                    # (品牌新买家广告订单数 / 总点击次数 x 100%)
-                    "new_to_brand_order_rate": 100.0,
-                    # 广告成交商品件数
-                    "units": 1,
-                    # 直接广告成交商品件数 [原字段 'same_units']
-                    "direct_units": 1,
-                    # 品牌新买家成交商品件数
-                    "new_to_brand_units": 1,
-                    # 广告销售额
-                    "sales": 35.0,
-                    # 直接广告销售额 [原字段 'same_sales']
-                    "direct_sales": 35.0,
-                    # 品牌新买家销售额
-                    "new_to_brand_sales": 35.0,
-                    # 报告日期
-                    "report_date": "2025-08-23",
-                },
-                ...
-            ],
-            # 分页游标
-            "next_token": "MjgxNTExNTQ0MTc4ODM1",
-        }
-        ```
+                    "code": 0,
+                    "message": "操作成功",
+                    "errors": [],
+                    "request_id": "00000000-0000-0000-0000-000000000093",
+                    "response_time": "2001-05-07 14:40:00",
+                    "response_count": 2,
+                    "total_count": 14,
+                    "data": [
+                        {
+                            "profile_id": 9000000000000003,
+                            "campaign_id": 700000000000004,
+                            "ad_group_id": 600000000000008,
+                            "target_id": 30000000000005,
+                            "creative_type": "all",
+                            "cost": 0.78,
+                            "impressions": 2,
+                            "clicks": 1,
+                            "orders": 1,
+                            "direct_orders": 1,
+                            "new_to_brand_orders": 1,
+                            "new_to_brand_order_pct": 100.0,
+                            "new_to_brand_order_rate": 100.0,
+                            "units": 1,
+                            "direct_units": 1,
+                            "new_to_brand_units": 1,
+                            "sales": 22.89,
+                            "direct_sales": 22.89,
+                            "new_to_brand_sales": 22.89,
+                            "report_date": "2026-10-01",
+                        },
+                        ...,
+                    ],
+                    "next_token": "MTAwMDAwMDAwMDAwNTE=",
+                }
         """
         url = route.SB_TARGETING_REPORTS
         # 解析并验证参数
@@ -4765,95 +4873,79 @@ class AdsAPI(BaseAPI):
         offset: int | None = None,
         length: int | None = None,
     ) -> schema.SbTargetQueryReports:
-        """查询 SB 目标商品投放的用户搜索词报告
+        """查询SB商品投放用户搜索词日报。
 
         ## Docs
-        - 新广告 - 报告: [SB用户搜索词报表(target)](https://apidoc.lingxing.com/#/docs/newAd/report/hsaQueryWordReports)
+        领星接口文档: 新广告 - 报告.[SB商品投放用户搜索词日报](https://apidoc.lingxing.com/new/api-docs/newAd/report/hsaQueryWordReports/)
 
-        :param report_date `<'str/date/datetime'>`: 报告日期
-        :param sid `<'int'>`: 领星店铺ID
-        :param profile_id `<'int'>`: 亚马逊店铺ID (广告帐号ID), 参数来源 `AdsProfiles.profile_id`
-        :param next_token `<'str/None'>`: 分页游标, 上次分页结果中的 `next_token`,
-            第一分页无需填写, 当 next_token 和 offset 同时传入时以 next_token 为主, 默认 `None`
-        :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
-        :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
-        :returns `<'SbKeywordQueryReports'>`: 返回查询到的 SB 目标商品投放的用户搜索词报告
-        ```python
-        {
-            # 状态码
-            "code": 0,
-            # 提示信息
-            "message": "success",
-            # 错误信息
-            "errors": [],
-            # 请求ID
-            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
-            # 响应时间
-            "response_time": "2025-08-13 19:23:04",
-            # 响应数据量
-            "response_count": 2,
-            # 总数据量
-            "total_count": 2,
-            # 响应数据
-            "data": [
+        Args:
+            report_date (str | datetime.date | datetime.datetime): 报告日期，建议提供完整YYYY-MM-DD；按输入日期的年月日查询，不额外换算时区。
+            sid (int): 领星店铺ID，与profile_id至少提供一项；按profile_id查询时显式传None。
+            profile_id (int): 广告账号ID，来源为AdProfiles.profile_id。按sid查询时显式传None。
+            next_token (str | None): 上一页返回的游标，默认None并省略。与offset二选一；官方请求字段为nextToken。
+            offset (int | None): 非负记录偏移量，默认None并省略；显式0保留。
+            length (int | None): 非负分页长度，默认None并省略，接口默认15；显式0保留。
+
+        Returns:
+            ads.schema.SbTargetQueryReports: data集合展示一条完整记录，数量字段保留完整返回值。
+
+        Raises:
+            errors.InvalidParametersError: 请求参数不符合既有校验规则。
+            errors.RequestError: 请求失败或服务端返回接口错误。
+            pydantic.ValidationError: 返回内容不符合响应模型。
+
+        Examples:
+            查询报告并查看model_dump()返回的数据。
+
+            .. code-block:: python
+
+                result = await client.ads.SbTargetQueryReports(report_date="2026-10-01", sid=None, profile_id=9000000000000001, offset=4, length=200)
+                print(result.model_dump())
+
+            .. code-block:: python
+
                 {
-                    # 亚马逊店铺ID (广告帐号ID)
-                    "profile_id": 3375************,
-                    # 广告活动ID
-                    "campaign_id": 3043**********,
-                    # 广告组ID
-                    "ad_group_id": 4966***********,
-                    # 用户使用搜索词 [原字段 'query']
-                    "query_text": "apple",
-                    # 广告花费
-                    "cost": 0.88,
-                    # 总展示次数
-                    "impressions": 1,
-                    # 可见展示次数
-                    "viewable_impressions": 1,
-                    # 总点击次数
-                    "clicks": 1,
-                    # 广告订单数
-                    "orders": 1,
-                    # 浏览后归因订单数
-                    "view_orders": 1,
-                    # 广告销售额
-                    "sales": 24.98,
-                    # 浏览后归因销售额
-                    "view_sales": 24.98,
-                    # 视频广告播放25%次数 [原字段 'video_first_quartile_views']
-                    "video_25pct_views": 0,
-                    # 视频广告播放50%次数 [原字段 'video_midpoint_views']
-                    "video_50pct_views": 0,
-                    # 视频广告播放75%次数 [原字段 'video_third_quartile_views']
-                    "video_75pct_views": 0,
-                    # 视频广告播放100%次数 [原字段 'video_complete_views']
-                    "video_100pct_views": 0,
-                    # 视频广告播放5秒次数 [原字段 'video_5_second_views']
-                    "video_5sec_views": 0,
-                    # 视频广告播放5秒观看率 [原字段 'video_5_second_view_rate']
-                    "video_5sec_view_rate": 0.0,
-                    # 视频广告静音取消次数 [原字段 'video_unmutes']
-                    "video_unmutes": 0,
-                    # 加入购物车次数 [原字段 'add_to_list']
-                    "add_to_cart_times": 0,
-                    # 通过点击加入购物次数 [原字段 'add_to_list_from_clicks']
-                    "click_add_to_cart_times": 0,
-                    # 报告日期
-                    "report_date": "2026-06-28",
-                    # 目标商品投放ID
-                    "target_id": 25149272739674,
-                    # 目标商品投放文本
-                    "target_text": "",
-                    # 是否为 ASIN 商品投放 (1: 是, 0: 否) [原字段 'is_asin']
-                    "is_asin_target": 0,
-                },
-                ...
-            ],
-            # 分页游标
-            "next_token": "MjgxNTExNTQ0MTc4ODM1",
-        }
-        ```
+                    "code": 0,
+                    "message": "操作成功",
+                    "errors": [],
+                    "request_id": "00000000-0000-0000-0000-00000000000c",
+                    "response_time": "2001-05-07 13:57:00",
+                    "response_count": 18,
+                    "total_count": 22,
+                    "data": [
+                        {
+                            "profile_id": 9000000000000001,
+                            "campaign_id": 70000000000004,
+                            "ad_group_id": 600000000000002,
+                            "query_text": "aaaaaaaaaaaaaaa aaaal",
+                            "cost": 6.23,
+                            "impressions": 188,
+                            "viewable_impressions": 82,
+                            "clicks": 7,
+                            "orders": 1,
+                            "view_orders": 1,
+                            "click_order_units": 0,
+                            "view_order_units": 1,
+                            "sales": 37.55,
+                            "view_sales": 37.55,
+                            "video_25pct_views": 0,
+                            "video_50pct_views": 0,
+                            "video_75pct_views": 0,
+                            "video_100pct_views": 0,
+                            "video_5sec_views": 0,
+                            "video_5sec_view_rate": 0.0,
+                            "video_unmutes": 0,
+                            "add_to_cart_times": 0,
+                            "click_add_to_cart_times": 0,
+                            "report_date": "2026-10-01",
+                            "target_id": 300000000000004,
+                            "target_text": "",
+                            "is_asin_target": 0,
+                        },
+                        ...,
+                    ],
+                    "next_token": "YTAwYTBhYWEwMGEwYWEwMDAwMDAwMGFhYWEwMGEwNDk=",
+                }
         """
         url = route.SB_QUERY_REPORTS
         # 解析并验证参数
@@ -4882,80 +4974,68 @@ class AdsAPI(BaseAPI):
         report_date: str | datetime.date | datetime.datetime,
         campaign_id: int,
     ) -> schema.SbTargetingHourData:
-        """查询 SB 关键词或商品投放小时数据
+        """查询SB投放小时数据。
 
         ## Docs
-        - 新广告 - 报告: [SB投放小时数据](https://apidoc.lingxing.com/#/docs/newAd/report/sbTargetHourData)
+        领星接口文档: 新广告 - 报告.[SB投放小时数据](https://apidoc.lingxing.com/new/api-docs/newAd/report/sbTargetHourData/)
 
-        :param report_date `<'str/date/datetime'>`: 报告日期
-        :param campaign_id `<'int'>`: 广告活动ID, 参数来源 `SbCampaign.campaign_id`
-        :returns `<'SbTargetingHourData'>`: 返回查询到的 SB 关键词或商品投放小时数据结果
-        ```python
-        {
-            # 状态码
-            "code": 0,
-            # 提示信息
-            "message": "success",
-            # 错误信息
-            "errors": [],
-            # 请求ID
-            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
-            # 响应时间
-            "response_time": "2025-08-13 19:23:04",
-            # 响应数据量
-            "response_count": 2,
-            # 总数据量
-            "total_count": 2,
-            # 响应数据
-            "data": [
+        Args:
+            report_date (str | datetime.date | datetime.datetime): 报告日期，建议提供完整YYYY-MM-DD；按输入日期的年月日查询，不额外换算时区。
+            campaign_id (int): 广告活动ID；此方法只查询单个活动。接口支持最近60天。
+
+        Returns:
+            ads.schema.SbTargetingHourData: data集合仅展示首项，数量字段保留完整返回值。按小时返回，不提供分页参数。聚合维度固定为target；SDK不按关键词或商品投放类型进行本地筛选。
+
+        Raises:
+            errors.InvalidParametersError: 请求参数不符合既有校验规则。
+            errors.RequestError: 请求失败或服务端返回接口错误。
+            pydantic.ValidationError: 返回内容不符合响应模型。
+
+        Examples:
+            查询报告并查看model_dump()返回的数据。
+
+            .. code-block:: python
+
+                result = await client.ads.SbTargetingHourData(report_date="2026-10-01", campaign_id=700000000000004)
+                print(result.model_dump())
+
+            .. code-block:: python
+
                 {
-                    # 亚马逊店铺ID (广告帐号ID)
-                    "profile_id": 494************,
-                    # 广告活动ID
-                    "campaign_id": 439************,
-                    # 广告组ID [原字段 'group_id']
-                    "ad_group_id": 325************,
-                    # 目标定位ID (keyword_id 或 target_id)
-                    "targeting_id": 341************,
-                    # 目标定位文本 [原字段 'targeting']
-                    "targeting_text": "+pixma",
-                    # 广告花费
-                    "cost": 1.45,
-                    # 总展示次数
-                    "impressions": 0,
-                    # 总点击次数
-                    "clicks": 1,
-                    # 广告订单数
-                    "orders": 1,
-                    # 直接广告订单数 [原字段 'same_orders']
-                    "direct_orders": 1,
-                    # 广告成交商品件数
-                    "units": 2,
-                    # 广告销售额
-                    "sales": 59.76,
-                    # 直接广告销售额 [原字段 'same_sales']
-                    "direct_sales": 59.76,
-                    # 点击率 - Click Through Rate (总点击次数 / 总展示次数)
-                    "ctr": 0.0,
-                    # 转化率 - Conversion Rate (广告订单数 / 总点击次数)
-                    "cvr": 1.0,
-                    # 平均点击花费 - Cost Per Click (广告花费 / 总点击次数)
-                    "cpc": 1.45,
-                    # 平均订单花费 - Cost Per Acquisition (广告花费 / 广告订单数)
-                    "cpa": 1.45,
-                    # 广告花费占比 - Ad Cost of Sales (广告花费 / 广告销售额)
-                    "acos": 0.0243,
-                    # 广告投入回报 - Return On Ad Spend (广告销售额 / 广告花费)
-                    "roas": 41.21,
-                    # 数据所属小时 (0-23)
-                    "hour": 18,
-                    # 报告日期
-                    "report_date": "2025-08-25",
-                },
-                ...
-            ],
-        }
-        ```
+                    "code": 0,
+                    "message": "操作成功",
+                    "errors": [],
+                    "request_id": "00000000-0000-0000-0000-000000000100",
+                    "response_time": "2001-05-07 14:24:00",
+                    "response_count": 150,
+                    "total_count": 150,
+                    "data": [
+                        {
+                            "profile_id": 9000000000000003,
+                            "campaign_id": 700000000000004,
+                            "ad_group_id": 600000000000008,
+                            "targeting_id": 300000000000002,
+                            "targeting_text": "asin=\\"A00AAAAA0C\\"",
+                            "cost": 3.3,
+                            "impressions": 4,
+                            "clicks": 2,
+                            "orders": 1,
+                            "direct_orders": 1,
+                            "units": 1,
+                            "sales": 34.89,
+                            "direct_sales": 34.89,
+                            "ctr": 0.5,
+                            "cvr": 0.5,
+                            "cpc": 1.65,
+                            "cpa": 3.3,
+                            "acos": 0.0946,
+                            "roas": 10.57,
+                            "hour": 9,
+                            "report_date": "2026-10-01",
+                        },
+                        ...,
+                    ],
+                }
         """
         url = route.SB_TARGETING_HOUR_DATA
         # 解析并验证参数
@@ -4983,82 +5063,68 @@ class AdsAPI(BaseAPI):
         offset: int | None = None,
         length: int | None = None,
     ) -> schema.SbAsinAttributionReports:
-        """查询 SB 目标商品归因报告
+        """查询SB已购买商品归因日报。
 
         ## Docs
-        - 新广告 - 报告: [SB广告归因于广告的购买报告](https://apidoc.lingxing.com/#/docs/newAd/report/hsaPurchasedAsinReports)
+        领星接口文档: 新广告 - 报告.[SB已购买商品归因日报](https://apidoc.lingxing.com/new/api-docs/newAd/report/hsaPurchasedAsinReports/)
 
-        :param report_date `<'str/date/datetime'>`: 报告日期
-        :param sid `<'int'>`: 领星店铺ID
-        :param profile_id `<'int'>`: 亚马逊店铺ID (广告帐号ID), 参数来源 `AdsProfiles.profile_id`
-        :param next_token `<'str/None'>`: 分页游标, 上次分页结果中的 `next_token`,
-            第一分页无需填写, 当 next_token 和 offset 同时传入时以 next_token 为主, 默认 `None`
-        :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
-        :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
-        :returns `<'SbAsinAttributionReports'>`: 返回查询到的 SB 目标商品归因报告结果
-        ```python
-        {
-            # 状态码
-            "code": 0,
-            # 提示信息
-            "message": "success",
-            # 错误信息
-            "errors": [],
-            # 请求ID
-            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
-            # 响应时间
-            "response_time": "2025-08-13 19:23:04",
-            # 响应数据量
-            "response_count": 2,
-            # 总数据量
-            "total_count": 2,
-            # 响应数据
-            "data": [
+        Args:
+            report_date (str | datetime.date | datetime.datetime): 报告日期，建议提供完整YYYY-MM-DD；按输入日期的年月日查询，不额外换算时区。
+            sid (int): 领星店铺ID，与profile_id至少提供一项；按profile_id查询时显式传None。
+            profile_id (int): 广告账号ID，来源为AdProfiles.profile_id。按sid查询时显式传None。
+            next_token (str | None): 上一页返回的游标，默认None并省略。与offset同时提供时优先使用游标。
+            offset (int | None): 非负记录偏移量，默认None并省略；显式0保留。
+            length (int | None): 非负分页长度，默认None并省略，接口默认15；显式0保留。
+
+        Returns:
+            ads.schema.SbAsinAttributionReports: data集合仅展示首项，数量字段保留完整返回值。返回14天归因指标；非SB2活动的空ID沿用模型既有转换规则。两账号标识同时提供时按profile_id定位。
+
+        Raises:
+            errors.InvalidParametersError: 请求参数不符合既有校验规则。
+            errors.RequestError: 请求失败或服务端返回接口错误。
+            pydantic.ValidationError: 返回内容不符合响应模型。
+
+        Examples:
+            查询报告并查看model_dump()返回的数据。
+
+            .. code-block:: python
+
+                result = await client.ads.SbAsinAttributionReports(report_date="2026-10-01", sid=None, profile_id=900000000000002, offset=0, length=2)
+                print(result.model_dump())
+
+            .. code-block:: python
+
                 {
-                    # 亚马逊店铺ID (广告帐号ID)
-                    "profile_id": 494************,
-                    # 广告活动ID
-                    "campaign_id": 372************,
-                    # 广告活动名称
-                    "campaign_name": "SB-GEXG",
-                    # 广告组ID
-                    "ad_group_id": 391************,
-                    # 广告组名称
-                    "ad_group_name": "广告组 - 5/4/2025 00:39:02.466",
-                    # 归因类型
-                    "attribution_type": "Promoted",
-                    # 商品ASIN
-                    "asin": "B0F*******",
-                    # 广告14天订单数 [原字段 'orders14d']
-                    "orders_14d": 12,
-                    # 品牌新买家14天订单数 [原字段 'new_to_brand_purchases14d']
-                    "new_to_brand_orders_14d": 12,
-                    # 品牌新买家订单占比14天 [原字段 'new_to_brand_purchases_percentage14d']
-                    # (品牌新买家14天订单数 / 广告14天订单数 x 100%)
-                    "new_to_brand_order_pct_14d": 100.0,
-                    # 广告14天成交商品件数 [原字段 'units_sold14d']
-                    "units_14d": 12,
-                    # 品牌新买家14天成交商品件数 [原字段 'new_to_brand_units_sold14d']
-                    "new_to_brand_units_14d": 12,
-                    # 品牌新买家成交商品件数占比14天 [原字段 'new_to_brand_units_sold_percentage14d']
-                    # (品牌新买家14天成交商品件数 / 广告14天成交商品件数 x 100%)
-                    "new_to_brand_units_pct_14d": 100.0,
-                    # 广告14天销售
-                    "sales_14d": 430.8,
-                    # 品牌新买家14天销售额 [原字段 'new_to_brand_sales14d']
-                    "new_to_brand_sales_14d": 430.8,
-                    # 品牌新买家销售额占比14天 [原字段 'new_to_brand_sales_percentage14d']
-                    # (品牌新买家14天销售额 / 广告14天销售 x 100%)
-                    "new_to_brand_sales_pct_14d": 100.0,
-                    # 报告日期
-                    "report_date": "2025-08-24",
-                },
-                ...
-            ],
-            # 分页游标
-            "next_token": "MjgxNTExNTQ0MTc4ODM1",
-        }
-        ```
+                    "code": 0,
+                    "message": "操作成功",
+                    "errors": [],
+                    "request_id": "00000000-0000-0000-0000-000000000033",
+                    "response_time": "2001-05-07 14:10:00",
+                    "response_count": 1,
+                    "total_count": 1,
+                    "data": [
+                        {
+                            "profile_id": 900000000000002,
+                            "campaign_id": 700000000000040,
+                            "campaign_name": "00AA-0A0A-A0AAA00AAA-AA-AAL",
+                            "ad_group_id": 600000000000315,
+                            "ad_group_name": "00AA-0A0A-A0AAA00AAA-AA-AAA-AG",
+                            "attribution_type": "Promoted",
+                            "asin": "A0AAA00AHF",
+                            "orders_14d": 1,
+                            "new_to_brand_orders_14d": 1,
+                            "new_to_brand_order_pct_14d": 100.0,
+                            "units_14d": 1,
+                            "new_to_brand_units_14d": 1,
+                            "new_to_brand_units_pct_14d": 100.0,
+                            "sales_14d": 38.99,
+                            "new_to_brand_sales_14d": 38.99,
+                            "new_to_brand_sales_pct_14d": 100.0,
+                            "report_date": "2026-10-01",
+                        },
+                    ],
+                    "next_token": "MTAwMDAwMzY=",
+                }
         """
         url = route.SB_ASIN_ATTRIBUTION_REPORTS
         # 解析并验证参数
@@ -5091,82 +5157,70 @@ class AdsAPI(BaseAPI):
         offset: int | None = None,
         length: int | None = None,
     ) -> schema.SbCostAllocationReports:
-        """查询 SB 广告费用分摊报告
+        """查询SB广告费用分摊日报。
 
         ## Docs
-        - 新广告 - 报告: [SB分摊](https://apidoc.lingxing.com/#/docs/newAd/baseData/newadsbDivideAsinReports)
+        领星接口文档: 新广告 - 报告.[SB广告费用分摊日报](https://apidoc.lingxing.com/new/api-docs/newAd/baseData/newadsbDivideAsinReports/)
 
-        :param report_date `<'str/date/datetime'>`: 报告日期
-        :param profile_id `<'int'>`: 亚马逊店铺ID (广告帐号ID), 参数来源 `AdsProfiles.profile_id`
-        :param next_token `<'str/None'>`: 分页游标, 上次分页结果中的 `next_token`,
-            第一分页无需填写, 当 next_token 和 offset 同时传入时以 next_token 为主, 默认 `None`
-        :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
-        :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
-        :returns `<'SbCostAllocationReports'>`: 返回查询到的 SB 广告费用分摊报告结果
-        ```python
-        {
-            # 状态码
-            "code": 0,
-            # 提示信息
-            "message": "success",
-            # 错误信息
-            "errors": [],
-            # 请求ID
-            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
-            # 响应时间
-            "response_time": "2025-08-13 19:23:04",
-            # 响应数据量
-            "response_count": 2,
-            # 总数据量
-            "total_count": 2,
-            # 响应数据
-            "data": [
+        Args:
+            report_date (str | datetime.date | datetime.datetime): 报告日期，建议提供完整YYYY-MM-DD；按输入日期的年月日查询，不额外换算时区。
+            profile_id (int): 广告账号ID，来源为AdProfiles.profile_id。
+            next_token (str | None): 上一页返回的游标，默认None并省略。与offset同时提供时优先使用游标。
+            offset (int | None): 非负记录偏移量，默认None并省略；显式0保留。
+            length (int | None): 非负分页长度，默认None并省略，接口默认15；显式0保留。
+
+        Returns:
+            ads.schema.SbCostAllocationReports: data集合仅展示首项，数量字段保留完整返回值。
+
+        Raises:
+            errors.InvalidParametersError: 请求参数不符合既有校验规则。
+            errors.RequestError: 请求失败或服务端返回接口错误。
+            pydantic.ValidationError: 返回内容不符合响应模型。
+
+        Examples:
+            查询报告并查看model_dump()返回的数据。
+
+            .. code-block:: python
+
+                result = await client.ads.SbCostAllocationReports(report_date="2026-10-01", profile_id=900000000000001, offset=0, length=2)
+                print(result.model_dump())
+
+            .. code-block:: python
+
                 {
-                    # 亚马逊店铺ID (广告帐号ID)
-                    "profile_id": 494************,
-                    # 广告活动ID
-                    "campaign_id": 536************,
-                    # 广告组ID
-                    "ad_group_id": 328************,
-                    # 部门ID
-                    "department_id": 901***************,
-                    # 设置分摊的事务ID, 用于追踪具体的分摊规则 (UUID) [原字段 'transaction_uuid']
-                    "allocation_rule_id": "",
-                    # 分摊产品的MD5值 (ad_group_id, asin, sku) [原字段 'divide_asin_md5']
-                    "allocation_asin_id": "9647c9e*************************",
-                    # 分摊比率 (0.0 - 1.0) [原字段 'percent']
-                    "allocation_ratio": 0.5,
-                    # 商品ASIN
-                    "asin": "B0D*******",
-                    # 商品SKU [原字段 'sku']
-                    "msku": "SKU*********",
-                    # 分摊后的广告花费 [原字段 'spends']
-                    "costs": 13.395,
-                    # 分摊后的展示次数
-                    "impressions": 834.5,
-                    # 分摊后的点击次数
-                    "clicks": 5.5,
-                    # 分摊后的广告订单数
-                    "orders": 1.5,
-                    # 分摊后的直接广告订单数 [原字段 'same_orders']
-                    "direct_orders": 1.5,
-                    # 分摊后的广告成交商品件数 [原字段 'units_sold']
-                    "units": 1.5,
-                    # 分摊后的直接广告成交商品件数 [原字段 'same_units_sold']
-                    "direct_units": 1.5,
-                    # 分摊后的广告销售额
-                    "sales": 89.835,
-                    # 分摊后的直接广告销售额 [原字段 'same_sales']
-                    "direct_sales": 89.835,
-                    # 报告日期
-                    "report_date": "2025-08-25",
-                },
-                ...
-            ],
-            # 分页游标
-            "next_token": "MjgxNTExNTQ0MTc4ODM1",
-        }
-        ```
+                    "code": 0,
+                    "message": "操作成功",
+                    "errors": [],
+                    "request_id": "00000000-0000-0000-0000-0000000000bc",
+                    "response_time": "2001-05-07 14:04:00",
+                    "response_count": 2,
+                    "total_count": 261,
+                    "data": [
+                        {
+                            "profile_id": 900000000000001,
+                            "campaign_id": 700000000000001,
+                            "ad_group_id": 600000000000011,
+                            "department_id": 200000000000000001,
+                            "allocation_rule_id": "",
+                            "allocation_asin_id": "0aa00a000a00a000aa000aa0a000a0a1",
+                            "allocation_ratio": 0.2,
+                            "asin": "A0AA0AA0AD",
+                            "msku": "000-0-AAA-AA-00AA-0A0A-AA-AAA-AA1",
+                            "costs": 1.048,
+                            "impressions": 25.2,
+                            "clicks": 0.4,
+                            "orders": 0.2,
+                            "direct_orders": 0.2,
+                            "units": 0.2,
+                            "direct_units": 0.2,
+                            "sales": 7.798,
+                            "direct_sales": 7.798,
+                            "report_date": "2026-10-01",
+                        },
+                        ...,
+                    ],
+                    "next_token": "MTAwMDAwMDMx",
+                }
         """
         url = route.SB_COST_ALLOCATION_REPORTS
         # 解析并验证参数
@@ -5198,71 +5252,88 @@ class AdsAPI(BaseAPI):
         offset: int | None = None,
         length: int | None = None,
     ) -> schema.SdCampaignReports:
-        """查询 SD 广告活动报告
+        """查询SD广告活动报表。
 
         ## Docs
-        - 新广告 - 报告: [SD广告活动报表](https://apidoc.lingxing.com/#/docs/newAd/report/sdCampaignReports)
+        领星接口文档: 新广告 - 报告.[SD广告活动报表](https://apidoc.lingxing.com/new/api-docs/newAd/report/sdCampaignReports/)
 
-        :param report_date `<'str/date/datetime'>`: 报告日期
-        :param sid `<'int'>`: 领星店铺ID
-        :param profile_id `<'int'>`: 亚马逊店铺ID (广告帐号ID), 参数来源 `AdsProfiles.profile_id`
-        :param next_token `<'str/None'>`: 分页游标, 上次分页结果中的 `next_token`,
-            第一分页无需填写, 当 next_token 和 offset 同时传入时以 next_token 为主, 默认 `None`
-        :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
-        :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
-        :returns `<'SdCampaignReports'>`: 返回查询到的 SD 广告活动报告结果
-        ```python
-        {
-            # 状态码
-            "code": 0,
-            # 提示信息
-            "message": "success",
-            # 错误信息
-            "errors": [],
-            # 请求ID
-            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
-            # 响应时间
-            "response_time": "2025-08-13 19:23:04",
-            # 响应数据量
-            "response_count": 2,
-            # 总数据量
-            "total_count": 2,
-            # 响应数据
-            "data": [
+        Args:
+            report_date (str | datetime.date | datetime.datetime): 报告日期，建议使用完整YYYY-MM-DD；按输入日期的年月日查询，不额外换算时区。
+            sid (int): 领星店铺ID，与profile_id至少提供一项；按profile_id查询时显式传None。
+            profile_id (int): 广告账号ID，来源为AdProfiles.profile_id；按sid查询时显式传None。
+            next_token (str | None): 上一页返回的分页游标，默认None并省略；同时提供offset时两项均发送。
+            offset (int | None): 非负分页偏移量，默认None并省略，接口默认0；显式0保留。
+            length (int | None): 非负分页长度，默认None并省略，接口默认15；显式0保留。
+
+        Returns:
+            ads.schema.SdCampaignReports: 返回SD广告活动报表的默认归因数据。
+
+        Examples:
+            查询报告并查看返回数据。
+
+            .. code-block:: python
+
+                result = await client.ads.SdCampaignReports(report_date="2026-10-01", sid=None, profile_id=9000000000000005, offset=0, length=2)
+                print(result.model_dump())
+
+            .. code-block:: python
+
                 {
-                    # 亚马逊店铺ID (广告帐号ID)
-                    "profile_id": 494************,
-                    # 广告活动ID
-                    "campaign_id": 289************,
-                    # 投放策略
-                    "tactic": "T00030",
-                    # 广告花费
-                    "cost": 2.87,
-                    # 总展示次数
-                    "impressions": 405,
-                    # 可见展示次数 [原字段 'view_impressions']
-                    "viewable_impressions": 0,
-                    # 总点击次数
-                    "clicks": 1,
-                    # 广告订单数
-                    "orders": 1,
-                    # 直接广告订单数 [原字段 'same_orders']
-                    "direct_orders": 1,
-                    # 广告成交商品件数
-                    "units": 1,
-                    # 广告销售额
-                    "sales": 29.98,
-                    # 直接广告销售额 [原字段 'same_sales']
-                    "direct_sales": 29.98,
-                    # 报告日期
-                    "report_date": "2025-06-28",
-                },
-                ...
-            ],
-            # 分页游标
-            "next_token": "MjgxNTExNTQ0MTc4ODM1",
-        }
-        ```
+                    # 状态码
+                    "code": 0,
+                    # 提示信息
+                    "message": "success",
+                    # 错误信息
+                    "errors": [],
+                    # 请求ID
+                    "request_id": "00000000-0000-0000-0000-000000000056",
+                    # 响应时间
+                    "response_time": "2001-05-07 14:56:00",
+                    # 响应数据量
+                    "response_count": 2,
+                    # 总数据量
+                    "total_count": 2,
+                    # 响应数据
+                    "data": [
+                        {
+                            # 亚马逊店铺ID (广告帐号ID)
+                            "profile_id": 9000000000000005,
+                            # 广告活动ID
+                            "campaign_id": 700000000000293,
+                            # 投放策略
+                            "tactic": "T00030",
+                            # 广告花费
+                            "cost": 11.13,
+                            # 总展示次数
+                            "impressions": 3250,
+                            # 可见展示次数 [原字段 'view_impressions']
+                            "viewable_impressions": 96,
+                            # 总点击次数
+                            "clicks": 30,
+                            # 广告订单数
+                            "orders": 0,
+                            # 直接广告订单数 [原字段 'same_orders']
+                            "direct_orders": 0,
+                            # 广告成交商品件数
+                            "units": 0,
+                            # 广告销售额
+                            "sales": 0.0,
+                            # 直接广告销售额 [原字段 'same_sales']
+                            "direct_sales": 0.0,
+                            # 品牌新客14天订单数
+                            "new_to_brand_orders_14d": 0,
+                            # 品牌新客14天商品件数
+                            "new_to_brand_units_14d": 0,
+                            # 品牌新客14天销售额
+                            "new_to_brand_sales_14d": 0.0,
+                            # 报告日期
+                            "report_date": "2026-10-01",
+                        },
+                        ...,
+                    ],
+                    # 分页游标
+                    "next_token": "MjgxNTExNTQ0MTc4ODM1",
+                }
         """
         url = route.SD_CAMPAIGN_REPORTS
         # 解析并验证参数
@@ -5291,74 +5362,86 @@ class AdsAPI(BaseAPI):
         report_date: str | datetime.date | datetime.datetime,
         campaign_id: int,
     ) -> schema.SdCampaignHourData:
-        """查询 SD 广告活动小时数据
+        """查询SD广告活动小时数据。
 
         ## Docs
-        - 新广告 - 报告: [SD广告活动小时数据](https://apidoc.lingxing.com/#/docs/newAd/report/sdCampaignHourData)
+        领星接口文档: 新广告 - 报告.[SD广告活动小时数据](https://apidoc.lingxing.com/new/api-docs/newAd/report/sdCampaignHourData/)
 
-        :param report_date `<'str/date/datetime'>`: 报告日期
-        :param campaign_id `<'int'>`: 广告活动ID, 参数来源 `SdCampaign.campaign_id`
-        :returns `<'SdCampaignHourData'>`: 返回查询到的 SD 广告活动小时数据结果
-        ```python
-        {
-            # 状态码
-            "code": 0,
-            # 提示信息
-            "message": "success",
-            # 错误信息
-            "errors": [],
-            # 请求ID
-            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
-            # 响应时间
-            "response_time": "2025-08-13 19:23:04",
-            # 响应数据量
-            "response_count": 2,
-            # 总数据量
-            "total_count": 2,
-            # 响应数据
-            "data": [
+        Args:
+            report_date (str | datetime.date | datetime.datetime): 报告日期，建议使用完整YYYY-MM-DD；按输入日期的年月日查询，不额外换算时区。接口仅支持最近60天。
+            campaign_id (int): 单个广告活动ID，来源为SdCampaign.campaign_id。
+
+        Returns:
+            ads.schema.SdCampaignHourData: 返回SD广告活动小时数据。
+
+        Examples:
+            查询报告并查看返回数据。
+
+            .. code-block:: python
+
+                result = await client.ads.SdCampaignHourData(report_date="2026-10-01", campaign_id=700000000000293)
+                print(result.model_dump())
+
+            .. code-block:: python
+
                 {
-                    # 亚马逊店铺ID (广告帐号ID)
-                    "profile_id": 494************,
-                    # 广告活动ID
-                    "campaign_id": 439************,
-                    # 广告花费
-                    "cost": 1.45,
-                    # 总展示次数
-                    "impressions": 0,
-                    # 总点击次数
-                    "clicks": 1,
-                    # 广告订单数
-                    "orders": 1,
-                    # 直接广告订单数 [原字段 'same_orders']
-                    "direct_orders": 1,
-                    # 广告成交商品件数
-                    "units": 2,
-                    # 广告销售额
-                    "sales": 59.76,
-                    # 直接广告销售额 [原字段 'same_sales']
-                    "direct_sales": 59.76,
-                    # 点击率 - Click Through Rate (总点击次数 / 总展示次数)
-                    "ctr": 0.0,
-                    # 转化率 - Conversion Rate (广告订单数 / 总点击次数)
-                    "cvr": 1.0,
-                    # 平均点击花费 - Cost Per Click (广告花费 / 总点击次数)
-                    "cpc": 1.45,
-                    # 平均订单花费 - Cost Per Acquisition (广告花费 / 广告订单数)
-                    "cpa": 1.45,
-                    # 广告花费占比 - Ad Cost of Sales (广告花费 / 广告销售额)
-                    "acos": 0.0243,
-                    # 广告投入回报 - Return On Ad Spend (广告销售额 / 广告花费)
-                    "roas": 41.21,
-                    # 数据所属小时 (0-23)
-                    "hour": 18,
-                    # 报告日期
-                    "report_date": "2025-08-25",
-                },
-                ...
-            ],
-        }
-        ```
+                    # 状态码
+                    "code": 0,
+                    # 提示信息
+                    "message": "success",
+                    # 错误信息
+                    "errors": [],
+                    # 请求ID
+                    "request_id": "00000000-0000-0000-0000-00000000005c",
+                    # 响应时间
+                    "response_time": "2001-05-07 15:08:00",
+                    # 响应数据量
+                    "response_count": 2,
+                    # 总数据量
+                    "total_count": 2,
+                    # 响应数据
+                    "data": [
+                        {
+                            # 亚马逊店铺ID (广告帐号ID)
+                            "profile_id": 9000000000000005,
+                            # 广告活动ID
+                            "campaign_id": 700000000000293,
+                            # 广告花费
+                            "cost": 0.22,
+                            # 总展示次数
+                            "impressions": 259,
+                            # 总点击次数
+                            "clicks": 2,
+                            # 广告订单数
+                            "orders": 0,
+                            # 直接广告订单数 [原字段 'same_orders']
+                            "direct_orders": 0,
+                            # 广告成交商品件数
+                            "units": 0,
+                            # 广告销售额
+                            "sales": 0.0,
+                            # 直接广告销售额 [原字段 'same_sales']
+                            "direct_sales": 0.0,
+                            # 点击率 - Click Through Rate (总点击次数 / 总展示次数)
+                            "ctr": 0.0077,
+                            # 转化率 - Conversion Rate (广告订单数 / 总点击次数)
+                            "cvr": 0.0,
+                            # 平均点击花费 - Cost Per Click (广告花费 / 总点击次数)
+                            "cpc": 0.11,
+                            # 平均订单花费 - Cost Per Acquisition (广告花费 / 广告订单数)
+                            "cpa": 0.0,
+                            # 广告花费占比 - Ad Cost of Sales (广告花费 / 广告销售额)
+                            "acos": 0.0,
+                            # 广告投入回报 - Return On Ad Spend (广告销售额 / 广告花费)
+                            "roas": 0.0,
+                            # 数据所属小时 (0-23)
+                            "hour": 0,
+                            # 报告日期
+                            "report_date": "2026-10-01",
+                        },
+                        ...,
+                    ],
+                }
         """
         url = route.SD_CAMPAIGN_HOUR_DATA
         # 解析并验证参数
@@ -5385,73 +5468,90 @@ class AdsAPI(BaseAPI):
         offset: int | None = None,
         length: int | None = None,
     ) -> schema.SdAdGroupReports:
-        """查询 SD 广告组报告
+        """查询SD广告组报表。
 
         ## Docs
-        - 新广告 - 报告: [SD广告组报表](https://apidoc.lingxing.com/#/docs/newAd/report/sdAdGroupReports)
+        领星接口文档: 新广告 - 报告.[SD广告组报表](https://apidoc.lingxing.com/new/api-docs/newAd/report/sdAdGroupReports/)
 
-        :param report_date `<'str/date/datetime'>`: 报告日期
-        :param sid `<'int'>`: 领星店铺ID
-        :param profile_id `<'int'>`: 亚马逊店铺ID (广告帐号ID), 参数来源 `AdsProfiles.profile_id`
-        :param next_token `<'str/None'>`: 分页游标, 上次分页结果中的 `next_token`,
-            第一分页无需填写, 当 next_token 和 offset 同时传入时以 next_token 为主, 默认 `None`
-        :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
-        :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
-        :returns `<'SdAdGroupReports'>`: 返回查询到的 SD 广告组报告结果
-        ```python
-        {
-            # 状态码
-            "code": 0,
-            # 提示信息
-            "message": "success",
-            # 错误信息
-            "errors": [],
-            # 请求ID
-            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
-            # 响应时间
-            "response_time": "2025-08-13 19:23:04",
-            # 响应数据量
-            "response_count": 2,
-            # 总数据量
-            "total_count": 2,
-            # 响应数据
-            "data": [
+        Args:
+            report_date (str | datetime.date | datetime.datetime): 报告日期，建议使用完整YYYY-MM-DD；按输入日期的年月日查询，不额外换算时区。
+            sid (int): 领星店铺ID，与profile_id至少提供一项；按profile_id查询时显式传None。
+            profile_id (int): 广告账号ID，来源为AdProfiles.profile_id；按sid查询时显式传None。
+            next_token (str | None): 上一页返回的分页游标，默认None并省略；同时提供offset时两项均发送。
+            offset (int | None): 非负分页偏移量，默认None并省略，接口默认0；显式0保留。
+            length (int | None): 非负分页长度，默认None并省略，接口默认15；显式0保留。
+
+        Returns:
+            ads.schema.SdAdGroupReports: 返回SD广告组报表的默认归因数据。
+
+        Examples:
+            查询报告并查看返回数据。
+
+            .. code-block:: python
+
+                result = await client.ads.SdAdGroupReports(report_date="2026-10-01", sid=None, profile_id=9000000000000005, offset=0, length=2)
+                print(result.model_dump())
+
+            .. code-block:: python
+
                 {
-                    # 亚马逊店铺ID (广告帐号ID)
-                    "profile_id": 494************,
-                    # 广告活动ID
-                    "campaign_id": 289************,
-                    # 广告组ID
-                    "ad_group_id": 551************,
-                    # 投放策略
-                    "tactic": "T00030",
-                    # 广告花费
-                    "cost": 2.87,
-                    # 总展示次数
-                    "impressions": 405,
-                    # 可见展示次数 [原字段 'view_impressions']
-                    "viewable_impressions": 0,
-                    # 总点击次数
-                    "clicks": 1,
-                    # 广告订单数
-                    "orders": 1,
-                    # 直接广告订单数 [原字段 'same_orders']
-                    "direct_orders": 1,
-                    # 广告成交商品件数
-                    "units": 1,
-                    # 广告销售额
-                    "sales": 29.98,
-                    # 直接广告销售额 [原字段 'same_sales']
-                    "direct_sales": 29.98,
-                    # 报告日期
-                    "report_date": "2025-06-28",
-                },
-                ...
-            ],
-            # 分页游标
-            "next_token": "MjgxNTExNTQ0MTc4ODM1",
-        }
-        ```
+                    # 状态码
+                    "code": 0,
+                    # 提示信息
+                    "message": "success",
+                    # 错误信息
+                    "errors": [],
+                    # 请求ID
+                    "request_id": "00000000-0000-0000-0000-000000000170",
+                    # 响应时间
+                    "response_time": "2001-05-07 15:11:00",
+                    # 响应数据量
+                    "response_count": 2,
+                    # 总数据量
+                    "total_count": 2,
+                    # 响应数据
+                    "data": [
+                        {
+                            # 亚马逊店铺ID (广告帐号ID)
+                            "profile_id": 9000000000000005,
+                            # 广告活动ID
+                            "campaign_id": 700000000000293,
+                            # 广告组ID
+                            "ad_group_id": 600000000000338,
+                            # 投放策略
+                            "tactic": "T00030",
+                            # 广告花费
+                            "cost": 11.13,
+                            # 总展示次数
+                            "impressions": 3250,
+                            # 可见展示次数 [原字段 'view_impressions']
+                            "viewable_impressions": 96,
+                            # 总点击次数
+                            "clicks": 30,
+                            # 广告订单数
+                            "orders": 0,
+                            # 直接广告订单数 [原字段 'same_orders']
+                            "direct_orders": 0,
+                            # 广告成交商品件数
+                            "units": 0,
+                            # 广告销售额
+                            "sales": 0.0,
+                            # 直接广告销售额 [原字段 'same_sales']
+                            "direct_sales": 0.0,
+                            # 品牌新客14天订单数
+                            "new_to_brand_orders_14d": 0,
+                            # 品牌新客14天商品件数
+                            "new_to_brand_units_14d": 0,
+                            # 品牌新客14天销售额
+                            "new_to_brand_sales_14d": 0.0,
+                            # 报告日期
+                            "report_date": "2026-10-01",
+                        },
+                        ...,
+                    ],
+                    # 分页游标
+                    "next_token": "MjgxNTExNTQ0MTc4ODM1",
+                }
         """
         url = route.SD_AD_GROUP_REPORTS
         # 解析并验证参数
@@ -5480,76 +5580,88 @@ class AdsAPI(BaseAPI):
         report_date: str | datetime.date | datetime.datetime,
         campaign_id: int,
     ) -> schema.SdAdGroupHourData:
-        """查询 SD 广告组小时数据
+        """查询SD广告组小时数据。
 
         ## Docs
-        - 新广告 - 报告: [SD广告组小时数据](https://apidoc.lingxing.com/#/docs/newAd/report/sdAdGroupHourData)
+        领星接口文档: 新广告 - 报告.[SD广告组小时数据](https://apidoc.lingxing.com/new/api-docs/newAd/report/sdAdGroupHourData/)
 
-        :param report_date `<'str/date/datetime'>`: 报告日期
-        :param campaign_id `<'int'>`: 广告活动ID, 参数来源 `SdCampaign.campaign_id`
-        :returns `<'SdAdGroupHourData'>`: 返回查询到的 SD 广告组小时数据结果
-        ```python
-        {
-            # 状态码
-            "code": 0,
-            # 提示信息
-            "message": "success",
-            # 错误信息
-            "errors": [],
-            # 请求ID
-            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
-            # 响应时间
-            "response_time": "2025-08-13 19:23:04",
-            # 响应数据量
-            "response_count": 2,
-            # 总数据量
-            "total_count": 2,
-            # 响应数据
-            "data": [
+        Args:
+            report_date (str | datetime.date | datetime.datetime): 报告日期，建议使用完整YYYY-MM-DD；按输入日期的年月日查询，不额外换算时区。接口仅支持最近60天。
+            campaign_id (int): 单个广告活动ID，来源为SdCampaign.campaign_id。
+
+        Returns:
+            ads.schema.SdAdGroupHourData: 返回SD广告组小时数据。
+
+        Examples:
+            查询报告并查看返回数据。
+
+            .. code-block:: python
+
+                result = await client.ads.SdAdGroupHourData(report_date="2026-10-01", campaign_id=700000000000293)
+                print(result.model_dump())
+
+            .. code-block:: python
+
                 {
-                    # 亚马逊店铺ID (广告帐号ID)
-                    "profile_id": 494************,
-                    # 广告活动ID
-                    "campaign_id": 439************,
-                    # 广告组ID [原字段 'group_id']
-                    "ad_group_id": 325************,
-                    # 广告花费
-                    "cost": 1.45,
-                    # 总展示次数
-                    "impressions": 0,
-                    # 总点击次数
-                    "clicks": 1,
-                    # 广告订单数
-                    "orders": 1,
-                    # 直接广告订单数 [原字段 'same_orders']
-                    "direct_orders": 1,
-                    # 广告成交商品件数
-                    "units": 2,
-                    # 广告销售额
-                    "sales": 59.76,
-                    # 直接广告销售额 [原字段 'same_sales']
-                    "direct_sales": 59.76,
-                    # 点击率 - Click Through Rate (总点击次数 / 总展示次数)
-                    "ctr": 0.0,
-                    # 转化率 - Conversion Rate (广告订单数 / 总点击次数)
-                    "cvr": 1.0,
-                    # 平均点击花费 - Cost Per Click (广告花费 / 总点击次数)
-                    "cpc": 1.45,
-                    # 平均订单花费 - Cost Per Acquisition (广告花费 / 广告订单数)
-                    "cpa": 1.45,
-                    # 广告花费占比 - Ad Cost of Sales (广告花费 / 广告销售额)
-                    "acos": 0.0243,
-                    # 广告投入回报 - Return On Ad Spend (广告销售额 / 广告花费)
-                    "roas": 41.21,
-                    # 数据所属小时 (0-23)
-                    "hour": 18,
-                    # 报告日期
-                    "report_date": "2025-08-25",
-                },
-                ...
-            ],
-        }
-        ```
+                    # 状态码
+                    "code": 0,
+                    # 提示信息
+                    "message": "success",
+                    # 错误信息
+                    "errors": [],
+                    # 请求ID
+                    "request_id": "00000000-0000-0000-0000-00000000003c",
+                    # 响应时间
+                    "response_time": "2001-05-07 15:24:00",
+                    # 响应数据量
+                    "response_count": 2,
+                    # 总数据量
+                    "total_count": 2,
+                    # 响应数据
+                    "data": [
+                        {
+                            # 亚马逊店铺ID (广告帐号ID)
+                            "profile_id": 9000000000000005,
+                            # 广告活动ID
+                            "campaign_id": 700000000000293,
+                            # 广告组ID [原字段 'group_id']
+                            "ad_group_id": 600000000000338,
+                            # 广告花费
+                            "cost": 0.22,
+                            # 总展示次数
+                            "impressions": 259,
+                            # 总点击次数
+                            "clicks": 2,
+                            # 广告订单数
+                            "orders": 0,
+                            # 直接广告订单数 [原字段 'same_orders']
+                            "direct_orders": 0,
+                            # 广告成交商品件数
+                            "units": 0,
+                            # 广告销售额
+                            "sales": 0.0,
+                            # 直接广告销售额 [原字段 'same_sales']
+                            "direct_sales": 0.0,
+                            # 点击率 - Click Through Rate (总点击次数 / 总展示次数)
+                            "ctr": 0.0077,
+                            # 转化率 - Conversion Rate (广告订单数 / 总点击次数)
+                            "cvr": 0.0,
+                            # 平均点击花费 - Cost Per Click (广告花费 / 总点击次数)
+                            "cpc": 0.11,
+                            # 平均订单花费 - Cost Per Acquisition (广告花费 / 广告订单数)
+                            "cpa": 0.0,
+                            # 广告花费占比 - Ad Cost of Sales (广告花费 / 广告销售额)
+                            "acos": 0.0,
+                            # 广告投入回报 - Return On Ad Spend (广告销售额 / 广告花费)
+                            "roas": 0.0,
+                            # 数据所属小时 (0-23)
+                            "hour": 0,
+                            # 报告日期
+                            "report_date": "2026-10-01",
+                        },
+                        ...,
+                    ],
+                }
         """
         url = route.SD_AD_GROUP_HOUR_DATA
         # 解析并验证参数
@@ -5576,79 +5688,96 @@ class AdsAPI(BaseAPI):
         offset: int | None = None,
         length: int | None = None,
     ) -> schema.SdProductReports:
-        """查询 SD 商品广告报告
+        """查询SD广告商品报表。
 
         ## Docs
-        - 新广告 - 报告: [SD广告商品报表](https://apidoc.lingxing.com/#/docs/newAd/report/sdProductAdReports)
+        领星接口文档: 新广告 - 报告.[SD广告商品报表](https://apidoc.lingxing.com/new/api-docs/newAd/report/sdProductAdReports/)
 
-        :param report_date `<'str/date/datetime'>`: 报告日期
-        :param sid `<'int'>`: 领星店铺ID
-        :param profile_id `<'int'>`: 亚马逊店铺ID (广告帐号ID), 参数来源 `AdsProfiles.profile_id`
-        :param next_token `<'str/None'>`: 分页游标, 上次分页结果中的 `next_token`,
-            第一分页无需填写, 当 next_token 和 offset 同时传入时以 next_token 为主, 默认 `None`
-        :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
-        :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
-        :returns `<'SdProductReports'>`: 返回查询到的 SD 商品广告报告结果
-        ```python
-        {
-            # 状态码
-            "code": 0,
-            # 提示信息
-            "message": "success",
-            # 错误信息
-            "errors": [],
-            # 请求ID
-            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
-            # 响应时间
-            "response_time": "2025-08-13 19:23:04",
-            # 响应数据量
-            "response_count": 2,
-            # 总数据量
-            "total_count": 2,
-            # 响应数据
-            "data": [
+        Args:
+            report_date (str | datetime.date | datetime.datetime): 报告日期，建议使用完整YYYY-MM-DD；按输入日期的年月日查询，不额外换算时区。
+            sid (int): 领星店铺ID，与profile_id至少提供一项；按profile_id查询时显式传None。
+            profile_id (int): 广告账号ID，来源为AdProfiles.profile_id；按sid查询时显式传None。
+            next_token (str | None): 上一页返回的分页游标，默认None并省略；同时提供offset时两项均发送。
+            offset (int | None): 非负分页偏移量，默认None并省略，接口默认0；显式0保留。
+            length (int | None): 非负分页长度，默认None并省略，接口默认15；显式0保留。
+
+        Returns:
+            ads.schema.SdProductReports: 返回SD广告商品报表的默认归因数据。
+
+        Examples:
+            查询报告并查看返回数据。
+
+            .. code-block:: python
+
+                result = await client.ads.SdProductReports(report_date="2026-10-01", sid=None, profile_id=9000000000000005, offset=0, length=2)
+                print(result.model_dump())
+
+            .. code-block:: python
+
                 {
-                    # 亚马逊店铺ID (广告帐号ID)
-                    "profile_id": 494************,
-                    # 广告活动ID
-                    "campaign_id": 289************,
-                    # 广告组ID
-                    "ad_group_id": 551************,
-                    # 商品广告ID
-                    "ad_id": 364************,
-                    # 投放策略
-                    "tactic": "T00030",
-                    # 商品ASIN
-                    "asin": "B0D*******",
-                    # 亚马逊SKU [原字段 'sku']
-                    "msku": "SKU********",
-                    # 广告花费
-                    "cost": 2.87,
-                    # 总展示次数
-                    "impressions": 405,
-                    # 可见展示次数 [原字段 'view_impressions']
-                    "viewable_impressions": 0,
-                    # 总点击次数
-                    "clicks": 1,
-                    # 广告订单数
-                    "orders": 1,
-                    # 直接广告订单数 [原字段 'same_orders']
-                    "direct_orders": 1,
-                    # 广告成交商品件数
-                    "units": 1,
-                    # 广告销售额
-                    "sales": 29.98,
-                    # 直接广告销售额 [原字段 'same_sales']
-                    "direct_sales": 29.98,
-                    # 报告日期
-                    "report_date": "2025-06-28",
-                },
-                ...
-            ],
-            # 分页游标
-            "next_token": "MjgxNTExNTQ0MTc4ODM1",
-        }
-        ```
+                    # 状态码
+                    "code": 0,
+                    # 提示信息
+                    "message": "success",
+                    # 错误信息
+                    "errors": [],
+                    # 请求ID
+                    "request_id": "00000000-0000-0000-0000-00000000018d",
+                    # 响应时间
+                    "response_time": "2001-05-07 15:26:00",
+                    # 响应数据量
+                    "response_count": 2,
+                    # 总数据量
+                    "total_count": 2,
+                    # 响应数据
+                    "data": [
+                        {
+                            # 亚马逊店铺ID (广告帐号ID)
+                            "profile_id": 9000000000000005,
+                            # 广告活动ID
+                            "campaign_id": 700000000000293,
+                            # 广告组ID
+                            "ad_group_id": 600000000000338,
+                            # 商品广告ID
+                            "ad_id": 500000000000223,
+                            # 投放策略
+                            "tactic": "T00030",
+                            # 商品ASIN
+                            "asin": "A0A00AAAIT",
+                            # 亚马逊SKU [原字段 'sku']
+                            "msku": "000-00-AA-00AA-0A-BI",
+                            # 广告花费
+                            "cost": 0.99,
+                            # 总展示次数
+                            "impressions": 325,
+                            # 可见展示次数 [原字段 'view_impressions']
+                            "viewable_impressions": 9,
+                            # 总点击次数
+                            "clicks": 2,
+                            # 广告订单数
+                            "orders": 0,
+                            # 直接广告订单数 [原字段 'same_orders']
+                            "direct_orders": 0,
+                            # 广告成交商品件数
+                            "units": 0,
+                            # 广告销售额
+                            "sales": 0.0,
+                            # 直接广告销售额 [原字段 'same_sales']
+                            "direct_sales": 0.0,
+                            # 品牌新客14天订单数
+                            "new_to_brand_orders_14d": 0,
+                            # 品牌新客14天商品件数
+                            "new_to_brand_units_14d": 0,
+                            # 品牌新客14天销售额
+                            "new_to_brand_sales_14d": 0.0,
+                            # 报告日期
+                            "report_date": "2026-10-01",
+                        },
+                        ...,
+                    ],
+                    # 分页游标
+                    "next_token": "MjgxNTExNTQ0MTc4ODM1",
+                }
         """
         url = route.SD_PRODUCT_REPORTS
         # 解析并验证参数
@@ -5677,82 +5806,94 @@ class AdsAPI(BaseAPI):
         report_date: str | datetime.date | datetime.datetime,
         campaign_id: int,
     ) -> schema.SdProductHourData:
-        """查询 SD 商品广告小时数据
+        """查询SD广告小时数据。
 
         ## Docs
-        - 新广告 - 报告: [SD广告小时数据(ad)](https://apidoc.lingxing.com/#/docs/newAd/report/sdAdvertiseHourData)
+        领星接口文档: 新广告 - 报告.[SD广告小时数据](https://apidoc.lingxing.com/new/api-docs/newAd/report/sdAdvertiseHourData/)
 
-        :param report_date `<'str/date/datetime'>`: 报告日期
-        :param campaign_id `<'int'>`: 广告活动ID, 参数来源 `SdCampaign.campaign_id`
-        :returns `<'SdProductHourData'>`: 返回查询到的 SD 商品广告小时数据结果
-        ```python
-        {
-            # 状态码
-            "code": 0,
-            # 提示信息
-            "message": "success",
-            # 错误信息
-            "errors": [],
-            # 请求ID
-            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
-            # 响应时间
-            "response_time": "2025-08-13 19:23:04",
-            # 响应数据量
-            "response_count": 2,
-            # 总数据量
-            "total_count": 2,
-            # 响应数据
-            "data": [
+        Args:
+            report_date (str | datetime.date | datetime.datetime): 报告日期，建议使用完整YYYY-MM-DD；按输入日期的年月日查询，不额外换算时区。接口仅支持最近60天。
+            campaign_id (int): 单个广告活动ID，来源为SdCampaign.campaign_id；固定按广告维度聚合。
+
+        Returns:
+            ads.schema.SdProductHourData: 返回SD广告小时数据。
+
+        Examples:
+            查询报告并查看返回数据。
+
+            .. code-block:: python
+
+                result = await client.ads.SdProductHourData(report_date="2026-10-01", campaign_id=700000000000293)
+                print(result.model_dump())
+
+            .. code-block:: python
+
                 {
-                    # 亚马逊店铺ID (广告帐号ID)
-                    "profile_id": 494************,
-                    # 广告活动ID
-                    "campaign_id": 439************,
-                    # 广告组ID [原字段 'group_id']
-                    "ad_group_id": 325************,
-                    # 商品广告ID
-                    "ad_id": 364************,
-                    # 商品ASIN
-                    "asin": "B0X*******
-                    # 亚马逊SKU
-                    "msku": "SKU********",
-                    # 广告花费
-                    "cost": 1.45,
-                    # 总展示次数
-                    "impressions": 0,
-                    # 总点击次数
-                    "clicks": 1,
-                    # 广告订单数
-                    "orders": 1,
-                    # 直接广告订单数 [原字段 'same_orders']
-                    "direct_orders": 1,
-                    # 广告成交商品件数
-                    "units": 2,
-                    # 广告销售额
-                    "sales": 59.76,
-                    # 直接广告销售额 [原字段 'same_sales']
-                    "direct_sales": 59.76,
-                    # 点击率 - Click Through Rate (总点击次数 / 总展示次数)
-                    "ctr": 0.0,
-                    # 转化率 - Conversion Rate (广告订单数 / 总点击次数)
-                    "cvr": 1.0,
-                    # 平均点击花费 - Cost Per Click (广告花费 / 总点击次数)
-                    "cpc": 1.45,
-                    # 平均订单花费 - Cost Per Acquisition (广告花费 / 广告订单数)
-                    "cpa": 1.45,
-                    # 广告花费占比 - Ad Cost of Sales (广告花费 / 广告销售额)
-                    "acos": 0.0243,
-                    # 广告投入回报 - Return On Ad Spend (广告销售额 / 广告花费)
-                    "roas": 41.21,
-                    # 数据所属小时 (0-23)
-                    "hour": 18,
-                    # 报告日期
-                    "report_date": "2025-08-25",
-                },
-                ...
-            ],
-        }
-        ```
+                    # 状态码
+                    "code": 0,
+                    # 提示信息
+                    "message": "success",
+                    # 错误信息
+                    "errors": [],
+                    # 请求ID
+                    "request_id": "00000000-0000-0000-0000-0000000000c6",
+                    # 响应时间
+                    "response_time": "2001-05-07 15:39:00",
+                    # 响应数据量
+                    "response_count": 2,
+                    # 总数据量
+                    "total_count": 2,
+                    # 响应数据
+                    "data": [
+                        {
+                            # 亚马逊店铺ID (广告帐号ID)
+                            "profile_id": 9000000000000005,
+                            # 广告活动ID
+                            "campaign_id": 700000000000293,
+                            # 广告组ID [原字段 'group_id']
+                            "ad_group_id": 600000000000338,
+                            # 商品广告ID
+                            "ad_id": 500000000000468,
+                            # 商品ASIN
+                            "asin": "A00AAAAA6N",
+                            # 亚马逊SKU
+                            "msku": "000-00-AA-00AA-0A0A-0BB",
+                            # 广告花费
+                            "cost": 0.36,
+                            # 总展示次数
+                            "impressions": 159,
+                            # 总点击次数
+                            "clicks": 3,
+                            # 广告订单数
+                            "orders": 0,
+                            # 直接广告订单数 [原字段 'same_orders']
+                            "direct_orders": 0,
+                            # 广告成交商品件数
+                            "units": 0,
+                            # 广告销售额
+                            "sales": 0.0,
+                            # 直接广告销售额 [原字段 'same_sales']
+                            "direct_sales": 0.0,
+                            # 点击率 - Click Through Rate (总点击次数 / 总展示次数)
+                            "ctr": 0.0189,
+                            # 转化率 - Conversion Rate (广告订单数 / 总点击次数)
+                            "cvr": 0.0,
+                            # 平均点击花费 - Cost Per Click (广告花费 / 总点击次数)
+                            "cpc": 0.12,
+                            # 平均订单花费 - Cost Per Acquisition (广告花费 / 广告订单数)
+                            "cpa": 0.0,
+                            # 广告花费占比 - Ad Cost of Sales (广告花费 / 广告销售额)
+                            "acos": 0.0,
+                            # 广告投入回报 - Return On Ad Spend (广告销售额 / 广告花费)
+                            "roas": 0.0,
+                            # 数据所属小时 (0-23)
+                            "hour": 2,
+                            # 报告日期
+                            "report_date": "2026-10-01",
+                        },
+                        ...,
+                    ],
+                }
         """
         url = route.SD_PRODUCT_HOUR_DATA
         # 解析并验证参数
@@ -5780,81 +5921,98 @@ class AdsAPI(BaseAPI):
         offset: int | None = None,
         length: int | None = None,
     ) -> schema.SdTargetReports:
-        """查询 SD 商品投放报告
+        """查询SD商品定位报表。
 
         ## Docs
-        - 新广告 - 报告: [SD商品定位报表](https://apidoc.lingxing.com/#/docs/newAd/report/sdTargetReports)
+        领星接口文档: 新广告 - 报告.[SD商品定位报表](https://apidoc.lingxing.com/new/api-docs/newAd/report/sdTargetReports/)
 
-        :param report_date `<'str/date/datetime'>`: 报告日期
-        :param sid `<'int'>`: 领星店铺ID
-        :param profile_id `<'int'>`: 亚马逊店铺ID (广告帐号ID), 参数来源 `AdsProfiles.profile_id`
-        :param next_token `<'str/None'>`: 分页游标, 上次分页结果中的 `next_token`,
-            第一分页无需填写, 当 next_token 和 offset 同时传入时以 next_token 为主, 默认 `None`
-        :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
-        :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
-        :returns `<'SdTargetReports'>`: 返回查询到的 SD 商品投放报告结果
-        ```python
-        {
-            # 状态码
-            "code": 0,
-            # 提示信息
-            "message": "success",
-            # 错误信息
-            "errors": [],
-            # 请求ID
-            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
-            # 响应时间
-            "response_time": "2025-08-13 19:23:04",
-            # 响应数据量
-            "response_count": 2,
-            # 总数据量
-            "total_count": 2,
-            # 响应数据
-            "data": [
+        Args:
+            report_date (str | datetime.date | datetime.datetime): 报告日期，建议使用完整YYYY-MM-DD；按输入日期的年月日查询，不额外换算时区。
+            sid (int): 领星店铺ID，与profile_id至少提供一项；按profile_id查询时显式传None。
+            profile_id (int): 广告账号ID，来源为AdProfiles.profile_id；按sid查询时显式传None。
+            next_token (str | None): 上一页返回的分页游标，默认None并省略；同时提供offset时两项均发送。
+            offset (int | None): 非负分页偏移量，默认None并省略，接口默认0；显式0保留。
+            length (int | None): 非负分页长度，默认None并省略，接口默认15；显式0保留。
+
+        Returns:
+            ads.schema.SdTargetReports: 返回SD商品定位报表的默认归因数据。
+
+        Examples:
+            查询报告并查看返回数据。
+
+            .. code-block:: python
+
+                result = await client.ads.SdTargetReports(report_date="2026-10-01", sid=None, profile_id=90000000000009, offset=0, length=2)
+                print(result.model_dump())
+
+            .. code-block:: python
+
                 {
-                    # 亚马逊店铺ID (广告帐号ID)
-                    "profile_id": 494************,
-                    # 广告活动ID
-                    "campaign_id": 289************,
-                    # 广告组ID
-                    "ad_group_id": 551************,
-                    # 目标商品广告ID
-                    "target_id": 542************,
-                    # 目标商品文本 [原字段 'targeting_expression']
-                    "target_text": 'asin="B0F*******"',
-                    # 目标定位类型 [原字段 'targeting_type']
-                    "expression_type": "",
-                    # 目标定位表达式 (JSON 字符串) [原字段 'targeting_text']
-                    "expression": '"[{\\"type\\": \\"asinSameAs\\", \\"value\\": \\"B0F*******\\"}]"',
-                    # 投放策略
-                    "tactic": "T00030",
-                    # 广告花费
-                    "cost": 2.87,
-                    # 总展示次数
-                    "impressions": 144,
-                    # 可见展示次数 [原字段 'view_impressions']
-                    "viewable_impressions": 0,
-                    # 总点击次数
-                    "clicks": 1,
-                    # 广告订单数
-                    "orders": 1,
-                    # 直接广告订单数 [原字段 'same_orders']
-                    "direct_orders": 1,
-                    # 广告成交商品件数
-                    "units": 1,
-                    # 广告销售额
-                    "sales": 29.98,
-                    # 直接广告销售额 [原字段 'same_sales']
-                    "direct_sales": 29.98,
-                    # 报告日期
-                    "report_date": "2025-06-28",
-                },
-                ...
-            ],
-            # 分页游标
-            "next_token": "MjgxNTExNTQ0MTc4ODM1",
-        }
-        ```
+                    # 状态码
+                    "code": 0,
+                    # 提示信息
+                    "message": "success",
+                    # 错误信息
+                    "errors": [],
+                    # 请求ID
+                    "request_id": "00000000-0000-0000-0000-00000000019b",
+                    # 响应时间
+                    "response_time": "2001-05-07 15:41:00",
+                    # 响应数据量
+                    "response_count": 2,
+                    # 总数据量
+                    "total_count": 2,
+                    # 响应数据
+                    "data": [
+                        {
+                            # 亚马逊店铺ID (广告帐号ID)
+                            "profile_id": 90000000000009,
+                            # 广告活动ID
+                            "campaign_id": 700000000000175,
+                            # 广告组ID
+                            "ad_group_id": 600000000000306,
+                            # 目标商品广告ID
+                            "target_id": 300000000000020,
+                            # 目标商品文本 [原字段 'targeting_expression']
+                            "target_text": "purchases=(exact-product lookback=365)",
+                            # 目标定位类型 [原字段 'targeting_type']
+                            "expression_type": "",
+                            # 目标定位表达式 (JSON 字符串) [原字段 'targeting_text']
+                            "expression": "\\"[{\\\\\\"type\\\\\\": \\\\\\"purchases\\\\\\", \\\\\\"value\\\\\\": [{\\\\\\"type\\\\\\": \\\\\\"exactProduct\\\\\\"}, {\\\\\\"type\\\\\\": \\\\\\"lookback\\\\\\", \\\\\\"value\\\\\\": \\\\\\"365\\\\\\"}]}]\\"",
+                            # 投放策略
+                            "tactic": "T00030",
+                            # 广告花费
+                            "cost": 0.94,
+                            # 总展示次数
+                            "impressions": 101,
+                            # 可见展示次数 [原字段 'view_impressions']
+                            "viewable_impressions": 0,
+                            # 总点击次数
+                            "clicks": 2,
+                            # 广告订单数
+                            "orders": 0,
+                            # 直接广告订单数 [原字段 'same_orders']
+                            "direct_orders": 0,
+                            # 广告成交商品件数
+                            "units": 0,
+                            # 广告销售额
+                            "sales": 0.0,
+                            # 直接广告销售额 [原字段 'same_sales']
+                            "direct_sales": 0.0,
+                            # 品牌新客14天订单数
+                            "new_to_brand_orders_14d": 0,
+                            # 品牌新客14天商品件数
+                            "new_to_brand_units_14d": 0,
+                            # 品牌新客14天销售额
+                            "new_to_brand_sales_14d": 0.0,
+                            # 报告日期
+                            "report_date": "2026-10-01",
+                        },
+                        ...,
+                    ],
+                    # 分页游标
+                    "next_token": "MjgxNTExNTQ0MTc4ODM1",
+                }
         """
         url = route.SD_TARGET_REPORTS
         # 解析并验证参数
@@ -5883,86 +6041,98 @@ class AdsAPI(BaseAPI):
         report_date: str | datetime.date | datetime.datetime,
         campaign_id: int,
     ) -> schema.SdTargetHourData:
-        """查询 SD 商品投放小时数据
+        """查询SD投放小时数据。
 
         ## Docs
-        - 新广告 - 报告: [SD投放小时数据(both_ad_target)](https://apidoc.lingxing.com/#/docs/newAd/report/sdTargetHourData)
+        领星接口文档: 新广告 - 报告.[SD投放小时数据](https://apidoc.lingxing.com/new/api-docs/newAd/report/sdTargetHourData/)
 
-        :param report_date `<'str/date/datetime'>`: 报告日期
-        :param campaign_id `<'int'>`: 广告活动ID, 参数来源 `SdCampaign.campaign_id`
-        :returns `<'SdTargetHourData'>`: 返回查询到的 SD 商品投放小时数据结果
-        ```python
-        {
-            # 状态码
-            "code": 0,
-            # 提示信息
-            "message": "success",
-            # 错误信息
-            "errors": [],
-            # 请求ID
-            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
-            # 响应时间
-            "response_time": "2025-08-13 19:23:04",
-            # 响应数据量
-            "response_count": 2,
-            # 总数据量
-            "total_count": 2,
-            # 响应数据
-            "data": [
+        Args:
+            report_date (str | datetime.date | datetime.datetime): 报告日期，建议使用完整YYYY-MM-DD；按输入日期的年月日查询，不额外换算时区。接口仅支持最近60天。
+            campaign_id (int): 单个广告活动ID，来源为SdCampaign.campaign_id；固定按广告与投放组合维度聚合。
+
+        Returns:
+            ads.schema.SdTargetHourData: 返回SD投放小时数据。
+
+        Examples:
+            查询报告并查看返回数据。
+
+            .. code-block:: python
+
+                result = await client.ads.SdTargetHourData(report_date="2026-10-01", campaign_id=700000000000293)
+                print(result.model_dump())
+
+            .. code-block:: python
+
                 {
-                    # 亚马逊店铺ID (广告帐号ID)
-                    "profile_id": 494************,
-                    # 广告活动ID
-                    "campaign_id": 439************,
-                    # 广告组ID [原字段 'group_id']
-                    "ad_group_id": 325************,
-                    # 商品广告ID
-                    "ad_id": 364************,
-                    # 目标商品广告ID [原字段 'targeting_id']
-                    "target_id": 542************,
-                    # 目标定位文本 [原字段 'targeting']
-                    "target_text": 'asin="B0F*******"',
-                    # 商品ASIN
-                    "asin": "B0X*******
-                    # 亚马逊SKU
-                    "msku": "SKU********",
-                    # 广告花费
-                    "cost": 1.45,
-                    # 总展示次数
-                    "impressions": 0,
-                    # 总点击次数
-                    "clicks": 1,
-                    # 广告订单数
-                    "orders": 1,
-                    # 直接广告订单数 [原字段 'same_orders']
-                    "direct_orders": 1,
-                    # 广告成交商品件数
-                    "units": 2,
-                    # 广告销售额
-                    "sales": 59.76,
-                    # 直接广告销售额 [原字段 'same_sales']
-                    "direct_sales": 59.76,
-                    # 点击率 - Click Through Rate (总点击次数 / 总展示次数)
-                    "ctr": 0.0,
-                    # 转化率 - Conversion Rate (广告订单数 / 总点击次数)
-                    "cvr": 1.0,
-                    # 平均点击花费 - Cost Per Click (广告花费 / 总点击次数)
-                    "cpc": 1.45,
-                    # 平均订单花费 - Cost Per Acquisition (广告花费 / 广告订单数)
-                    "cpa": 1.45,
-                    # 广告花费占比 - Ad Cost of Sales (广告花费 / 广告销售额)
-                    "acos": 0.0243,
-                    # 广告投入回报 - Return On Ad Spend (广告销售额 / 广告花费)
-                    "roas": 41.21,
-                    # 数据所属小时 (0-23)
-                    "hour": 18,
-                    # 报告日期
-                    "report_date": "2025-08-25",
-                },
-                ...
-            ],
-        }
-        ```
+                    # 状态码
+                    "code": 0,
+                    # 提示信息
+                    "message": "success",
+                    # 错误信息
+                    "errors": [],
+                    # 请求ID
+                    "request_id": "00000000-0000-0000-0000-000000000165",
+                    # 响应时间
+                    "response_time": "2001-05-07 15:54:00",
+                    # 响应数据量
+                    "response_count": 2,
+                    # 总数据量
+                    "total_count": 2,
+                    # 响应数据
+                    "data": [
+                        {
+                            # 亚马逊店铺ID (广告帐号ID)
+                            "profile_id": 9000000000000005,
+                            # 广告活动ID
+                            "campaign_id": 700000000000293,
+                            # 广告组ID [原字段 'group_id']
+                            "ad_group_id": 600000000000338,
+                            # 商品广告ID
+                            "ad_id": 500000000000534,
+                            # 目标商品广告ID [原字段 'targeting_id']
+                            "target_id": 30000000000050,
+                            # 目标定位文本 [原字段 'targeting']
+                            "target_text": "views=(similar-product lookback=90)",
+                            # 商品ASIN
+                            "asin": "A000AA0ACR",
+                            # 亚马逊SKU
+                            "msku": "000-00-AA-AAAA-00AA-0A-AW",
+                            # 广告花费
+                            "cost": 0.1,
+                            # 总展示次数
+                            "impressions": 8,
+                            # 总点击次数
+                            "clicks": 1,
+                            # 广告订单数
+                            "orders": 0,
+                            # 直接广告订单数 [原字段 'same_orders']
+                            "direct_orders": 0,
+                            # 广告成交商品件数
+                            "units": 0,
+                            # 广告销售额
+                            "sales": 0.0,
+                            # 直接广告销售额 [原字段 'same_sales']
+                            "direct_sales": 0.0,
+                            # 点击率 - Click Through Rate (总点击次数 / 总展示次数)
+                            "ctr": 0.125,
+                            # 转化率 - Conversion Rate (广告订单数 / 总点击次数)
+                            "cvr": 0.0,
+                            # 平均点击花费 - Cost Per Click (广告花费 / 总点击次数)
+                            "cpc": 0.1,
+                            # 平均订单花费 - Cost Per Acquisition (广告花费 / 广告订单数)
+                            "cpa": 0.0,
+                            # 广告花费占比 - Ad Cost of Sales (广告花费 / 广告销售额)
+                            "acos": 0.0,
+                            # 广告投入回报 - Return On Ad Spend (广告销售额 / 广告花费)
+                            "roas": 0.0,
+                            # 数据所属小时 (0-23)
+                            "hour": 2,
+                            # 报告日期
+                            "report_date": "2026-10-01",
+                        },
+                        ...,
+                    ],
+                }
         """
         url = route.SD_TARGET_HOUR_DATA
         # 解析并验证参数
@@ -5990,89 +6160,96 @@ class AdsAPI(BaseAPI):
         offset: int | None = None,
         length: int | None = None,
     ) -> schema.SdMatchedTargetReports:
-        """查询 SD 匹配的商品投放报告
+        """查询SD匹配的目标报表。
 
         ## Docs
-        - 新广告 - 报告: [SD匹配的目标报表](https://apidoc.lingxing.com/#/docs/newAd/report/sdMatchTargetReports)
+        领星接口文档: 新广告 - 报告.[SD匹配的目标报表](https://apidoc.lingxing.com/new/api-docs/newAd/report/sdMatchTargetReports/)
 
-        ## Notice
-        此报告展示 SD 广告在哪些 ASIN 的 Listing 页面展示井被点击过, 但不同于`'目标商品投放报告'`,
-        这份报告只统计显示到 Listing 页面并有点击的数据, 不包括显示到其他位置的和在 Lisitng 贡面有显示但无点击的数据
+        Args:
+            report_date (str | datetime.date | datetime.datetime): 报告日期，建议使用完整YYYY-MM-DD；按输入日期的年月日查询，不额外换算时区。
+            sid (int): 领星店铺ID，与profile_id至少提供一项；按profile_id查询时显式传None。
+            profile_id (int): 广告账号ID，来源为AdProfiles.profile_id；按sid查询时显式传None。
+            next_token (str | None): 上一页返回的分页游标，默认None并省略；同时提供offset时两项均发送。
+            offset (int | None): 非负分页偏移量，默认None并省略，接口默认0；显式0保留。
+            length (int | None): 非负分页长度，默认None并省略，接口默认15；显式0保留。
 
-        :param report_date `<'str/date/datetime'>`: 报告日期
-        :param sid `<'int'>`: 领星店铺ID
-        :param profile_id `<'int'>`: 亚马逊店铺ID (广告帐号ID), 参数来源 `AdsProfiles.profile_id`
-        :param next_token `<'str/None'>`: 分页游标, 上次分页结果中的 `next_token`,
-            第一分页无需填写, 当 next_token 和 offset 同时传入时以 next_token 为主, 默认 `None`
-        :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
-        :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
-        :returns `<'SdMatchedTargetReports'>`: 返回查询到的 SD 匹配的商品投放报告结果
-        ```python
-        {
-            # 状态码
-            "code": 0,
-            # 提示信息
-            "message": "success",
-            # 错误信息
-            "errors": [],
-            # 请求ID
-            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
-            # 响应时间
-            "response_time": "2025-08-13 19:23:04",
-            # 响应数据量
-            "response_count": 2,
-            # 总数据量
-            "total_count": 2,
-            # 响应数据
-            "data": [
+        Returns:
+            ads.schema.SdMatchedTargetReports: 返回在ASIN商品详情页展示且发生点击的匹配目标默认归因数据。
+
+        Examples:
+            查询报告并查看返回数据。
+
+            .. code-block:: python
+
+                result = await client.ads.SdMatchedTargetReports(report_date="2026-10-01", sid=None, profile_id=9000000000000005, offset=0, length=2)
+                print(result.model_dump())
+
+            .. code-block:: python
+
                 {
-                    # 亚马逊店铺ID (广告帐号ID)
-                    "profile_id": 494************,
-                    # 广告活动ID
-                    "campaign_id": 289************,
-                    # 广告组ID
-                    "ad_group_id": 551************,
-                    # 目标商品广告ID
-                    "target_id": 542************,
-                    # 目标定位表达式 (JSON 字符串) [原字段 'target_text']
-                    "expression": '"[{\\"type\\": \\"asinSameAs\\", \\"value\\": \\"B0F*******\\"}]"',
-                    # 匹配的目标商品 (ASIN)
-                    "matched_target": "B0F*******",
-                    # 货币代码 [原字段 'currency']
-                    "currency_code": "",
-                    # 广告花费
-                    "cost": 2.87,
-                    # 广告花费
-                    "impressions": 141,
-                    # 可见展示次数 [原字段 'view_impressions']
-                    "viewable_impressions": 0,
-                    # 总点击次数
-                    "clicks": 1,
-                    # 总点击次数
-                    "orders": 1,
-                    # 直接广告订单数 [原字段 'same_orders']
-                    "direct_orders": 1,
-                    # 品牌新买家广告订单数
-                    "new_to_brand_orders": 0,
-                    # 广告成交商品件数
-                    "units": 1,
-                    # 品牌新买家成交商品件数
-                    "new_to_brand_units": 0,
-                    # 广告销售额
-                    "sales": 29.98,
-                    # 直接广告销售额 [原字段 'same_sales']
-                    "direct_sales": 29.98,
-                    # 品牌新买家销售额
-                    "new_to_brand_sales": 0.0,
-                    # 报告日期
-                    "report_date": "2025-06-28",
-                },
-                ...
-            ],
-            # 分页游标
-            "next_token": "MjgxNTExNTQ0MTc4ODM1",
-        }
-        ```
+                    # 状态码
+                    "code": 0,
+                    # 提示信息
+                    "message": "success",
+                    # 错误信息
+                    "errors": [],
+                    # 请求ID
+                    "request_id": "00000000-0000-0000-0000-0000000000cb",
+                    # 响应时间
+                    "response_time": "2001-05-07 15:57:00",
+                    # 响应数据量
+                    "response_count": 2,
+                    # 总数据量
+                    "total_count": 2,
+                    # 响应数据
+                    "data": [
+                        {
+                            # 亚马逊店铺ID (广告帐号ID)
+                            "profile_id": 9000000000000005,
+                            # 广告活动ID
+                            "campaign_id": 700000000000293,
+                            # 广告组ID
+                            "ad_group_id": 600000000000338,
+                            # 目标商品广告ID
+                            "target_id": 300000000000009,
+                            # 目标定位表达式 (JSON 字符串) [原字段 'target_text']
+                            "expression": "\\"[{\\\\\\"type\\\\\\": \\\\\\"views\\\\\\", \\\\\\"value\\\\\\": [{\\\\\\"type\\\\\\": \\\\\\"exactProduct\\\\\\"}, {\\\\\\"type\\\\\\": \\\\\\"lookback\\\\\\", \\\\\\"value\\\\\\": \\\\\\"30\\\\\\"}]}]\\"",
+                            # 匹配的目标商品 (ASIN)
+                            "matched_target": "A00AAAAAAV",
+                            # 货币代码 [原字段 'currency']
+                            "currency_code": "",
+                            # 广告花费
+                            "cost": 1.98,
+                            # 总展示次数
+                            "impressions": 2,
+                            # 可见展示次数 [原字段 'view_impressions']
+                            "viewable_impressions": 0,
+                            # 总点击次数
+                            "clicks": 1,
+                            # 广告订单数
+                            "orders": 0,
+                            # 直接广告订单数 [原字段 'same_orders']
+                            "direct_orders": 0,
+                            # 品牌新买家广告订单数
+                            "new_to_brand_orders": 0,
+                            # 广告成交商品件数
+                            "units": 0,
+                            # 品牌新买家成交商品件数
+                            "new_to_brand_units": 0,
+                            # 广告销售额
+                            "sales": 0.0,
+                            # 直接广告销售额 [原字段 'same_sales']
+                            "direct_sales": 0.0,
+                            # 品牌新买家销售额
+                            "new_to_brand_sales": 0.0,
+                            # 报告日期
+                            "report_date": "2026-10-01",
+                        },
+                        ...,
+                    ],
+                    # 分页游标
+                    "next_token": "MjgxNTExNTQ0MTc4ODM1",
+                }
         """
         url = route.SD_MATCHED_TARGET_REPORTS
         # 解析并验证参数
