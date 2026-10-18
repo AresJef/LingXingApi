@@ -1,0 +1,37 @@
+{
+  "source": "local_raw",
+  "endpoint": "ads.SpAdGroups",
+  "response": {
+    "code": 0,
+    "message": "操作成功",
+    "data": [
+      {
+        "profile_id": 90000000000009,
+        "campaign_id": 700000000000154,
+        "ad_group_id": 60000000000361,
+        "name": "000aa 0a0a广合",
+        "default_bid": 2.0,
+        "state": "archived",
+        "creation_date": 1529505542000,
+        "last_updated_date": 1530097049000,
+        "serving_status": "CAMPAIGN_ARCHIVED"
+      },
+      {
+        "profile_id": 90000000000009,
+        "campaign_id": 700000000000120,
+        "ad_group_id": 600000000000089,
+        "name": "广告甲 7",
+        "default_bid": 1.2,
+        "state": "archived",
+        "creation_date": 1526691274000,
+        "last_updated_date": 1528269872000,
+        "serving_status": "CAMPAIGN_ARCHIVED"
+      }
+    ],
+    "total": 5,
+    "next_token": "MTAwMDAwMDAwMDAwMDMx",
+    "error_details": [],
+    "request_id": "00000000-0000-0000-0000-000000000280",
+    "response_time": "2001-05-07 07:00:00"
+  }
+}

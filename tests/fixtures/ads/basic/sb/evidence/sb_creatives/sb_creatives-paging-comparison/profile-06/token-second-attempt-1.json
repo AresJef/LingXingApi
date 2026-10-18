@@ -1,0 +1,137 @@
+{
+  "source": "local_raw",
+  "endpoint": "ads.SbCreatives",
+  "response": {
+    "code": 0,
+    "message": "操作成功",
+    "data": [
+      {
+        "video_creatives": [],
+        "campaign_id": 700000000000000215,
+        "ad_group_id": 600000000000000110,
+        "creative_id": 20205,
+        "ad_creative_id": 0,
+        "name": null,
+        "state": "archived",
+        "creation_date": 1658915477168,
+        "last_updated_date": 1761107088091,
+        "profile_id": 900000000000001,
+        "serving_status": "CAMPAIGN_ARCHIVED",
+        "asin": [
+          "A00AAA00BO",
+          "A000A00AFB",
+          "A00AAAAA5Z"
+        ],
+        "creative": {
+          "asins": [
+            "A00AAA00BO",
+            "A000A00AFB",
+            "A00AAAAA5Z"
+          ],
+          "brandLogoCrop": {
+            "top": 0,
+            "left": 0,
+            "width": 400,
+            "height": 400
+          },
+          "brandLogoUrl": "https://a.aaaaa-aaaaaa.aaa/aaaaaa/A/aa-aa-aa0000aa-a000/00a00aaa-0a0a-0000-00a0-00a0a00a0000.afv",
+          "brandName": "AaaaAaaal",
+          "creativeStatus": "PUBLISHED",
+          "creativeVersion": "1",
+          "type": "PRODUCT_COLLECTION",
+          "brandLogoAssetID": "AAAaAAa0aA0A0aAaAa0A:aaaaaaa_a8",
+          "headline": "AA00AA  示示示示示示铺组"
+        },
+        "landing_page": {
+          "pageType": "PRODUCT_LIST",
+          "url": "https://aaa.aaaaaa.aa.aa/aaaaaa/aaaa/000A0AA0-AA00-0A00-AA00-0000AA00A14C"
+        },
+        "creative_type": "PRODUCT_COLLECTION"
+      },
+      {
+        "video_creatives": [],
+        "campaign_id": 700000000000572,
+        "ad_group_id": 600000000000330,
+        "creative_id": 20206,
+        "ad_creative_id": 0,
+        "name": null,
+        "state": "archived",
+        "creation_date": 1659533583767,
+        "last_updated_date": 1761130727144,
+        "profile_id": 900000000000001,
+        "serving_status": "CAMPAIGN_ARCHIVED",
+        "asin": [
+          "A00AAAA0F5"
+        ],
+        "creative": {
+          "asins": [
+            "A00AAAA0F5"
+          ],
+          "creativeStatus": "PENDING_MODERATION_REVIEW",
+          "creativeVersion": "1",
+          "consentToTranslate": false,
+          "videoAssetIds": [
+            "aaaa0.aaaa.aaaaa0.0aaa00a0-000a-00aa-a0a0-0a00a0000053"
+          ],
+          "type": "VIDEO",
+          "originalVideoAssetIds": [
+            "aaaa0.aaaa.aaaaa0.0aaa00a0-000a-00aa-a0a0-0a00a0000053"
+          ]
+        },
+        "landing_page": {
+          "pageType": "DETAIL_PAGE",
+          "url": "https://aaa.aaaaaa.aa.aa/aa/A00AAAA1K1"
+        },
+        "creative_type": "VIDEO"
+      },
+      {
+        "video_creatives": [],
+        "campaign_id": 700000000000000234,
+        "ad_group_id": 600000000000000146,
+        "creative_id": 20207,
+        "ad_creative_id": 0,
+        "name": null,
+        "state": "archived",
+        "creation_date": 1597217559000,
+        "last_updated_date": 1761056090895,
+        "profile_id": 900000000000001,
+        "serving_status": "CAMPAIGN_ARCHIVED",
+        "asin": [
+          "A00AAA00BO",
+          "A000A00AFB",
+          "A00AAAAA5Z"
+        ],
+        "creative": {
+          "asins": [
+            "A00AAA00BO",
+            "A000A00AFB",
+            "A00AAAAA5Z"
+          ],
+          "brandLogoCrop": {
+            "top": 0,
+            "left": 0,
+            "width": 400,
+            "height": 400
+          },
+          "brandLogoUrl": "https://aaaaaa-aa.aaa-aaaaaa-aaaaaa.aaa/aaaaaa/A/aaaaaaaaa-aaaaa-aaaaaa-aaaa/0/A0AA00A0AAA000/0a0a000a00a0aa0a0a0aa00a0a0a0a00.aac",
+          "brandName": "AaaaAaaal",
+          "creativeStatus": "PUBLISHED",
+          "creativeVersion": "1",
+          "type": "PRODUCT_COLLECTION",
+          "brandLogoAssetID": "AAAaAAa0aA0A0aAaAa0H",
+          "headline": "AA 00 aa 示示示示示示 示示铺广"
+        },
+        "landing_page": {
+          "pageType": "PRODUCT_LIST",
+          "url": "https://aaa.aaaaaa.aa.aa/aaaaaa/aaaa/0A0A0AA0-0A00-00A0-AAA0-A00000A0A365"
+        },
+        "creative_type": "PRODUCT_COLLECTION"
+      }
+    ],
+    "total": 28,
+    "next_token": "MTAwMzA=",
+    "error_details": [],
+    "request_id": "00000000-0000-0000-0000-00000000010c",
+    "response_time": "2001-05-07 10:06:00"
+  }
+}

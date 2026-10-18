@@ -1,0 +1,347 @@
+{
+  "format": "ads-fixtures-v3",
+  "source": "local_raw",
+  "endpoint": "ads.SpCampaigns",
+  "source_sha256": "d1fdc90c5745d81084d5e440baf576dc14198235523f4350137a5ce33ba8b593",
+  "checks": {
+    "identifiers": {
+      "status": "proved",
+      "cases": [
+        {
+          "label": "account-A-sid-only",
+          "expected_account": "A",
+          "status": "proved",
+          "rows": 2
+        },
+        {
+          "label": "account-A-profile-only",
+          "expected_account": "A",
+          "status": "proved",
+          "rows": 2
+        },
+        {
+          "label": "account-A-both",
+          "expected_account": "A",
+          "status": "proved",
+          "rows": 2
+        },
+        {
+          "label": "account-B-sid-only",
+          "expected_account": "B",
+          "status": "proved",
+          "rows": 2
+        },
+        {
+          "label": "account-B-profile-only",
+          "expected_account": "B",
+          "status": "proved",
+          "rows": 2
+        },
+        {
+          "label": "account-B-both",
+          "expected_account": "B",
+          "status": "proved",
+          "rows": 2
+        }
+      ]
+    },
+    "cross_identifier_priority": {
+      "status": "proved",
+      "observed": "profile_id",
+      "cases": [
+        {
+          "label": "account-A-sid-B-profile",
+          "observed": "profile_id"
+        },
+        {
+          "label": "account-B-sid-A-profile",
+          "observed": "profile_id"
+        }
+      ]
+    },
+    "state_paused": {
+      "status": "observed",
+      "rows": 2,
+      "states": [
+        "paused"
+      ]
+    },
+    "state_archived": {
+      "status": "observed",
+      "rows": 2,
+      "states": [
+        "archived"
+      ]
+    },
+    "state_omitted": {
+      "status": "observed",
+      "rows": 2,
+      "states": [
+        "archived",
+        "paused"
+      ]
+    },
+    "offset_concat": {
+      "status": "proved",
+      "complete_data_equal": true
+    },
+    "token_concat": {
+      "status": "proved",
+      "complete_data_equal": true
+    },
+    "token_priority": {
+      "status": "proved",
+      "complete_data_equal": true
+    },
+    "baseline_stability": {
+      "status": "proved",
+      "complete_data_equal": true
+    }
+  },
+  "relationships": {
+    "reference": "reference-direct",
+    "offset_pages": [
+      "account-A-profile-only",
+      "offset-second"
+    ],
+    "token_pages": [
+      "account-A-profile-only",
+      "token-second"
+    ],
+    "token_source": "account-A-profile-only",
+    "token_control": "token-second",
+    "token_conflict": "token-priority-conflicting-offset",
+    "end_reference": "reference-end"
+  },
+  "planned_requests": 16,
+  "not_run": [],
+  "samples": [
+    {
+      "label": "account-A-sid-only",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "sid": 1212,
+        "state": "enabled"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_campaigns-account-A-sid-only.json",
+      "sha256": "c9d2bee86bf17c43f727b9f2f27ef88b584a7764778fb9714a496a7f9a1d500a"
+    },
+    {
+      "label": "account-A-profile-only",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "state": "enabled"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_campaigns-account-A-profile-only.json",
+      "sha256": "bbc7eea5990d4e27bb841135d4a4cfba25f4933e5b041158e7219f6540165a36"
+    },
+    {
+      "label": "account-A-both",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "sid": 1212,
+        "state": "enabled"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_campaigns-account-A-both.json",
+      "sha256": "b5dcd6c95b1813a33d88e31c3fa7cccbdb6d88eceb6974dea83fe2600f9a5523"
+    },
+    {
+      "label": "account-B-sid-only",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "sid": 10016,
+        "state": "enabled"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_campaigns-account-B-sid-only.json",
+      "sha256": "4e57f85d0eafa70d506caabb09a7f23a3509fe237e06766c401ce237ebb3f596"
+    },
+    {
+      "label": "account-B-profile-only",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000010,
+        "state": "enabled"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_campaigns-account-B-profile-only.json",
+      "sha256": "5fbcd7ea2e94135712e114ade4be838a5ccea31d4c416bc5ac7441438cc78d02"
+    },
+    {
+      "label": "account-B-both",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000010,
+        "sid": 10016,
+        "state": "enabled"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_campaigns-account-B-both.json",
+      "sha256": "1f45037c2daf283cbed570bbd2ee35a7668ad0a8469d4dff98718e80dd2a3ba0"
+    },
+    {
+      "label": "account-A-sid-B-profile",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000010,
+        "sid": 1212,
+        "state": "enabled"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_campaigns-account-A-sid-B-profile.json",
+      "sha256": "c45a10cb0c127d7d3f6a76ead368fbdf12a21d00bd35f42b5bbdb7ea3000ff84"
+    },
+    {
+      "label": "account-B-sid-A-profile",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "sid": 10016,
+        "state": "enabled"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_campaigns-account-B-sid-A-profile.json",
+      "sha256": "8fb2be22324b4ef3b8a3c813ffafd41711fddf8db66376169c9b740e5b0b52ce"
+    },
+    {
+      "label": "state-paused",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "state": "paused"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_campaigns-state-paused.json",
+      "sha256": "a5189d332c1b254ad0506d082bcd7ae55b0703687f1e0b24d249acaf2fc8cca6"
+    },
+    {
+      "label": "state-archived",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "state": "archived"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_campaigns-state-archived.json",
+      "sha256": "638157b4e3a095e17009a7f123c1d9af4569c5729539f0f882fdbfcc57fac4ca"
+    },
+    {
+      "label": "state-omitted",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000009
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_campaigns-state-omitted.json",
+      "sha256": "d1f3337ed950e09a46e0d2f9dbe3fbf5b2a3e854d83024343422b7c58c5eb78f"
+    },
+    {
+      "label": "reference-direct",
+      "request": {
+        "length": 4,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "state": "enabled"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_campaigns-reference-direct.json",
+      "sha256": "210c1522c1758965ae7f96cdc0afa570ed3e50d4f18ddc95c3314941103261a3"
+    },
+    {
+      "label": "offset-second",
+      "request": {
+        "length": 2,
+        "offset": 2,
+        "profile_id": 90000000000009,
+        "state": "enabled"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_campaigns-offset-second.json",
+      "sha256": "c8d36793e1383c0f00d28d16464b09555e373d43707cc4562eb89ef7ee277ad8"
+    },
+    {
+      "label": "token-second",
+      "request": {
+        "length": 2,
+        "profile_id": 90000000000009,
+        "state": "enabled"
+      },
+      "next_token_from": "account-A-profile-only",
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_campaigns-token-second.json",
+      "sha256": "21b2b51b646e1ddfaccf21ae57ed4f1eb0da3d99bf90992fa3fc04e5d73c1d16"
+    },
+    {
+      "label": "token-priority-conflicting-offset",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "state": "enabled"
+      },
+      "next_token_from": "account-A-profile-only",
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_campaigns-token-priority-conflicting-offset.json",
+      "sha256": "c5c60118e10d72393f5f3efb126bed931bc9d03dbca0949fb5d9a92d94411217"
+    },
+    {
+      "label": "reference-end",
+      "request": {
+        "length": 4,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "state": "enabled"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_campaigns-reference-end.json",
+      "sha256": "9466fe6dfba31fde9d13d0582781b311ee5bfcfc7a31e26f73f38c943adc8fd6"
+    }
+  ],
+  "diagnostics": []
+}

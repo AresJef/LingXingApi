@@ -1,0 +1,43 @@
+{
+  "source": "local_raw",
+  "endpoint": "ads.SpTargets",
+  "response": {
+    "code": 0,
+    "message": "操作成功",
+    "data": [
+      {
+        "target_id": 300000000040,
+        "campaign_id": 700000000000024,
+        "ad_group_id": 60000000000217,
+        "profile_id": 90000000000009,
+        "expression_type": "auto",
+        "expression": "[{\"type\": \"asinSubstituteRelated\"}]",
+        "bid": 1.0,
+        "state": "enabled",
+        "creation_date": 1563268308000,
+        "last_updated_date": 1569463747000,
+        "serving_status": "CAMPAIGN_PAUSED",
+        "resolved_expression": "[{\"type\": \"asinSubstituteRelated\"}]"
+      },
+      {
+        "target_id": 300000000041,
+        "campaign_id": 700000000000140,
+        "ad_group_id": 60000000000081,
+        "profile_id": 90000000000009,
+        "expression_type": "manual",
+        "expression": "[{\"type\": \"asinSameAs\", \"value\": \"A00AAAAAGY\"}]",
+        "bid": 0.88,
+        "state": "paused",
+        "creation_date": 1655692384418,
+        "last_updated_date": 1662346315055,
+        "serving_status": "TARGETING_CLAUSE_PAUSED",
+        "resolved_expression": "[{\"type\": \"asinSameAs\", \"value\": \"A00AAAAAGY\"}]"
+      }
+    ],
+    "total": 1510,
+    "next_token": "MTAwMDAwMDAwMDU5",
+    "error_details": [],
+    "request_id": "00000000-0000-0000-0000-0000000001c3",
+    "response_time": "2001-05-07 07:43:00"
+  }
+}

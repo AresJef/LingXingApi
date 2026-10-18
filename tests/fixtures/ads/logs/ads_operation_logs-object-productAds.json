@@ -1,0 +1,14 @@
+{
+  "source": "local_raw",
+  "endpoint": "ads.AdsOperationLogs",
+  "response": {
+    "code": 0,
+    "message": "操作成功",
+    "data": [],
+    "total": 0,
+    "next_token": null,
+    "error_details": [],
+    "request_id": "00000000-0000-0000-0000-00000000012f",
+    "response_time": "2001-05-07 16:30:00"
+  }
+}

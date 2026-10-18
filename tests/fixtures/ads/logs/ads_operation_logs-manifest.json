@@ -1,0 +1,604 @@
+{
+  "format": "ads-fixtures-v3",
+  "source": "local_raw",
+  "endpoint": "ads.AdsOperationLogs",
+  "source_sha256": "34fbf441618cdc6ab5053ef3906e71880c4c0c7abcc1aa93c1714b5ae15f9a06",
+  "checks": {
+    "business_responses": {
+      "status": "proved"
+    },
+    "account_identity": {
+      "status": "proved"
+    },
+    "filters": {
+      "status": "proved"
+    },
+    "response_lengths": {
+      "status": "proved"
+    },
+    "filter_totals": {
+      "status": "proved"
+    },
+    "baseline_stability": {
+      "status": "proved",
+      "complete_data_equal": true
+    },
+    "offset_concat": {
+      "status": "failed",
+      "sample_sufficient": true,
+      "complete_data_equal": false,
+      "complete_multiset_equal": false,
+      "missing_occurrences": 1,
+      "excess_occurrences": 1,
+      "cross_page_overlap_occurrences": 1
+    },
+    "default_prefix": {
+      "status": "failed",
+      "sample_sufficient": true,
+      "complete_data_equal": false,
+      "complete_multiset_equal": false,
+      "missing_occurrences": 2,
+      "excess_occurrences": 2
+    },
+    "amazon_reference_multiset": {
+      "status": "proved",
+      "complete_multiset_equal": true,
+      "complete_data_equal": false
+    }
+  },
+  "relationships": {
+    "reference": "account-A",
+    "offset_pages": [
+      "offset-first",
+      "offset-second"
+    ],
+    "end_reference": "reference-end"
+  },
+  "planned_requests": 21,
+  "not_run": [],
+  "samples": [
+    {
+      "label": "account-A",
+      "request": {
+        "end_date": "2026-10-16",
+        "length": 4,
+        "log_source": "all",
+        "offset": 0,
+        "operate_type": "campaigns",
+        "sid": 1212,
+        "sponsored_type": "sp",
+        "start_date": "2026-10-01"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "ads_operation_logs-account-A.json",
+      "sha256": "745f0f0d04522ccbc3773e4345341a37f853fa6d85ecde1bcc2df1ed1c7a6aa6",
+      "code": 0,
+      "rows": 4
+    },
+    {
+      "label": "account-B",
+      "request": {
+        "end_date": "2026-10-16",
+        "length": 4,
+        "log_source": "all",
+        "offset": 0,
+        "operate_type": "campaigns",
+        "sid": 10016,
+        "sponsored_type": "sp",
+        "start_date": "2026-10-01"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "ads_operation_logs-account-B.json",
+      "sha256": "668caa32f0bf107d3d50420cd1b9d3721fc63be1fb535e08117d4087cec00f53",
+      "code": 0,
+      "rows": 4
+    },
+    {
+      "label": "source-erp",
+      "request": {
+        "end_date": "2026-10-16",
+        "length": 4,
+        "log_source": "erp",
+        "offset": 0,
+        "operate_type": "campaigns",
+        "sid": 1212,
+        "sponsored_type": "sp",
+        "start_date": "2026-10-01"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": "empty_expected",
+      "fixture": "ads_operation_logs-source-erp.json",
+      "sha256": "ca4d9c04ef0c06d73800f2164ca9c2e9aeaa5d04f15972b428353a24780374c7",
+      "code": 0,
+      "rows": 0
+    },
+    {
+      "label": "source-amazon",
+      "request": {
+        "end_date": "2026-10-16",
+        "length": 4,
+        "log_source": "amazon",
+        "offset": 0,
+        "operate_type": "campaigns",
+        "sid": 1212,
+        "sponsored_type": "sp",
+        "start_date": "2026-10-01"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "ads_operation_logs-source-amazon.json",
+      "sha256": "3a0abc73e5b97d32d60a5aca17a74e495561f75e97d251be0563c4402ec4bb03",
+      "code": 0,
+      "rows": 4
+    },
+    {
+      "label": "ad-type-SB",
+      "request": {
+        "end_date": "2026-10-16",
+        "length": 4,
+        "log_source": "all",
+        "offset": 0,
+        "operate_type": "campaigns",
+        "sid": 1212,
+        "sponsored_type": "sb",
+        "start_date": "2026-10-01"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": "empty_expected",
+      "fixture": "ads_operation_logs-ad-type-SB.json",
+      "sha256": "483624f0bd61696eb1504581c100511dfe8e584d34163d51ab15a5976bb773f2",
+      "code": 0,
+      "rows": 0
+    },
+    {
+      "label": "ad-type-SD",
+      "request": {
+        "end_date": "2026-10-16",
+        "length": 4,
+        "log_source": "all",
+        "offset": 0,
+        "operate_type": "campaigns",
+        "sid": 1212,
+        "sponsored_type": "sd",
+        "start_date": "2026-10-01"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": "empty_expected",
+      "fixture": "ads_operation_logs-ad-type-SD.json",
+      "sha256": "25f2673369fd9cb9495a23b06b8b226c8041c1061111692873f1479a34be61d5",
+      "code": 0,
+      "rows": 0
+    },
+    {
+      "label": "object-adGroups",
+      "request": {
+        "end_date": "2026-10-16",
+        "length": 4,
+        "log_source": "all",
+        "offset": 0,
+        "operate_type": "adGroups",
+        "sid": 1212,
+        "sponsored_type": "sp",
+        "start_date": "2026-10-01"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": "empty_expected",
+      "fixture": "ads_operation_logs-object-adGroups.json",
+      "sha256": "d4b61e9c3800cf45b0af6b221a7a59c3b9cc0275c359909d500cfe01e0b3a0d1",
+      "code": 0,
+      "rows": 0
+    },
+    {
+      "label": "object-productAds",
+      "request": {
+        "end_date": "2026-10-16",
+        "length": 4,
+        "log_source": "all",
+        "offset": 0,
+        "operate_type": "productAds",
+        "sid": 1212,
+        "sponsored_type": "sp",
+        "start_date": "2026-10-01"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": "empty_expected",
+      "fixture": "ads_operation_logs-object-productAds.json",
+      "sha256": "4ee2d4bef1a91af15a7d9455b2bb4ca381ba868bbde21dd6b64fa9937db60c08",
+      "code": 0,
+      "rows": 0
+    },
+    {
+      "label": "object-keywords",
+      "request": {
+        "end_date": "2026-10-16",
+        "length": 4,
+        "log_source": "all",
+        "offset": 0,
+        "operate_type": "keywords",
+        "sid": 1212,
+        "sponsored_type": "sp",
+        "start_date": "2026-10-01"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": "empty_expected",
+      "fixture": "ads_operation_logs-object-keywords.json",
+      "sha256": "6e7240816e2d4a88589528df7a4438fd0f0c9242adb86ddf8fec295fce4068ab",
+      "code": 0,
+      "rows": 0
+    },
+    {
+      "label": "object-negativeKeywords",
+      "request": {
+        "end_date": "2026-10-16",
+        "length": 4,
+        "log_source": "all",
+        "offset": 0,
+        "operate_type": "negativeKeywords",
+        "sid": 1212,
+        "sponsored_type": "sp",
+        "start_date": "2026-10-01"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": "empty_expected",
+      "fixture": "ads_operation_logs-object-negativeKeywords.json",
+      "sha256": "46daf544caae37c625e457ce68b1531499acb15cad391fbed6173750cfc7667d",
+      "code": 0,
+      "rows": 0
+    },
+    {
+      "label": "object-targets",
+      "request": {
+        "end_date": "2026-10-16",
+        "length": 4,
+        "log_source": "all",
+        "offset": 0,
+        "operate_type": "targets",
+        "sid": 1212,
+        "sponsored_type": "sp",
+        "start_date": "2026-10-01"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": "empty_expected",
+      "fixture": "ads_operation_logs-object-targets.json",
+      "sha256": "e617933715cb99d969fdf757be2219520c19f02f89d36650ae3a5a7f5b49b654",
+      "code": 0,
+      "rows": 0
+    },
+    {
+      "label": "object-negativeTargets",
+      "request": {
+        "end_date": "2026-10-16",
+        "length": 4,
+        "log_source": "all",
+        "offset": 0,
+        "operate_type": "negativeTargets",
+        "sid": 1212,
+        "sponsored_type": "sp",
+        "start_date": "2026-10-01"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": "empty_expected",
+      "fixture": "ads_operation_logs-object-negativeTargets.json",
+      "sha256": "4d79590132eca146aff39effe17b5c2d4568645a3ef780d2ce52bd4da8f3c1c4",
+      "code": 0,
+      "rows": 0
+    },
+    {
+      "label": "object-profiles",
+      "request": {
+        "end_date": "2026-10-16",
+        "length": 4,
+        "log_source": "all",
+        "offset": 0,
+        "operate_type": "profiles",
+        "sid": 1212,
+        "sponsored_type": "sp",
+        "start_date": "2026-10-01"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": "empty_expected",
+      "fixture": "ads_operation_logs-object-profiles.json",
+      "sha256": "7e36220cd8a172e2765e62d5f8dd235c12360c75482fa3402b991b90b56eca83",
+      "code": 0,
+      "rows": 0
+    },
+    {
+      "label": "date-start",
+      "request": {
+        "end_date": "2026-10-16",
+        "length": 4,
+        "log_source": "all",
+        "offset": 0,
+        "operate_type": "campaigns",
+        "sid": 1212,
+        "sponsored_type": "sp",
+        "start_date": "2026-10-02"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "ads_operation_logs-date-start.json",
+      "sha256": "a2f7736b7022bf2275149f1f7608f78707ea3098f83821180c9212dc63904352",
+      "code": 0,
+      "rows": 4
+    },
+    {
+      "label": "date-end",
+      "request": {
+        "end_date": "2026-10-02",
+        "length": 4,
+        "log_source": "all",
+        "offset": 0,
+        "operate_type": "campaigns",
+        "sid": 1212,
+        "sponsored_type": "sp",
+        "start_date": "2026-10-01"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "ads_operation_logs-date-end.json",
+      "sha256": "44931f042e0ce32d943379acbee30326281cb012e86f3403e433599b1c32abd8",
+      "code": 0,
+      "rows": 4
+    },
+    {
+      "label": "date-same-day",
+      "request": {
+        "end_date": "2026-10-02",
+        "length": 4,
+        "log_source": "all",
+        "offset": 0,
+        "operate_type": "campaigns",
+        "sid": 1212,
+        "sponsored_type": "sp",
+        "start_date": "2026-10-02"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "ads_operation_logs-date-same-day.json",
+      "sha256": "df516419961bc4088f5e97565693e76cc22f6c729c529641f7f577189b379015",
+      "code": 0,
+      "rows": 4
+    },
+    {
+      "label": "combined-amazon-day",
+      "request": {
+        "end_date": "2026-10-02",
+        "length": 4,
+        "log_source": "amazon",
+        "offset": 0,
+        "operate_type": "campaigns",
+        "sid": 1212,
+        "sponsored_type": "sp",
+        "start_date": "2026-10-02"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "ads_operation_logs-combined-amazon-day.json",
+      "sha256": "676d7f3f123eb81f1f75e76d1398c5bf1bfc7e4469de0ad443876e17e32ea61b",
+      "code": 0,
+      "rows": 4
+    },
+    {
+      "label": "offset-first",
+      "request": {
+        "end_date": "2026-10-16",
+        "length": 2,
+        "log_source": "all",
+        "offset": 0,
+        "operate_type": "campaigns",
+        "sid": 1212,
+        "sponsored_type": "sp",
+        "start_date": "2026-10-01"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "ads_operation_logs-offset-first.json",
+      "sha256": "7aa79a754d47d152d6eabb1b2323fdb224f4aa0466af799e37ef20cd3ed5c73a",
+      "code": 0,
+      "rows": 2
+    },
+    {
+      "label": "offset-second",
+      "request": {
+        "end_date": "2026-10-16",
+        "length": 2,
+        "log_source": "all",
+        "offset": 2,
+        "operate_type": "campaigns",
+        "sid": 1212,
+        "sponsored_type": "sp",
+        "start_date": "2026-10-01"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "ads_operation_logs-offset-second.json",
+      "sha256": "7c0ec58b171b171ed4b04a34e3f3804a615198a95bcea53d8d89010a630929b7",
+      "code": 0,
+      "rows": 2
+    },
+    {
+      "label": "default-pagination",
+      "request": {
+        "end_date": "2026-10-16",
+        "log_source": "all",
+        "operate_type": "campaigns",
+        "sid": 1212,
+        "sponsored_type": "sp",
+        "start_date": "2026-10-01"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "ads_operation_logs-default-pagination.json",
+      "sha256": "ebb41a15d605c26ca4d0ef444a613fa4454827129ea7c8fa2e251fc2e871dbeb",
+      "code": 0,
+      "rows": 15
+    },
+    {
+      "label": "reference-end",
+      "request": {
+        "end_date": "2026-10-16",
+        "length": 4,
+        "log_source": "all",
+        "offset": 0,
+        "operate_type": "campaigns",
+        "sid": 1212,
+        "sponsored_type": "sp",
+        "start_date": "2026-10-01"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "ads_operation_logs-reference-end.json",
+      "sha256": "6517e384ba3303478a63361ccc374e1c07ba6ff4d3e56cd60fd97149887a176a",
+      "code": 0,
+      "rows": 4
+    }
+  ],
+  "headers": {
+    "X-API-VERSION": "2"
+  },
+  "accounts": {
+    "A": {
+      "sid": 1212,
+      "profile_id": 90000000000009
+    },
+    "B": {
+      "sid": 10016,
+      "profile_id": 90000000000010
+    }
+  },
+  "coverage": {
+    "account-A": {
+      "rows": 4,
+      "nonempty": true
+    },
+    "account-B": {
+      "rows": 4,
+      "nonempty": true
+    },
+    "source-erp": {
+      "rows": 0,
+      "nonempty": false
+    },
+    "source-amazon": {
+      "rows": 4,
+      "nonempty": true
+    },
+    "ad-type-SB": {
+      "rows": 0,
+      "nonempty": false
+    },
+    "ad-type-SD": {
+      "rows": 0,
+      "nonempty": false
+    },
+    "object-adGroups": {
+      "rows": 0,
+      "nonempty": false
+    },
+    "object-productAds": {
+      "rows": 0,
+      "nonempty": false
+    },
+    "object-keywords": {
+      "rows": 0,
+      "nonempty": false
+    },
+    "object-negativeKeywords": {
+      "rows": 0,
+      "nonempty": false
+    },
+    "object-targets": {
+      "rows": 0,
+      "nonempty": false
+    },
+    "object-negativeTargets": {
+      "rows": 0,
+      "nonempty": false
+    },
+    "object-profiles": {
+      "rows": 0,
+      "nonempty": false
+    },
+    "date-start": {
+      "rows": 4,
+      "nonempty": true
+    },
+    "date-end": {
+      "rows": 4,
+      "nonempty": true
+    },
+    "date-same-day": {
+      "rows": 4,
+      "nonempty": true
+    },
+    "combined-amazon-day": {
+      "rows": 4,
+      "nonempty": true
+    },
+    "offset-first": {
+      "rows": 2,
+      "nonempty": true
+    },
+    "offset-second": {
+      "rows": 2,
+      "nonempty": true
+    },
+    "default-pagination": {
+      "rows": 15,
+      "nonempty": true
+    },
+    "reference-end": {
+      "rows": 4,
+      "nonempty": true
+    }
+  },
+  "phases": [
+    {
+      "name": "账号",
+      "requests": 2
+    },
+    {
+      "name": "来源、类型与对象",
+      "requests": 11
+    },
+    {
+      "name": "日期与组合",
+      "requests": 4
+    },
+    {
+      "name": "分页与参考复读",
+      "requests": 4
+    }
+  ],
+  "limitations": [
+    "AdsOperationLogs已确认V2分页完整行顺序/多重集存在差异；原始失败检查及全部响应保留，未证明分页通过。"
+  ],
+  "validation": {
+    "schema": "passed",
+    "redaction": "passed",
+    "pagination": "accepted_upstream_limit"
+  }
+}

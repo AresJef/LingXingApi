@@ -1,0 +1,353 @@
+{
+  "format": "ads-fixtures-v3",
+  "source": "local_raw",
+  "endpoint": "ads.Portfolios",
+  "source_sha256": "95d9a7a4102a005bd199236f9399948eb56183610abd5a33d9a7065c360e6d4e",
+  "checks": {
+    "identifiers": {
+      "status": "proved",
+      "cases": [
+        {
+          "label": "account-A-sid-only",
+          "expected_account": "A",
+          "observed_account": "A",
+          "rows": 2,
+          "code": 0
+        },
+        {
+          "label": "account-A-profile-only",
+          "expected_account": "A",
+          "observed_account": "A",
+          "rows": 2,
+          "code": 0
+        },
+        {
+          "label": "account-A-both",
+          "expected_account": "A",
+          "observed_account": "A",
+          "rows": 2,
+          "code": 0
+        },
+        {
+          "label": "account-B-sid-only",
+          "expected_account": "B",
+          "observed_account": "B",
+          "rows": 2,
+          "code": 0
+        },
+        {
+          "label": "account-B-profile-only",
+          "expected_account": "B",
+          "observed_account": "B",
+          "rows": 2,
+          "code": 0
+        },
+        {
+          "label": "account-B-both",
+          "expected_account": "B",
+          "observed_account": "B",
+          "rows": 2,
+          "code": 0
+        },
+        {
+          "label": "account-A-sid-B-profile",
+          "expected_account": "B",
+          "observed_account": "B",
+          "rows": 2,
+          "code": 0
+        },
+        {
+          "label": "account-B-sid-A-profile",
+          "expected_account": "A",
+          "observed_account": "A",
+          "rows": 2,
+          "code": 0
+        }
+      ]
+    },
+    "cross_identifier_priority": {
+      "status": "proved",
+      "observed": "profile_id"
+    },
+    "state_paused": {
+      "status": "no_nonempty_sample",
+      "rows": 0,
+      "states": []
+    },
+    "state_archived": {
+      "status": "no_nonempty_sample",
+      "rows": 0,
+      "states": []
+    },
+    "state_omitted": {
+      "status": "observed",
+      "rows": 2,
+      "states": [
+        "enabled"
+      ]
+    },
+    "offset_concat": {
+      "status": "proved",
+      "rows": 4,
+      "complete_data_equal": true
+    },
+    "token_concat": {
+      "status": "proved",
+      "rows": 4,
+      "complete_data_equal": true
+    },
+    "token_priority": {
+      "status": "proved",
+      "complete_data_equal": true
+    },
+    "baseline_stability": {
+      "status": "proved",
+      "complete_data_equal": true
+    }
+  },
+  "relationships": {
+    "reference": "reference-direct",
+    "offset_pages": [
+      "account-A-profile-only",
+      "offset-second"
+    ],
+    "token_pages": [
+      "account-A-profile-only",
+      "token-second"
+    ],
+    "token_source": "account-A-profile-only",
+    "token_control": "token-second",
+    "token_conflict": "token-priority-conflicting-offset",
+    "end_reference": "reference-end"
+  },
+  "planned_requests": 16,
+  "not_run": [],
+  "samples": [
+    {
+      "label": "account-A-sid-only",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "sid": 1212,
+        "state": "enabled"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "portfolios-account-A-sid-only.json",
+      "sha256": "e21b1640c8f06454e51422b22aa1dbe55869ce49e5a6e37d7d66d9b0d5882a8c"
+    },
+    {
+      "label": "account-A-profile-only",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "state": "enabled"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "portfolios-account-A-profile-only.json",
+      "sha256": "cebdf302a66fe36b1b4e016f97b6d1cdb4bcb04bbb40e74b00139db57daa3255"
+    },
+    {
+      "label": "account-A-both",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "sid": 1212,
+        "state": "enabled"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "portfolios-account-A-both.json",
+      "sha256": "26f7d6ac2d02240102c776eb83acf8e02fb4941b8fe5a9a9a0d1e89c58b95861"
+    },
+    {
+      "label": "account-B-sid-only",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "sid": 10016,
+        "state": "enabled"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "portfolios-account-B-sid-only.json",
+      "sha256": "9ae22a904b84ff1c773648dd6b43c4908f3450e9ee2c12e8b80710332c6388a1"
+    },
+    {
+      "label": "account-B-profile-only",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000010,
+        "state": "enabled"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "portfolios-account-B-profile-only.json",
+      "sha256": "817924dbd5665a572f57435b3f539b246dc9170c4c931d5b926ca5dbba2dcc11"
+    },
+    {
+      "label": "account-B-both",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000010,
+        "sid": 10016,
+        "state": "enabled"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "portfolios-account-B-both.json",
+      "sha256": "adcbb96029705f4ab6721d8afa3d41f652e8f972db90529c09ff6b7f4a3492b6"
+    },
+    {
+      "label": "account-A-sid-B-profile",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000010,
+        "sid": 1212,
+        "state": "enabled"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "portfolios-account-A-sid-B-profile.json",
+      "sha256": "38e72e50db9f2bf367d0b05cb596a1abc264c81f374e59784107891e01e08816"
+    },
+    {
+      "label": "account-B-sid-A-profile",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "sid": 10016,
+        "state": "enabled"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "portfolios-account-B-sid-A-profile.json",
+      "sha256": "c04165208be6867b8f265ebf101424845ac7a12f74691f1c3ea01ec578953ae2"
+    },
+    {
+      "label": "state-paused",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "state": "paused"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": "empty_expected",
+      "fixture": "portfolios-state-paused.json",
+      "sha256": "74e2389512fa44a3642beeb133221b2129cba77d1b1022cd682ac2170a5fff88"
+    },
+    {
+      "label": "state-archived",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "state": "archived"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": "empty_expected",
+      "fixture": "portfolios-state-archived.json",
+      "sha256": "6d1a55d40da656921582d8ab4514ed99d760df3613b7d148146971e536929c48"
+    },
+    {
+      "label": "state-omitted",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000009
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "portfolios-state-omitted.json",
+      "sha256": "e74cfad0008b638a58ac77e237217b396b080499797522ff237b30c5331ce625"
+    },
+    {
+      "label": "reference-direct",
+      "request": {
+        "length": 4,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "state": "enabled"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "portfolios-reference-direct.json",
+      "sha256": "caf274ec787a55b05abf7c73995e8c6724cc9df57038ec70e72d5e231b602988"
+    },
+    {
+      "label": "offset-second",
+      "request": {
+        "length": 2,
+        "offset": 2,
+        "profile_id": 90000000000009,
+        "state": "enabled"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "portfolios-offset-second.json",
+      "sha256": "df7f3ce7fe2b4c2ef467e50ba0536646c1afe9af7aecab9adbccfa6c79720f6e"
+    },
+    {
+      "label": "token-second",
+      "request": {
+        "length": 2,
+        "profile_id": 90000000000009,
+        "state": "enabled"
+      },
+      "next_token_from": "account-A-profile-only",
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "portfolios-token-second.json",
+      "sha256": "498d41198d2b18bf4f07abcd3c126bd9b11b4cadaa848d7dcd4a72d2a509576b"
+    },
+    {
+      "label": "token-priority-conflicting-offset",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "state": "enabled"
+      },
+      "next_token_from": "account-A-profile-only",
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "portfolios-token-priority-conflicting-offset.json",
+      "sha256": "4497a449cb70e6a5fc88a112cf92c23519719583df5d67ed5853902929206543"
+    },
+    {
+      "label": "reference-end",
+      "request": {
+        "length": 4,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "state": "enabled"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "portfolios-reference-end.json",
+      "sha256": "e033b281993dfc631f2687c1796ecf6bea0826a7be052076ee0f6e7fb5400719"
+    }
+  ]
+}

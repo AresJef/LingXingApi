@@ -1,0 +1,49 @@
+{
+  "source": "local_raw",
+  "endpoint": "ads.SbKeywords",
+  "response": {
+    "code": 0,
+    "message": "操作成功",
+    "data": [
+      {
+        "campaign_id": 70000000000072,
+        "ad_group_id": 600000000000323,
+        "keyword_id": 40000000015,
+        "keyword_text": "aa 0068",
+        "keyword_bid": 1.3,
+        "keyword_state": "enabled",
+        "match_type": "phrase",
+        "target_id": null,
+        "expression": null,
+        "target_bid": null,
+        "target_state": null,
+        "resolved_expression": null,
+        "targeting_type": "keyword",
+        "ads_type": "SB",
+        "profile_id": 90000000000010
+      },
+      {
+        "campaign_id": 700000000000203,
+        "ad_group_id": 600000000000183,
+        "keyword_id": 40000000094,
+        "keyword_text": "0000 aaaaaaaaaaaaaam",
+        "keyword_bid": 1.5,
+        "keyword_state": "enabled",
+        "match_type": "phrase",
+        "target_id": null,
+        "expression": null,
+        "target_bid": null,
+        "target_state": null,
+        "resolved_expression": null,
+        "targeting_type": "keyword",
+        "ads_type": "SB",
+        "profile_id": 90000000000010
+      }
+    ],
+    "total": 15924,
+    "next_token": "MTAwMDAwMDAwNDY=",
+    "error_details": [],
+    "request_id": "00000000-0000-0000-0000-0000000000c1",
+    "response_time": "2001-05-07 08:48:00"
+  }
+}

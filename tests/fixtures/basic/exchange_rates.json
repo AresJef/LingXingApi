@@ -1,0 +1,230 @@
+{
+  "source": "local_raw",
+  "endpoint": "basic.ExchangeRates",
+  "response": {
+    "code": 0,
+    "message": "success",
+    "error_details": [],
+    "request_id": "00000000-0000-0000-0000-00000000005F",
+    "response_time": "2001-05-07 06:16:00",
+    "data": [
+      {
+        "date": "2026-09",
+        "code": "CNY",
+        "icon": "￥",
+        "name": "人民币",
+        "my_rate": "1.0000000000",
+        "update_time": "",
+        "rate_org": "1.0000"
+      },
+      {
+        "date": "2026-09",
+        "code": "VND",
+        "icon": "₫",
+        "name": "越南盾",
+        "my_rate": "0.0003000000",
+        "update_time": "",
+        "rate_org": "0.0003"
+      },
+      {
+        "date": "2026-09",
+        "code": "USD",
+        "icon": "$",
+        "name": "美元",
+        "my_rate": "6.7809000000",
+        "update_time": "2001-05-07 05:55:00",
+        "rate_org": "6.7351"
+      },
+      {
+        "date": "2026-09",
+        "code": "TRY",
+        "icon": "₺",
+        "name": "土耳其里拉",
+        "my_rate": "0.2167000000",
+        "update_time": "",
+        "rate_org": "0.1372"
+      },
+      {
+        "date": "2026-09",
+        "code": "THB",
+        "icon": "฿",
+        "name": "泰铢",
+        "my_rate": "0.2216000000",
+        "update_time": "",
+        "rate_org": "0.2000"
+      },
+      {
+        "date": "2026-09",
+        "code": "SEK",
+        "icon": "kr",
+        "name": "瑞典克朗",
+        "my_rate": "0.7041300000",
+        "update_time": "2001-05-07 05:56:00",
+        "rate_org": "0.6723"
+      },
+      {
+        "date": "2026-09",
+        "code": "SAR",
+        "icon": "﷼",
+        "name": "沙特里亚尔",
+        "my_rate": "1.7963000000",
+        "update_time": "2001-05-07 05:57:00",
+        "rate_org": "1.7892"
+      },
+      {
+        "date": "2026-09",
+        "code": "PLN",
+        "icon": "zł",
+        "name": "波兰兹罗提",
+        "my_rate": "1.8146500000",
+        "update_time": "2001-05-07 05:58:00",
+        "rate_org": "1.7519"
+      },
+      {
+        "date": "2026-09",
+        "code": "PHP",
+        "icon": "₱",
+        "name": "菲律宾比索",
+        "my_rate": "0.1175000000",
+        "update_time": "",
+        "rate_org": "0.1072"
+      },
+      {
+        "date": "2026-09",
+        "code": "MYR",
+        "icon": "RM",
+        "name": "马来西亚林吉特",
+        "my_rate": "1.7280000000",
+        "update_time": "",
+        "rate_org": "1.6483"
+      },
+      {
+        "date": "2026-09",
+        "code": "MXN",
+        "icon": "Mex$",
+        "name": "墨西哥比索",
+        "my_rate": "0.4097000000",
+        "update_time": "",
+        "rate_org": "0.3728"
+      },
+      {
+        "date": "2026-09",
+        "code": "KRW",
+        "icon": "₩",
+        "name": "韩元",
+        "my_rate": "0.0045000000",
+        "update_time": "",
+        "rate_org": "0.0050"
+      },
+      {
+        "date": "2026-09",
+        "code": "JPY",
+        "icon": "JP¥",
+        "name": "日元",
+        "my_rate": "0.0423000000",
+        "update_time": "2001-05-07 05:59:00",
+        "rate_org": "0.0427"
+      },
+      {
+        "date": "2026-09",
+        "code": "INR",
+        "icon": "₹",
+        "name": "印度卢比",
+        "my_rate": "0.0870000000",
+        "update_time": "",
+        "rate_org": "0.0699"
+      },
+      {
+        "date": "2026-09",
+        "code": "IDR",
+        "icon": "Rp",
+        "name": "印度尼西亚卢比",
+        "my_rate": "0.0004000000",
+        "update_time": "",
+        "rate_org": "0.0004"
+      },
+      {
+        "date": "2026-09",
+        "code": "HKD",
+        "icon": "HK$",
+        "name": "港币",
+        "my_rate": "0.9134000000",
+        "update_time": "",
+        "rate_org": "0.8584"
+      },
+      {
+        "date": "2026-09",
+        "code": "GBP",
+        "icon": "￡",
+        "name": "英镑",
+        "my_rate": "9.1431000000",
+        "update_time": "2001-05-07 06:00:00",
+        "rate_org": "8.8918"
+      },
+      {
+        "date": "2026-09",
+        "code": "EUR",
+        "icon": "€",
+        "name": "欧元",
+        "my_rate": "7.8406000000",
+        "update_time": "2001-05-07 06:01:00",
+        "rate_org": "7.6215"
+      },
+      {
+        "date": "2026-09",
+        "code": "EGP",
+        "icon": "E£",
+        "name": "埃及镑",
+        "my_rate": "0.1429000000",
+        "update_time": "",
+        "rate_org": "0.1290"
+      },
+      {
+        "date": "2026-09",
+        "code": "CAD",
+        "icon": "CA$",
+        "name": "加元",
+        "my_rate": "4.8687000000",
+        "update_time": "2001-05-07 06:02:00",
+        "rate_org": "4.7341"
+      },
+      {
+        "date": "2026-09",
+        "code": "BRL",
+        "icon": "R$",
+        "name": "巴西雷亚尔",
+        "my_rate": "1.3357000000",
+        "update_time": "",
+        "rate_org": "1.2889"
+      },
+      {
+        "date": "2026-09",
+        "code": "AUD",
+        "icon": "A$",
+        "name": "澳元",
+        "my_rate": "4.8412000000",
+        "update_time": "",
+        "rate_org": "4.6959"
+      },
+      {
+        "date": "2026-09",
+        "code": "AED",
+        "icon": "د",
+        "name": "迪拉姆",
+        "my_rate": "1.8374600000",
+        "update_time": "2001-05-07 06:03:00",
+        "rate_org": "1.8292"
+      },
+      {
+        "date": "2026-09",
+        "code": "SGD",
+        "icon": "S$",
+        "name": "新加坡元",
+        "my_rate": "5.3198000000",
+        "update_time": "",
+        "rate_org": "5.2607"
+      }
+    ],
+    "total": 24
+  }
+}

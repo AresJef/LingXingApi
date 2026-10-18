@@ -1,0 +1,53 @@
+{
+  "source": "local_raw",
+  "endpoint": "ads.SpTargetQueryReports",
+  "response": {
+    "code": 0,
+    "message": "操作成功",
+    "data": [
+      {
+        "query": "000 aa aaaaaaaaaaaaaab",
+        "target_id": 30000000000046,
+        "match_type": null,
+        "target_text": "\"[{\\\"type\\\": \\\"keywordGroupSameAs\\\", \\\"value\\\": \\\"category\\\"}]\"",
+        "ad_group_id": 600000000000060,
+        "impressions": 42,
+        "clicks": 1,
+        "cost": 1.65,
+        "profile_id": 90000000000010,
+        "campaign_id": 700000000000178,
+        "report_date": "2026-10-01",
+        "same_orders": 0,
+        "orders": 0,
+        "same_sales": 0.0,
+        "sales": 0.0,
+        "units": 0,
+        "same_units": 0
+      },
+      {
+        "query": "aaaaaaaaaaaaa 022",
+        "target_id": 300000000000022,
+        "match_type": null,
+        "target_text": "\"[{\\\"type\\\": \\\"keywordGroupSameAs\\\", \\\"value\\\": \\\"category\\\"}]\"",
+        "ad_group_id": 600000000000068,
+        "impressions": 6,
+        "clicks": 1,
+        "cost": 1.23,
+        "profile_id": 90000000000010,
+        "campaign_id": 700000000000128,
+        "report_date": "2026-10-01",
+        "same_orders": 1,
+        "orders": 1,
+        "same_sales": 15.0,
+        "sales": 15.0,
+        "units": 1,
+        "same_units": 1
+      }
+    ],
+    "total": 151,
+    "next_token": "MDAwMDBhYTBhYTBhMGFhMGEwMDAwYTAwYTBhYTAwMGU=",
+    "error_details": [],
+    "request_id": "00000000-0000-0000-0000-000000000217",
+    "response_time": "2001-05-07 12:42:00"
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "source": "local_raw",
+  "endpoint": "ads.SbCampaigns",
+  "response": {
+    "code": 0,
+    "message": "操作成功",
+    "data": [
+      {
+        "campaign_id": 7000000000122,
+        "profile_id": 90000000000010,
+        "name": "AA-000 000-AAA-广告-0.0 00.0.30-",
+        "budget": 3.0,
+        "budget_type": "daily",
+        "start_date": "2026-05-25 00:00:00",
+        "state": "paused",
+        "serving_status": "CAMPAIGN_PAUSED",
+        "bid_optimization": 0,
+        "creative": null,
+        "landing_page": null,
+        "bid_multiplier": null,
+        "end_date": null,
+        "portfolio_id": 800000000000007,
+        "creative_type": "COLLECTION",
+        "tags": [],
+        "lastOverBudgetAt": null
+      },
+      {
+        "campaign_id": 7000000000145,
+        "profile_id": 90000000000010,
+        "name": "AA-000-AA-AA-广告+AA-0.0 00.00.27-",
+        "budget": 4.0,
+        "budget_type": "daily",
+        "start_date": "2026-09-23 00:00:00",
+        "state": "enabled",
+        "serving_status": "CAMPAIGN_STATUS_ENABLED",
+        "bid_optimization": 0,
+        "creative": null,
+        "landing_page": null,
+        "bid_multiplier": null,
+        "end_date": null,
+        "portfolio_id": 800000000000001,
+        "creative_type": "COLLECTION",
+        "tags": [],
+        "lastOverBudgetAt": null
+      }
+    ],
+    "total": 258,
+    "next_token": "MTAwMDAwMDAwMDAzNA==",
+    "error_details": [],
+    "request_id": "00000000-0000-0000-0000-000000000197",
+    "response_time": "2001-05-07 08:10:00"
+  }
+}

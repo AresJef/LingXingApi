@@ -1,0 +1,41 @@
+{
+  "source": "local_raw",
+  "endpoint": "ads.SbNegativeTargets",
+  "response": {
+    "code": 0,
+    "message": "操作成功",
+    "data": [
+      {
+        "target_id": 300000000000015,
+        "campaign_id": 700000000000230,
+        "ad_group_id": 600000000000228,
+        "profile_id": 900000000000003,
+        "expression_type": null,
+        "expression": "[{\"type\": \"asinSameAs\", \"value\": \"A0AAA0AB87\"}]",
+        "resolved_expression": "[{\"type\": \"asinSameAs\", \"value\": \"A0AAA0AB87\"}]",
+        "state": "enabled",
+        "creation_date": null,
+        "last_updated_date": null,
+        "serving_status": null
+      },
+      {
+        "target_id": 300000000000016,
+        "campaign_id": 700000000000230,
+        "ad_group_id": 600000000000228,
+        "profile_id": 900000000000003,
+        "expression_type": null,
+        "expression": "[{\"type\": \"asinSameAs\", \"value\": \"A0A0AAAAU0\"}]",
+        "resolved_expression": "[{\"type\": \"asinSameAs\", \"value\": \"A0A0AAAAU0\"}]",
+        "state": "enabled",
+        "creation_date": null,
+        "last_updated_date": null,
+        "serving_status": null
+      }
+    ],
+    "total": 10,
+    "next_token": "MTAwMDAwMDAwMDAwMDUw",
+    "error_details": [],
+    "request_id": "00000000-0000-0000-0000-00000000004c",
+    "response_time": "2001-05-07 09:28:00"
+  }
+}

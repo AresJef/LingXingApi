@@ -1,0 +1,35 @@
+{
+  "source": "local_raw",
+  "endpoint": "ads.SbAdGroups",
+  "response": {
+    "code": 0,
+    "message": "操作成功",
+    "data": [
+      {
+        "profile_id": 90000000000009,
+        "campaign_id": 700000000000162,
+        "ad_group_id": 60000000000264,
+        "name": "000 000广告组-广乙",
+        "state": "enabled",
+        "creation_date": 1670754552292,
+        "last_updated_date": 1670754552292,
+        "serving_status": "CAMPAIGN_PAUSED"
+      },
+      {
+        "profile_id": 90000000000009,
+        "campaign_id": 700000000000132,
+        "ad_group_id": 60000000000342,
+        "name": "000 000 广告组广-告组广甲",
+        "state": "enabled",
+        "creation_date": 1668674653593,
+        "last_updated_date": 1668674653593,
+        "serving_status": "AD_GROUP_STATUS_ENABLED"
+      }
+    ],
+    "total": 37,
+    "next_token": "MTAwMDAwMDAwMDAwNjI=",
+    "error_details": [],
+    "request_id": "00000000-0000-0000-0000-0000000001ff",
+    "response_time": "2001-05-07 08:23:00"
+  }
+}

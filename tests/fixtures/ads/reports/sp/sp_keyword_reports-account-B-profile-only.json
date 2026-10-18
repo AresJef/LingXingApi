@@ -1,0 +1,51 @@
+{
+  "source": "local_raw",
+  "endpoint": "ads.SpKeywordReports",
+  "response": {
+    "code": 0,
+    "message": "操作成功",
+    "data": [
+      {
+        "keyword_id": 40000000104,
+        "match_type": "BROAD",
+        "keyword_text": "0016",
+        "ad_group_id": 60000000000375,
+        "impressions": 2,
+        "clicks": 0,
+        "cost": 0.0,
+        "report_date": "2026-10-01",
+        "profile_id": 90000000000010,
+        "campaign_id": 700000000000113,
+        "same_orders": 0,
+        "orders": 0,
+        "same_sales": 0.0,
+        "sales": 0.0,
+        "units": 0,
+        "same_units": 0
+      },
+      {
+        "keyword_id": 400000000088,
+        "match_type": "PHRASE",
+        "keyword_text": "aaaaa aaaaaaaaaaaaaaa 000 049",
+        "ad_group_id": 6000000000350,
+        "impressions": 5,
+        "clicks": 0,
+        "cost": 0.0,
+        "report_date": "2026-10-01",
+        "profile_id": 90000000000010,
+        "campaign_id": 700000000000017,
+        "same_orders": 0,
+        "orders": 0,
+        "same_sales": 0.0,
+        "sales": 0.0,
+        "units": 0,
+        "same_units": 0
+      }
+    ],
+    "total": 1872,
+    "next_token": "MTAwMDAwMDAwMDQy",
+    "error_details": [],
+    "request_id": "00000000-0000-0000-0000-000000000066",
+    "response_time": "2001-05-07 11:59:00"
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "source": "local_raw",
+  "endpoint": "ads.AdProfiles",
+  "response": {
+    "code": 0,
+    "message": "success",
+    "error_details": [],
+    "request_id": "00000000000000000000000000000000.0000000000087",
+    "response_time": "2001-05-07 06:20:00",
+    "data": [
+      {
+        "sid": "10105",
+        "profile_id": "90000000000004",
+        "country_code": "NL",
+        "currency_code": "EUR",
+        "status": 1,
+        "name": "广告账号名",
+        "type": "seller"
+      },
+      {
+        "sid": "1166",
+        "profile_id": "90000000000008",
+        "country_code": "PL",
+        "currency_code": "PLN",
+        "status": 1,
+        "name": "广告账号名",
+        "type": "seller"
+      },
+      {
+        "sid": "1212",
+        "profile_id": "90000000000009",
+        "country_code": "UK",
+        "currency_code": "GBP",
+        "status": 1,
+        "name": "广告账号名",
+        "type": "seller"
+      },
+      {
+        "sid": "10016",
+        "profile_id": "90000000000010",
+        "country_code": "DE",
+        "currency_code": "EUR",
+        "status": 1,
+        "name": "广告账号名",
+        "type": "seller"
+      }
+    ],
+    "total": 240
+  }
+}

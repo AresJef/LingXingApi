@@ -1,0 +1,53 @@
+{
+  "source": "local_raw",
+  "endpoint": "ads.SpKeywordQueryReports",
+  "response": {
+    "code": 0,
+    "message": "操作成功",
+    "data": [
+      {
+        "query": "aaaaa aa-000ai",
+        "target_id": 40000000000038,
+        "match_type": "PHRASE",
+        "target_text": "000at",
+        "ad_group_id": 600000000000269,
+        "impressions": 3,
+        "clicks": 1,
+        "cost": 1.82,
+        "profile_id": 90000000000009,
+        "campaign_id": 700000000000266,
+        "report_date": "2026-10-01",
+        "same_orders": 0,
+        "orders": 0,
+        "same_sales": 0.0,
+        "sales": 0.0,
+        "units": 0,
+        "same_units": 0
+      },
+      {
+        "query": "aaaaa 000 aa aaaaaag",
+        "target_id": 40000000000117,
+        "match_type": "PHRASE",
+        "target_text": "aaaaa 000 bu",
+        "ad_group_id": 600000000000179,
+        "impressions": 3,
+        "clicks": 1,
+        "cost": 2.24,
+        "profile_id": 90000000000009,
+        "campaign_id": 700000000000351,
+        "report_date": "2026-10-01",
+        "same_orders": 0,
+        "orders": 0,
+        "same_sales": 0.0,
+        "sales": 0.0,
+        "units": 0,
+        "same_units": 0
+      }
+    ],
+    "total": 22,
+    "next_token": "MGFhMDBhYWFhYTBhMDBhMGEwMGEwMDAwYTBhYWEwNTg=",
+    "error_details": [],
+    "request_id": "00000000-0000-0000-0000-0000000000ff",
+    "response_time": "2001-05-07 12:22:00"
+  }
+}

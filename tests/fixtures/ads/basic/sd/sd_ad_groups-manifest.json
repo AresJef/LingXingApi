@@ -1,0 +1,287 @@
+{
+  "format": "ads-fixtures-v3",
+  "source": "local_raw",
+  "endpoint": "ads.SdAdGroups",
+  "source_sha256": "cbd5ef02485eaa42949450febfca4a1ac37236d1ce0c3c3b6a2cc6799f105691",
+  "checks": {
+    "identifiers": {
+      "status": "proved",
+      "cases": [
+        {
+          "label": "account-A-profile-only",
+          "status": "proved",
+          "rows": 2
+        },
+        {
+          "label": "account-A-sid-only",
+          "status": "proved",
+          "rows": 2
+        },
+        {
+          "label": "account-A-both",
+          "status": "proved",
+          "rows": 2
+        },
+        {
+          "label": "account-B-profile-only",
+          "status": "proved",
+          "rows": 2
+        }
+      ]
+    },
+    "cross_identifier_priority": {
+      "observed": "profile_id",
+      "cases": [
+        {
+          "label": "account-A-sid-B-profile",
+          "observed": "profile_id"
+        },
+        {
+          "label": "account-B-sid-A-profile",
+          "observed": "profile_id"
+        }
+      ],
+      "status": "proved"
+    },
+    "state_enabled": {
+      "status": "observed",
+      "rows": 2,
+      "states": [
+        "enabled"
+      ]
+    },
+    "state_paused": {
+      "status": "no_nonempty_sample",
+      "rows": 0,
+      "states": []
+    },
+    "state_archived": {
+      "status": "no_nonempty_sample",
+      "rows": 0,
+      "states": []
+    },
+    "offset_concat": {
+      "status": "proved",
+      "complete_data_equal": true
+    },
+    "token_concat": {
+      "status": "proved",
+      "complete_data_equal": true
+    },
+    "token_priority": {
+      "status": "proved",
+      "complete_data_equal": true
+    },
+    "baseline_stability": {
+      "status": "proved",
+      "complete_data_equal": true
+    }
+  },
+  "relationships": {
+    "reference": "reference-direct",
+    "offset_pages": [
+      "account-A-profile-only",
+      "offset-second"
+    ],
+    "token_pages": [
+      "account-A-profile-only",
+      "token-second"
+    ],
+    "token_source": "account-A-profile-only",
+    "token_control": "token-second",
+    "token_conflict": "token-priority-conflicting-offset",
+    "end_reference": "reference-end"
+  },
+  "planned_requests": 14,
+  "not_run": [],
+  "samples": [
+    {
+      "label": "account-A-profile-only",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000009
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sd_ad_groups-account-A-profile-only.json",
+      "sha256": "a660b5f0274faac0c4aec473bd9879ed5dfb7617ca827b384e177061119478f4"
+    },
+    {
+      "label": "account-A-sid-only",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "sid": 1212
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sd_ad_groups-account-A-sid-only.json",
+      "sha256": "212524f2160195650ff83b263f9c562d19b9540698df106342a422a8732d2026"
+    },
+    {
+      "label": "account-A-both",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "sid": 1212
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sd_ad_groups-account-A-both.json",
+      "sha256": "d5c8b725517fec33d290ae0cfaf18eabb22cd7ded94a4306c8f52106ffe24022"
+    },
+    {
+      "label": "account-B-profile-only",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000010
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sd_ad_groups-account-B-profile-only.json",
+      "sha256": "3faa79bfb14bd1218718c2149c2260f3d611adfee7dd51b5408cdc2795ce23da"
+    },
+    {
+      "label": "account-A-sid-B-profile",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000010,
+        "sid": 1212
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sd_ad_groups-account-A-sid-B-profile.json",
+      "sha256": "22728e68f7e5fd7a5aa24263fd6d6003815cba184232c78c91890d5665ce9394"
+    },
+    {
+      "label": "account-B-sid-A-profile",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "sid": 10016
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sd_ad_groups-account-B-sid-A-profile.json",
+      "sha256": "0da328bb07c88ea04a3716af95816db3638de3c700e73f2742518d23f7cebbe9"
+    },
+    {
+      "label": "state-enabled",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "state": "enabled"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sd_ad_groups-state-enabled.json",
+      "sha256": "01c938b36c0135bbf95ca6daa6fc721e90e744c3de579987973a7a401ee95b46"
+    },
+    {
+      "label": "state-paused",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "state": "paused"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": "empty_expected",
+      "fixture": "sd_ad_groups-state-paused.json",
+      "sha256": "cf27ac15aad6fd11c6c0a67e420c96d6fd8c23812781faee44557f490f54c267"
+    },
+    {
+      "label": "state-archived",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "state": "archived"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": "empty_expected",
+      "fixture": "sd_ad_groups-state-archived.json",
+      "sha256": "208e8550fdb09eb2b325518b21c4ef022328889b1866cec4f0d7b89f4b704e97"
+    },
+    {
+      "label": "reference-direct",
+      "request": {
+        "length": 4,
+        "offset": 0,
+        "profile_id": 90000000000009
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sd_ad_groups-reference-direct.json",
+      "sha256": "9d168af74ef9b96280440a005adb9016453737a909a3c5617043be41e919af8c"
+    },
+    {
+      "label": "offset-second",
+      "request": {
+        "length": 2,
+        "offset": 2,
+        "profile_id": 90000000000009
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sd_ad_groups-offset-second.json",
+      "sha256": "2d58ff6542b77f000266824b0bdb3f910994bdd7f4617d1eb8f18392d5e4179b"
+    },
+    {
+      "label": "token-second",
+      "request": {
+        "length": 2,
+        "profile_id": 90000000000009
+      },
+      "next_token_from": "account-A-profile-only",
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sd_ad_groups-token-second.json",
+      "sha256": "86fe89c0bbffe688c114bc91b512adc52a0b66079685a07cf6509c43702682ee"
+    },
+    {
+      "label": "token-priority-conflicting-offset",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000009
+      },
+      "next_token_from": "account-A-profile-only",
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sd_ad_groups-token-priority-conflicting-offset.json",
+      "sha256": "62223fb212dd917eb1ada4fce32eb3dad185d79c02581bbd1b80a8d0e695ccc8"
+    },
+    {
+      "label": "reference-end",
+      "request": {
+        "length": 4,
+        "offset": 0,
+        "profile_id": 90000000000009
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sd_ad_groups-reference-end.json",
+      "sha256": "9f4e21bf2e549768da085976efa8e97afa28f2be1cf8edc0d7cc979484d8bd12"
+    }
+  ],
+  "diagnostics": []
+}

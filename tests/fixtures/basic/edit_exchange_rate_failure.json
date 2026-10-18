@@ -1,0 +1,15 @@
+{
+  "source": "local_raw",
+  "endpoint": "basic.EditExchangeRate",
+  "response": {
+    "code": 100,
+    "message": "未知异常",
+    "error_details": [
+      "操作失败"
+    ],
+    "request_id": "00000000000000000000000000000000.0000000000055",
+    "response_time": "2001-05-07 06:11:00",
+    "data": null,
+    "total": 0
+  }
+}

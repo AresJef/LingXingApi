@@ -1,0 +1,289 @@
+{
+  "format": "ads-fixtures-v3",
+  "source": "local_raw",
+  "endpoint": "ads.SdProducts",
+  "source_sha256": "bc89bdfac542c7f50e2fe08c7ebe9e1c037ad992f327519faf524d58d6419472",
+  "checks": {
+    "identifiers": {
+      "status": "proved",
+      "cases": [
+        {
+          "label": "account-A-profile-only",
+          "status": "proved",
+          "rows": 2
+        },
+        {
+          "label": "account-A-sid-only",
+          "status": "proved",
+          "rows": 2
+        },
+        {
+          "label": "account-A-both",
+          "status": "proved",
+          "rows": 2
+        },
+        {
+          "label": "account-B-profile-only",
+          "status": "proved",
+          "rows": 2
+        }
+      ]
+    },
+    "cross_identifier_priority": {
+      "observed": "profile_id",
+      "cases": [
+        {
+          "label": "account-A-sid-B-profile",
+          "observed": "profile_id"
+        },
+        {
+          "label": "account-B-sid-A-profile",
+          "observed": "profile_id"
+        }
+      ],
+      "status": "proved"
+    },
+    "state_enabled": {
+      "status": "observed",
+      "rows": 2,
+      "states": [
+        "enabled"
+      ]
+    },
+    "state_paused": {
+      "status": "observed",
+      "rows": 2,
+      "states": [
+        "paused"
+      ]
+    },
+    "state_archived": {
+      "status": "no_nonempty_sample",
+      "rows": 0,
+      "states": []
+    },
+    "offset_concat": {
+      "status": "proved",
+      "complete_data_equal": true
+    },
+    "token_concat": {
+      "status": "proved",
+      "complete_data_equal": true
+    },
+    "token_priority": {
+      "status": "proved",
+      "complete_data_equal": true
+    },
+    "baseline_stability": {
+      "status": "proved",
+      "complete_data_equal": true
+    }
+  },
+  "relationships": {
+    "reference": "reference-direct",
+    "offset_pages": [
+      "account-A-profile-only",
+      "offset-second"
+    ],
+    "token_pages": [
+      "account-A-profile-only",
+      "token-second"
+    ],
+    "token_source": "account-A-profile-only",
+    "token_control": "token-second",
+    "token_conflict": "token-priority-conflicting-offset",
+    "end_reference": "reference-end"
+  },
+  "planned_requests": 14,
+  "not_run": [],
+  "samples": [
+    {
+      "label": "account-A-profile-only",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000009
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sd_products-account-A-profile-only.json",
+      "sha256": "91ef64d896aee04d9d60edec86255f5f81a73318a0f1af19ece5aff0d54d2148"
+    },
+    {
+      "label": "account-A-sid-only",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "sid": 1212
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sd_products-account-A-sid-only.json",
+      "sha256": "193b4d72ecf8a1682c9fc2e5a7d245489e0ef49994e3dd578c74abdf57357a07"
+    },
+    {
+      "label": "account-A-both",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "sid": 1212
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sd_products-account-A-both.json",
+      "sha256": "bb4736149f69830299a2ce0a9f725a20f3e355f92b3154c9fc59b03636d4b081"
+    },
+    {
+      "label": "account-B-profile-only",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000010
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sd_products-account-B-profile-only.json",
+      "sha256": "cc115a3712701ba8ed634b6df790c45d367ce947f6f7d11955b30001634108bc"
+    },
+    {
+      "label": "account-A-sid-B-profile",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000010,
+        "sid": 1212
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sd_products-account-A-sid-B-profile.json",
+      "sha256": "23bdca4ae5b85dc60cbc220da7b1db7ed11f2deba5799ad71b8c2fd2718b23e6"
+    },
+    {
+      "label": "account-B-sid-A-profile",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "sid": 10016
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sd_products-account-B-sid-A-profile.json",
+      "sha256": "d6f226bab7a6bf9404cf3e2901fecc106e50f9834edbedec2702b11d06b497ad"
+    },
+    {
+      "label": "state-enabled",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "state": "enabled"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sd_products-state-enabled.json",
+      "sha256": "778800956f735ef574e035b622db394699e016b83b16143f252e62e78cc71723"
+    },
+    {
+      "label": "state-paused",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "state": "paused"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sd_products-state-paused.json",
+      "sha256": "49d20c9fea4517c4aa7eb226b44b9c3603bc08bad76ac5ce17f771118d77d8e5"
+    },
+    {
+      "label": "state-archived",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "state": "archived"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": "empty_expected",
+      "fixture": "sd_products-state-archived.json",
+      "sha256": "d8becbfc5136f8421769f135da754495e36dcfbae73a3d6a62ee21b399471cf8"
+    },
+    {
+      "label": "reference-direct",
+      "request": {
+        "length": 4,
+        "offset": 0,
+        "profile_id": 90000000000009
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sd_products-reference-direct.json",
+      "sha256": "4e5a3d5cd66e1823748844f414c56f31372adc91817ad94f5f12839793dd34af"
+    },
+    {
+      "label": "offset-second",
+      "request": {
+        "length": 2,
+        "offset": 2,
+        "profile_id": 90000000000009
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sd_products-offset-second.json",
+      "sha256": "d5fa2547dd6e5d0cef0b742df3746e43b4ee05325c5716a662e38f80c28a572e"
+    },
+    {
+      "label": "token-second",
+      "request": {
+        "length": 2,
+        "profile_id": 90000000000009
+      },
+      "next_token_from": "account-A-profile-only",
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sd_products-token-second.json",
+      "sha256": "1dd7a5561135e7e0285dd0474c1d0aa578e90f0fdcdc9441775e8475686a0403"
+    },
+    {
+      "label": "token-priority-conflicting-offset",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000009
+      },
+      "next_token_from": "account-A-profile-only",
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sd_products-token-priority-conflicting-offset.json",
+      "sha256": "49e78466fe76c4b9768166de7ae91f5b8e530f6492155fbd3cf176de6de50186"
+    },
+    {
+      "label": "reference-end",
+      "request": {
+        "length": 4,
+        "offset": 0,
+        "profile_id": 90000000000009
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sd_products-reference-end.json",
+      "sha256": "cd282fcab09833ea8b5d7c3b1fab472550d62ebd0858ac88020346c67b32a4b7"
+    }
+  ],
+  "diagnostics": []
+}

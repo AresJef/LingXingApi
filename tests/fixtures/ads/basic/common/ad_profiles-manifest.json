@@ -1,0 +1,80 @@
+{
+  "format": "ads-fixtures-v3",
+  "source": "local_raw",
+  "endpoint": "ads.AdProfiles",
+  "source_sha256": "727b4890379b6a0baf544ff522c998ff480b3c806c1e5b4ad6ad295658436f62",
+  "checks": {
+    "offset_concat": {
+      "status": "proved",
+      "complete_data_equal": true
+    },
+    "baseline_stability": {
+      "status": "proved",
+      "complete_data_equal": true
+    }
+  },
+  "relationships": {
+    "reference": "reference-direct",
+    "offset_pages": [
+      "offset-first",
+      "offset-second"
+    ],
+    "end_reference": "reference-end"
+  },
+  "planned_requests": 4,
+  "not_run": [],
+  "samples": [
+    {
+      "label": "reference-direct",
+      "request": {
+        "length": 4,
+        "offset": 0,
+        "type": "seller"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "ad_profiles-reference-direct.json",
+      "sha256": "b9beff07c27792c1d25721ff0279ce15ceb70b869775763de40676418398393f"
+    },
+    {
+      "label": "offset-first",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "type": "seller"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "ad_profiles-offset-first.json",
+      "sha256": "9d5857613d30f7cf2afbec8b84f5462f8104f8e5597b652a5653edd32a185aca"
+    },
+    {
+      "label": "offset-second",
+      "request": {
+        "length": 2,
+        "offset": 2,
+        "type": "seller"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "ad_profiles-offset-second.json",
+      "sha256": "e65e2722c9c315b8105cacf1adea4de6c40ce19f211f3debf01109e48425d5f8"
+    },
+    {
+      "label": "reference-end",
+      "request": {
+        "length": 4,
+        "offset": 0,
+        "type": "seller"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "ad_profiles-reference-end.json",
+      "sha256": "8e579958fcb70ad1b00103fceb05b0fd03e9e8b9922173edcca9c60b3fea898e"
+    }
+  ]
+}

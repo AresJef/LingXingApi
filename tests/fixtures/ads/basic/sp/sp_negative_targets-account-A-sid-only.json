@@ -1,0 +1,41 @@
+{
+  "source": "local_raw",
+  "endpoint": "ads.SpNegativeTargets",
+  "response": {
+    "code": 0,
+    "message": "操作成功",
+    "data": [
+      {
+        "target_id": 30000000000009,
+        "campaign_id": 700000000000143,
+        "ad_group_id": 600000000000036,
+        "profile_id": 90000000000009,
+        "negative_type": "negativeBrand",
+        "negative_text": "Aaaaaab",
+        "negative_match_type": "",
+        "state": "enabled",
+        "creation_date": 1573797409000,
+        "last_updated_date": 1573797409000,
+        "serving_status": "CAMPAIGN_PAUSED"
+      },
+      {
+        "target_id": 300000000000005,
+        "campaign_id": 700000000000101,
+        "ad_group_id": 600000000000093,
+        "profile_id": 90000000000009,
+        "negative_type": "negativeAsin",
+        "negative_text": "A000AAAAA3",
+        "negative_match_type": "",
+        "state": "enabled",
+        "creation_date": 1599471175000,
+        "last_updated_date": 1599471175000,
+        "serving_status": "CAMPAIGN_PAUSED"
+      }
+    ],
+    "total": 988,
+    "next_token": "MTAwMDc1",
+    "error_details": [],
+    "request_id": "00000000-0000-0000-0000-000000000211",
+    "response_time": "2001-05-07 07:57:00"
+  }
+}

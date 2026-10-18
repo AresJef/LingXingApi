@@ -1,0 +1,292 @@
+{
+  "format": "ads-fixtures-v3",
+  "source": "local_raw",
+  "endpoint": "ads.SbKeywords",
+  "source_sha256": "2bab9037974542f0bbe4de389f196ed0ef8b3448663f437b0ad04b524517fad8",
+  "checks": {
+    "identifiers": {
+      "status": "proved",
+      "cases": [
+        {
+          "label": "account-A-profile-only",
+          "status": "proved",
+          "rows": 2
+        },
+        {
+          "label": "account-A-sid-only",
+          "status": "proved",
+          "rows": 2
+        },
+        {
+          "label": "account-A-both",
+          "status": "proved",
+          "rows": 2
+        },
+        {
+          "label": "account-B-profile-only",
+          "status": "proved",
+          "rows": 2
+        }
+      ]
+    },
+    "cross_identifier_priority": {
+      "observed": "profile_id",
+      "cases": [
+        {
+          "label": "account-A-sid-B-profile",
+          "observed": "profile_id"
+        },
+        {
+          "label": "account-B-sid-A-profile",
+          "observed": "profile_id"
+        }
+      ],
+      "status": "proved"
+    },
+    "ad_type_SB": {
+      "status": "observed",
+      "rows": 2,
+      "types": [
+        "SB"
+      ]
+    },
+    "ad_type_SBV": {
+      "status": "no_nonempty_sample",
+      "rows": 0,
+      "types": []
+    },
+    "offset_concat": {
+      "status": "proved",
+      "complete_data_equal": true
+    },
+    "token_concat": {
+      "status": "proved",
+      "complete_data_equal": true
+    },
+    "token_priority": {
+      "status": "proved",
+      "complete_data_equal": true
+    },
+    "baseline_stability": {
+      "status": "proved",
+      "complete_data_equal": true
+    }
+  },
+  "relationships": {
+    "reference": "reference-direct",
+    "offset_pages": [
+      "account-A-profile-only",
+      "offset-second"
+    ],
+    "token_pages": [
+      "account-A-profile-only",
+      "token-second"
+    ],
+    "token_source": "account-A-profile-only",
+    "token_control": "token-second",
+    "token_conflict": "token-priority-conflicting-offset",
+    "end_reference": "reference-end"
+  },
+  "planned_requests": 13,
+  "not_run": [],
+  "samples": [
+    {
+      "label": "account-A-profile-only",
+      "request": {
+        "ads_type": "ALL",
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "targeting_type": "keyword"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_keywords-account-A-profile-only.json",
+      "sha256": "6b8e9a5e22f0d76be51347ec4bad2651682a59240c3a65376ff4a85e727e21b1"
+    },
+    {
+      "label": "account-A-sid-only",
+      "request": {
+        "ads_type": "ALL",
+        "length": 2,
+        "offset": 0,
+        "sid": 1212,
+        "targeting_type": "keyword"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_keywords-account-A-sid-only.json",
+      "sha256": "431b96879e5c691d383445af9c70eeb21c088ef0bd23c7ba4a84b23c8f78123b"
+    },
+    {
+      "label": "account-A-both",
+      "request": {
+        "ads_type": "ALL",
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "sid": 1212,
+        "targeting_type": "keyword"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_keywords-account-A-both.json",
+      "sha256": "0bf1df3a7c7bd1f783324077a22a464043bac1b504f402f1f0b960ef1adc9f15"
+    },
+    {
+      "label": "account-B-profile-only",
+      "request": {
+        "ads_type": "ALL",
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000010,
+        "targeting_type": "keyword"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_keywords-account-B-profile-only.json",
+      "sha256": "c3677df0e51466964f90c665f44437bdef69d816668ad1fc4db9c8344869441c"
+    },
+    {
+      "label": "account-A-sid-B-profile",
+      "request": {
+        "ads_type": "ALL",
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000010,
+        "sid": 1212,
+        "targeting_type": "keyword"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_keywords-account-A-sid-B-profile.json",
+      "sha256": "e7cb804cfa0e0b66a898b8938ac72d858388df324918c13a0a09362d2bee8896"
+    },
+    {
+      "label": "account-B-sid-A-profile",
+      "request": {
+        "ads_type": "ALL",
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "sid": 10016,
+        "targeting_type": "keyword"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_keywords-account-B-sid-A-profile.json",
+      "sha256": "991f5251c49f2acf4732d332e3aef97631558832f9c9006c45692b295ed60aa2"
+    },
+    {
+      "label": "ad-type-SB",
+      "request": {
+        "ads_type": "SB",
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "targeting_type": "keyword"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_keywords-ad-type-SB.json",
+      "sha256": "fba95ee4ae276076f85eddd8a41909fee66faa6304294e5deb3be9eb0b07ecfc"
+    },
+    {
+      "label": "ad-type-SBV",
+      "request": {
+        "ads_type": "SBV",
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "targeting_type": "keyword"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": "empty_expected",
+      "fixture": "sb_keywords-ad-type-SBV.json",
+      "sha256": "079f0e67a80c67db56a2900021a7f44e79601c9a5a5f811fb4b11a8a7cf00eb3"
+    },
+    {
+      "label": "reference-direct",
+      "request": {
+        "ads_type": "ALL",
+        "length": 4,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "targeting_type": "keyword"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_keywords-reference-direct.json",
+      "sha256": "0f6b1ee36bcab617637e0f28d7efb8cfabb559fd75dbfd4230f2a600aaf10f5d"
+    },
+    {
+      "label": "offset-second",
+      "request": {
+        "ads_type": "ALL",
+        "length": 2,
+        "offset": 2,
+        "profile_id": 90000000000009,
+        "targeting_type": "keyword"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_keywords-offset-second.json",
+      "sha256": "bf415e1b6a6a6afa3127f028c223f1e3a86b5b3c255bb17af07151ce248b2485"
+    },
+    {
+      "label": "token-second",
+      "request": {
+        "ads_type": "ALL",
+        "length": 2,
+        "profile_id": 90000000000009,
+        "targeting_type": "keyword"
+      },
+      "next_token_from": "account-A-profile-only",
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_keywords-token-second.json",
+      "sha256": "7dae7d10668265256c3926799f51e1b6acc5d62160725449b4b76637a85f7964"
+    },
+    {
+      "label": "token-priority-conflicting-offset",
+      "request": {
+        "ads_type": "ALL",
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "targeting_type": "keyword"
+      },
+      "next_token_from": "account-A-profile-only",
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_keywords-token-priority-conflicting-offset.json",
+      "sha256": "5894ef69032c8c021982cdcc4b956a9f60c522559fb2b7e55a18e4cbb96460c6"
+    },
+    {
+      "label": "reference-end",
+      "request": {
+        "ads_type": "ALL",
+        "length": 4,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "targeting_type": "keyword"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_keywords-reference-end.json",
+      "sha256": "fb32e9d9343cf0b28d03fa59e0cd81eee9e6653947607da1cae5e6089d52c8a7"
+    }
+  ],
+  "diagnostics": []
+}

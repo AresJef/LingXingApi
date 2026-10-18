@@ -1,0 +1,49 @@
+{
+  "source": "local_raw",
+  "endpoint": "ads.SbKeywords",
+  "response": {
+    "code": 0,
+    "message": "操作成功",
+    "data": [
+      {
+        "campaign_id": 70000000000379,
+        "ad_group_id": 60000000000365,
+        "keyword_id": 4000000000061,
+        "keyword_text": "aaaaa 044",
+        "keyword_bid": 0.95,
+        "keyword_state": "paused",
+        "match_type": "broad",
+        "target_id": null,
+        "expression": null,
+        "target_bid": null,
+        "target_state": null,
+        "resolved_expression": null,
+        "targeting_type": "keyword",
+        "ads_type": "SB",
+        "profile_id": 90000000000009
+      },
+      {
+        "campaign_id": 700000000000102,
+        "ad_group_id": 600000000000029,
+        "keyword_id": 4000000000109,
+        "keyword_text": "+aaaaa +aaa +000 +005",
+        "keyword_bid": 0.4,
+        "keyword_state": "enabled",
+        "match_type": "broad",
+        "target_id": null,
+        "expression": null,
+        "target_bid": null,
+        "target_state": null,
+        "resolved_expression": null,
+        "targeting_type": "keyword",
+        "ads_type": "SB",
+        "profile_id": 90000000000009
+      }
+    ],
+    "total": 3804,
+    "next_token": "MTAwMDAwMDAwMDA2MQ==",
+    "error_details": [],
+    "request_id": "00000000-0000-0000-0000-0000000000ae",
+    "response_time": "2001-05-07 08:56:00"
+  }
+}

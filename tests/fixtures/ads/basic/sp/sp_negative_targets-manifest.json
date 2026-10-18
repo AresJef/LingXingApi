@@ -1,0 +1,239 @@
+{
+  "format": "ads-fixtures-v3",
+  "source": "local_raw",
+  "endpoint": "ads.SpNegativeTargets",
+  "source_sha256": "35ced71e777458bb0ec7932cecb5df0196cd1b7e6f94eddcfbcfcbcf82c37357",
+  "checks": {
+    "identifiers": {
+      "status": "proved",
+      "cases": [
+        {
+          "label": "account-A-profile-only",
+          "status": "proved",
+          "rows": 2
+        },
+        {
+          "label": "account-A-sid-only",
+          "status": "proved",
+          "rows": 2
+        },
+        {
+          "label": "account-A-both",
+          "status": "proved",
+          "rows": 2
+        },
+        {
+          "label": "account-B-profile-only",
+          "status": "proved",
+          "rows": 2
+        }
+      ]
+    },
+    "cross_identifier_priority": {
+      "observed": "profile_id",
+      "cases": [
+        {
+          "label": "account-A-sid-B-profile",
+          "observed": "profile_id"
+        },
+        {
+          "label": "account-B-sid-A-profile",
+          "observed": "profile_id"
+        }
+      ],
+      "status": "proved"
+    },
+    "offset_concat": {
+      "status": "proved",
+      "complete_data_equal": true
+    },
+    "token_concat": {
+      "status": "proved",
+      "complete_data_equal": true
+    },
+    "token_priority": {
+      "status": "proved",
+      "complete_data_equal": true
+    },
+    "baseline_stability": {
+      "status": "proved",
+      "complete_data_equal": true
+    }
+  },
+  "relationships": {
+    "reference": "reference-direct",
+    "offset_pages": [
+      "account-A-profile-only",
+      "offset-second"
+    ],
+    "token_pages": [
+      "account-A-profile-only",
+      "token-second"
+    ],
+    "token_source": "account-A-profile-only",
+    "token_control": "token-second",
+    "token_conflict": "token-priority-conflicting-offset",
+    "end_reference": "reference-end"
+  },
+  "planned_requests": 11,
+  "not_run": [],
+  "samples": [
+    {
+      "label": "account-A-profile-only",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "target_type": "target"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_negative_targets-account-A-profile-only.json",
+      "sha256": "d458e50f3014bc78a7c940831097cae7d0c58902bff11020de89f9d529f976e1"
+    },
+    {
+      "label": "account-A-sid-only",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "sid": 1212,
+        "target_type": "target"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_negative_targets-account-A-sid-only.json",
+      "sha256": "c0dc6444e5130ae346895e0b50c7deee602a81d70c8a215f04a01972262a6518"
+    },
+    {
+      "label": "account-A-both",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "sid": 1212,
+        "target_type": "target"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_negative_targets-account-A-both.json",
+      "sha256": "56587ed073e57a27e460dbafb92cd70af48c23847bd527b7169b92fbe3daa656"
+    },
+    {
+      "label": "account-B-profile-only",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000010,
+        "target_type": "target"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_negative_targets-account-B-profile-only.json",
+      "sha256": "f19256ca2971bd910917895fd1dc2bd18e727802c02e10b0ff3b63434fa3ef32"
+    },
+    {
+      "label": "account-A-sid-B-profile",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000010,
+        "sid": 1212,
+        "target_type": "target"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_negative_targets-account-A-sid-B-profile.json",
+      "sha256": "37dbd56ffbb268578be409eb3cf97b2f9614c292ddd52cbcf6dd9fce00d8b8d8"
+    },
+    {
+      "label": "account-B-sid-A-profile",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "sid": 10016,
+        "target_type": "target"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_negative_targets-account-B-sid-A-profile.json",
+      "sha256": "2921dd69e8aac222bb6c39c75dbac4bd44646ef5f962e9769ea6ea9d592a7ec9"
+    },
+    {
+      "label": "reference-direct",
+      "request": {
+        "length": 4,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "target_type": "target"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_negative_targets-reference-direct.json",
+      "sha256": "04ceedb81242620b2078b1c82108a03648b63e240f20626ca77384418556602f"
+    },
+    {
+      "label": "offset-second",
+      "request": {
+        "length": 2,
+        "offset": 2,
+        "profile_id": 90000000000009,
+        "target_type": "target"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_negative_targets-offset-second.json",
+      "sha256": "57e34e1e3f799906d59442390e735e475d75b4ed9c7d5c10658c1fd9562b5bf9"
+    },
+    {
+      "label": "token-second",
+      "request": {
+        "length": 2,
+        "profile_id": 90000000000009,
+        "target_type": "target"
+      },
+      "next_token_from": "account-A-profile-only",
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_negative_targets-token-second.json",
+      "sha256": "3ccb5df00dd64329a5ba50a2a56641ed14e3d35380535b375fb6868523804ee8"
+    },
+    {
+      "label": "token-priority-conflicting-offset",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "target_type": "target"
+      },
+      "next_token_from": "account-A-profile-only",
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_negative_targets-token-priority-conflicting-offset.json",
+      "sha256": "ccbb8f2385b9431d1c61e1feda81a039ac3a4330b6ddcd5c66a571b93a808a29"
+    },
+    {
+      "label": "reference-end",
+      "request": {
+        "length": 4,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "target_type": "target"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_negative_targets-reference-end.json",
+      "sha256": "18083ed6aa79c343ab443024f69b9a3d762826b1e9873ee32d15ac7e463efc42"
+    }
+  ],
+  "diagnostics": []
+}

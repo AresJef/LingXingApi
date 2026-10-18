@@ -1,0 +1,125 @@
+{
+  "source": "local_raw",
+  "endpoint": "ads.SbCreatives",
+  "response": {
+    "code": 0,
+    "message": "操作成功",
+    "data": [
+      {
+        "video_creatives": [],
+        "campaign_id": 700000000000793,
+        "ad_group_id": 600000000000572,
+        "creative_id": 200404,
+        "ad_creative_id": 500000000000264,
+        "name": "广告 示示 - 0/0/0000 00:00:00.588",
+        "state": "enabled",
+        "creation_date": 1751873479401,
+        "last_updated_date": 1751893664119,
+        "profile_id": 900000000000020,
+        "serving_status": "AD_POLICING_SUSPENDED",
+        "asin": [
+          "A0AAAA0BN7"
+        ],
+        "creative": {
+          "asins": [
+            "A0AAAA0BN7"
+          ],
+          "creativeStatus": "REJECTED_BY_MODERATION",
+          "creativeVersion": "1",
+          "consentToTranslate": false,
+          "videoAssetIds": [
+            "amzn1.assetlibrary.asset1.0aa000a0000a0a0a0000a0a00a000b72:version_v1"
+          ],
+          "type": "VIDEO",
+          "originalVideoAssetIds": [
+            "amzn1.assetlibrary.asset1.0aa000a0000a0a0a0000a0a00a000b72:version_v1"
+          ]
+        },
+        "landing_page": {
+          "pageType": "DETAIL_PAGE",
+          "url": "https://aaa.aaaaaa.aa/aa/A0AAAA0CO8"
+        },
+        "creative_type": "VIDEO"
+      },
+      {
+        "video_creatives": [],
+        "campaign_id": 700000000000246,
+        "ad_group_id": 600000000000435,
+        "creative_id": 200527,
+        "ad_creative_id": 500000000000269,
+        "name": "Aa - 0000/0/00 00:00:00.152",
+        "state": "enabled",
+        "creation_date": 1773894432443,
+        "last_updated_date": 1788284373180,
+        "profile_id": 900000000000020,
+        "serving_status": "AD_POLICING_SUSPENDED",
+        "asin": [
+          "A0A00AA0QJ",
+          "A0AA00A17O",
+          "A0AAAAA504"
+        ],
+        "creative": {
+          "brandLogoCrop": {
+            "top": 0,
+            "left": 0,
+            "width": 800,
+            "height": 800
+          },
+          "brandName": "Aaaaaaaap",
+          "customImageAssetId": "amzn1.assetlibrary.asset1.00a0aaaaa0aaa0a000a000a0a00001e9:version_v1",
+          "creativeStatus": "REJECTED_BY_MODERATION",
+          "creativeVersion": "1",
+          "customImages": [
+            {
+              "assetId": "amzn1.assetlibrary.asset1.00a0aaaaa0aaa0a000a000a0a00001e9:version_v1",
+              "url": "https://a.aaaaa-aaaaaa.aaa/aaaaaa/A/aa-aa-000a0a00-0aaa/a0000000-0aa0-0a0a-0aaa-00000a00000a.aafc",
+              "crop": {
+                "top": 0,
+                "left": 0,
+                "width": 1200,
+                "height": 628
+              }
+            }
+          ],
+          "consentToTranslate": false,
+          "customImageCrop": {
+            "top": 0,
+            "left": 0,
+            "width": 1200,
+            "height": 628
+          },
+          "originalHeadlines": [
+            "000AA Aaaaaaaaa aa aaaaa aaaaa a aaabc"
+          ],
+          "customImageUrl": "https://a.aaaaa-aaaaaa.aaa/aaaaaa/A/aa-aa-000a0a00-0aaa/a0000000-0aa0-0a0a-0aaa-00000a00000a.aafc",
+          "type": "PRODUCT_COLLECTION",
+          "asins": [
+            "A0A00AA0QJ",
+            "A0AA00A17O",
+            "A0AAAAA504"
+          ],
+          "brandLogoUrl": "https://a.aaaaa-aaaaaa.aaa/aaaaaa/A/aa-aa-000a0a00-0aaa/0a000a0a-a0a0-0a0a-aaaa-0a0a00a00000.acc",
+          "headlines": [
+            "000AA Aaaaaaaaa aa aaaaa aaaaa a aaabc"
+          ],
+          "creativePropertiesToOptimize": [
+            "HEADLINE"
+          ],
+          "originalHeadline": "000AA Aaaaaaaaa aa aaaaa aaaaa a aaabc",
+          "brandLogoAssetID": "amzn1.assetlibrary.asset1.00a00a00a00000a0aa000a0000000b93:version_v1",
+          "headline": "000AA Aaaaaaaaa aa aaaaa aaaaa a aaabc"
+        },
+        "landing_page": {
+          "pageType": "PRODUCT_LIST",
+          "url": "https://aaa.aaaaaa.aa/aaaaaa/aaaa/0A0A0000-A00A-000A-A00A-A00A0AAA02O9"
+        },
+        "creative_type": "PRODUCT_COLLECTION"
+      }
+    ],
+    "total": 2,
+    "next_token": "MTAwMDU0",
+    "error_details": [],
+    "request_id": "00000000-0000-0000-0000-0000000000c8",
+    "response_time": "2001-05-07 10:01:00"
+  }
+}

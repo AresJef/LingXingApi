@@ -1,0 +1,37 @@
+{
+  "source": "local_raw",
+  "endpoint": "ads.Portfolios",
+  "response": {
+    "code": 0,
+    "message": "操作成功",
+    "data": [
+      {
+        "portfolio_id": 8000000000019,
+        "profile_id": 90000000000010,
+        "name": "AA-000/004",
+        "budget": "{\"amount\": 15.0, \"policy\": \"dateRange\", \"startDate\": \"20261017\", \"currencyCode\": \"EUR\"}",
+        "in_budget": 1,
+        "state": "enabled",
+        "creation_date": 1789108318311,
+        "last_updated_date": 1792206895038,
+        "serving_status": "PORTFOLIO_STATUS_ENABLED"
+      },
+      {
+        "portfolio_id": 8000000000020,
+        "profile_id": 90000000000010,
+        "name": "AA-AF",
+        "budget": "{\"policy\": \"noCap\", \"currencyCode\": \"EUR\"}",
+        "in_budget": 1,
+        "state": "enabled",
+        "creation_date": 1789524112703,
+        "last_updated_date": 1789524112703,
+        "serving_status": "PORTFOLIO_STATUS_ENABLED"
+      }
+    ],
+    "total": 42,
+    "next_token": "MTAwMDAwMDAwMDA3Nw==",
+    "error_details": [],
+    "request_id": "00000000-0000-0000-0000-000000000258",
+    "response_time": "2001-05-07 06:23:00"
+  }
+}

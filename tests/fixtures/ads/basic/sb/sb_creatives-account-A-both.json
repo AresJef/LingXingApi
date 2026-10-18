@@ -1,0 +1,101 @@
+{
+  "source": "local_raw",
+  "endpoint": "ads.SbCreatives",
+  "response": {
+    "code": 0,
+    "message": "操作成功",
+    "data": [
+      {
+        "video_creatives": [],
+        "campaign_id": 700000000000000058,
+        "ad_group_id": 600000000000000046,
+        "creative_id": 20005,
+        "ad_creative_id": 0,
+        "name": null,
+        "state": "archived",
+        "creation_date": 1600052619000,
+        "last_updated_date": 1761008261558,
+        "profile_id": 90000000000009,
+        "serving_status": "CAMPAIGN_ARCHIVED",
+        "asin": [
+          "A00AAAAA0R",
+          "A000A0AAH8",
+          "A00AAAA0BF"
+        ],
+        "creative": {
+          "asins": [
+            "A00AAAAA0R",
+            "A000A0AAH8",
+            "A00AAAA0BF"
+          ],
+          "brandLogoCrop": {
+            "top": 0,
+            "left": 0,
+            "width": 12453,
+            "height": 3547
+          },
+          "brandLogoUrl": "https://aaaaaa-aa.aaa-aaaaaa-aaaaaa.aaa/aaaaaa/A/aaaaaaaaa-aaaaa-aaaaaa-aaaa/0/A0A00A0A0AAA0A/00a00aaa0a00a00a000a0000000aa000.aac",
+          "brandName": "Aaaaaab",
+          "creativeStatus": "PUBLISHED",
+          "creativeVersion": "1",
+          "type": "PRODUCT_COLLECTION",
+          "brandLogoAssetID": "AAA0aaAaAaaaaaAaaaAD",
+          "headline": "Aaaaaaa aaaaaaaaaaaaaa 000 000 AA aaa aaaaaaaag"
+        },
+        "landing_page": {
+          "pageType": "PRODUCT_LIST",
+          "url": "https://aaa.aaaaaa.aa.aa/aaaaaa/aaaa/0000AA00-A00A-00AA-0AAA-0A00A0A0A010"
+        },
+        "creative_type": "PRODUCT_COLLECTION"
+      },
+      {
+        "video_creatives": [],
+        "campaign_id": 700000000000000052,
+        "ad_group_id": 600000000000000042,
+        "creative_id": 20002,
+        "ad_creative_id": 0,
+        "name": null,
+        "state": "archived",
+        "creation_date": 1600138894000,
+        "last_updated_date": 1761079810255,
+        "profile_id": 90000000000009,
+        "serving_status": "CAMPAIGN_ARCHIVED",
+        "asin": [
+          "A00AA0AAAN",
+          "A00AA00AL2",
+          "A000AAAA2F"
+        ],
+        "creative": {
+          "asins": [
+            "A00AA0AAAN",
+            "A00AA00AL2",
+            "A000AAAA2F"
+          ],
+          "brandLogoCrop": {
+            "top": 0,
+            "left": 0,
+            "width": 12453,
+            "height": 3547
+          },
+          "brandLogoUrl": "https://aaaaaa-aa.aaa-aaaaaa-aaaaaa.aaa/aaaaaa/A/aaaaaaaaa-aaaaa-aaaaaa-aaaa/0/A0A00A0A0AAA0A/00a00aaa0a00a00a000a0000000aa000.aac",
+          "brandName": "Aaaaaab",
+          "creativeStatus": "PUBLISHED",
+          "creativeVersion": "1",
+          "type": "PRODUCT_COLLECTION",
+          "brandLogoAssetID": "AAA0aaAaAaaaaaAaaaAD",
+          "headline": "Aaaaaaa aaaaaaaaaaaaaa 000AA aaa aaaaaaaaf"
+        },
+        "landing_page": {
+          "pageType": "PRODUCT_LIST",
+          "url": "https://aaa.aaaaaa.aa.aa/aaaaaa/aaaa/0A0A000A-A00A-00AA-A000-0000A000A0AJ"
+        },
+        "creative_type": "PRODUCT_COLLECTION"
+      }
+    ],
+    "total": 37,
+    "next_token": "MTAwMjE=",
+    "error_details": [],
+    "request_id": "00000000-0000-0000-0000-000000000287",
+    "response_time": "2001-05-07 08:36:00"
+  }
+}

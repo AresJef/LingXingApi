@@ -1,0 +1,127 @@
+{
+  "source": "local_raw",
+  "endpoint": "ads.AdsOperationLogs",
+  "response": {
+    "code": 0,
+    "message": "操作成功",
+    "data": [
+      {
+        "profile_id": 90000000000010,
+        "sponsored_type": "sp",
+        "operate_type": "campaigns",
+        "campaign_id": 700000000000164,
+        "ad_group_id": null,
+        "object_id": 700000000000164,
+        "campaign_name": "AA-000 000-广告-A0A/A-0.1p",
+        "ad_group_name": null,
+        "object_name": "AA-000 000-广告-A0A/A-0.1p",
+        "function_name": "history",
+        "change_type": "update",
+        "operate_before": [
+          {
+            "code": "IN_BUDGET",
+            "value": "false"
+          }
+        ],
+        "operate_after": [
+          {
+            "code": "IN_BUDGET",
+            "value": "true"
+          }
+        ],
+        "user_id": 0,
+        "user_name": "用户用户色",
+        "operate_time": "2026-10-01 02:03:07"
+      },
+      {
+        "profile_id": 90000000000010,
+        "sponsored_type": "sp",
+        "operate_type": "campaigns",
+        "campaign_id": 700000000000105,
+        "ad_group_id": null,
+        "object_id": 700000000000105,
+        "campaign_name": "AA-000-0A-广告-AA-0.0a 00.02.6-",
+        "ad_group_name": null,
+        "object_name": "AA-000-0A-广告-AA-0.0a 00.02.6-",
+        "function_name": "history",
+        "change_type": "update",
+        "operate_before": [
+          {
+            "code": "IN_BUDGET",
+            "value": "false"
+          }
+        ],
+        "operate_after": [
+          {
+            "code": "IN_BUDGET",
+            "value": "true"
+          }
+        ],
+        "user_id": 0,
+        "user_name": "用户用户色",
+        "operate_time": "2026-10-01 02:04:35"
+      },
+      {
+        "profile_id": 90000000000010,
+        "sponsored_type": "sp",
+        "operate_type": "campaigns",
+        "campaign_id": 700000000000198,
+        "ad_group_id": null,
+        "object_id": 700000000000198,
+        "campaign_name": "AA-000-0A-Aaa-0a  00.0.00bs",
+        "ad_group_name": null,
+        "object_name": "AA-000-0A-Aaa-0a  00.0.00bs",
+        "function_name": "history",
+        "change_type": "update",
+        "operate_before": [
+          {
+            "code": "IN_BUDGET",
+            "value": "false"
+          }
+        ],
+        "operate_after": [
+          {
+            "code": "IN_BUDGET",
+            "value": "true"
+          }
+        ],
+        "user_id": 0,
+        "user_name": "用户用户色",
+        "operate_time": "2026-10-01 02:04:36"
+      },
+      {
+        "profile_id": 90000000000010,
+        "sponsored_type": "sp",
+        "operate_type": "campaigns",
+        "campaign_id": 70000000000390,
+        "ad_group_id": null,
+        "object_id": 70000000000390,
+        "campaign_name": "AA-000-AA-Aaa-0.1t",
+        "ad_group_name": null,
+        "object_name": "AA-000-AA-Aaa-0.1t",
+        "function_name": "history",
+        "change_type": "update",
+        "operate_before": [
+          {
+            "code": "IN_BUDGET",
+            "value": "false"
+          }
+        ],
+        "operate_after": [
+          {
+            "code": "IN_BUDGET",
+            "value": "true"
+          }
+        ],
+        "user_id": 0,
+        "user_name": "用户用户色",
+        "operate_time": "2026-10-01 02:05:01"
+      }
+    ],
+    "total": 1967,
+    "next_token": null,
+    "error_details": [],
+    "request_id": "00000000-0000-0000-0000-0000000000cf",
+    "response_time": "2001-05-07 16:25:00"
+  }
+}

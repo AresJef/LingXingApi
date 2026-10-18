@@ -1,0 +1,100 @@
+{
+  "format": "ads-fixtures-v3",
+  "source": "local_raw",
+  "endpoint": "ads.SbAdGroupHourData",
+  "source_sha256": "674066a771e1a991e1a057354c1ebf030fefa74ffdc704580f3d6b48db4e8a30",
+  "checks": {
+    "campaign_date_hour": {
+      "status": "proved",
+      "cases": [
+        {
+          "label": "campaign-A",
+          "status": "proved"
+        },
+        {
+          "label": "campaign-B",
+          "status": "proved"
+        },
+        {
+          "label": "reference-end",
+          "status": "proved"
+        }
+      ]
+    },
+    "baseline_stability": {
+      "status": "proved",
+      "complete_data_equal": true,
+      "comparison": "complete_rows_multiset",
+      "ordered_data_equal": true
+    }
+  },
+  "relationships": {
+    "reference": "campaign-A",
+    "end_reference": "reference-end"
+  },
+  "planned_requests": 3,
+  "not_run": [],
+  "samples": [
+    {
+      "label": "campaign-A",
+      "request": {
+        "campaign_id": 70000000000402,
+        "report_date": "2026-10-01"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_ad_group_hour_data-campaign-A.json",
+      "sha256": "61ef7aa8134d020f35cbb517bddb6cf4b118c73407941092c89fad2e0c04fd3e"
+    },
+    {
+      "label": "campaign-B",
+      "request": {
+        "campaign_id": 7000000000145,
+        "report_date": "2026-10-01"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_ad_group_hour_data-campaign-B.json",
+      "sha256": "e61654cb88b95553d35d8ffdae4c4d6df1600f4576c9853907d4d5572b5c09df"
+    },
+    {
+      "label": "reference-end",
+      "request": {
+        "campaign_id": 70000000000402,
+        "report_date": "2026-10-01"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_ad_group_hour_data-reference-end.json",
+      "sha256": "537ce4a173c916adbccfa52a357de801766b4e7a8d209ac83d6e0a215210736f"
+    }
+  ],
+  "campaign_sources": [
+    {
+      "label": "campaign-A",
+      "campaign_id": 70000000000402,
+      "profile_id": 900000000000003,
+      "report_date": "2026-10-01",
+      "file": "sb_campaign_reports-account-A-profile-only-原始数据.json",
+      "sha256": "ae7b9dcd32f83e030cb92364bd5c29f65d65730b028ae79da37e437ea0ff75db",
+      "row_index": 0,
+      "manifest": "sb_campaign_reports-原始采集清单.json",
+      "manifest_sha256": "ca326dd0d000f0c61cf7f0b2143d481aeda078d063a5deb44c843b123b401eb2"
+    },
+    {
+      "label": "campaign-B",
+      "campaign_id": 7000000000145,
+      "profile_id": 90000000000010,
+      "report_date": "2026-10-01",
+      "file": "sb_campaign_reports-account-B-profile-only-原始数据.json",
+      "sha256": "51438e5b2142bf9e29e089f7a23293399536d8eb8df0defa6626890d7df24a6c",
+      "row_index": 0,
+      "manifest": "sb_campaign_reports-原始采集清单.json",
+      "manifest_sha256": "ca326dd0d000f0c61cf7f0b2143d481aeda078d063a5deb44c843b123b401eb2"
+    }
+  ],
+  "diagnostics": []
+}

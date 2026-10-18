@@ -1,0 +1,51 @@
+{
+  "source": "local_raw",
+  "endpoint": "ads.SbCreatives",
+  "response": {
+    "code": 0,
+    "message": "操作成功",
+    "data": [
+      {
+        "video_creatives": [],
+        "campaign_id": 700000000000754,
+        "ad_group_id": 600000000000525,
+        "creative_id": 20809,
+        "ad_creative_id": 500000000000128,
+        "name": "广告 示示 - 00/00/0000 00:00:00.506",
+        "state": "enabled",
+        "creation_date": 1733820951115,
+        "last_updated_date": 1733841752747,
+        "profile_id": 900000000000024,
+        "serving_status": "AD_STATUS_LIVE",
+        "asin": [
+          "A0AAAAAATL"
+        ],
+        "creative": {
+          "asins": [
+            "A0AAAAAATL"
+          ],
+          "creativeStatus": "PUBLISHED",
+          "creativeVersion": "1",
+          "consentToTranslate": false,
+          "videoAssetIds": [
+            "amzn1.assetlibrary.asset1.00000aa000a0a0a0a0aaaaaa000a00fr:version_v1"
+          ],
+          "type": "VIDEO",
+          "originalVideoAssetIds": [
+            "amzn1.assetlibrary.asset1.00000aa000a0a0a0a0aaaaaa000a00fr:version_v1"
+          ]
+        },
+        "landing_page": {
+          "pageType": "DETAIL_PAGE",
+          "url": "https://aaa.aaaaaa.aa.aa/aa/A0AAAAAAPF"
+        },
+        "creative_type": "VIDEO"
+      }
+    ],
+    "total": 1,
+    "next_token": "MTAwODk=",
+    "error_details": [],
+    "request_id": "00000000-0000-0000-0000-0000000000dc",
+    "response_time": "2001-05-07 10:01:00"
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "source": "local_raw",
+  "endpoint": "ads.SpTargets",
+  "response": {
+    "code": 0,
+    "message": "操作成功",
+    "data": [
+      {
+        "target_id": 300000000041,
+        "campaign_id": 700000000000140,
+        "ad_group_id": 60000000000081,
+        "profile_id": 90000000000009,
+        "expression_type": "manual",
+        "expression": "[{\"type\": \"asinSameAs\", \"value\": \"A00AAAAAGY\"}]",
+        "bid": 0.88,
+        "state": "paused",
+        "creation_date": 1655692384418,
+        "last_updated_date": 1662346315055,
+        "serving_status": "TARGETING_CLAUSE_PAUSED",
+        "resolved_expression": "[{\"type\": \"asinSameAs\", \"value\": \"A00AAAAAGY\"}]"
+      },
+      {
+        "target_id": 300000000042,
+        "campaign_id": 700000000000214,
+        "ad_group_id": 600000000000236,
+        "profile_id": 90000000000009,
+        "expression_type": "manual",
+        "expression": "[{\"type\": \"asinSameAs\", \"value\": \"A0AAAAA0HE\"}]",
+        "bid": 2.46,
+        "state": "paused",
+        "creation_date": 1687750344426,
+        "last_updated_date": 1690854729245,
+        "serving_status": "CAMPAIGN_PAUSED",
+        "resolved_expression": "[{\"type\": \"asinSameAs\", \"value\": \"A0AAAAA0HE\"}]"
+      }
+    ],
+    "total": 380,
+    "next_token": "MTAwMDAwMDAwMDYw",
+    "error_details": [],
+    "request_id": "00000000-0000-0000-0000-000000000102",
+    "response_time": "2001-05-07 07:39:00"
+  }
+}

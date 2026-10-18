@@ -1,0 +1,289 @@
+{
+  "format": "ads-fixtures-v3",
+  "source": "local_raw",
+  "endpoint": "ads.SdTargets",
+  "source_sha256": "e4c7fe90de43acbd27d3a9f12c488314850a36ee131f979ddc86c1a6fae83aa3",
+  "checks": {
+    "identifiers": {
+      "status": "proved",
+      "cases": [
+        {
+          "label": "account-A-profile-only",
+          "status": "proved",
+          "rows": 2
+        },
+        {
+          "label": "account-A-sid-only",
+          "status": "proved",
+          "rows": 2
+        },
+        {
+          "label": "account-A-both",
+          "status": "proved",
+          "rows": 2
+        },
+        {
+          "label": "account-B-profile-only",
+          "status": "proved",
+          "rows": 2
+        }
+      ]
+    },
+    "cross_identifier_priority": {
+      "observed": "profile_id",
+      "cases": [
+        {
+          "label": "account-A-sid-B-profile",
+          "observed": "profile_id"
+        },
+        {
+          "label": "account-B-sid-A-profile",
+          "observed": "profile_id"
+        }
+      ],
+      "status": "proved"
+    },
+    "state_enabled": {
+      "status": "observed",
+      "rows": 2,
+      "states": [
+        "enabled"
+      ]
+    },
+    "state_paused": {
+      "status": "observed",
+      "rows": 2,
+      "states": [
+        "paused"
+      ]
+    },
+    "state_archived": {
+      "status": "no_nonempty_sample",
+      "rows": 0,
+      "states": []
+    },
+    "offset_concat": {
+      "status": "proved",
+      "complete_data_equal": true
+    },
+    "token_concat": {
+      "status": "proved",
+      "complete_data_equal": true
+    },
+    "token_priority": {
+      "status": "proved",
+      "complete_data_equal": true
+    },
+    "baseline_stability": {
+      "status": "proved",
+      "complete_data_equal": true
+    }
+  },
+  "relationships": {
+    "reference": "reference-direct",
+    "offset_pages": [
+      "account-A-profile-only",
+      "offset-second"
+    ],
+    "token_pages": [
+      "account-A-profile-only",
+      "token-second"
+    ],
+    "token_source": "account-A-profile-only",
+    "token_control": "token-second",
+    "token_conflict": "token-priority-conflicting-offset",
+    "end_reference": "reference-end"
+  },
+  "planned_requests": 14,
+  "not_run": [],
+  "samples": [
+    {
+      "label": "account-A-profile-only",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000009
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sd_targets-account-A-profile-only.json",
+      "sha256": "b11b0b6ee49107248cc56e4edde5737008e7a500c52630c8e6346b154d09aa27"
+    },
+    {
+      "label": "account-A-sid-only",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "sid": 1212
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sd_targets-account-A-sid-only.json",
+      "sha256": "a842cc3d838fac036c3975b62265c82d0e072a80ae1a1d2ceff3f0f135340f13"
+    },
+    {
+      "label": "account-A-both",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "sid": 1212
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sd_targets-account-A-both.json",
+      "sha256": "81f99250bff576c2e6694e810f95ab670f44cae6cfff630b5a8279d3d607c8ff"
+    },
+    {
+      "label": "account-B-profile-only",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000010
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sd_targets-account-B-profile-only.json",
+      "sha256": "e69116d43e2b46c43c622010d4a888786363d0658851f434c070dd7bf0420fe0"
+    },
+    {
+      "label": "account-A-sid-B-profile",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000010,
+        "sid": 1212
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sd_targets-account-A-sid-B-profile.json",
+      "sha256": "9d458860cd77e3194033edfe84c17a68109017afddb163e1e2f4d2ccb26ef2b5"
+    },
+    {
+      "label": "account-B-sid-A-profile",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "sid": 10016
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sd_targets-account-B-sid-A-profile.json",
+      "sha256": "960fdd8694e322cc9045afee75f3b2124daae664f06333676b7dd3c8c54127db"
+    },
+    {
+      "label": "state-enabled",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "state": "enabled"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sd_targets-state-enabled.json",
+      "sha256": "c328fe92b1f71b3db37e7703b534eaeef31c1954fb8a0bae9e352aa2ea9117e3"
+    },
+    {
+      "label": "state-paused",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "state": "paused"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sd_targets-state-paused.json",
+      "sha256": "87087db4f1835b8d4879df4b5d0910c788b223c8c4f2a044d0b1007103b0dada"
+    },
+    {
+      "label": "state-archived",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "state": "archived"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": "empty_expected",
+      "fixture": "sd_targets-state-archived.json",
+      "sha256": "40b36d2a29e09139a105692a9781d3ce6ffc639514044d999bb4cf8d83c3a22c"
+    },
+    {
+      "label": "reference-direct",
+      "request": {
+        "length": 4,
+        "offset": 0,
+        "profile_id": 90000000000009
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sd_targets-reference-direct.json",
+      "sha256": "38570439b86e00d3b4911cc440957bcd4dcb37bf8ec2ee753affe9136f889f34"
+    },
+    {
+      "label": "offset-second",
+      "request": {
+        "length": 2,
+        "offset": 2,
+        "profile_id": 90000000000009
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sd_targets-offset-second.json",
+      "sha256": "53d63ab789d9421551ba3a809d95829eeccc97cec51fd4804341a351ce8193b9"
+    },
+    {
+      "label": "token-second",
+      "request": {
+        "length": 2,
+        "profile_id": 90000000000009
+      },
+      "next_token_from": "account-A-profile-only",
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sd_targets-token-second.json",
+      "sha256": "1776c0672f3b1c7193e26e3eb2220423ce56ef915a1d76e64ddd7cf9833b1842"
+    },
+    {
+      "label": "token-priority-conflicting-offset",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000009
+      },
+      "next_token_from": "account-A-profile-only",
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sd_targets-token-priority-conflicting-offset.json",
+      "sha256": "c58c430ddb4b133e96a6c914bcec431bffd452b2090c8d8a76fa603dfe29b92b"
+    },
+    {
+      "label": "reference-end",
+      "request": {
+        "length": 4,
+        "offset": 0,
+        "profile_id": 90000000000009
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sd_targets-reference-end.json",
+      "sha256": "ebe5893f6b835f61cc112e8246f5a5a70c1ed8d54c2c71028f0db7a29db45888"
+    }
+  ],
+  "diagnostics": []
+}

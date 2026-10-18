@@ -1,0 +1,194 @@
+{
+  "source": "local_raw",
+  "endpoint": "ads.AdProfiles",
+  "response": {
+    "code": 0,
+    "message": "success",
+    "error_details": [],
+    "request_id": "00000000000000000000000000000000.0000000000031",
+    "response_time": "2001-05-07 06:36:00",
+    "data": [
+      {
+        "sid": "10105",
+        "profile_id": "90000000000001",
+        "country_code": "NL",
+        "currency_code": "EUR",
+        "status": 1,
+        "name": "广告账号名",
+        "type": "seller"
+      },
+      {
+        "sid": "1166",
+        "profile_id": "90000000000002",
+        "country_code": "PL",
+        "currency_code": "PLN",
+        "status": 1,
+        "name": "广告账号名",
+        "type": "seller"
+      },
+      {
+        "sid": "1212",
+        "profile_id": "90000000000003",
+        "country_code": "UK",
+        "currency_code": "GBP",
+        "status": 1,
+        "name": "广告账号名",
+        "type": "seller"
+      },
+      {
+        "sid": "10016",
+        "profile_id": "90000000000004",
+        "country_code": "DE",
+        "currency_code": "EUR",
+        "status": 1,
+        "name": "广告账号名",
+        "type": "seller"
+      },
+      {
+        "sid": "10130",
+        "profile_id": "90000000000020",
+        "country_code": "IE",
+        "currency_code": "EUR",
+        "status": 1,
+        "name": "广告账号名",
+        "type": "seller"
+      },
+      {
+        "sid": "1223",
+        "profile_id": "900000000000001",
+        "country_code": "JP",
+        "currency_code": "JPY",
+        "status": 1,
+        "name": "广告账号名",
+        "type": "seller"
+      },
+      {
+        "sid": "1152",
+        "profile_id": "900000000000002",
+        "country_code": "SE",
+        "currency_code": "SEK",
+        "status": 1,
+        "name": "广告账号名",
+        "type": "seller"
+      },
+      {
+        "sid": "10136",
+        "profile_id": "900000000000003",
+        "country_code": "BE",
+        "currency_code": "EUR",
+        "status": -1,
+        "name": "广告账号名",
+        "type": "seller"
+      },
+      {
+        "sid": "1129",
+        "profile_id": "900000000000004",
+        "country_code": "CA",
+        "currency_code": "CAD",
+        "status": 1,
+        "name": "广告账号名",
+        "type": "seller"
+      },
+      {
+        "sid": "10034",
+        "profile_id": "900000000000005",
+        "country_code": "CA",
+        "currency_code": "CAD",
+        "status": 1,
+        "name": "广告账号名",
+        "type": "seller"
+      },
+      {
+        "sid": "1211",
+        "profile_id": "900000000000006",
+        "country_code": "BE",
+        "currency_code": "EUR",
+        "status": 1,
+        "name": "广告账号名",
+        "type": "seller"
+      },
+      {
+        "sid": "10106",
+        "profile_id": "900000000000007",
+        "country_code": "SE",
+        "currency_code": "SEK",
+        "status": 1,
+        "name": "广告账号名",
+        "type": "seller"
+      },
+      {
+        "sid": "1170",
+        "profile_id": "900000000000008",
+        "country_code": "US",
+        "currency_code": "USD",
+        "status": 1,
+        "name": "广告账号名",
+        "type": "seller"
+      },
+      {
+        "sid": "1150",
+        "profile_id": "900000000000009",
+        "country_code": "ES",
+        "currency_code": "EUR",
+        "status": 1,
+        "name": "广告账号名",
+        "type": "seller"
+      },
+      {
+        "sid": "1176",
+        "profile_id": "900000000000011",
+        "country_code": "FR",
+        "currency_code": "EUR",
+        "status": 1,
+        "name": "广告账号名",
+        "type": "seller"
+      },
+      {
+        "sid": "10098",
+        "profile_id": "900000000000012",
+        "country_code": "IE",
+        "currency_code": "EUR",
+        "status": 1,
+        "name": "广告账号名",
+        "type": "seller"
+      },
+      {
+        "sid": "1231",
+        "profile_id": "900000000000013",
+        "country_code": "PL",
+        "currency_code": "PLN",
+        "status": 1,
+        "name": "广告账号名",
+        "type": "seller"
+      },
+      {
+        "sid": "1148",
+        "profile_id": "900000000000014",
+        "country_code": "DE",
+        "currency_code": "EUR",
+        "status": 1,
+        "name": "广告账号名",
+        "type": "seller"
+      },
+      {
+        "sid": "10079",
+        "profile_id": "900000000000015",
+        "country_code": "US",
+        "currency_code": "USD",
+        "status": 1,
+        "name": "广告账号名",
+        "type": "seller"
+      },
+      {
+        "sid": "10054",
+        "profile_id": "900000000000016",
+        "country_code": "US",
+        "currency_code": "USD",
+        "status": 1,
+        "name": "广告账号名",
+        "type": "seller"
+      }
+    ],
+    "total": 240
+  }
+}

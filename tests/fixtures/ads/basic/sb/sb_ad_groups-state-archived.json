@@ -1,0 +1,35 @@
+{
+  "source": "local_raw",
+  "endpoint": "ads.SbAdGroups",
+  "response": {
+    "code": 0,
+    "message": "操作成功",
+    "data": [
+      {
+        "profile_id": 90000000000009,
+        "campaign_id": 700000000000000060,
+        "ad_group_id": 600000000000000039,
+        "name": "AA-000AA-AB 6",
+        "state": "archived",
+        "creation_date": 1589536809000,
+        "last_updated_date": 1761029014869,
+        "serving_status": "CAMPAIGN_ARCHIVED"
+      },
+      {
+        "profile_id": 90000000000009,
+        "campaign_id": 700000000000000063,
+        "ad_group_id": 600000000000000040,
+        "name": "AA-015",
+        "state": "archived",
+        "creation_date": 1599816143000,
+        "last_updated_date": 1761002605014,
+        "serving_status": "CAMPAIGN_ARCHIVED"
+      }
+    ],
+    "total": 17,
+    "next_token": "MTAwMDAwMDAwMDAwMDAwMDEw",
+    "error_details": [],
+    "request_id": "00000000-0000-0000-0000-0000000001cc",
+    "response_time": "2001-05-07 08:29:00"
+  }
+}

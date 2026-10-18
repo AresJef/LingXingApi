@@ -1,0 +1,38 @@
+{
+  "source": "local_raw",
+  "endpoint": "ads.SdTargetReports",
+  "response": {
+    "code": 0,
+    "message": "操作成功",
+    "data": [
+      {
+        "target_id": 30000000000043,
+        "targeting_type": null,
+        "targeting_text": "\"[{\\\"type\\\": \\\"audience\\\", \\\"value\\\": [{\\\"type\\\": \\\"audienceSameAs\\\", \\\"value\\\": \\\"100000000000000006\\\"}]}]\"",
+        "targeting_expression": "audience=\"100000000000000006\"",
+        "ad_group_id": 600000000000339,
+        "campaign_id": 700000000000306,
+        "profile_id": 9000000000000006,
+        "impressions": 35,
+        "clicks": 0,
+        "cost": 0.0,
+        "tactic": "T00030",
+        "report_date": "2026-10-01",
+        "same_orders": 0,
+        "orders": 0,
+        "same_sales": 0.0,
+        "sales": 0.0,
+        "units": 0,
+        "attributed_orders_new_to_brand_14d": 0,
+        "attributed_sales_new_to_brand_14d": 0.0,
+        "attributed_units_ordered_new_to_brand_14d": 0,
+        "view_impressions": 0
+      }
+    ],
+    "total": 17,
+    "next_token": "MTAwMDAwMDAwMDAwNTI=",
+    "error_details": [],
+    "request_id": "00000000-0000-0000-0000-000000000091",
+    "response_time": "2001-05-07 16:00:00"
+  }
+}

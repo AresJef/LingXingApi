@@ -1,0 +1,59 @@
+{
+  "source": "local_raw",
+  "endpoint": "ads.SdProductReports",
+  "response": {
+    "code": 0,
+    "message": "操作成功",
+    "data": [
+      {
+        "ad_id": 500000000000215,
+        "asin": "A0AA0AA0HG",
+        "sku": "000-AA-000-AD-M",
+        "ad_group_id": 600000000000307,
+        "campaign_id": 700000000000183,
+        "profile_id": 90000000000010,
+        "impressions": 1,
+        "clicks": 0,
+        "cost": 0.0,
+        "tactic": "T00030",
+        "report_date": "2026-10-01",
+        "same_orders": 0,
+        "orders": 0,
+        "same_sales": 0.0,
+        "sales": 0.0,
+        "units": 0,
+        "attributed_orders_new_to_brand_14d": 0,
+        "attributed_sales_new_to_brand_14d": 0.0,
+        "attributed_units_ordered_new_to_brand_14d": 0,
+        "view_impressions": 0
+      },
+      {
+        "ad_id": 500000000000218,
+        "asin": "A0A00AAAHO",
+        "sku": "000-AA-000/003-T",
+        "ad_group_id": 600000000000216,
+        "campaign_id": 700000000000034,
+        "profile_id": 90000000000010,
+        "impressions": 20,
+        "clicks": 0,
+        "cost": 0.0,
+        "tactic": "T00030",
+        "report_date": "2026-10-01",
+        "same_orders": 0,
+        "orders": 0,
+        "same_sales": 0.0,
+        "sales": 0.0,
+        "units": 0,
+        "attributed_orders_new_to_brand_14d": 0,
+        "attributed_sales_new_to_brand_14d": 0.0,
+        "attributed_units_ordered_new_to_brand_14d": 0,
+        "view_impressions": 0
+      }
+    ],
+    "total": 26,
+    "next_token": "MTAwMDAwMDAwMDAwMDM4",
+    "error_details": [],
+    "request_id": "00000000-0000-0000-0000-000000000138",
+    "response_time": "2001-05-07 15:49:00"
+  }
+}

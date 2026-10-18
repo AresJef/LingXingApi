@@ -1,0 +1,53 @@
+{
+  "source": "local_raw",
+  "endpoint": "ads.SpCampaigns",
+  "response": {
+    "code": 0,
+    "message": "操作成功",
+    "data": [
+      {
+        "campaign_id": 700000000000127,
+        "profile_id": 90000000000009,
+        "name": "00aa 0a0x",
+        "campaign_type": "sponsoredProducts",
+        "targeting_type": "auto",
+        "premium_bid_adjustment": 0,
+        "daily_budget": 30.0,
+        "start_date": "2018-05-31 00:00:00",
+        "end_date": null,
+        "creation_date": 1527833375000,
+        "last_updated_date": 1599462530000,
+        "state": "paused",
+        "serving_status": "CAMPAIGN_PAUSED",
+        "bidding": "{\"strategy\": \"legacyForSales\", \"adjustments\": []}",
+        "portfolio_id": 800000000000010,
+        "tags": [],
+        "lastOverBudgetAt": null
+      },
+      {
+        "campaign_id": 70000000000134,
+        "profile_id": 90000000000009,
+        "name": "000af",
+        "campaign_type": "sponsoredProducts",
+        "targeting_type": "auto",
+        "premium_bid_adjustment": 0,
+        "daily_budget": 30.0,
+        "start_date": "2018-06-11 00:00:00",
+        "end_date": null,
+        "creation_date": 1528788799000,
+        "last_updated_date": 1599460874000,
+        "state": "paused",
+        "serving_status": "CAMPAIGN_PAUSED",
+        "bidding": "{\"strategy\": \"legacyForSales\", \"adjustments\": []}",
+        "portfolio_id": 800000000000016,
+        "tags": [],
+        "lastOverBudgetAt": null
+      }
+    ],
+    "total": 266,
+    "next_token": "MTAwMDY4",
+    "error_details": [],
+    "request_id": "00000000-0000-0000-0000-0000000001cd",
+    "response_time": "2001-05-07 06:44:00"
+  }
+}

@@ -1,0 +1,2645 @@
+{
+  "format": "ads-fixtures-v3",
+  "source": "local_raw",
+  "endpoint": "ads.SbTargetingHourData",
+  "source_sha256": "ee8be9f3b39509df7d5f23413633f9be437ed25fd0911b37e2e5c267d76bf4e8",
+  "checks": {
+    "campaign_date_hour": {
+      "status": "proved",
+      "cases": [
+        {
+          "label": "campaign-A",
+          "status": "proved"
+        },
+        {
+          "label": "campaign-B",
+          "status": "proved"
+        },
+        {
+          "label": "reference-end",
+          "status": "proved"
+        }
+      ]
+    },
+    "baseline_stability": {
+      "status": "proved",
+      "complete_data_equal": true,
+      "comparison": "complete_rows_multiset",
+      "ordered_data_equal": false
+    }
+  },
+  "relationships": {
+    "reference": "campaign-A",
+    "end_reference": "reference-end"
+  },
+  "planned_requests": 3,
+  "not_run": [],
+  "samples": [
+    {
+      "label": "campaign-A",
+      "request": {
+        "agg_dimension": "target",
+        "campaign_id": 70000000000402,
+        "report_date": "2026-10-01"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_targeting_hour_data-campaign-A.json",
+      "sha256": "bc7fba25fbaeb7c39df4695e0bc23646283d8a75d757d0618f6efb01f3088006"
+    },
+    {
+      "label": "campaign-B",
+      "request": {
+        "agg_dimension": "target",
+        "campaign_id": 7000000000145,
+        "report_date": "2026-10-01"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_targeting_hour_data-campaign-B.json",
+      "sha256": "35ac17604283f4c0f9f5c374cb1650955967e00771a85acb7e5061b9d7b38e70"
+    },
+    {
+      "label": "reference-end",
+      "request": {
+        "agg_dimension": "target",
+        "campaign_id": 70000000000402,
+        "report_date": "2026-10-01"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_targeting_hour_data-reference-end.json",
+      "sha256": "9d20579bd9c8dcb2374e2bd15574e6afa33e230fe1f55cf042512640aa91e5bf"
+    }
+  ],
+  "campaign_sources": [
+    {
+      "label": "campaign-A",
+      "campaign_id": 70000000000402,
+      "profile_id": 900000000000003,
+      "report_date": "2026-10-01",
+      "file": "sb_campaign_reports-account-A-profile-only-原始数据.json",
+      "sha256": "ae7b9dcd32f83e030cb92364bd5c29f65d65730b028ae79da37e437ea0ff75db",
+      "row_index": 0,
+      "manifest": "sb_campaign_reports-原始采集清单.json",
+      "manifest_sha256": "ca326dd0d000f0c61cf7f0b2143d481aeda078d063a5deb44c843b123b401eb2"
+    },
+    {
+      "label": "campaign-B",
+      "campaign_id": 7000000000145,
+      "profile_id": 90000000000010,
+      "report_date": "2026-10-01",
+      "file": "sb_campaign_reports-account-B-profile-only-原始数据.json",
+      "sha256": "51438e5b2142bf9e29e089f7a23293399536d8eb8df0defa6626890d7df24a6c",
+      "row_index": 0,
+      "manifest": "sb_campaign_reports-原始采集清单.json",
+      "manifest_sha256": "ca326dd0d000f0c61cf7f0b2143d481aeda078d063a5deb44c843b123b401eb2"
+    }
+  ],
+  "targeting_identities": [
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 40000000000125,
+      "targeting": "aa aaaa aaaaaaa aea",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 6,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 0
+        },
+        {
+          "response_index": 0,
+          "row_index": 27
+        },
+        {
+          "response_index": 0,
+          "row_index": 135
+        },
+        {
+          "response_index": 2,
+          "row_index": 60
+        },
+        {
+          "response_index": 2,
+          "row_index": 86
+        },
+        {
+          "response_index": 2,
+          "row_index": 109
+        }
+      ],
+      "source": {
+        "manifest_sha256": "fbd7054fd8d79623fae3e50162e3069d45d007d4e4f025ecc1aa4fa02c71ab8b",
+        "sha256": "1dca928b902af4041f13bfbcbb603ce1741cdf7d18841bc0becdaa309d0297bb",
+        "row_index": 287
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 400000000000045,
+      "targeting": "aa 00aa aaa aaaaaaaaa aaaaa aadm",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 10,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 1
+        },
+        {
+          "response_index": 0,
+          "row_index": 15
+        },
+        {
+          "response_index": 0,
+          "row_index": 45
+        },
+        {
+          "response_index": 0,
+          "row_index": 88
+        },
+        {
+          "response_index": 0,
+          "row_index": 142
+        },
+        {
+          "response_index": 2,
+          "row_index": 45
+        },
+        {
+          "response_index": 2,
+          "row_index": 48
+        },
+        {
+          "response_index": 2,
+          "row_index": 92
+        },
+        {
+          "response_index": 2,
+          "row_index": 129
+        },
+        {
+          "response_index": 2,
+          "row_index": 134
+        }
+      ],
+      "source": {
+        "manifest_sha256": "fbd7054fd8d79623fae3e50162e3069d45d007d4e4f025ecc1aa4fa02c71ab8b",
+        "sha256": "c584414a5887226bc20489c00e669c0fdbd8bb1b40f67945282549a0e3f0ba80",
+        "row_index": 58
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 40000000000003,
+      "targeting": "00aa aaa aaaaaaaaaa aaabn",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 6,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 2
+        },
+        {
+          "response_index": 0,
+          "row_index": 66
+        },
+        {
+          "response_index": 0,
+          "row_index": 95
+        },
+        {
+          "response_index": 2,
+          "row_index": 21
+        },
+        {
+          "response_index": 2,
+          "row_index": 53
+        },
+        {
+          "response_index": 2,
+          "row_index": 130
+        }
+      ],
+      "source": {
+        "manifest_sha256": "fbd7054fd8d79623fae3e50162e3069d45d007d4e4f025ecc1aa4fa02c71ab8b",
+        "sha256": "89cd6d155dbccd880f82eb671f156e04dbf164c05b8d8132ee2388f33844ca68",
+        "row_index": 939
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 400000000000016,
+      "targeting": "00 aaa aaaaaaabg",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 6,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 3
+        },
+        {
+          "response_index": 0,
+          "row_index": 6
+        },
+        {
+          "response_index": 0,
+          "row_index": 24
+        },
+        {
+          "response_index": 2,
+          "row_index": 5
+        },
+        {
+          "response_index": 2,
+          "row_index": 8
+        },
+        {
+          "response_index": 2,
+          "row_index": 18
+        }
+      ],
+      "source": {
+        "manifest_sha256": "fbd7054fd8d79623fae3e50162e3069d45d007d4e4f025ecc1aa4fa02c71ab8b",
+        "sha256": "8ba2a712185360fb94920eefed05e2b4c5e5c14f14753d3e36d4da8de8085ae6",
+        "row_index": 969
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 400000000000054,
+      "targeting": "aa aaa aaaaaaaaab 09",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 4,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 4
+        },
+        {
+          "response_index": 0,
+          "row_index": 89
+        },
+        {
+          "response_index": 2,
+          "row_index": 75
+        },
+        {
+          "response_index": 2,
+          "row_index": 95
+        }
+      ],
+      "source": {
+        "manifest_sha256": "fbd7054fd8d79623fae3e50162e3069d45d007d4e4f025ecc1aa4fa02c71ab8b",
+        "sha256": "c584414a5887226bc20489c00e669c0fdbd8bb1b40f67945282549a0e3f0ba80",
+        "row_index": 869
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 40000000000010,
+      "targeting": "aa 00aa aaadh",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 6,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 5
+        },
+        {
+          "response_index": 0,
+          "row_index": 103
+        },
+        {
+          "response_index": 0,
+          "row_index": 125
+        },
+        {
+          "response_index": 2,
+          "row_index": 9
+        },
+        {
+          "response_index": 2,
+          "row_index": 19
+        },
+        {
+          "response_index": 2,
+          "row_index": 119
+        }
+      ],
+      "source": {
+        "manifest_sha256": "fbd7054fd8d79623fae3e50162e3069d45d007d4e4f025ecc1aa4fa02c71ab8b",
+        "sha256": "970a6bf4f887d1770362a038984f6e2ee008f0856d96762cc298fb9d1ae4e703",
+        "row_index": 183
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 40000000000128,
+      "targeting": "aaa aaaaaaaaaa aaa aa aaaaaaes",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 14,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 7
+        },
+        {
+          "response_index": 0,
+          "row_index": 14
+        },
+        {
+          "response_index": 0,
+          "row_index": 31
+        },
+        {
+          "response_index": 0,
+          "row_index": 81
+        },
+        {
+          "response_index": 0,
+          "row_index": 96
+        },
+        {
+          "response_index": 0,
+          "row_index": 119
+        },
+        {
+          "response_index": 0,
+          "row_index": 132
+        },
+        {
+          "response_index": 2,
+          "row_index": 11
+        },
+        {
+          "response_index": 2,
+          "row_index": 20
+        },
+        {
+          "response_index": 2,
+          "row_index": 43
+        },
+        {
+          "response_index": 2,
+          "row_index": 61
+        },
+        {
+          "response_index": 2,
+          "row_index": 103
+        },
+        {
+          "response_index": 2,
+          "row_index": 125
+        },
+        {
+          "response_index": 2,
+          "row_index": 143
+        }
+      ],
+      "source": {
+        "manifest_sha256": "fbd7054fd8d79623fae3e50162e3069d45d007d4e4f025ecc1aa4fa02c71ab8b",
+        "sha256": "9f57d6a6fff4b831fb0bfcad7c63966c7e8704ebfc537004134f2cea4080c41f",
+        "row_index": 95
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 400000000000085,
+      "targeting": "aa 00dg",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 6,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 8
+        },
+        {
+          "response_index": 0,
+          "row_index": 77
+        },
+        {
+          "response_index": 0,
+          "row_index": 105
+        },
+        {
+          "response_index": 2,
+          "row_index": 68
+        },
+        {
+          "response_index": 2,
+          "row_index": 74
+        },
+        {
+          "response_index": 2,
+          "row_index": 126
+        }
+      ],
+      "source": {
+        "manifest_sha256": "9893bfbcd764fc8dc35d8b9805ef42a52dc76d5f69b43ab2db7e9b50e330efa0",
+        "sha256": "26736b6786a9243c97521dd9519a052cfb43886995b2a9d3c055f4de423dd9b9",
+        "row_index": 239
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 400000000000043,
+      "targeting": "aaaaaaa aaa ab 37",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 2,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 9
+        },
+        {
+          "response_index": 2,
+          "row_index": 114
+        }
+      ],
+      "source": {
+        "manifest_sha256": "fbd7054fd8d79623fae3e50162e3069d45d007d4e4f025ecc1aa4fa02c71ab8b",
+        "sha256": "1285aed48316c8c132d3df181f080d2c6041a591065f9a24beadc711fad7c0f2",
+        "row_index": 879
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 400000000000005,
+      "targeting": "aab 19",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 4,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 10
+        },
+        {
+          "response_index": 0,
+          "row_index": 32
+        },
+        {
+          "response_index": 2,
+          "row_index": 105
+        },
+        {
+          "response_index": 2,
+          "row_index": 115
+        }
+      ],
+      "source": {
+        "manifest_sha256": "fbd7054fd8d79623fae3e50162e3069d45d007d4e4f025ecc1aa4fa02c71ab8b",
+        "sha256": "8d01f40eb2a78d72a6bfee4bdb06b79511059ec71d6adfa004d84e657e3f8bb9",
+        "row_index": 769
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 40000000000001,
+      "targeting": "aa 00 aaaaa aaa aaaaaaaacx",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 10,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 11
+        },
+        {
+          "response_index": 0,
+          "row_index": 25
+        },
+        {
+          "response_index": 0,
+          "row_index": 29
+        },
+        {
+          "response_index": 0,
+          "row_index": 36
+        },
+        {
+          "response_index": 0,
+          "row_index": 118
+        },
+        {
+          "response_index": 2,
+          "row_index": 6
+        },
+        {
+          "response_index": 2,
+          "row_index": 28
+        },
+        {
+          "response_index": 2,
+          "row_index": 51
+        },
+        {
+          "response_index": 2,
+          "row_index": 89
+        },
+        {
+          "response_index": 2,
+          "row_index": 102
+        }
+      ],
+      "source": {
+        "manifest_sha256": "fbd7054fd8d79623fae3e50162e3069d45d007d4e4f025ecc1aa4fa02c71ab8b",
+        "sha256": "89cd6d155dbccd880f82eb671f156e04dbf164c05b8d8132ee2388f33844ca68",
+        "row_index": 934
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 40000000000040,
+      "targeting": "aa 00 aaa aaaaaaaaa aaaaa aacz",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 4,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 12
+        },
+        {
+          "response_index": 0,
+          "row_index": 149
+        },
+        {
+          "response_index": 2,
+          "row_index": 29
+        },
+        {
+          "response_index": 2,
+          "row_index": 52
+        }
+      ],
+      "source": {
+        "manifest_sha256": "fbd7054fd8d79623fae3e50162e3069d45d007d4e4f025ecc1aa4fa02c71ab8b",
+        "sha256": "970a6bf4f887d1770362a038984f6e2ee008f0856d96762cc298fb9d1ae4e703",
+        "row_index": 571
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 40000000000114,
+      "targeting": "aa 00 dd",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 4,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 13
+        },
+        {
+          "response_index": 0,
+          "row_index": 97
+        },
+        {
+          "response_index": 2,
+          "row_index": 27
+        },
+        {
+          "response_index": 2,
+          "row_index": 111
+        }
+      ],
+      "source": {
+        "manifest_sha256": "fbd7054fd8d79623fae3e50162e3069d45d007d4e4f025ecc1aa4fa02c71ab8b",
+        "sha256": "6c18516f9eebb1b8cff2012aa38e74bb9cb156aed3ae660ceed4a6d23c22f730",
+        "row_index": 334
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 400000000000002,
+      "targeting": "00aa aaa aaaaaaaaa aaaaa aabm",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 6,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 16
+        },
+        {
+          "response_index": 0,
+          "row_index": 60
+        },
+        {
+          "response_index": 0,
+          "row_index": 113
+        },
+        {
+          "response_index": 2,
+          "row_index": 46
+        },
+        {
+          "response_index": 2,
+          "row_index": 63
+        },
+        {
+          "response_index": 2,
+          "row_index": 98
+        }
+      ],
+      "source": {
+        "manifest_sha256": "fbd7054fd8d79623fae3e50162e3069d45d007d4e4f025ecc1aa4fa02c71ab8b",
+        "sha256": "8d01f40eb2a78d72a6bfee4bdb06b79511059ec71d6adfa004d84e657e3f8bb9",
+        "row_index": 90
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 400000000000030,
+      "targeting": "00aa aaa aaaaaaaaaa aaaaa aaa aaabo",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 8,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 17
+        },
+        {
+          "response_index": 0,
+          "row_index": 53
+        },
+        {
+          "response_index": 0,
+          "row_index": 70
+        },
+        {
+          "response_index": 0,
+          "row_index": 99
+        },
+        {
+          "response_index": 2,
+          "row_index": 31
+        },
+        {
+          "response_index": 2,
+          "row_index": 65
+        },
+        {
+          "response_index": 2,
+          "row_index": 82
+        },
+        {
+          "response_index": 2,
+          "row_index": 121
+        }
+      ],
+      "source": {
+        "manifest_sha256": "fbd7054fd8d79623fae3e50162e3069d45d007d4e4f025ecc1aa4fa02c71ab8b",
+        "sha256": "fa17d517e14c162614d2a6b2e4221308ce454f4da04905c18825cd0b843a38d2",
+        "row_index": 727
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 400000000000021,
+      "targeting": "aa00aa aaa aaaaaaaaaa aaaaa aaa aaaen",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 4,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 18
+        },
+        {
+          "response_index": 0,
+          "row_index": 58
+        },
+        {
+          "response_index": 2,
+          "row_index": 32
+        },
+        {
+          "response_index": 2,
+          "row_index": 54
+        }
+      ],
+      "source": {
+        "manifest_sha256": "fbd7054fd8d79623fae3e50162e3069d45d007d4e4f025ecc1aa4fa02c71ab8b",
+        "sha256": "b1b219e4b78e584a727dd1edb8dcb5e9f0d98b4886c6ef8974b7462ed8d768de",
+        "row_index": 303
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 400000000000050,
+      "targeting": "aa 00aa aaa aaaaaaadl",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 2,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 19
+        },
+        {
+          "response_index": 2,
+          "row_index": 128
+        }
+      ],
+      "source": {
+        "manifest_sha256": "fbd7054fd8d79623fae3e50162e3069d45d007d4e4f025ecc1aa4fa02c71ab8b",
+        "sha256": "c584414a5887226bc20489c00e669c0fdbd8bb1b40f67945282549a0e3f0ba80",
+        "row_index": 398
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 400000000000063,
+      "targeting": "aaa aaa a aa aaaaaev",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 2,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 20
+        },
+        {
+          "response_index": 2,
+          "row_index": 80
+        }
+      ],
+      "source": {
+        "manifest_sha256": "fbd7054fd8d79623fae3e50162e3069d45d007d4e4f025ecc1aa4fa02c71ab8b",
+        "sha256": "9aaf5c582655c9bffc2a4289430dbbcc1df7abc1a153d0dfb0a3c3509969df6b",
+        "row_index": 27
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 400000000000070,
+      "targeting": "00aa aaa aaaaaaaaaa aaabp",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 2,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 21
+        },
+        {
+          "response_index": 2,
+          "row_index": 79
+        }
+      ],
+      "source": {
+        "manifest_sha256": "9893bfbcd764fc8dc35d8b9805ef42a52dc76d5f69b43ab2db7e9b50e330efa0",
+        "sha256": "76a00c651c059800abaec13e6e0e72125069b2cd4d721cd8c2e74df5392836d8",
+        "row_index": 107
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 400000000000069,
+      "targeting": "aaa aaa aa aaaaaex",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 4,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 22
+        },
+        {
+          "response_index": 0,
+          "row_index": 39
+        },
+        {
+          "response_index": 2,
+          "row_index": 2
+        },
+        {
+          "response_index": 2,
+          "row_index": 15
+        }
+      ],
+      "source": {
+        "manifest_sha256": "9893bfbcd764fc8dc35d8b9805ef42a52dc76d5f69b43ab2db7e9b50e330efa0",
+        "sha256": "76a00c651c059800abaec13e6e0e72125069b2cd4d721cd8c2e74df5392836d8",
+        "row_index": 64
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 40000000000035,
+      "targeting": "aa aaaaaaa aeg",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 6,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 23
+        },
+        {
+          "response_index": 0,
+          "row_index": 40
+        },
+        {
+          "response_index": 0,
+          "row_index": 145
+        },
+        {
+          "response_index": 2,
+          "row_index": 3
+        },
+        {
+          "response_index": 2,
+          "row_index": 4
+        },
+        {
+          "response_index": 2,
+          "row_index": 140
+        }
+      ],
+      "source": {
+        "manifest_sha256": "fbd7054fd8d79623fae3e50162e3069d45d007d4e4f025ecc1aa4fa02c71ab8b",
+        "sha256": "970a6bf4f887d1770362a038984f6e2ee008f0856d96762cc298fb9d1ae4e703",
+        "row_index": 525
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 400000000000071,
+      "targeting": "aa 00 aaaaa aaa aaaaaaacv",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 8,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 26
+        },
+        {
+          "response_index": 0,
+          "row_index": 76
+        },
+        {
+          "response_index": 0,
+          "row_index": 87
+        },
+        {
+          "response_index": 0,
+          "row_index": 122
+        },
+        {
+          "response_index": 2,
+          "row_index": 84
+        },
+        {
+          "response_index": 2,
+          "row_index": 106
+        },
+        {
+          "response_index": 2,
+          "row_index": 116
+        },
+        {
+          "response_index": 2,
+          "row_index": 147
+        }
+      ],
+      "source": {
+        "manifest_sha256": "9893bfbcd764fc8dc35d8b9805ef42a52dc76d5f69b43ab2db7e9b50e330efa0",
+        "sha256": "76a00c651c059800abaec13e6e0e72125069b2cd4d721cd8c2e74df5392836d8",
+        "row_index": 608
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 40000000000121,
+      "targeting": "aa aaaaaaaaa 94",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 2,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 28
+        },
+        {
+          "response_index": 2,
+          "row_index": 12
+        }
+      ],
+      "source": {
+        "manifest_sha256": "fbd7054fd8d79623fae3e50162e3069d45d007d4e4f025ecc1aa4fa02c71ab8b",
+        "sha256": "6c18516f9eebb1b8cff2012aa38e74bb9cb156aed3ae660ceed4a6d23c22f730",
+        "row_index": 931
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 400000000000080,
+      "targeting": "aaaaaaa aab 35",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 4,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 30
+        },
+        {
+          "response_index": 0,
+          "row_index": 56
+        },
+        {
+          "response_index": 2,
+          "row_index": 22
+        },
+        {
+          "response_index": 2,
+          "row_index": 104
+        }
+      ],
+      "source": {
+        "manifest_sha256": "9893bfbcd764fc8dc35d8b9805ef42a52dc76d5f69b43ab2db7e9b50e330efa0",
+        "sha256": "2ba07c857b9bb66e9c5297c89d8f7f2fee3853c1bd3d78e3c0f731e3476b7bbf",
+        "row_index": 985
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 400000000000034,
+      "targeting": "aaaaaaa aaa aaaaaaaafg",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 10,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 33
+        },
+        {
+          "response_index": 0,
+          "row_index": 49
+        },
+        {
+          "response_index": 0,
+          "row_index": 73
+        },
+        {
+          "response_index": 0,
+          "row_index": 78
+        },
+        {
+          "response_index": 0,
+          "row_index": 124
+        },
+        {
+          "response_index": 2,
+          "row_index": 24
+        },
+        {
+          "response_index": 2,
+          "row_index": 76
+        },
+        {
+          "response_index": 2,
+          "row_index": 87
+        },
+        {
+          "response_index": 2,
+          "row_index": 136
+        },
+        {
+          "response_index": 2,
+          "row_index": 137
+        }
+      ],
+      "source": {
+        "manifest_sha256": "fbd7054fd8d79623fae3e50162e3069d45d007d4e4f025ecc1aa4fa02c71ab8b",
+        "sha256": "8c3b50669f3171eb9b9ccaf244dae7fef2723cc9924b21b2553def0603cecc6a",
+        "row_index": 691
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 400000000000046,
+      "targeting": "aa 70",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 4,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 34
+        },
+        {
+          "response_index": 0,
+          "row_index": 101
+        },
+        {
+          "response_index": 2,
+          "row_index": 88
+        },
+        {
+          "response_index": 2,
+          "row_index": 142
+        }
+      ],
+      "source": {
+        "manifest_sha256": "fbd7054fd8d79623fae3e50162e3069d45d007d4e4f025ecc1aa4fa02c71ab8b",
+        "sha256": "c584414a5887226bc20489c00e669c0fdbd8bb1b40f67945282549a0e3f0ba80",
+        "row_index": 66
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 400000000000062,
+      "targeting": "aa 61",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 2,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 35
+        },
+        {
+          "response_index": 2,
+          "row_index": 90
+        }
+      ],
+      "source": {
+        "manifest_sha256": "fbd7054fd8d79623fae3e50162e3069d45d007d4e4f025ecc1aa4fa02c71ab8b",
+        "sha256": "9aaf5c582655c9bffc2a4289430dbbcc1df7abc1a153d0dfb0a3c3509969df6b",
+        "row_index": 25
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 400000000000052,
+      "targeting": "aa 00 aaaaa aaa aaaaaaaacw",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 4,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 37
+        },
+        {
+          "response_index": 0,
+          "row_index": 50
+        },
+        {
+          "response_index": 2,
+          "row_index": 23
+        },
+        {
+          "response_index": 2,
+          "row_index": 26
+        }
+      ],
+      "source": {
+        "manifest_sha256": "fbd7054fd8d79623fae3e50162e3069d45d007d4e4f025ecc1aa4fa02c71ab8b",
+        "sha256": "c584414a5887226bc20489c00e669c0fdbd8bb1b40f67945282549a0e3f0ba80",
+        "row_index": 435
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 40000000000111,
+      "targeting": "aa 00 aaa aaaaaaaada",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 4,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 38
+        },
+        {
+          "response_index": 0,
+          "row_index": 106
+        },
+        {
+          "response_index": 2,
+          "row_index": 13
+        },
+        {
+          "response_index": 2,
+          "row_index": 69
+        }
+      ],
+      "source": {
+        "manifest_sha256": "fbd7054fd8d79623fae3e50162e3069d45d007d4e4f025ecc1aa4fa02c71ab8b",
+        "sha256": "8e2444275c9a67c78f41b668f0222103f4ff88275c8b2e8aac7841c077ac18fd",
+        "row_index": 630
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 400000000000028,
+      "targeting": "aa 00 aaa aaaaaaacy",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 8,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 41
+        },
+        {
+          "response_index": 0,
+          "row_index": 54
+        },
+        {
+          "response_index": 0,
+          "row_index": 63
+        },
+        {
+          "response_index": 0,
+          "row_index": 83
+        },
+        {
+          "response_index": 2,
+          "row_index": 14
+        },
+        {
+          "response_index": 2,
+          "row_index": 33
+        },
+        {
+          "response_index": 2,
+          "row_index": 117
+        },
+        {
+          "response_index": 2,
+          "row_index": 131
+        }
+      ],
+      "source": {
+        "manifest_sha256": "fbd7054fd8d79623fae3e50162e3069d45d007d4e4f025ecc1aa4fa02c71ab8b",
+        "sha256": "fa17d517e14c162614d2a6b2e4221308ce454f4da04905c18825cd0b843a38d2",
+        "row_index": 476
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 40000000000098,
+      "targeting": "aa aaaaa aaa 93",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 4,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 42
+        },
+        {
+          "response_index": 0,
+          "row_index": 92
+        },
+        {
+          "response_index": 2,
+          "row_index": 39
+        },
+        {
+          "response_index": 2,
+          "row_index": 59
+        }
+      ],
+      "source": {
+        "manifest_sha256": "fbd7054fd8d79623fae3e50162e3069d45d007d4e4f025ecc1aa4fa02c71ab8b",
+        "sha256": "e276da71c65893fce24ab10c64fef4528c58711897f5abe91f099401668fb333",
+        "row_index": 257
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 400000000000078,
+      "targeting": "00 aaaaa bd",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 2,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 43
+        },
+        {
+          "response_index": 2,
+          "row_index": 133
+        }
+      ],
+      "source": {
+        "manifest_sha256": "9893bfbcd764fc8dc35d8b9805ef42a52dc76d5f69b43ab2db7e9b50e330efa0",
+        "sha256": "2ba07c857b9bb66e9c5297c89d8f7f2fee3853c1bd3d78e3c0f731e3476b7bbf",
+        "row_index": 488
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 40000000000131,
+      "targeting": "aaa aaaaaaaaa aaa aa aaaaaer",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 10,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 44
+        },
+        {
+          "response_index": 0,
+          "row_index": 55
+        },
+        {
+          "response_index": 0,
+          "row_index": 109
+        },
+        {
+          "response_index": 0,
+          "row_index": 127
+        },
+        {
+          "response_index": 0,
+          "row_index": 131
+        },
+        {
+          "response_index": 2,
+          "row_index": 56
+        },
+        {
+          "response_index": 2,
+          "row_index": 70
+        },
+        {
+          "response_index": 2,
+          "row_index": 72
+        },
+        {
+          "response_index": 2,
+          "row_index": 83
+        },
+        {
+          "response_index": 2,
+          "row_index": 135
+        }
+      ],
+      "source": {
+        "manifest_sha256": "fbd7054fd8d79623fae3e50162e3069d45d007d4e4f025ecc1aa4fa02c71ab8b",
+        "sha256": "9f57d6a6fff4b831fb0bfcad7c63966c7e8704ebfc537004134f2cea4080c41f",
+        "row_index": 236
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 400000000000051,
+      "targeting": "aa aaa 00 aaaed",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 4,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 46
+        },
+        {
+          "response_index": 0,
+          "row_index": 80
+        },
+        {
+          "response_index": 2,
+          "row_index": 97
+        },
+        {
+          "response_index": 2,
+          "row_index": 149
+        }
+      ],
+      "source": {
+        "manifest_sha256": "fbd7054fd8d79623fae3e50162e3069d45d007d4e4f025ecc1aa4fa02c71ab8b",
+        "sha256": "c584414a5887226bc20489c00e669c0fdbd8bb1b40f67945282549a0e3f0ba80",
+        "row_index": 414
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 400000000000066,
+      "targeting": "00aa aaabj",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 4,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 47
+        },
+        {
+          "response_index": 0,
+          "row_index": 133
+        },
+        {
+          "response_index": 2,
+          "row_index": 44
+        },
+        {
+          "response_index": 2,
+          "row_index": 96
+        }
+      ],
+      "source": {
+        "manifest_sha256": "fbd7054fd8d79623fae3e50162e3069d45d007d4e4f025ecc1aa4fa02c71ab8b",
+        "sha256": "9aaf5c582655c9bffc2a4289430dbbcc1df7abc1a153d0dfb0a3c3509969df6b",
+        "row_index": 559
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 400000000000074,
+      "targeting": "00aa aa abk",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 2,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 48
+        },
+        {
+          "response_index": 2,
+          "row_index": 66
+        }
+      ],
+      "source": {
+        "manifest_sha256": "9893bfbcd764fc8dc35d8b9805ef42a52dc76d5f69b43ab2db7e9b50e330efa0",
+        "sha256": "ebf8b0749e92ad253cbd63e16a8644a026d3c1f503219bcea7c965a4b9c9fa1c",
+        "row_index": 783
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 40000000000092,
+      "targeting": "00 aa aaaaa aaa aaaaaaaaa aaa aa aaaaaabi",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 2,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 51
+        },
+        {
+          "response_index": 2,
+          "row_index": 34
+        }
+      ],
+      "source": {
+        "manifest_sha256": "fbd7054fd8d79623fae3e50162e3069d45d007d4e4f025ecc1aa4fa02c71ab8b",
+        "sha256": "d815f81ad989fcb609c1791f5a626a80376a23f5141540c79b07211fbbb734db",
+        "row_index": 791
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 400000000000011,
+      "targeting": "aa aaaa 0000 aaaaaaa aaa aaaaaaaadx",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 2,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 52
+        },
+        {
+          "response_index": 2,
+          "row_index": 35
+        }
+      ],
+      "source": {
+        "manifest_sha256": "fbd7054fd8d79623fae3e50162e3069d45d007d4e4f025ecc1aa4fa02c71ab8b",
+        "sha256": "8ba2a712185360fb94920eefed05e2b4c5e5c14f14753d3e36d4da8de8085ae6",
+        "row_index": 680
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 40000000000129,
+      "targeting": "aaaaaaa aaa aa 00fi",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 2,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 57
+        },
+        {
+          "response_index": 2,
+          "row_index": 7
+        }
+      ],
+      "source": {
+        "manifest_sha256": "fbd7054fd8d79623fae3e50162e3069d45d007d4e4f025ecc1aa4fa02c71ab8b",
+        "sha256": "9f57d6a6fff4b831fb0bfcad7c63966c7e8704ebfc537004134f2cea4080c41f",
+        "row_index": 133
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 40000000000032,
+      "targeting": "aaaaaaaa aaa aa 55",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 2,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 59
+        },
+        {
+          "response_index": 2,
+          "row_index": 99
+        }
+      ],
+      "source": {
+        "manifest_sha256": "fbd7054fd8d79623fae3e50162e3069d45d007d4e4f025ecc1aa4fa02c71ab8b",
+        "sha256": "970a6bf4f887d1770362a038984f6e2ee008f0856d96762cc298fb9d1ae4e703",
+        "row_index": 492
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 400000000000067,
+      "targeting": "aa00aa aaaaa aaa aaaaaaael",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 4,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 61
+        },
+        {
+          "response_index": 0,
+          "row_index": 98
+        },
+        {
+          "response_index": 2,
+          "row_index": 110
+        },
+        {
+          "response_index": 2,
+          "row_index": 146
+        }
+      ],
+      "source": {
+        "manifest_sha256": "fbd7054fd8d79623fae3e50162e3069d45d007d4e4f025ecc1aa4fa02c71ab8b",
+        "sha256": "9aaf5c582655c9bffc2a4289430dbbcc1df7abc1a153d0dfb0a3c3509969df6b",
+        "row_index": 712
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 40000000000105,
+      "targeting": "00 aaa aaaaaaaaaa aaa aa aaaaaabh",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 10,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 62
+        },
+        {
+          "response_index": 0,
+          "row_index": 65
+        },
+        {
+          "response_index": 0,
+          "row_index": 75
+        },
+        {
+          "response_index": 0,
+          "row_index": 84
+        },
+        {
+          "response_index": 0,
+          "row_index": 100
+        },
+        {
+          "response_index": 2,
+          "row_index": 55
+        },
+        {
+          "response_index": 2,
+          "row_index": 78
+        },
+        {
+          "response_index": 2,
+          "row_index": 81
+        },
+        {
+          "response_index": 2,
+          "row_index": 118
+        },
+        {
+          "response_index": 2,
+          "row_index": 145
+        }
+      ],
+      "source": {
+        "manifest_sha256": "fbd7054fd8d79623fae3e50162e3069d45d007d4e4f025ecc1aa4fa02c71ab8b",
+        "sha256": "8e2444275c9a67c78f41b668f0222103f4ff88275c8b2e8aac7841c077ac18fd",
+        "row_index": 192
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 4000000000132,
+      "targeting": "aa 00aa aaadj",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 2,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 64
+        },
+        {
+          "response_index": 2,
+          "row_index": 132
+        }
+      ],
+      "source": {
+        "manifest_sha256": "fbd7054fd8d79623fae3e50162e3069d45d007d4e4f025ecc1aa4fa02c71ab8b",
+        "sha256": "89cd6d155dbccd880f82eb671f156e04dbf164c05b8d8132ee2388f33844ca68",
+        "row_index": 761
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 400000000000012,
+      "targeting": "aa aaa aaaaaaaab 08",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 2,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 67
+        },
+        {
+          "response_index": 2,
+          "row_index": 101
+        }
+      ],
+      "source": {
+        "manifest_sha256": "fbd7054fd8d79623fae3e50162e3069d45d007d4e4f025ecc1aa4fa02c71ab8b",
+        "sha256": "8ba2a712185360fb94920eefed05e2b4c5e5c14f14753d3e36d4da8de8085ae6",
+        "row_index": 779
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 400000000000029,
+      "targeting": "aaa 00eq",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 4,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 68
+        },
+        {
+          "response_index": 0,
+          "row_index": 139
+        },
+        {
+          "response_index": 2,
+          "row_index": 41
+        },
+        {
+          "response_index": 2,
+          "row_index": 100
+        }
+      ],
+      "source": {
+        "manifest_sha256": "fbd7054fd8d79623fae3e50162e3069d45d007d4e4f025ecc1aa4fa02c71ab8b",
+        "sha256": "fa17d517e14c162614d2a6b2e4221308ce454f4da04905c18825cd0b843a38d2",
+        "row_index": 552
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 40000000000138,
+      "targeting": "aa 00 aaa aaaaaaaaaa aaaaa aadb",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 6,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 69
+        },
+        {
+          "response_index": 0,
+          "row_index": 120
+        },
+        {
+          "response_index": 0,
+          "row_index": 130
+        },
+        {
+          "response_index": 2,
+          "row_index": 1
+        },
+        {
+          "response_index": 2,
+          "row_index": 124
+        },
+        {
+          "response_index": 2,
+          "row_index": 144
+        }
+      ],
+      "source": {
+        "manifest_sha256": "fbd7054fd8d79623fae3e50162e3069d45d007d4e4f025ecc1aa4fa02c71ab8b",
+        "sha256": "9f57d6a6fff4b831fb0bfcad7c63966c7e8704ebfc537004134f2cea4080c41f",
+        "row_index": 769
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 400000000000022,
+      "targeting": "aa aaaa 0000 aaaaaaa adw",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 6,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 71
+        },
+        {
+          "response_index": 0,
+          "row_index": 110
+        },
+        {
+          "response_index": 0,
+          "row_index": 129
+        },
+        {
+          "response_index": 2,
+          "row_index": 0
+        },
+        {
+          "response_index": 2,
+          "row_index": 113
+        },
+        {
+          "response_index": 2,
+          "row_index": 122
+        }
+      ],
+      "source": {
+        "manifest_sha256": "fbd7054fd8d79623fae3e50162e3069d45d007d4e4f025ecc1aa4fa02c71ab8b",
+        "sha256": "b1b219e4b78e584a727dd1edb8dcb5e9f0d98b4886c6ef8974b7462ed8d768de",
+        "row_index": 727
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 40000000000137,
+      "targeting": "aaaaaaa aaaaaaaaaa aaaaaaaaaa aaaaaaafe",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 2,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 72
+        },
+        {
+          "response_index": 2,
+          "row_index": 123
+        }
+      ],
+      "source": {
+        "manifest_sha256": "fbd7054fd8d79623fae3e50162e3069d45d007d4e4f025ecc1aa4fa02c71ab8b",
+        "sha256": "9f57d6a6fff4b831fb0bfcad7c63966c7e8704ebfc537004134f2cea4080c41f",
+        "row_index": 752
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 40000000000090,
+      "targeting": "aa aab 06",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 8,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 74
+        },
+        {
+          "response_index": 0,
+          "row_index": 102
+        },
+        {
+          "response_index": 0,
+          "row_index": 126
+        },
+        {
+          "response_index": 0,
+          "row_index": 144
+        },
+        {
+          "response_index": 2,
+          "row_index": 40
+        },
+        {
+          "response_index": 2,
+          "row_index": 120
+        },
+        {
+          "response_index": 2,
+          "row_index": 138
+        },
+        {
+          "response_index": 2,
+          "row_index": 141
+        }
+      ],
+      "source": {
+        "manifest_sha256": "fbd7054fd8d79623fae3e50162e3069d45d007d4e4f025ecc1aa4fa02c71ab8b",
+        "sha256": "d815f81ad989fcb609c1791f5a626a80376a23f5141540c79b07211fbbb734db",
+        "row_index": 679
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 400000000000047,
+      "targeting": "ab13",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 6,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 79
+        },
+        {
+          "response_index": 0,
+          "row_index": 111
+        },
+        {
+          "response_index": 0,
+          "row_index": 116
+        },
+        {
+          "response_index": 2,
+          "row_index": 17
+        },
+        {
+          "response_index": 2,
+          "row_index": 47
+        },
+        {
+          "response_index": 2,
+          "row_index": 112
+        }
+      ],
+      "source": {
+        "manifest_sha256": "fbd7054fd8d79623fae3e50162e3069d45d007d4e4f025ecc1aa4fa02c71ab8b",
+        "sha256": "c584414a5887226bc20489c00e669c0fdbd8bb1b40f67945282549a0e3f0ba80",
+        "row_index": 179
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 40000000000122,
+      "targeting": "aa aaaaaaa aab 11",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 8,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 82
+        },
+        {
+          "response_index": 0,
+          "row_index": 94
+        },
+        {
+          "response_index": 0,
+          "row_index": 141
+        },
+        {
+          "response_index": 0,
+          "row_index": 148
+        },
+        {
+          "response_index": 2,
+          "row_index": 10
+        },
+        {
+          "response_index": 2,
+          "row_index": 36
+        },
+        {
+          "response_index": 2,
+          "row_index": 93
+        },
+        {
+          "response_index": 2,
+          "row_index": 148
+        }
+      ],
+      "source": {
+        "manifest_sha256": "fbd7054fd8d79623fae3e50162e3069d45d007d4e4f025ecc1aa4fa02c71ab8b",
+        "sha256": "1dca928b902af4041f13bfbcbb603ce1741cdf7d18841bc0becdaa309d0297bb",
+        "row_index": 139
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 400000000000037,
+      "targeting": "aa aa aaaaa aaa aaaaaaaei",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 2,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 85
+        },
+        {
+          "response_index": 2,
+          "row_index": 37
+        }
+      ],
+      "source": {
+        "manifest_sha256": "fbd7054fd8d79623fae3e50162e3069d45d007d4e4f025ecc1aa4fa02c71ab8b",
+        "sha256": "1285aed48316c8c132d3df181f080d2c6041a591065f9a24beadc711fad7c0f2",
+        "row_index": 78
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 40000000000095,
+      "targeting": "aa 00aa aaaaa aaa aaaaaaaadi",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 2,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 86
+        },
+        {
+          "response_index": 2,
+          "row_index": 38
+        }
+      ],
+      "source": {
+        "manifest_sha256": "fbd7054fd8d79623fae3e50162e3069d45d007d4e4f025ecc1aa4fa02c71ab8b",
+        "sha256": "d815f81ad989fcb609c1791f5a626a80376a23f5141540c79b07211fbbb734db",
+        "row_index": 923
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 40000000000124,
+      "targeting": "aa00 aaaaa aaa aaaaaaaek",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 2,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 90
+        },
+        {
+          "response_index": 2,
+          "row_index": 85
+        }
+      ],
+      "source": {
+        "manifest_sha256": "fbd7054fd8d79623fae3e50162e3069d45d007d4e4f025ecc1aa4fa02c71ab8b",
+        "sha256": "1dca928b902af4041f13bfbcbb603ce1741cdf7d18841bc0becdaa309d0297bb",
+        "row_index": 283
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 400000000000064,
+      "targeting": "aa 00aa adk",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 2,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 91
+        },
+        {
+          "response_index": 2,
+          "row_index": 25
+        }
+      ],
+      "source": {
+        "manifest_sha256": "fbd7054fd8d79623fae3e50162e3069d45d007d4e4f025ecc1aa4fa02c71ab8b",
+        "sha256": "9aaf5c582655c9bffc2a4289430dbbcc1df7abc1a153d0dfb0a3c3509969df6b",
+        "row_index": 34
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 40000000000106,
+      "targeting": "00aa aaaaaaa abr",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 2,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 93
+        },
+        {
+          "response_index": 2,
+          "row_index": 58
+        }
+      ],
+      "source": {
+        "manifest_sha256": "fbd7054fd8d79623fae3e50162e3069d45d007d4e4f025ecc1aa4fa02c71ab8b",
+        "sha256": "8e2444275c9a67c78f41b668f0222103f4ff88275c8b2e8aac7841c077ac18fd",
+        "row_index": 193
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 400000000000072,
+      "targeting": "aaa aaaaaaaaaa aaa aa aaaaaaaa 00 eu",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 2,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 104
+        },
+        {
+          "response_index": 2,
+          "row_index": 67
+        }
+      ],
+      "source": {
+        "manifest_sha256": "9893bfbcd764fc8dc35d8b9805ef42a52dc76d5f69b43ab2db7e9b50e330efa0",
+        "sha256": "ebf8b0749e92ad253cbd63e16a8644a026d3c1f503219bcea7c965a4b9c9fa1c",
+        "row_index": 115
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 40000000000081,
+      "targeting": "aa 00 aaact",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 2,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 107
+        },
+        {
+          "response_index": 2,
+          "row_index": 73
+        }
+      ],
+      "source": {
+        "manifest_sha256": "fbd7054fd8d79623fae3e50162e3069d45d007d4e4f025ecc1aa4fa02c71ab8b",
+        "sha256": "d815f81ad989fcb609c1791f5a626a80376a23f5141540c79b07211fbbb734db",
+        "row_index": 339
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 400000000000004,
+      "targeting": "00 abf",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 2,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 108
+        },
+        {
+          "response_index": 2,
+          "row_index": 71
+        }
+      ],
+      "source": {
+        "manifest_sha256": "fbd7054fd8d79623fae3e50162e3069d45d007d4e4f025ecc1aa4fa02c71ab8b",
+        "sha256": "8d01f40eb2a78d72a6bfee4bdb06b79511059ec71d6adfa004d84e657e3f8bb9",
+        "row_index": 551
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 40000000000079,
+      "targeting": "aa aaaa aaa aaaaaaaadz",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 2,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 112
+        },
+        {
+          "response_index": 2,
+          "row_index": 64
+        }
+      ],
+      "source": {
+        "manifest_sha256": "fbd7054fd8d79623fae3e50162e3069d45d007d4e4f025ecc1aa4fa02c71ab8b",
+        "sha256": "d815f81ad989fcb609c1791f5a626a80376a23f5141540c79b07211fbbb734db",
+        "row_index": 287
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 40000000000130,
+      "targeting": "00 aa aaa aaaaaaaabe",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 2,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 114
+        },
+        {
+          "response_index": 2,
+          "row_index": 42
+        }
+      ],
+      "source": {
+        "manifest_sha256": "fbd7054fd8d79623fae3e50162e3069d45d007d4e4f025ecc1aa4fa02c71ab8b",
+        "sha256": "9f57d6a6fff4b831fb0bfcad7c63966c7e8704ebfc537004134f2cea4080c41f",
+        "row_index": 172
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 40000000000135,
+      "targeting": "aa aaaa aaaaaaa aaa aaaaaaaaeb",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 2,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 115
+        },
+        {
+          "response_index": 2,
+          "row_index": 91
+        }
+      ],
+      "source": {
+        "manifest_sha256": "fbd7054fd8d79623fae3e50162e3069d45d007d4e4f025ecc1aa4fa02c71ab8b",
+        "sha256": "9f57d6a6fff4b831fb0bfcad7c63966c7e8704ebfc537004134f2cea4080c41f",
+        "row_index": 660
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 40000000000133,
+      "targeting": "aaa aaaaaaaaaa aaa aa aaaaaaab 23",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 6,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 117
+        },
+        {
+          "response_index": 0,
+          "row_index": 140
+        },
+        {
+          "response_index": 0,
+          "row_index": 146
+        },
+        {
+          "response_index": 2,
+          "row_index": 16
+        },
+        {
+          "response_index": 2,
+          "row_index": 50
+        },
+        {
+          "response_index": 2,
+          "row_index": 94
+        }
+      ],
+      "source": {
+        "manifest_sha256": "fbd7054fd8d79623fae3e50162e3069d45d007d4e4f025ecc1aa4fa02c71ab8b",
+        "sha256": "9f57d6a6fff4b831fb0bfcad7c63966c7e8704ebfc537004134f2cea4080c41f",
+        "row_index": 265
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 400000000000058,
+      "targeting": "aa aaaa 0000 aaa aaaaaaadv",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 2,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 121
+        },
+        {
+          "response_index": 2,
+          "row_index": 77
+        }
+      ],
+      "source": {
+        "manifest_sha256": "fbd7054fd8d79623fae3e50162e3069d45d007d4e4f025ecc1aa4fa02c71ab8b",
+        "sha256": "f0c55e16c24256b64b4cec48d4984b98a31e14cbcdb2924b299f1895f162ac58",
+        "row_index": 43
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 40000000000102,
+      "targeting": "00aa abl",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 2,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 123
+        },
+        {
+          "response_index": 2,
+          "row_index": 127
+        }
+      ],
+      "source": {
+        "manifest_sha256": "fbd7054fd8d79623fae3e50162e3069d45d007d4e4f025ecc1aa4fa02c71ab8b",
+        "sha256": "e276da71c65893fce24ab10c64fef4528c58711897f5abe91f099401668fb333",
+        "row_index": 768
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 40000000000119,
+      "targeting": "aa 00 aa ade",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 2,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 128
+        },
+        {
+          "response_index": 2,
+          "row_index": 57
+        }
+      ],
+      "source": {
+        "manifest_sha256": "fbd7054fd8d79623fae3e50162e3069d45d007d4e4f025ecc1aa4fa02c71ab8b",
+        "sha256": "6c18516f9eebb1b8cff2012aa38e74bb9cb156aed3ae660ceed4a6d23c22f730",
+        "row_index": 687
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 40000000000136,
+      "targeting": "00aa aaa aaaaaaaaaa aaa aa aaaaaabq",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 2,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 134
+        },
+        {
+          "response_index": 2,
+          "row_index": 30
+        }
+      ],
+      "source": {
+        "manifest_sha256": "fbd7054fd8d79623fae3e50162e3069d45d007d4e4f025ecc1aa4fa02c71ab8b",
+        "sha256": "9f57d6a6fff4b831fb0bfcad7c63966c7e8704ebfc537004134f2cea4080c41f",
+        "row_index": 671
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 400000000000008,
+      "targeting": "aa 00 aaaaa acu",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 2,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 136
+        },
+        {
+          "response_index": 2,
+          "row_index": 108
+        }
+      ],
+      "source": {
+        "manifest_sha256": "fbd7054fd8d79623fae3e50162e3069d45d007d4e4f025ecc1aa4fa02c71ab8b",
+        "sha256": "6ba686b8f106aca3d0a8d7adbb0e29d0c1bb44235f6e8e82081381b7b1b3da2d",
+        "row_index": 425
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 400000000000076,
+      "targeting": "aa 0000 aaaaaaa aaa aaaaaaaadn",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 2,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 137
+        },
+        {
+          "response_index": 2,
+          "row_index": 107
+        }
+      ],
+      "source": {
+        "manifest_sha256": "9893bfbcd764fc8dc35d8b9805ef42a52dc76d5f69b43ab2db7e9b50e330efa0",
+        "sha256": "2ba07c857b9bb66e9c5297c89d8f7f2fee3853c1bd3d78e3c0f731e3476b7bbf",
+        "row_index": 317
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 400000000000009,
+      "targeting": "aa 00 aa aaa aaaaaaaaaa aaaaa aaa aaadf",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 2,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 138
+        },
+        {
+          "response_index": 2,
+          "row_index": 62
+        }
+      ],
+      "source": {
+        "manifest_sha256": "fbd7054fd8d79623fae3e50162e3069d45d007d4e4f025ecc1aa4fa02c71ab8b",
+        "sha256": "6ba686b8f106aca3d0a8d7adbb0e29d0c1bb44235f6e8e82081381b7b1b3da2d",
+        "row_index": 598
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 400000000000068,
+      "targeting": "aa00aa aaa aaaaaaaaem",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 2,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 143
+        },
+        {
+          "response_index": 2,
+          "row_index": 139
+        }
+      ],
+      "source": {
+        "manifest_sha256": "fbd7054fd8d79623fae3e50162e3069d45d007d4e4f025ecc1aa4fa02c71ab8b",
+        "sha256": "9aaf5c582655c9bffc2a4289430dbbcc1df7abc1a153d0dfb0a3c3509969df6b",
+        "row_index": 917
+      }
+    },
+    {
+      "profile_id": 900000000000003,
+      "campaign_id": 70000000000402,
+      "group_id": 600000000000245,
+      "targeting_id": 400000000000060,
+      "targeting": "aaa aaa aaaaaaa aaaaaa aaaaaew",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "exact",
+      "hourly_occurrences": 2,
+      "hourly_locations": [
+        {
+          "response_index": 0,
+          "row_index": 147
+        },
+        {
+          "response_index": 2,
+          "row_index": 49
+        }
+      ],
+      "source": {
+        "manifest_sha256": "fbd7054fd8d79623fae3e50162e3069d45d007d4e4f025ecc1aa4fa02c71ab8b",
+        "sha256": "f0c55e16c24256b64b4cec48d4984b98a31e14cbcdb2924b299f1895f162ac58",
+        "row_index": 662
+      }
+    },
+    {
+      "profile_id": 90000000000010,
+      "campaign_id": 7000000000145,
+      "group_id": 600000000000299,
+      "targeting_id": 400000000000031,
+      "targeting": "+000 aa aaaaaaaaaaaaaac",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "broad",
+      "hourly_occurrences": 1,
+      "hourly_locations": [
+        {
+          "response_index": 1,
+          "row_index": 0
+        }
+      ],
+      "source": {
+        "manifest_sha256": "fbd7054fd8d79623fae3e50162e3069d45d007d4e4f025ecc1aa4fa02c71ab8b",
+        "sha256": "8c11effb02dd2ebb0686a449a02d06134c1e8905357bf41da76f2724e0c7a949",
+        "row_index": 523
+      }
+    },
+    {
+      "profile_id": 90000000000010,
+      "campaign_id": 7000000000145,
+      "group_id": 600000000000299,
+      "targeting_id": 400000000000059,
+      "targeting": "+000 aaaaaab",
+      "classification": "keyword",
+      "text_exact": true,
+      "match_type": "broad",
+      "hourly_occurrences": 1,
+      "hourly_locations": [
+        {
+          "response_index": 1,
+          "row_index": 1
+        }
+      ],
+      "source": {
+        "manifest_sha256": "fbd7054fd8d79623fae3e50162e3069d45d007d4e4f025ecc1aa4fa02c71ab8b",
+        "sha256": "4e06fa277dfb47d99c8e888ff94c92499d87132df682f6a84feea85101c00ff3",
+        "row_index": 192
+      }
+    }
+  ],
+  "diagnostics": []
+}

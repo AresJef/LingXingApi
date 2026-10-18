@@ -1,0 +1,39 @@
+{
+  "source": "local_raw",
+  "endpoint": "ads.SdAdGroups",
+  "response": {
+    "code": 0,
+    "message": "操作成功",
+    "data": [
+      {
+        "campaign_id": 70000000000094,
+        "ad_group_id": 60000000000079,
+        "profile_id": 90000000000009,
+        "name": "aa-00-广账",
+        "default_bid": 0.6,
+        "state": "enabled",
+        "creation_date": 1599816989000,
+        "last_updated_date": 1599816989000,
+        "serving_status": "CAMPAIGN_PAUSED",
+        "bid_optimization": "clicks"
+      },
+      {
+        "campaign_id": 700000000000174,
+        "ad_group_id": 60000000000139,
+        "profile_id": 90000000000009,
+        "name": "000-广告合",
+        "default_bid": 1.0,
+        "state": "enabled",
+        "creation_date": 1601342206000,
+        "last_updated_date": 1601342206000,
+        "serving_status": "CAMPAIGN_PAUSED",
+        "bid_optimization": "clicks"
+      }
+    ],
+    "total": 10,
+    "next_token": "MTAwMDAwMDAwMDAwMzg=",
+    "error_details": [],
+    "request_id": "00000000-0000-0000-0000-0000000000c9",
+    "response_time": "2001-05-07 10:02:00"
+  }
+}

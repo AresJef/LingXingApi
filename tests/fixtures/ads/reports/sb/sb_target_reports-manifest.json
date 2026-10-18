@@ -1,0 +1,301 @@
+{
+  "format": "ads-fixtures-v3",
+  "source": "local_raw",
+  "endpoint": "ads.SbTargetReports",
+  "source_sha256": "560e5082024092e352105216890a3aa666304627775c7b6b48fe39e07a825dc5",
+  "checks": {
+    "identifiers": {
+      "status": "proved",
+      "cases": [
+        {
+          "label": "account-A-profile-only",
+          "status": "proved"
+        },
+        {
+          "label": "account-A-sid-only",
+          "status": "proved"
+        },
+        {
+          "label": "account-A-both",
+          "status": "proved"
+        },
+        {
+          "label": "account-B-profile-only",
+          "status": "proved"
+        },
+        {
+          "label": "account-B-sid-only",
+          "status": "proved"
+        },
+        {
+          "label": "account-B-both",
+          "status": "proved"
+        }
+      ]
+    },
+    "cross_identifier_priority": {
+      "observed": "profile_id",
+      "cases": [
+        {
+          "label": "account-A-sid-B-profile",
+          "observed": "profile_id"
+        },
+        {
+          "label": "account-B-sid-A-profile",
+          "observed": "profile_id"
+        }
+      ],
+      "status": "proved"
+    },
+    "offset_concat": {
+      "status": "proved",
+      "complete_data_equal": true
+    },
+    "token_concat": {
+      "status": "proved",
+      "complete_data_equal": true
+    },
+    "token_priority": {
+      "status": "proved",
+      "complete_data_equal": true
+    },
+    "baseline_stability": {
+      "status": "proved",
+      "complete_data_equal": true
+    },
+    "report_date": {
+      "status": "proved"
+    }
+  },
+  "relationships": {
+    "reference": "reference-direct",
+    "end_reference": "reference-end",
+    "offset_pages": [
+      "account-A-profile-only",
+      "offset-second"
+    ],
+    "token_pages": [
+      "account-A-profile-only",
+      "token-second"
+    ],
+    "token_source": "account-A-profile-only",
+    "token_control": "token-second",
+    "token_conflict": "token-priority-conflicting-offset"
+  },
+  "planned_requests": 13,
+  "not_run": [],
+  "samples": [
+    {
+      "label": "account-A-profile-only",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 9000000000000006,
+        "report_date": "2026-10-01",
+        "sponsored_type": "ALL",
+        "target_type": "producttarget"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_target_reports-account-A-profile-only.json",
+      "sha256": "725e66bf75442ccf50540217c179e4712e91bc47e4d19c02b6d92bc9600c4f00"
+    },
+    {
+      "label": "account-A-sid-only",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "report_date": "2026-10-01",
+        "sid": 1127,
+        "sponsored_type": "ALL",
+        "target_type": "producttarget"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_target_reports-account-A-sid-only.json",
+      "sha256": "a6fd2902070799969f12c9c8174ae335f2805fcc7fd3c629da87ac5a1b3101d6"
+    },
+    {
+      "label": "account-A-both",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 9000000000000006,
+        "report_date": "2026-10-01",
+        "sid": 1127,
+        "sponsored_type": "ALL",
+        "target_type": "producttarget"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_target_reports-account-A-both.json",
+      "sha256": "bf97c009a8cb0636388c412b2c3c7c6a2fe261f3a4dc033d5e62106cb1af4381"
+    },
+    {
+      "label": "account-B-profile-only",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000010,
+        "report_date": "2026-10-01",
+        "sponsored_type": "ALL",
+        "target_type": "producttarget"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_target_reports-account-B-profile-only.json",
+      "sha256": "88bf0b78e47480b622a9a5a0d4bd43cd3ffd80d75f9f605dba77a3745a6a7dab"
+    },
+    {
+      "label": "account-B-sid-only",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "report_date": "2026-10-01",
+        "sid": 10016,
+        "sponsored_type": "ALL",
+        "target_type": "producttarget"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_target_reports-account-B-sid-only.json",
+      "sha256": "ac93b3170a3fe2f84a7b2881c58117a24e035771ef247c6f504501e622576f88"
+    },
+    {
+      "label": "account-B-both",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000010,
+        "report_date": "2026-10-01",
+        "sid": 10016,
+        "sponsored_type": "ALL",
+        "target_type": "producttarget"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_target_reports-account-B-both.json",
+      "sha256": "ef12bae5f0f33313bcbfb8bb83480debb85f8bdbe454406669fccd08343f6e67"
+    },
+    {
+      "label": "account-A-sid-B-profile",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000010,
+        "report_date": "2026-10-01",
+        "sid": 1127,
+        "sponsored_type": "ALL",
+        "target_type": "producttarget"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_target_reports-account-A-sid-B-profile.json",
+      "sha256": "b49e52b62452f7ffe134f8db4e8530c38e75ba5e68baf8f9176166c7cd93be99"
+    },
+    {
+      "label": "account-B-sid-A-profile",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 9000000000000006,
+        "report_date": "2026-10-01",
+        "sid": 10016,
+        "sponsored_type": "ALL",
+        "target_type": "producttarget"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_target_reports-account-B-sid-A-profile.json",
+      "sha256": "d38c38bc38d225e6818a7146a55223ecd43349d74391415b17839232cb108e3c"
+    },
+    {
+      "label": "reference-direct",
+      "request": {
+        "length": 4,
+        "offset": 0,
+        "profile_id": 9000000000000006,
+        "report_date": "2026-10-01",
+        "sponsored_type": "ALL",
+        "target_type": "producttarget"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_target_reports-reference-direct.json",
+      "sha256": "df0b49f6d9e5bc7e10ad076e32ac31b04c7e18efaf3a11cba1abebd8fb047a65"
+    },
+    {
+      "label": "offset-second",
+      "request": {
+        "length": 2,
+        "offset": 2,
+        "profile_id": 9000000000000006,
+        "report_date": "2026-10-01",
+        "sponsored_type": "ALL",
+        "target_type": "producttarget"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_target_reports-offset-second.json",
+      "sha256": "9c5abed049770edc447c3b51081b6031ebfb67233db92729c0991474a1c2b8b4"
+    },
+    {
+      "label": "token-second",
+      "request": {
+        "length": 2,
+        "profile_id": 9000000000000006,
+        "report_date": "2026-10-01",
+        "sponsored_type": "ALL",
+        "target_type": "producttarget"
+      },
+      "next_token_from": "account-A-profile-only",
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_target_reports-token-second.json",
+      "sha256": "8efa44f9c831a93c4575271ea24da881a7fe73a0d68d54ed7dca8426d7fe4830"
+    },
+    {
+      "label": "token-priority-conflicting-offset",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 9000000000000006,
+        "report_date": "2026-10-01",
+        "sponsored_type": "ALL",
+        "target_type": "producttarget"
+      },
+      "next_token_from": "account-A-profile-only",
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_target_reports-token-priority-conflicting-offset.json",
+      "sha256": "cd26ebc04558f37954bcb2ea83d11e8957e469900ba3335a04195b936a97a036"
+    },
+    {
+      "label": "reference-end",
+      "request": {
+        "length": 4,
+        "offset": 0,
+        "profile_id": 9000000000000006,
+        "report_date": "2026-10-01",
+        "sponsored_type": "ALL",
+        "target_type": "producttarget"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_target_reports-reference-end.json",
+      "sha256": "1160d37ddac0cf9b010f1cc13345ad40d240034321c020ba50756b71beb0a385"
+    }
+  ],
+  "diagnostics": []
+}

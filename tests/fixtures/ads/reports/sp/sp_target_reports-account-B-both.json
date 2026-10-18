@@ -1,0 +1,51 @@
+{
+  "source": "local_raw",
+  "endpoint": "ads.SpTargetReports",
+  "response": {
+    "code": 0,
+    "message": "操作成功",
+    "data": [
+      {
+        "target_id": 3000000000017,
+        "targeting_type": "TARGETING_EXPRESSION_PREDEFINED",
+        "targeting_expression": "\"[{\\\"type\\\": \\\"queryBroadRelMatches\\\"}]\"",
+        "ad_group_id": 600000000000274,
+        "impressions": 6,
+        "clicks": 0,
+        "cost": 0.0,
+        "report_date": "2026-10-01",
+        "profile_id": 90000000000010,
+        "campaign_id": 700000000000097,
+        "same_orders": 0,
+        "orders": 0,
+        "same_sales": 0.0,
+        "sales": 0.0,
+        "units": 0,
+        "same_units": 0
+      },
+      {
+        "target_id": 3000000000020,
+        "targeting_type": "TARGETING_EXPRESSION",
+        "targeting_expression": "\"[{\\\"type\\\": \\\"asinSameAs\\\", \\\"value\\\": \\\"A0AAAA00HU\\\"}]\"",
+        "ad_group_id": 600000000000267,
+        "impressions": 15,
+        "clicks": 0,
+        "cost": 0.0,
+        "report_date": "2026-10-01",
+        "profile_id": 90000000000010,
+        "campaign_id": 700000000000231,
+        "same_orders": 0,
+        "orders": 0,
+        "same_sales": 0.0,
+        "sales": 0.0,
+        "units": 0,
+        "same_units": 0
+      }
+    ],
+    "total": 508,
+    "next_token": "MTAwMDAwMDAwMDAxOA==",
+    "error_details": [],
+    "request_id": "00000000-0000-0000-0000-000000000159",
+    "response_time": "2001-05-07 12:29:00"
+  }
+}

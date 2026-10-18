@@ -1,0 +1,27 @@
+{
+  "format": "sd-matched-contract-evidence-v1",
+  "endpoint": "ads.SdMatchedTargetReports",
+  "source": "local_raw",
+  "capture_manifest": "tools/verification/sd-reports-2026-10-17/evidence/matched-contract-source/manifest.json",
+  "capture_manifest_sha256": "211a03db40d434e8c9b41f07389f0e41471b80d3d62b0208066a4f50344810ea",
+  "raw_file": "tools/verification/sd-reports-2026-10-17/evidence/matched-contract-source/account-B-profile-only-attempt-1.json",
+  "raw_sha256": "c0e25f32ae7306d057fe84ce0dbac1e50ef401f36b9bcb33ea4530124899fefa",
+  "pass_file": "tools/data_pass/ads/reports/sd/sd_matched_target_reports-evidence-核验数据.json",
+  "pass_sha256": "c0e25f32ae7306d057fe84ce0dbac1e50ef401f36b9bcb33ea4530124899fefa",
+  "fixture": "sd_matched_target_reports-evidence.json",
+  "fixture_sha256": "4e26b51806588f2eb8eb1899c122b2da6b1e64145be75616eb5a3adc6ab2c4ed",
+  "rows": 1,
+  "unique_nonempty_accounts": 1,
+  "matrix_status": "coverage_gap",
+  "schema": "passed",
+  "redaction": "passed",
+  "missing_coverage": [
+    "second_nonempty_account",
+    "two_distinct_rows_reference",
+    "second_offset_page",
+    "second_cursor_page",
+    "cursor_priority"
+  ],
+  "normal_matrix_published": false,
+  "scope": "historical_single_entity_contract_supplement"
+}

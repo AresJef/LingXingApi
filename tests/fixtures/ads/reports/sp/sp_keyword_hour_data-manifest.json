@@ -1,0 +1,79 @@
+{
+  "format": "ads-fixtures-v3",
+  "source": "local_raw",
+  "endpoint": "ads.SpKeywordHourData",
+  "source_sha256": "d19d23cc64e5cf1f011c5013099deb8b3a74596b5449126126cabb704963b439",
+  "checks": {
+    "campaign_date_hour": {
+      "status": "proved",
+      "cases": [
+        {
+          "label": "campaign-A",
+          "status": "proved"
+        },
+        {
+          "label": "campaign-B",
+          "status": "proved"
+        },
+        {
+          "label": "reference-end",
+          "status": "proved"
+        }
+      ]
+    },
+    "baseline_stability": {
+      "status": "proved",
+      "complete_data_equal": true,
+      "comparison": "complete_rows_multiset",
+      "ordered_data_equal": false
+    }
+  },
+  "relationships": {
+    "reference": "campaign-A",
+    "end_reference": "reference-end"
+  },
+  "planned_requests": 3,
+  "not_run": [],
+  "samples": [
+    {
+      "label": "campaign-A",
+      "request": {
+        "agg_dimension": "both_ad_target",
+        "campaign_id": 70000000000236,
+        "report_date": "2026-10-01"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_keyword_hour_data-campaign-A.json",
+      "sha256": "2495a99d350983b4cf1f3eb060edaebd5e1529928d1134328d9af136a1ff56ae"
+    },
+    {
+      "label": "campaign-B",
+      "request": {
+        "agg_dimension": "both_ad_target",
+        "campaign_id": 700000000186,
+        "report_date": "2026-10-01"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_keyword_hour_data-campaign-B.json",
+      "sha256": "6ba08d57655c99dd9c5719d38ee12abe80a1d1e9457956250df60bb9bcbdb4be"
+    },
+    {
+      "label": "reference-end",
+      "request": {
+        "agg_dimension": "both_ad_target",
+        "campaign_id": 70000000000236,
+        "report_date": "2026-10-01"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_keyword_hour_data-reference-end.json",
+      "sha256": "12e458a1e5ec73c748d9a199a88281a15c9be94f7c2c9bbc76e62cb56ba2c3a8"
+    }
+  ],
+  "diagnostics": []
+}

@@ -1,0 +1,61 @@
+{
+  "source": "local_raw",
+  "endpoint": "ads.SbTargetingHourData",
+  "response": {
+    "code": 0,
+    "message": "操作成功",
+    "data": [
+      {
+        "profile_id": 90000000000010,
+        "report_date": "2026-10-01",
+        "hour": 10,
+        "campaign_id": 7000000000145,
+        "impressions": 1,
+        "clicks": 0,
+        "cost": 0.0,
+        "same_orders": 0,
+        "orders": 0,
+        "same_sales": 0.0,
+        "sales": 0.0,
+        "units": 0,
+        "ctr": 0.0,
+        "acos": null,
+        "cvr": null,
+        "cpa": null,
+        "roas": null,
+        "cpc": null,
+        "group_id": 600000000000299,
+        "targeting_id": 400000000000031,
+        "targeting": "+000 aa aaaaaaaaaaaaaac"
+      },
+      {
+        "profile_id": 90000000000010,
+        "report_date": "2026-10-01",
+        "hour": 18,
+        "campaign_id": 7000000000145,
+        "impressions": 1,
+        "clicks": 0,
+        "cost": 0.0,
+        "same_orders": 0,
+        "orders": 0,
+        "same_sales": 0.0,
+        "sales": 0.0,
+        "units": 0,
+        "ctr": 0.0,
+        "acos": null,
+        "cvr": null,
+        "cpa": null,
+        "roas": null,
+        "cpc": null,
+        "group_id": 600000000000299,
+        "targeting_id": 400000000000059,
+        "targeting": "+000 aaaaaab"
+      }
+    ],
+    "total": 2,
+    "next_token": null,
+    "error_details": [],
+    "request_id": "00000000-0000-0000-0000-0000000001f4",
+    "response_time": "2001-05-07 14:50:00"
+  }
+}

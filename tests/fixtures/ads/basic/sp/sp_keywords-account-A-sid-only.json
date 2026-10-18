@@ -1,0 +1,41 @@
+{
+  "source": "local_raw",
+  "endpoint": "ads.SpKeywords",
+  "response": {
+    "code": 0,
+    "message": "操作成功",
+    "data": [
+      {
+        "profile_id": 90000000000009,
+        "campaign_id": 700000000000157,
+        "ad_group_id": 60000000000082,
+        "keyword_id": 4000000126,
+        "keyword_text": "aaaa 0000 aci",
+        "bid": 0.5,
+        "state": "enabled",
+        "match_type": "phrase",
+        "creation_date": 1583837811000,
+        "last_updated_date": 1583837811000,
+        "serving_status": "CAMPAIGN_PAUSED"
+      },
+      {
+        "profile_id": 90000000000009,
+        "campaign_id": 700000000000139,
+        "ad_group_id": 600000000000053,
+        "keyword_id": 4000000127,
+        "keyword_text": "aa aaaaaaa 0095",
+        "bid": 0.35,
+        "state": "enabled",
+        "match_type": "broad",
+        "creation_date": 1594959221000,
+        "last_updated_date": 1594959221000,
+        "serving_status": "CAMPAIGN_PAUSED"
+      }
+    ],
+    "total": 16923,
+    "next_token": "MTAwMDAwMDA4MA==",
+    "error_details": [],
+    "request_id": "00000000-0000-0000-0000-00000000010c",
+    "response_time": "2001-05-07 07:20:00"
+  }
+}

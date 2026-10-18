@@ -1,0 +1,59 @@
+{
+  "source": "local_raw",
+  "endpoint": "ads.SbAdGroupReports",
+  "response": {
+    "code": 0,
+    "message": "操作成功",
+    "data": [
+      {
+        "campaign_id": 700000000000262,
+        "ad_group_id": 600000000000199,
+        "profile_id": 90000000000010,
+        "impressions": 14,
+        "clicks": 0,
+        "cost": 0.0,
+        "vtr": null,
+        "vctr": null,
+        "report_date": "2026-10-01",
+        "same_orders": 0,
+        "orders": 0,
+        "same_sales": 0.0,
+        "sales": 0.0,
+        "new_to_brand_orders": 0,
+        "new_to_brand_order_percentage": 0.0,
+        "new_to_brand_order_rate": null,
+        "new_to_brand_sales": 0.0,
+        "new_to_brand_units": 0,
+        "units": 0,
+        "same_units": null
+      },
+      {
+        "campaign_id": 700000000000269,
+        "ad_group_id": 600000000000250,
+        "profile_id": 90000000000010,
+        "impressions": 1583,
+        "clicks": 3,
+        "cost": 3.28,
+        "vtr": null,
+        "vctr": null,
+        "report_date": "2026-10-01",
+        "same_orders": 0,
+        "orders": 0,
+        "same_sales": 0.0,
+        "sales": 0.0,
+        "new_to_brand_orders": 0,
+        "new_to_brand_order_percentage": 0.0,
+        "new_to_brand_order_rate": null,
+        "new_to_brand_sales": 0.0,
+        "new_to_brand_units": 0,
+        "units": 0,
+        "same_units": null
+      }
+    ],
+    "total": 117,
+    "next_token": "MTAwMDAwMDMw",
+    "error_details": [],
+    "request_id": "00000000-0000-0000-0000-00000000008b",
+    "response_time": "2001-05-07 13:27:00"
+  }
+}

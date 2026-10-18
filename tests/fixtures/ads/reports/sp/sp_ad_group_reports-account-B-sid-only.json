@@ -1,0 +1,45 @@
+{
+  "source": "local_raw",
+  "endpoint": "ads.SpAdGroupReports",
+  "response": {
+    "code": 0,
+    "message": "操作成功",
+    "data": [
+      {
+        "ad_group_id": 600000000018,
+        "impressions": 30,
+        "clicks": 0,
+        "cost": 0.0,
+        "report_date": "2026-10-01",
+        "profile_id": 90000000000010,
+        "campaign_id": 700000000000111,
+        "same_orders": 0,
+        "orders": 0,
+        "same_sales": 0.0,
+        "sales": 0.0,
+        "units": 0,
+        "same_units": 0
+      },
+      {
+        "ad_group_id": 600000000034,
+        "impressions": 1787,
+        "clicks": 5,
+        "cost": 7.63,
+        "report_date": "2026-10-01",
+        "profile_id": 90000000000010,
+        "campaign_id": 70000000000390,
+        "same_orders": 0,
+        "orders": 0,
+        "same_sales": 0.0,
+        "sales": 0.0,
+        "units": 0,
+        "same_units": 0
+      }
+    ],
+    "total": 551,
+    "next_token": "MTAwMDAwMDAwMDEz",
+    "error_details": [],
+    "request_id": "00000000-0000-0000-0000-0000000001ae",
+    "response_time": "2001-05-07 11:31:00"
+  }
+}

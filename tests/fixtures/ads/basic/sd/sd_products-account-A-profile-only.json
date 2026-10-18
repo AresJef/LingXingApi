@@ -1,0 +1,39 @@
+{
+  "source": "local_raw",
+  "endpoint": "ads.SdProducts",
+  "response": {
+    "code": 0,
+    "message": "操作成功",
+    "data": [
+      {
+        "ad_id": 5000000000008,
+        "ad_group_id": 600000000000115,
+        "campaign_id": 700000000000212,
+        "state": "paused",
+        "sku": "000aa*3A",
+        "asin": "A00AAAA0AO",
+        "profile_id": 90000000000009,
+        "creation_date": 1600853070000,
+        "last_updated_date": 1696439612959,
+        "serving_status": "AD_PAUSED"
+      },
+      {
+        "ad_id": 5000000000175,
+        "ad_group_id": 600000000000115,
+        "campaign_id": 700000000000212,
+        "state": "paused",
+        "sku": "AA-000-4A",
+        "asin": "A00A000AL6",
+        "profile_id": 90000000000009,
+        "creation_date": 1600853070000,
+        "last_updated_date": 1696439613158,
+        "serving_status": "AD_PAUSED"
+      }
+    ],
+    "total": 67,
+    "next_token": "MTAwMDAwMDAwMDA0MA==",
+    "error_details": [],
+    "request_id": "00000000-0000-0000-0000-000000000015",
+    "response_time": "2001-05-07 10:15:00"
+  }
+}

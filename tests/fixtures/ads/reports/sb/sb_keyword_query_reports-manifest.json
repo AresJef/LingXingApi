@@ -1,0 +1,267 @@
+{
+  "format": "ads-fixtures-v3",
+  "source": "local_raw",
+  "endpoint": "ads.SbKeywordQueryReports",
+  "source_sha256": "fbb0015a121edc316b8a49b43d04ba6419576f26a169c40f597942e03a39dfae",
+  "checks": {
+    "identifiers": {
+      "status": "proved",
+      "cases": [
+        {
+          "label": "account-A-profile-only",
+          "status": "proved"
+        },
+        {
+          "label": "account-A-sid-only",
+          "status": "proved"
+        },
+        {
+          "label": "account-A-both",
+          "status": "proved"
+        },
+        {
+          "label": "account-B-profile-only",
+          "status": "proved"
+        },
+        {
+          "label": "account-B-sid-only",
+          "status": "proved"
+        },
+        {
+          "label": "account-B-both",
+          "status": "proved"
+        }
+      ]
+    },
+    "cross_identifier_priority": {
+      "observed": "profile_id",
+      "cases": [
+        {
+          "label": "account-A-sid-B-profile",
+          "observed": "profile_id"
+        },
+        {
+          "label": "account-B-sid-A-profile",
+          "observed": "profile_id"
+        }
+      ],
+      "status": "proved"
+    },
+    "offset_concat": {
+      "status": "proved",
+      "complete_data_equal": true
+    },
+    "token_concat": {
+      "status": "proved",
+      "complete_data_equal": true
+    },
+    "baseline_stability": {
+      "status": "proved",
+      "complete_data_equal": true
+    },
+    "report_date": {
+      "status": "proved"
+    }
+  },
+  "relationships": {
+    "reference": "reference-direct",
+    "end_reference": "reference-end",
+    "offset_pages": [
+      "account-A-profile-only",
+      "offset-second"
+    ],
+    "token_pages": [
+      "account-A-profile-only",
+      "token-second"
+    ],
+    "token_source": "account-A-profile-only"
+  },
+  "planned_requests": 12,
+  "not_run": [],
+  "samples": [
+    {
+      "label": "account-A-profile-only",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 900000000000003,
+        "report_date": "2026-10-01",
+        "target_type": "keyword"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_keyword_query_reports-account-A-profile-only.json",
+      "sha256": "8e620e7949974c7b98a223d904540af46da2104abda54b77d0d052312185d938"
+    },
+    {
+      "label": "account-A-sid-only",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "report_date": "2026-10-01",
+        "sid": 1170,
+        "target_type": "keyword"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_keyword_query_reports-account-A-sid-only.json",
+      "sha256": "f863bc2c2dd84283e6d5d16fa9b66c381c34361cf013b527634e58da8660b1a4"
+    },
+    {
+      "label": "account-A-both",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 900000000000003,
+        "report_date": "2026-10-01",
+        "sid": 1170,
+        "target_type": "keyword"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_keyword_query_reports-account-A-both.json",
+      "sha256": "91cce286002c7efc69959895bc790d5f27026b20cf8f123d5002abbe81d8ae1a"
+    },
+    {
+      "label": "account-B-profile-only",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000010,
+        "report_date": "2026-10-01",
+        "target_type": "keyword"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_keyword_query_reports-account-B-profile-only.json",
+      "sha256": "4f0bfbd07770275f55ea9d41f35f19327887e6050e92c0657aaad95c55a93f70"
+    },
+    {
+      "label": "account-B-sid-only",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "report_date": "2026-10-01",
+        "sid": 10016,
+        "target_type": "keyword"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_keyword_query_reports-account-B-sid-only.json",
+      "sha256": "c62bb91b5788cdbd2a9bb973a46ab33045e391350b7c9399f9b1827cb14d0c6d"
+    },
+    {
+      "label": "account-B-both",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000010,
+        "report_date": "2026-10-01",
+        "sid": 10016,
+        "target_type": "keyword"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_keyword_query_reports-account-B-both.json",
+      "sha256": "6d0e7733e721cf26ee139a59a2dede74dc6e18616385707848a7547e40ca2bf1"
+    },
+    {
+      "label": "account-A-sid-B-profile",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000010,
+        "report_date": "2026-10-01",
+        "sid": 1170,
+        "target_type": "keyword"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_keyword_query_reports-account-A-sid-B-profile.json",
+      "sha256": "9858f14e2421a3eb6b62516a882cb90f8c78437d406fcc4f6334e6768585e432"
+    },
+    {
+      "label": "account-B-sid-A-profile",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 900000000000003,
+        "report_date": "2026-10-01",
+        "sid": 10016,
+        "target_type": "keyword"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_keyword_query_reports-account-B-sid-A-profile.json",
+      "sha256": "f005ffccf2fcc33799c71368c26ce44ebd5e434c9cb2e9200b605380dbe3575e"
+    },
+    {
+      "label": "reference-direct",
+      "request": {
+        "length": 4,
+        "offset": 0,
+        "profile_id": 900000000000003,
+        "report_date": "2026-10-01",
+        "target_type": "keyword"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_keyword_query_reports-reference-direct.json",
+      "sha256": "27092c01ac2905eb15f94efabd085e55ea0d6a3c48ecf6192f74f9019399f53b"
+    },
+    {
+      "label": "offset-second",
+      "request": {
+        "length": 2,
+        "offset": 2,
+        "profile_id": 900000000000003,
+        "report_date": "2026-10-01",
+        "target_type": "keyword"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_keyword_query_reports-offset-second.json",
+      "sha256": "aba8ee338cc6f52bd9a3cafe0c6deaa60d68c33fa08ec65fcac3f430a4d16891"
+    },
+    {
+      "label": "token-second",
+      "request": {
+        "length": 2,
+        "profile_id": 900000000000003,
+        "report_date": "2026-10-01",
+        "target_type": "keyword"
+      },
+      "next_token_from": "account-A-profile-only",
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_keyword_query_reports-token-second.json",
+      "sha256": "7cb57f84b6bed7b0f8d3085233ceded8b155f2282483cb6a363242bcfa55e816"
+    },
+    {
+      "label": "reference-end",
+      "request": {
+        "length": 4,
+        "offset": 0,
+        "profile_id": 900000000000003,
+        "report_date": "2026-10-01",
+        "target_type": "keyword"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_keyword_query_reports-reference-end.json",
+      "sha256": "411cd1e0744b111b03e4389816168fa2e30e81207bc635442dfe5a477245c5c5"
+    }
+  ],
+  "diagnostics": []
+}

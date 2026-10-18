@@ -1,0 +1,57 @@
+{
+  "source": "local_raw",
+  "endpoint": "ads.SbPlacementHourData",
+  "response": {
+    "code": 0,
+    "message": "操作成功",
+    "data": [
+      {
+        "campaign_id": 7000000000145,
+        "profile_id": 90000000000010,
+        "report_date": "2026-10-01",
+        "hour": 10,
+        "cost": 0.0,
+        "clicks": 0,
+        "impressions": 1,
+        "same_orders": 0,
+        "orders": 0,
+        "same_sales": 0.0,
+        "sales": 0.0,
+        "units": 0,
+        "ctr": 0.0,
+        "cpc": null,
+        "cpa": null,
+        "acos": null,
+        "roas": null,
+        "cvr": null,
+        "placement": "Other on-Amazon"
+      },
+      {
+        "campaign_id": 7000000000145,
+        "profile_id": 90000000000010,
+        "report_date": "2026-10-01",
+        "hour": 18,
+        "cost": 0.0,
+        "clicks": 0,
+        "impressions": 1,
+        "same_orders": 0,
+        "orders": 0,
+        "same_sales": 0.0,
+        "sales": 0.0,
+        "units": 0,
+        "ctr": 0.0,
+        "cpc": null,
+        "cpa": null,
+        "acos": null,
+        "roas": null,
+        "cvr": null,
+        "placement": "Detail Page on-Amazon"
+      }
+    ],
+    "total": 2,
+    "next_token": null,
+    "error_details": [],
+    "request_id": "00000000-0000-0000-0000-000000000119",
+    "response_time": "2001-05-07 13:19:00"
+  }
+}

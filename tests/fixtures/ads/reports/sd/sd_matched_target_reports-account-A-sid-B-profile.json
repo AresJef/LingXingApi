@@ -1,0 +1,37 @@
+{
+  "source": "local_raw",
+  "endpoint": "ads.SdMatchedTargetReports",
+  "response": {
+    "code": 0,
+    "message": "操作成功",
+    "data": [
+      {
+        "profile_id": 9000000000000006,
+        "campaign_id": 700000000000306,
+        "ad_group_id": 600000000000339,
+        "target_id": 300000000000009,
+        "target_text": "\"[{\\\"type\\\": \\\"views\\\", \\\"value\\\": [{\\\"type\\\": \\\"exactProduct\\\"}, {\\\"type\\\": \\\"lookback\\\", \\\"value\\\": \\\"30\\\"}]}]\"",
+        "matched_target": "A00AAAAAAV",
+        "currency": null,
+        "impressions": 2,
+        "clicks": 1,
+        "cost": 1.98,
+        "report_date": "2026-10-01",
+        "same_orders": 0,
+        "orders": 0,
+        "same_sales": 0.0,
+        "sales": 0.0,
+        "units": 0,
+        "new_to_brand_orders": 0,
+        "new_to_brand_sales": 0.0,
+        "new_to_brand_units": 0,
+        "view_impressions": 0
+      }
+    ],
+    "total": 1,
+    "next_token": "MTAwMDAwNjE=",
+    "error_details": [],
+    "request_id": "00000000-0000-0000-0000-0000000000c8",
+    "response_time": "2001-05-07 16:17:00"
+  }
+}

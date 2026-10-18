@@ -1,0 +1,76 @@
+{
+  "format": "ads-fixtures-v3",
+  "source": "local_raw",
+  "endpoint": "ads.SpPlacementHourData",
+  "source_sha256": "83d7202fc82f5d967f8cfa50d448d013f4d92d1e5e57d51083f50802a64a5555",
+  "checks": {
+    "campaign_date_hour": {
+      "status": "proved",
+      "cases": [
+        {
+          "label": "campaign-A",
+          "status": "proved"
+        },
+        {
+          "label": "campaign-B",
+          "status": "proved"
+        },
+        {
+          "label": "reference-end",
+          "status": "proved"
+        }
+      ]
+    },
+    "baseline_stability": {
+      "status": "proved",
+      "complete_data_equal": true,
+      "comparison": "complete_rows_multiset",
+      "ordered_data_equal": true
+    }
+  },
+  "relationships": {
+    "reference": "campaign-A",
+    "end_reference": "reference-end"
+  },
+  "planned_requests": 3,
+  "not_run": [],
+  "samples": [
+    {
+      "label": "campaign-A",
+      "request": {
+        "campaign_id": 70000000000236,
+        "report_date": "2026-10-01"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_placement_hour_data-campaign-A.json",
+      "sha256": "b83f3b5189a8ec3f71cc103600b20104114c26bf7a85c8d1ec987e0787adc2a6"
+    },
+    {
+      "label": "campaign-B",
+      "request": {
+        "campaign_id": 700000000186,
+        "report_date": "2026-10-01"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_placement_hour_data-campaign-B.json",
+      "sha256": "830861096950760266be7fe69ecf52cd9d739896b51b5bb721da3f74bcf76930"
+    },
+    {
+      "label": "reference-end",
+      "request": {
+        "campaign_id": 70000000000236,
+        "report_date": "2026-10-01"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_placement_hour_data-reference-end.json",
+      "sha256": "452ae1bf160cd0f9179eb2fe0f9aecaf29b45184aa0ad7ff54986a0c9bb1cada"
+    }
+  ],
+  "diagnostics": []
+}

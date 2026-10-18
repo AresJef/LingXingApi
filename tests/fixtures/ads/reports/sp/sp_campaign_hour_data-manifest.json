@@ -1,0 +1,76 @@
+{
+  "format": "ads-fixtures-v3",
+  "source": "local_raw",
+  "endpoint": "ads.SpCampaignHourData",
+  "source_sha256": "1df88bbdc448ddc415e18ed1c652bf2d1ad6a26e3ba08818e6457a044376c05f",
+  "checks": {
+    "campaign_date_hour": {
+      "status": "proved",
+      "cases": [
+        {
+          "label": "campaign-A",
+          "status": "proved"
+        },
+        {
+          "label": "campaign-B",
+          "status": "proved"
+        },
+        {
+          "label": "reference-end",
+          "status": "proved"
+        }
+      ]
+    },
+    "baseline_stability": {
+      "status": "proved",
+      "complete_data_equal": true,
+      "comparison": "complete_rows_multiset",
+      "ordered_data_equal": true
+    }
+  },
+  "relationships": {
+    "reference": "campaign-A",
+    "end_reference": "reference-end"
+  },
+  "planned_requests": 3,
+  "not_run": [],
+  "samples": [
+    {
+      "label": "campaign-A",
+      "request": {
+        "campaign_id": 70000000000236,
+        "report_date": "2026-10-01"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_campaign_hour_data-campaign-A.json",
+      "sha256": "cd78fa319eac0f288fc73378be69869a72a266f6d09623978f8c7f9df26f0c7c"
+    },
+    {
+      "label": "campaign-B",
+      "request": {
+        "campaign_id": 700000000186,
+        "report_date": "2026-10-01"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_campaign_hour_data-campaign-B.json",
+      "sha256": "f6e82b4c565b0eebc56769f26c68f0c38ff2c5aa3b95a027c903e3cacde592e3"
+    },
+    {
+      "label": "reference-end",
+      "request": {
+        "campaign_id": 70000000000236,
+        "report_date": "2026-10-01"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_campaign_hour_data-reference-end.json",
+      "sha256": "5fded03a714f60a76023add65d87d06c254f3971118b7cb9a5a686a7843dac29"
+    }
+  ],
+  "diagnostics": []
+}

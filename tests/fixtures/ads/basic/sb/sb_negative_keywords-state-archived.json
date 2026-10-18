@@ -1,0 +1,39 @@
+{
+  "source": "local_raw",
+  "endpoint": "ads.SbNegativeKeywords",
+  "response": {
+    "code": 0,
+    "message": "操作成功",
+    "data": [
+      {
+        "campaign_id": 700000000000000058,
+        "ad_group_id": 600000000000000046,
+        "profile_id": 90000000000009,
+        "keyword_id": 400000000000000018,
+        "keyword_text": "aaaaa aaa 050",
+        "state": "archived",
+        "match_type": "negativeExact",
+        "creation_date": 1604053202000,
+        "last_updated_date": 1761008262079,
+        "serving_status": null
+      },
+      {
+        "campaign_id": 700000000000000057,
+        "ad_group_id": 600000000000000050,
+        "profile_id": 90000000000009,
+        "keyword_id": 400000000000000020,
+        "keyword_text": "aaaaa 000aa aaaaa aaa aaaaaaabv",
+        "state": "archived",
+        "match_type": "negativeExact",
+        "creation_date": 1686820676567,
+        "last_updated_date": 1762498813222,
+        "serving_status": null
+      }
+    ],
+    "total": 91,
+    "next_token": "MTAwMDAwMDAwMDAwMDAwMDA5",
+    "error_details": [],
+    "request_id": "00000000-0000-0000-0000-0000000001fe",
+    "response_time": "2001-05-07 09:18:00"
+  }
+}

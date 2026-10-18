@@ -1,0 +1,59 @@
+{
+  "source": "local_raw",
+  "endpoint": "ads.Portfolios",
+  "response": {
+    "code": 0,
+    "message": "操作成功",
+    "data": [
+      {
+        "portfolio_id": 800000000013,
+        "profile_id": 90000000000009,
+        "name": "A000000AAA-000 0A0A 组",
+        "budget": "{\"amount\": 1.0, \"policy\": \"dateRange\", \"startDate\": \"20260313\", \"currencyCode\": \"GBP\"}",
+        "in_budget": 0,
+        "state": "enabled",
+        "creation_date": 1755676941815,
+        "last_updated_date": 1773498441693,
+        "serving_status": "PORTFOLIO_OUT_OF_BUDGET"
+      },
+      {
+        "portfolio_id": 80000000000002,
+        "profile_id": 90000000000009,
+        "name": "AAA 000 000 A0A00A0006",
+        "budget": "{\"policy\": \"noCap\", \"currencyCode\": \"GBP\"}",
+        "in_budget": 1,
+        "state": "enabled",
+        "creation_date": 1686971835729,
+        "last_updated_date": 1713384351812,
+        "serving_status": "PORTFOLIO_STATUS_ENABLED"
+      },
+      {
+        "portfolio_id": 80000000000008,
+        "profile_id": 90000000000009,
+        "name": "000AA--A0AAAAA0AB",
+        "budget": "{\"policy\": \"noCap\", \"currencyCode\": \"GBP\"}",
+        "in_budget": 1,
+        "state": "enabled",
+        "creation_date": 1690862455503,
+        "last_updated_date": 1713383308965,
+        "serving_status": "PORTFOLIO_STATUS_ENABLED"
+      },
+      {
+        "portfolio_id": 80000000000009,
+        "profile_id": 90000000000009,
+        "name": "AA 000 0A-A00AAAA0AD",
+        "budget": "{\"policy\": \"noCap\", \"currencyCode\": \"GBP\"}",
+        "in_budget": 1,
+        "state": "enabled",
+        "creation_date": 1654149124132,
+        "last_updated_date": 1654150409982,
+        "serving_status": "PORTFOLIO_STATUS_ENABLED"
+      }
+    ],
+    "total": 56,
+    "next_token": "MTAwMDAwMDAwMDAwMjk=",
+    "error_details": [],
+    "request_id": "00000000-0000-0000-0000-0000000000e7",
+    "response_time": "2001-05-07 06:35:00"
+  }
+}

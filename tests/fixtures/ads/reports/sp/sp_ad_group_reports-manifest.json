@@ -1,0 +1,288 @@
+{
+  "format": "ads-fixtures-v3",
+  "source": "local_raw",
+  "endpoint": "ads.SpAdGroupReports",
+  "source_sha256": "b14984ee0097a6f73893d0292f78e912e8cba6f2cbcc0ddd847e6f30afffee6c",
+  "checks": {
+    "identifiers": {
+      "status": "proved",
+      "cases": [
+        {
+          "label": "account-A-profile-only",
+          "status": "proved"
+        },
+        {
+          "label": "account-A-sid-only",
+          "status": "proved"
+        },
+        {
+          "label": "account-A-both",
+          "status": "proved"
+        },
+        {
+          "label": "account-B-profile-only",
+          "status": "proved"
+        },
+        {
+          "label": "account-B-sid-only",
+          "status": "proved"
+        },
+        {
+          "label": "account-B-both",
+          "status": "proved"
+        }
+      ]
+    },
+    "cross_identifier_priority": {
+      "observed": "profile_id",
+      "cases": [
+        {
+          "label": "account-A-sid-B-profile",
+          "observed": "profile_id"
+        },
+        {
+          "label": "account-B-sid-A-profile",
+          "observed": "profile_id"
+        }
+      ],
+      "status": "proved"
+    },
+    "offset_concat": {
+      "status": "proved",
+      "complete_data_equal": true
+    },
+    "token_concat": {
+      "status": "proved",
+      "complete_data_equal": true
+    },
+    "token_priority": {
+      "status": "proved",
+      "complete_data_equal": true
+    },
+    "baseline_stability": {
+      "status": "proved",
+      "complete_data_equal": true
+    },
+    "report_date": {
+      "status": "proved"
+    }
+  },
+  "relationships": {
+    "reference": "reference-direct",
+    "end_reference": "reference-end",
+    "offset_pages": [
+      "account-A-profile-only",
+      "offset-second"
+    ],
+    "token_pages": [
+      "account-A-profile-only",
+      "token-second"
+    ],
+    "token_source": "account-A-profile-only",
+    "token_control": "token-second",
+    "token_conflict": "token-priority-conflicting-offset"
+  },
+  "planned_requests": 13,
+  "not_run": [],
+  "samples": [
+    {
+      "label": "account-A-profile-only",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "report_date": "2026-10-01",
+        "show_detail": 0
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_ad_group_reports-account-A-profile-only.json",
+      "sha256": "3b5bca0d98382440a1ed6507d9a5d8e2fec6a7c12dbca24a6e026b246a6d02a1"
+    },
+    {
+      "label": "account-A-sid-only",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "report_date": "2026-10-01",
+        "show_detail": 0,
+        "sid": 1212
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_ad_group_reports-account-A-sid-only.json",
+      "sha256": "232b2988f8d4dc815a453aa7ff98d67833b049c020a33ed04aa8c70d70164aa9"
+    },
+    {
+      "label": "account-A-both",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "report_date": "2026-10-01",
+        "show_detail": 0,
+        "sid": 1212
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_ad_group_reports-account-A-both.json",
+      "sha256": "738dedbef4625b9beacdc091693457e24683d68e3f905262e08fd41bddf9a5c9"
+    },
+    {
+      "label": "account-B-profile-only",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000010,
+        "report_date": "2026-10-01",
+        "show_detail": 0
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_ad_group_reports-account-B-profile-only.json",
+      "sha256": "804fc7f6fcbb7cacf0edc648e1f3845d296494eb110f3267551e9423664c7705"
+    },
+    {
+      "label": "account-B-sid-only",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "report_date": "2026-10-01",
+        "show_detail": 0,
+        "sid": 10016
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_ad_group_reports-account-B-sid-only.json",
+      "sha256": "b72598690464198e742bcc7c938e44ff1d8d3ffb7e321b5496ca6d56c9b5576c"
+    },
+    {
+      "label": "account-B-both",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000010,
+        "report_date": "2026-10-01",
+        "show_detail": 0,
+        "sid": 10016
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_ad_group_reports-account-B-both.json",
+      "sha256": "57e841111ab19f402f34568d5703f01e06bb1f9823bf4237974896f89c078438"
+    },
+    {
+      "label": "account-A-sid-B-profile",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000010,
+        "report_date": "2026-10-01",
+        "show_detail": 0,
+        "sid": 1212
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_ad_group_reports-account-A-sid-B-profile.json",
+      "sha256": "d207b39c1b228a2a9fae0e4d5ff8fe390e91bb17b02c38914b5fcbd4e227b1c8"
+    },
+    {
+      "label": "account-B-sid-A-profile",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "report_date": "2026-10-01",
+        "show_detail": 0,
+        "sid": 10016
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_ad_group_reports-account-B-sid-A-profile.json",
+      "sha256": "33ca22cc1703f2d06783ba58ac4af3159fe37d6270b781557d7a796cc25c3958"
+    },
+    {
+      "label": "reference-direct",
+      "request": {
+        "length": 4,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "report_date": "2026-10-01",
+        "show_detail": 0
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_ad_group_reports-reference-direct.json",
+      "sha256": "30d1def66cdbef1fecf2d59de2555232a8fa6559bc096b25ae748605cc3875f5"
+    },
+    {
+      "label": "offset-second",
+      "request": {
+        "length": 2,
+        "offset": 2,
+        "profile_id": 90000000000009,
+        "report_date": "2026-10-01",
+        "show_detail": 0
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_ad_group_reports-offset-second.json",
+      "sha256": "c348ac83f803a1c7ffcb13bab7e7130ec3ed7de79f9b6daae95555ab9240a5ea"
+    },
+    {
+      "label": "token-second",
+      "request": {
+        "length": 2,
+        "profile_id": 90000000000009,
+        "report_date": "2026-10-01",
+        "show_detail": 0
+      },
+      "next_token_from": "account-A-profile-only",
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_ad_group_reports-token-second.json",
+      "sha256": "762315e76792f8ebb5cd4457dd00906638b2ad1604abdb960ca01026eefde4a8"
+    },
+    {
+      "label": "token-priority-conflicting-offset",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "report_date": "2026-10-01",
+        "show_detail": 0
+      },
+      "next_token_from": "account-A-profile-only",
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_ad_group_reports-token-priority-conflicting-offset.json",
+      "sha256": "9248dcfee81a3d6a7549bf621771acb3baf709eadb00b363fb03307bf373e6e8"
+    },
+    {
+      "label": "reference-end",
+      "request": {
+        "length": 4,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "report_date": "2026-10-01",
+        "show_detail": 0
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_ad_group_reports-reference-end.json",
+      "sha256": "ff40e2cc1e1cff10dcc2ac89cfb3c0956ae1cbe4e06e2c3fc49141129fb44df4"
+    }
+  ],
+  "diagnostics": []
+}

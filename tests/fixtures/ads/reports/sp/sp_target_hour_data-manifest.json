@@ -1,0 +1,79 @@
+{
+  "format": "ads-fixtures-v3",
+  "source": "local_raw",
+  "endpoint": "ads.SpTargetHourData",
+  "source_sha256": "238faeb35e6bd6b96d6a2a878ff09669e79ee23e2a091d7847d5ae6521550844",
+  "checks": {
+    "campaign_date_hour": {
+      "status": "proved",
+      "cases": [
+        {
+          "label": "campaign-A",
+          "status": "proved"
+        },
+        {
+          "label": "campaign-B",
+          "status": "proved"
+        },
+        {
+          "label": "reference-end",
+          "status": "proved"
+        }
+      ]
+    },
+    "baseline_stability": {
+      "status": "proved",
+      "complete_data_equal": true,
+      "comparison": "complete_rows_multiset",
+      "ordered_data_equal": false
+    }
+  },
+  "relationships": {
+    "reference": "campaign-A",
+    "end_reference": "reference-end"
+  },
+  "planned_requests": 3,
+  "not_run": [],
+  "samples": [
+    {
+      "label": "campaign-A",
+      "request": {
+        "agg_dimension": "both_ad_target",
+        "campaign_id": 70000000000236,
+        "report_date": "2026-10-01"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_target_hour_data-campaign-A.json",
+      "sha256": "f6b259cba925956c01d4523219eb324d40a9f012c2ce8e3f830683b9853c13b1"
+    },
+    {
+      "label": "campaign-B",
+      "request": {
+        "agg_dimension": "both_ad_target",
+        "campaign_id": 700000000186,
+        "report_date": "2026-10-01"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_target_hour_data-campaign-B.json",
+      "sha256": "3922f08791a10157743d24e38d5f9f33633f781a31d885221fcb156bda00f0c0"
+    },
+    {
+      "label": "reference-end",
+      "request": {
+        "agg_dimension": "both_ad_target",
+        "campaign_id": 70000000000236,
+        "report_date": "2026-10-01"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_target_hour_data-reference-end.json",
+      "sha256": "b2834c856f13dd7e7fca6e6b2c4a3d1b118610945874d59bcd8d2537000abb55"
+    }
+  ],
+  "diagnostics": []
+}

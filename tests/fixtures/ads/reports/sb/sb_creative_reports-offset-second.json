@@ -1,0 +1,61 @@
+{
+  "source": "local_raw",
+  "endpoint": "ads.SbCreativeReports",
+  "response": {
+    "code": 0,
+    "message": "操作成功",
+    "data": [
+      {
+        "campaign_id": 700000000000047,
+        "ad_group_id": 600000000000196,
+        "profile_id": 900000000000003,
+        "impressions": 1,
+        "clicks": 0,
+        "cost": 0.0,
+        "vtr": 0.0,
+        "vctr": 0.0,
+        "ad_creative_id": 500000000000004,
+        "report_date": "2026-10-01",
+        "same_orders": 0,
+        "orders": 0,
+        "same_sales": 0.0,
+        "sales": 0.0,
+        "new_to_brand_orders": 0,
+        "new_to_brand_order_percentage": 0.0,
+        "new_to_brand_order_rate": 0.0,
+        "new_to_brand_sales": 0.0,
+        "new_to_brand_units": 0,
+        "units": 0,
+        "same_units": 0
+      },
+      {
+        "campaign_id": 700000000000044,
+        "ad_group_id": 600000000000324,
+        "profile_id": 900000000000003,
+        "impressions": 127,
+        "clicks": 2,
+        "cost": 5.24,
+        "vtr": 22.83,
+        "vctr": 6.9,
+        "ad_creative_id": 500000000000006,
+        "report_date": "2026-10-01",
+        "same_orders": 1,
+        "orders": 1,
+        "same_sales": 38.99,
+        "sales": 38.99,
+        "new_to_brand_orders": 1,
+        "new_to_brand_order_percentage": 100.0,
+        "new_to_brand_order_rate": 50.0,
+        "new_to_brand_sales": 38.99,
+        "new_to_brand_units": 1,
+        "units": 1,
+        "same_units": 1
+      }
+    ],
+    "total": 6,
+    "next_token": "MTAwMDAwMDI2",
+    "error_details": [],
+    "request_id": "00000000-0000-0000-0000-00000000019d",
+    "response_time": "2001-05-07 13:45:00"
+  }
+}

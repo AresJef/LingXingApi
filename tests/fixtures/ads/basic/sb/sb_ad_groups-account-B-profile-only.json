@@ -1,0 +1,35 @@
+{
+  "source": "local_raw",
+  "endpoint": "ads.SbAdGroups",
+  "response": {
+    "code": 0,
+    "message": "操作成功",
+    "data": [
+      {
+        "profile_id": 90000000000010,
+        "campaign_id": 7000000000366,
+        "ad_group_id": 600000000000155,
+        "name": "Aa aaaaa - 0000/0/00 00:00:00.007",
+        "state": "enabled",
+        "creation_date": 1779159432784,
+        "last_updated_date": 1779159432784,
+        "serving_status": "CAMPAIGN_PAUSED"
+      },
+      {
+        "profile_id": 90000000000010,
+        "campaign_id": 700000000000155,
+        "ad_group_id": 600000000000156,
+        "name": "Aa aaaaa - 0000/0/11",
+        "state": "enabled",
+        "creation_date": 1790064014074,
+        "last_updated_date": 1790064014074,
+        "serving_status": "AD_GROUP_STATUS_ENABLED"
+      }
+    ],
+    "total": 258,
+    "next_token": "MTAwMDAwMDAwMDAwMDQz",
+    "error_details": [],
+    "request_id": "00000000-0000-0000-0000-00000000008d",
+    "response_time": "2001-05-07 08:24:00"
+  }
+}

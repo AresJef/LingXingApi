@@ -1,0 +1,60 @@
+{
+  "source": "local_raw",
+  "endpoint": "ads.SbCreatives",
+  "response": {
+    "code": 0,
+    "message": "操作成功",
+    "data": [
+      {
+        "video_creatives": [],
+        "campaign_id": 70000000001022,
+        "ad_group_id": 600000000000748,
+        "creative_id": 200614,
+        "ad_creative_id": 500000000000353,
+        "name": "广告示示广 - 00/00/0420",
+        "state": "enabled",
+        "creation_date": 1781009714292,
+        "last_updated_date": 1781018312785,
+        "profile_id": 900000000000003,
+        "serving_status": "AD_STATUS_LIVE",
+        "asin": [
+          "A0AAA0ABU0",
+          "A0AA0A0ASP",
+          "A0AA00A19Y",
+          "A0AAA0ACB5"
+        ],
+        "creative": {
+          "asins": [
+            "A0AAA0ABU0",
+            "A0AA0A0ASP",
+            "A0AA00A19Y",
+            "A0AAA0ACB5"
+          ],
+          "brandLogoCrop": {
+            "top": 0,
+            "left": 0,
+            "width": 800,
+            "height": 800
+          },
+          "brandLogoUrl": "https://a.aaaaa-aaaaaa.aaa/aaaaaa/A/aa-aa-000a0a00-0aaa/000aaaa0-aaa0-000a-00a0-00a0a000000a.abb",
+          "collectionType": "THEMED",
+          "brandName": "AAAAAAY",
+          "creativeStatus": "PUBLISHED",
+          "creativeVersion": "1",
+          "type": "MANUAL_COLLECTION",
+          "title": "000AA AA/AAA - 000/000+ Aaaba",
+          "brandLogoAssetID": "amzn1.assetlibrary.asset1.a0a00000a0aa00a000aa000aa000a16p:version_v1"
+        },
+        "landing_page": {
+          "pageType": "PRODUCT_LIST"
+        },
+        "creative_type": "MANUAL_COLLECTION"
+      }
+    ],
+    "total": 1,
+    "next_token": "MTAwMDU3",
+    "error_details": [],
+    "request_id": "00000000-0000-0000-0000-000000000010",
+    "response_time": "2001-05-07 09:14:00"
+  }
+}

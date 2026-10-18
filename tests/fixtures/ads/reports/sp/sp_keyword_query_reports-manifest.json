@@ -1,0 +1,301 @@
+{
+  "format": "ads-fixtures-v3",
+  "source": "local_raw",
+  "endpoint": "ads.SpKeywordQueryReports",
+  "source_sha256": "906bba5598224048d3d021c94911530b204e9fa6937b1567085a7b26ce51349d",
+  "checks": {
+    "identifiers": {
+      "status": "proved",
+      "cases": [
+        {
+          "label": "account-A-profile-only",
+          "status": "proved"
+        },
+        {
+          "label": "account-A-sid-only",
+          "status": "proved"
+        },
+        {
+          "label": "account-A-both",
+          "status": "proved"
+        },
+        {
+          "label": "account-B-profile-only",
+          "status": "proved"
+        },
+        {
+          "label": "account-B-sid-only",
+          "status": "proved"
+        },
+        {
+          "label": "account-B-both",
+          "status": "proved"
+        }
+      ]
+    },
+    "cross_identifier_priority": {
+      "observed": "profile_id",
+      "cases": [
+        {
+          "label": "account-A-sid-B-profile",
+          "observed": "profile_id"
+        },
+        {
+          "label": "account-B-sid-A-profile",
+          "observed": "profile_id"
+        }
+      ],
+      "status": "proved"
+    },
+    "offset_concat": {
+      "status": "proved",
+      "complete_data_equal": true
+    },
+    "token_concat": {
+      "status": "proved",
+      "complete_data_equal": true
+    },
+    "token_priority": {
+      "status": "proved",
+      "complete_data_equal": true
+    },
+    "baseline_stability": {
+      "status": "proved",
+      "complete_data_equal": true
+    },
+    "report_date": {
+      "status": "proved"
+    }
+  },
+  "relationships": {
+    "reference": "reference-direct",
+    "end_reference": "reference-end",
+    "offset_pages": [
+      "account-A-profile-only",
+      "offset-second"
+    ],
+    "token_pages": [
+      "account-A-profile-only",
+      "token-second"
+    ],
+    "token_source": "account-A-profile-only",
+    "token_control": "token-second",
+    "token_conflict": "token-priority-conflicting-offset"
+  },
+  "planned_requests": 13,
+  "not_run": [],
+  "samples": [
+    {
+      "label": "account-A-profile-only",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "report_date": "2026-10-01",
+        "show_detail": 0,
+        "target_type": "keyword"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_keyword_query_reports-account-A-profile-only.json",
+      "sha256": "0218945d14721f0f9dd742a50c3a1879151997693ba825b2f3212d49ec81fe3a"
+    },
+    {
+      "label": "account-A-sid-only",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "report_date": "2026-10-01",
+        "show_detail": 0,
+        "sid": 1212,
+        "target_type": "keyword"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_keyword_query_reports-account-A-sid-only.json",
+      "sha256": "77cac9ca62d4972c6113fd0984e3639714ebc92087bba46be637dfc562361ab0"
+    },
+    {
+      "label": "account-A-both",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "report_date": "2026-10-01",
+        "show_detail": 0,
+        "sid": 1212,
+        "target_type": "keyword"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_keyword_query_reports-account-A-both.json",
+      "sha256": "d439a8fc2b5942a095736511676a60587bcfef2ad53ca8e53ccace162d35462f"
+    },
+    {
+      "label": "account-B-profile-only",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000010,
+        "report_date": "2026-10-01",
+        "show_detail": 0,
+        "target_type": "keyword"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_keyword_query_reports-account-B-profile-only.json",
+      "sha256": "5aa130c060304e8cc5759e585b68d0fd67c5450074f6ca2c7c115aedc88d7673"
+    },
+    {
+      "label": "account-B-sid-only",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "report_date": "2026-10-01",
+        "show_detail": 0,
+        "sid": 10016,
+        "target_type": "keyword"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_keyword_query_reports-account-B-sid-only.json",
+      "sha256": "e8d4d8b741f15916408051721e0354fa281f2dc427919411dd380b6f1926fe4b"
+    },
+    {
+      "label": "account-B-both",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000010,
+        "report_date": "2026-10-01",
+        "show_detail": 0,
+        "sid": 10016,
+        "target_type": "keyword"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_keyword_query_reports-account-B-both.json",
+      "sha256": "1d7ee78a32abcd9ad01c1599f6a4d8c951da474937bd56c0d2c33f534cd23481"
+    },
+    {
+      "label": "account-A-sid-B-profile",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000010,
+        "report_date": "2026-10-01",
+        "show_detail": 0,
+        "sid": 1212,
+        "target_type": "keyword"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_keyword_query_reports-account-A-sid-B-profile.json",
+      "sha256": "52f30f401dc7a19c470becc6d4379d23c6801a3ec65fcf2b4527adc17b605fcf"
+    },
+    {
+      "label": "account-B-sid-A-profile",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "report_date": "2026-10-01",
+        "show_detail": 0,
+        "sid": 10016,
+        "target_type": "keyword"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_keyword_query_reports-account-B-sid-A-profile.json",
+      "sha256": "640c965b7c4754dcf65ef30d334fb46ca5e0af68490125d6641460722225579f"
+    },
+    {
+      "label": "reference-direct",
+      "request": {
+        "length": 4,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "report_date": "2026-10-01",
+        "show_detail": 0,
+        "target_type": "keyword"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_keyword_query_reports-reference-direct.json",
+      "sha256": "5bac3738beb5bb464a3d969a6d55ece42e3a944a4c7db9c7d0a37911b3e77826"
+    },
+    {
+      "label": "offset-second",
+      "request": {
+        "length": 2,
+        "offset": 2,
+        "profile_id": 90000000000009,
+        "report_date": "2026-10-01",
+        "show_detail": 0,
+        "target_type": "keyword"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_keyword_query_reports-offset-second.json",
+      "sha256": "c053bd0e126e13d27fb7d8cbcab4f7ac70461fa5443f9739c1758b1e219ea50e"
+    },
+    {
+      "label": "token-second",
+      "request": {
+        "length": 2,
+        "profile_id": 90000000000009,
+        "report_date": "2026-10-01",
+        "show_detail": 0,
+        "target_type": "keyword"
+      },
+      "next_token_from": "account-A-profile-only",
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_keyword_query_reports-token-second.json",
+      "sha256": "f1b476622edd12ec486a1df5847545b780ccd30815a587a6b25f7a7ca012638b"
+    },
+    {
+      "label": "token-priority-conflicting-offset",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "report_date": "2026-10-01",
+        "show_detail": 0,
+        "target_type": "keyword"
+      },
+      "next_token_from": "account-A-profile-only",
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_keyword_query_reports-token-priority-conflicting-offset.json",
+      "sha256": "fe84cddad43cf08e7214d9836ad6a9c8ac07b279484a2165a00c2179bf3639ea"
+    },
+    {
+      "label": "reference-end",
+      "request": {
+        "length": 4,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "report_date": "2026-10-01",
+        "show_detail": 0,
+        "target_type": "keyword"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_keyword_query_reports-reference-end.json",
+      "sha256": "f455fac14f721edd60c63353c016ca36c1b108abfca450fe077eb6e4a3663063"
+    }
+  ],
+  "diagnostics": []
+}

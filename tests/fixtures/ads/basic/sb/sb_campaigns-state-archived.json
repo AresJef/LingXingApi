@@ -1,0 +1,53 @@
+{
+  "source": "local_raw",
+  "endpoint": "ads.SbCampaigns",
+  "response": {
+    "code": 0,
+    "message": "操作成功",
+    "data": [
+      {
+        "campaign_id": 700000000000000052,
+        "profile_id": 90000000000009,
+        "name": "AA000-AAABM",
+        "budget": 10.0,
+        "budget_type": "daily",
+        "start_date": "2020-09-15 00:00:00",
+        "state": "archived",
+        "serving_status": "CAMPAIGN_ARCHIVED",
+        "bid_optimization": 1,
+        "creative": null,
+        "landing_page": null,
+        "bid_multiplier": null,
+        "end_date": null,
+        "portfolio_id": 800000000000012,
+        "creative_type": "COLLECTION",
+        "tags": [],
+        "lastOverBudgetAt": null
+      },
+      {
+        "campaign_id": 700000000000000053,
+        "profile_id": 90000000000009,
+        "name": "000 广告0-示示广铺",
+        "budget": 1.0,
+        "budget_type": "daily",
+        "start_date": "2022-06-07 00:00:00",
+        "state": "archived",
+        "serving_status": "CAMPAIGN_ARCHIVED",
+        "bid_optimization": 1,
+        "creative": null,
+        "landing_page": null,
+        "bid_multiplier": null,
+        "end_date": null,
+        "portfolio_id": 800000000000005,
+        "creative_type": "COLLECTION",
+        "tags": [],
+        "lastOverBudgetAt": null
+      }
+    ],
+    "total": 18,
+    "next_token": "MTAwMDAwMDAwMDAwMDAwMDEz",
+    "error_details": [],
+    "request_id": "00000000-0000-0000-0000-000000000282",
+    "response_time": "2001-05-07 08:15:00"
+  }
+}

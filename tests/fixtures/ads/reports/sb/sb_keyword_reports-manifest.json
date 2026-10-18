@@ -1,0 +1,301 @@
+{
+  "format": "ads-fixtures-v3",
+  "source": "local_raw",
+  "endpoint": "ads.SbKeywordReports",
+  "source_sha256": "e5d47d45942970b923a09d63da4db7d7490695ae94dbfe65cf2fc3a0e182761c",
+  "checks": {
+    "identifiers": {
+      "status": "proved",
+      "cases": [
+        {
+          "label": "account-A-profile-only",
+          "status": "proved"
+        },
+        {
+          "label": "account-A-sid-only",
+          "status": "proved"
+        },
+        {
+          "label": "account-A-both",
+          "status": "proved"
+        },
+        {
+          "label": "account-B-profile-only",
+          "status": "proved"
+        },
+        {
+          "label": "account-B-sid-only",
+          "status": "proved"
+        },
+        {
+          "label": "account-B-both",
+          "status": "proved"
+        }
+      ]
+    },
+    "cross_identifier_priority": {
+      "observed": "profile_id",
+      "cases": [
+        {
+          "label": "account-A-sid-B-profile",
+          "observed": "profile_id"
+        },
+        {
+          "label": "account-B-sid-A-profile",
+          "observed": "profile_id"
+        }
+      ],
+      "status": "proved"
+    },
+    "offset_concat": {
+      "status": "proved",
+      "complete_data_equal": true
+    },
+    "token_concat": {
+      "status": "proved",
+      "complete_data_equal": true
+    },
+    "token_priority": {
+      "status": "proved",
+      "complete_data_equal": true
+    },
+    "baseline_stability": {
+      "status": "proved",
+      "complete_data_equal": true
+    },
+    "report_date": {
+      "status": "proved"
+    }
+  },
+  "relationships": {
+    "reference": "reference-direct",
+    "end_reference": "reference-end",
+    "offset_pages": [
+      "account-A-profile-only",
+      "offset-second"
+    ],
+    "token_pages": [
+      "account-A-profile-only",
+      "token-second"
+    ],
+    "token_source": "account-A-profile-only",
+    "token_control": "token-second",
+    "token_conflict": "token-priority-conflicting-offset"
+  },
+  "planned_requests": 13,
+  "not_run": [],
+  "samples": [
+    {
+      "label": "account-A-profile-only",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 900000000000003,
+        "report_date": "2026-10-01",
+        "sponsored_type": "ALL",
+        "target_type": "keyword"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_keyword_reports-account-A-profile-only.json",
+      "sha256": "279dd10e247d5b92abbf5a6ad31e4bd864b1fec68c404b4416bc3352dc51e46c"
+    },
+    {
+      "label": "account-A-sid-only",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "report_date": "2026-10-01",
+        "sid": 1170,
+        "sponsored_type": "ALL",
+        "target_type": "keyword"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_keyword_reports-account-A-sid-only.json",
+      "sha256": "7b5e3cf7a9433adaec08f18cc6eba2b42977eb8b302a948f3e44b33c418dc207"
+    },
+    {
+      "label": "account-A-both",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 900000000000003,
+        "report_date": "2026-10-01",
+        "sid": 1170,
+        "sponsored_type": "ALL",
+        "target_type": "keyword"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_keyword_reports-account-A-both.json",
+      "sha256": "c8673b658aa060c20fd1c5223ed74feaab9482a4d64eb7ac83eccbdd361f59b4"
+    },
+    {
+      "label": "account-B-profile-only",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000010,
+        "report_date": "2026-10-01",
+        "sponsored_type": "ALL",
+        "target_type": "keyword"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_keyword_reports-account-B-profile-only.json",
+      "sha256": "739db202028a3ec5b88c38cf4d6c4790447402ed072695cdff068797d1dd6984"
+    },
+    {
+      "label": "account-B-sid-only",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "report_date": "2026-10-01",
+        "sid": 10016,
+        "sponsored_type": "ALL",
+        "target_type": "keyword"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_keyword_reports-account-B-sid-only.json",
+      "sha256": "5302a4af83ece33acb55b4cb4022ab18ca58cec59ff202ce1845468379cb81af"
+    },
+    {
+      "label": "account-B-both",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000010,
+        "report_date": "2026-10-01",
+        "sid": 10016,
+        "sponsored_type": "ALL",
+        "target_type": "keyword"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_keyword_reports-account-B-both.json",
+      "sha256": "06e5b809b6a3e160db9bd9eee7829e81c97bfca558c39477162082899eb510b4"
+    },
+    {
+      "label": "account-A-sid-B-profile",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000010,
+        "report_date": "2026-10-01",
+        "sid": 1170,
+        "sponsored_type": "ALL",
+        "target_type": "keyword"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_keyword_reports-account-A-sid-B-profile.json",
+      "sha256": "9a03cbf3b856380a9a4222497c48f10c8c6453d7a42f494913a547fac6ae5e48"
+    },
+    {
+      "label": "account-B-sid-A-profile",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 900000000000003,
+        "report_date": "2026-10-01",
+        "sid": 10016,
+        "sponsored_type": "ALL",
+        "target_type": "keyword"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_keyword_reports-account-B-sid-A-profile.json",
+      "sha256": "464f23fc355749212f97f8149674a9fbe1c8dca2a538cffca22d7411eaabb7ac"
+    },
+    {
+      "label": "reference-direct",
+      "request": {
+        "length": 4,
+        "offset": 0,
+        "profile_id": 900000000000003,
+        "report_date": "2026-10-01",
+        "sponsored_type": "ALL",
+        "target_type": "keyword"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_keyword_reports-reference-direct.json",
+      "sha256": "bfb480e9f4b17391653523726848a840a7b3863e933e6c8e23d4f8df073728f2"
+    },
+    {
+      "label": "offset-second",
+      "request": {
+        "length": 2,
+        "offset": 2,
+        "profile_id": 900000000000003,
+        "report_date": "2026-10-01",
+        "sponsored_type": "ALL",
+        "target_type": "keyword"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_keyword_reports-offset-second.json",
+      "sha256": "92bae7983034d25fc5af624618c43bb636adc6d40b5934f7508738871290bb0a"
+    },
+    {
+      "label": "token-second",
+      "request": {
+        "length": 2,
+        "profile_id": 900000000000003,
+        "report_date": "2026-10-01",
+        "sponsored_type": "ALL",
+        "target_type": "keyword"
+      },
+      "next_token_from": "account-A-profile-only",
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_keyword_reports-token-second.json",
+      "sha256": "eed0fe405693e753fd12698c59653ccda584ac3e9555e3477427e41bcba82e41"
+    },
+    {
+      "label": "token-priority-conflicting-offset",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 900000000000003,
+        "report_date": "2026-10-01",
+        "sponsored_type": "ALL",
+        "target_type": "keyword"
+      },
+      "next_token_from": "account-A-profile-only",
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_keyword_reports-token-priority-conflicting-offset.json",
+      "sha256": "39afed4a3ee6f33df138c4ba6d291fec2286cef945977f1928e26e013bfda37b"
+    },
+    {
+      "label": "reference-end",
+      "request": {
+        "length": 4,
+        "offset": 0,
+        "profile_id": 900000000000003,
+        "report_date": "2026-10-01",
+        "sponsored_type": "ALL",
+        "target_type": "keyword"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_keyword_reports-reference-end.json",
+      "sha256": "9a155a5140632b2536258d5978cd237d4a5f2fbbfc29de8a92acee26e416413f"
+    }
+  ],
+  "diagnostics": []
+}

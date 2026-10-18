@@ -1,0 +1,53 @@
+{
+  "source": "local_raw",
+  "endpoint": "ads.SpCampaigns",
+  "response": {
+    "code": 0,
+    "message": "操作成功",
+    "data": [
+      {
+        "campaign_id": 700000000000120,
+        "profile_id": 90000000000009,
+        "name": "广告例壬",
+        "campaign_type": "sponsoredProducts",
+        "targeting_type": "auto",
+        "premium_bid_adjustment": 0,
+        "daily_budget": 15.0,
+        "start_date": "2018-05-18 00:00:00",
+        "end_date": null,
+        "creation_date": 1526691274000,
+        "last_updated_date": 1528269823000,
+        "state": "archived",
+        "serving_status": "CAMPAIGN_ARCHIVED",
+        "bidding": "{\"adjustments\": []}",
+        "portfolio_id": null,
+        "tags": [],
+        "lastOverBudgetAt": null
+      },
+      {
+        "campaign_id": 700000000000006,
+        "profile_id": 90000000000009,
+        "name": "000aa 0a 0g",
+        "campaign_type": "sponsoredProducts",
+        "targeting_type": "auto",
+        "premium_bid_adjustment": 0,
+        "daily_budget": 10.0,
+        "start_date": "2018-05-31 00:00:00",
+        "end_date": null,
+        "creation_date": 1527833240000,
+        "last_updated_date": 1528788734000,
+        "state": "archived",
+        "serving_status": "CAMPAIGN_ARCHIVED",
+        "bidding": "{\"adjustments\": []}",
+        "portfolio_id": null,
+        "tags": [],
+        "lastOverBudgetAt": null
+      }
+    ],
+    "total": 5,
+    "next_token": "MTAwMDY5",
+    "error_details": [],
+    "request_id": "00000000-0000-0000-0000-000000000230",
+    "response_time": "2001-05-07 06:45:00"
+  }
+}

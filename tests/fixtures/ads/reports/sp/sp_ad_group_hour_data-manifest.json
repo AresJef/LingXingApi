@@ -1,0 +1,76 @@
+{
+  "format": "ads-fixtures-v3",
+  "source": "local_raw",
+  "endpoint": "ads.SpAdGroupHourData",
+  "source_sha256": "23530b18753eb8cb1bef11ac97a77f3d876056323a0bc611890fd27254a38519",
+  "checks": {
+    "campaign_date_hour": {
+      "status": "proved",
+      "cases": [
+        {
+          "label": "campaign-A",
+          "status": "proved"
+        },
+        {
+          "label": "campaign-B",
+          "status": "proved"
+        },
+        {
+          "label": "reference-end",
+          "status": "proved"
+        }
+      ]
+    },
+    "baseline_stability": {
+      "status": "proved",
+      "complete_data_equal": true,
+      "comparison": "complete_rows_multiset",
+      "ordered_data_equal": true
+    }
+  },
+  "relationships": {
+    "reference": "campaign-A",
+    "end_reference": "reference-end"
+  },
+  "planned_requests": 3,
+  "not_run": [],
+  "samples": [
+    {
+      "label": "campaign-A",
+      "request": {
+        "campaign_id": 70000000000236,
+        "report_date": "2026-10-01"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_ad_group_hour_data-campaign-A.json",
+      "sha256": "45919b8ea25395ad9ca95de4b5d379abcf553d4a0c0d2d158ca4626c6263c1f6"
+    },
+    {
+      "label": "campaign-B",
+      "request": {
+        "campaign_id": 700000000186,
+        "report_date": "2026-10-01"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_ad_group_hour_data-campaign-B.json",
+      "sha256": "85308c317795e3d2620a2df9410e4912bb25f836431f54ed0eeacec4c9a082b3"
+    },
+    {
+      "label": "reference-end",
+      "request": {
+        "campaign_id": 70000000000236,
+        "report_date": "2026-10-01"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sp_ad_group_hour_data-reference-end.json",
+      "sha256": "cc72693025781f1b8b451da3c289634a2e887c7473563056240a08acdaa33547"
+    }
+  ],
+  "diagnostics": []
+}

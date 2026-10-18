@@ -1,0 +1,59 @@
+{
+  "source": "local_raw",
+  "endpoint": "ads.SbKeywordPlacementReports",
+  "response": {
+    "code": 0,
+    "message": "操作成功",
+    "data": [
+      {
+        "impressions": 2,
+        "clicks": 0,
+        "cost": 0.0,
+        "report_date": "2026-10-01",
+        "profile_id": 9000000000000006,
+        "campaign_id": 700000000000213,
+        "keyword_id": 40000000000116,
+        "keyword_text": "+aa +aaaa +0009",
+        "match_type": "broad",
+        "placement_type": 2,
+        "sales": 0.0,
+        "orders": 0,
+        "new_to_brand_order_rate": 0.0,
+        "new_to_brand_orders": 0,
+        "new_to_brand_order_percentage": 0.0,
+        "new_to_brand_sales": 0.0,
+        "new_to_brand_units": 0,
+        "creative_type": "all",
+        "units": 0,
+        "same_units": 0
+      },
+      {
+        "impressions": 2,
+        "clicks": 0,
+        "cost": 0.0,
+        "report_date": "2026-10-01",
+        "profile_id": 9000000000000006,
+        "campaign_id": 700000000000213,
+        "keyword_id": 400000000000033,
+        "keyword_text": "+aa +aaaaaaa +0000 +aai",
+        "match_type": "broad",
+        "placement_type": 2,
+        "sales": 0.0,
+        "orders": 0,
+        "new_to_brand_order_rate": 0.0,
+        "new_to_brand_orders": 0,
+        "new_to_brand_order_percentage": 0.0,
+        "new_to_brand_sales": 0.0,
+        "new_to_brand_units": 0,
+        "creative_type": "all",
+        "units": 0,
+        "same_units": 0
+      }
+    ],
+    "total": 21,
+    "next_token": "MTAwMDAwMDAwMDAwMDE5",
+    "error_details": [],
+    "request_id": "00000000-0000-0000-0000-00000000015a",
+    "response_time": "2001-05-07 14:13:00"
+  }
+}

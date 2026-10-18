@@ -1,0 +1,267 @@
+{
+  "format": "ads-fixtures-v3",
+  "source": "local_raw",
+  "endpoint": "ads.SbTargetQueryReports",
+  "source_sha256": "39fce3f9cb7a9b6671e978f700ce953f8008331fdfe8a4ad4a6365e1a11bc7f8",
+  "checks": {
+    "identifiers": {
+      "status": "proved",
+      "cases": [
+        {
+          "label": "account-A-profile-only",
+          "status": "proved"
+        },
+        {
+          "label": "account-A-sid-only",
+          "status": "proved"
+        },
+        {
+          "label": "account-A-both",
+          "status": "proved"
+        },
+        {
+          "label": "account-B-profile-only",
+          "status": "proved"
+        },
+        {
+          "label": "account-B-sid-only",
+          "status": "proved"
+        },
+        {
+          "label": "account-B-both",
+          "status": "proved"
+        }
+      ]
+    },
+    "cross_identifier_priority": {
+      "observed": "profile_id",
+      "cases": [
+        {
+          "label": "account-A-sid-B-profile",
+          "observed": "profile_id"
+        },
+        {
+          "label": "account-B-sid-A-profile",
+          "observed": "profile_id"
+        }
+      ],
+      "status": "proved"
+    },
+    "offset_concat": {
+      "status": "proved",
+      "complete_data_equal": true
+    },
+    "token_concat": {
+      "status": "proved",
+      "complete_data_equal": true
+    },
+    "baseline_stability": {
+      "status": "proved",
+      "complete_data_equal": true
+    },
+    "report_date": {
+      "status": "proved"
+    }
+  },
+  "relationships": {
+    "reference": "reference-direct",
+    "end_reference": "reference-end",
+    "offset_pages": [
+      "account-A-profile-only",
+      "offset-second"
+    ],
+    "token_pages": [
+      "account-A-profile-only",
+      "token-second"
+    ],
+    "token_source": "account-A-profile-only"
+  },
+  "planned_requests": 12,
+  "not_run": [],
+  "samples": [
+    {
+      "label": "account-A-profile-only",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 9000000000000005,
+        "report_date": "2026-10-01",
+        "target_type": "target"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_target_query_reports-account-A-profile-only.json",
+      "sha256": "b7615cb58cbc62e52aa0ba045ed25baec5b0e2c80e29779552643111ace016ea"
+    },
+    {
+      "label": "account-A-sid-only",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "report_date": "2026-10-01",
+        "sid": 1175,
+        "target_type": "target"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_target_query_reports-account-A-sid-only.json",
+      "sha256": "f7ff64b2000e8664b83e46f8b551f9e0c8bcb0c964a56a3c5b9b8d72d8c3bc14"
+    },
+    {
+      "label": "account-A-both",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 9000000000000005,
+        "report_date": "2026-10-01",
+        "sid": 1175,
+        "target_type": "target"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_target_query_reports-account-A-both.json",
+      "sha256": "81e7f1cad1b616dfee962cb19c4290f1fc38b01c0318b5c38bd21c593cf48df3"
+    },
+    {
+      "label": "account-B-profile-only",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000010,
+        "report_date": "2026-10-01",
+        "target_type": "target"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_target_query_reports-account-B-profile-only.json",
+      "sha256": "29659493d85ecf6566f79a32abfa27d2e76c6e0a42ecafd2739fb0ebb06ce7af"
+    },
+    {
+      "label": "account-B-sid-only",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "report_date": "2026-10-01",
+        "sid": 10016,
+        "target_type": "target"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_target_query_reports-account-B-sid-only.json",
+      "sha256": "d37f23f7a768c509bdcc53881ea9ea17284c1e70185e842bd5da5581e4938b34"
+    },
+    {
+      "label": "account-B-both",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000010,
+        "report_date": "2026-10-01",
+        "sid": 10016,
+        "target_type": "target"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_target_query_reports-account-B-both.json",
+      "sha256": "e893b7c19e31ed636b8b2d4b787846c2c399b1c79a79785ba247a44e924a4d12"
+    },
+    {
+      "label": "account-A-sid-B-profile",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000010,
+        "report_date": "2026-10-01",
+        "sid": 1175,
+        "target_type": "target"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_target_query_reports-account-A-sid-B-profile.json",
+      "sha256": "ee91bb73c9894b3e948641e80cd8d7b4158d4b0138204f8b2f68fec612c56bbb"
+    },
+    {
+      "label": "account-B-sid-A-profile",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 9000000000000005,
+        "report_date": "2026-10-01",
+        "sid": 10016,
+        "target_type": "target"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_target_query_reports-account-B-sid-A-profile.json",
+      "sha256": "9b3253ced386d33ccedad87c6cb75d7b8ff40c100b9706ab272722fe390062e9"
+    },
+    {
+      "label": "reference-direct",
+      "request": {
+        "length": 4,
+        "offset": 0,
+        "profile_id": 9000000000000005,
+        "report_date": "2026-10-01",
+        "target_type": "target"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_target_query_reports-reference-direct.json",
+      "sha256": "ac5ce9f91b55a1bf3abe7d3f0419864c5ff699c8d8c287c646eabe62a884f1d1"
+    },
+    {
+      "label": "offset-second",
+      "request": {
+        "length": 2,
+        "offset": 2,
+        "profile_id": 9000000000000005,
+        "report_date": "2026-10-01",
+        "target_type": "target"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_target_query_reports-offset-second.json",
+      "sha256": "67b393664831751985dbc6cc5f0cc58948d3e7e51863272c2523ec28e4328c3f"
+    },
+    {
+      "label": "token-second",
+      "request": {
+        "length": 2,
+        "profile_id": 9000000000000005,
+        "report_date": "2026-10-01",
+        "target_type": "target"
+      },
+      "next_token_from": "account-A-profile-only",
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_target_query_reports-token-second.json",
+      "sha256": "74bcfe4ad83adaf9368635c5e70c65d5787c2681eae522f80c340fa7e7f91149"
+    },
+    {
+      "label": "reference-end",
+      "request": {
+        "length": 4,
+        "offset": 0,
+        "profile_id": 9000000000000005,
+        "report_date": "2026-10-01",
+        "target_type": "target"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_target_query_reports-reference-end.json",
+      "sha256": "7a2316b9f27e845d7161e0af623ecf1d2f9bee28794dae28f0bc46a79fb85d1c"
+    }
+  ],
+  "diagnostics": []
+}

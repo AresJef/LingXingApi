@@ -1,0 +1,239 @@
+{
+  "format": "ads-fixtures-v3",
+  "source": "local_raw",
+  "endpoint": "ads.SbCreatives",
+  "source_sha256": "db0f56d72f86df86515ac750ebcbb224a5879712544fe839ac4b6e303a5b1893",
+  "checks": {
+    "identifiers": {
+      "status": "proved",
+      "cases": [
+        {
+          "label": "account-A-profile-only",
+          "status": "proved",
+          "rows": 2
+        },
+        {
+          "label": "account-A-sid-only",
+          "status": "proved",
+          "rows": 2
+        },
+        {
+          "label": "account-A-both",
+          "status": "proved",
+          "rows": 2
+        },
+        {
+          "label": "account-B-profile-only",
+          "status": "proved",
+          "rows": 2
+        }
+      ]
+    },
+    "cross_identifier_priority": {
+      "observed": "profile_id",
+      "cases": [
+        {
+          "label": "account-A-sid-B-profile",
+          "observed": "profile_id"
+        },
+        {
+          "label": "account-B-sid-A-profile",
+          "observed": "profile_id"
+        }
+      ],
+      "status": "proved"
+    },
+    "offset_concat": {
+      "status": "proved",
+      "complete_data_equal": true
+    },
+    "token_concat": {
+      "status": "failed",
+      "complete_data_equal": false
+    },
+    "token_priority": {
+      "status": "failed",
+      "complete_data_equal": false
+    },
+    "baseline_stability": {
+      "status": "proved",
+      "complete_data_equal": true
+    }
+  },
+  "relationships": {
+    "reference": "reference-direct",
+    "offset_pages": [
+      "account-A-profile-only",
+      "offset-second"
+    ],
+    "token_pages": [
+      "account-A-profile-only",
+      "token-second"
+    ],
+    "token_source": "account-A-profile-only",
+    "token_control": "token-second",
+    "token_conflict": "token-priority-conflicting-offset",
+    "end_reference": "reference-end"
+  },
+  "planned_requests": 11,
+  "not_run": [],
+  "samples": [
+    {
+      "label": "account-A-profile-only",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000009
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_creatives-account-A-profile-only.json",
+      "sha256": "b753325e1e378aaa792e1811f1b2dcb80dcf655026a7569369beadc21441b7f4"
+    },
+    {
+      "label": "account-A-sid-only",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "sid": 1212
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_creatives-account-A-sid-only.json",
+      "sha256": "f667afd92e1df9255c58a7fde4ea10749784390dd07d7190e521be9696b0f1b9"
+    },
+    {
+      "label": "account-A-both",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "sid": 1212
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_creatives-account-A-both.json",
+      "sha256": "456d15a95d3033975fa724e0a005f3cf80d8e3a9c3f83c149021b4d27bda8f61"
+    },
+    {
+      "label": "account-B-profile-only",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000010
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_creatives-account-B-profile-only.json",
+      "sha256": "3f59a652abfaa2f0000404b676e21b59a54b49c7d75d2946a02d410b87a71cba"
+    },
+    {
+      "label": "account-A-sid-B-profile",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000010,
+        "sid": 1212
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_creatives-account-A-sid-B-profile.json",
+      "sha256": "4566f1ff3e969ab4714af746b71494f41d0d4a323df3f4d22a82a41b5278ae04"
+    },
+    {
+      "label": "account-B-sid-A-profile",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "sid": 10016
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_creatives-account-B-sid-A-profile.json",
+      "sha256": "32f5b1171dfe138734d81ab83a08fa488967e351cc68110a4b43e105c140d09e"
+    },
+    {
+      "label": "reference-direct",
+      "request": {
+        "length": 4,
+        "offset": 0,
+        "profile_id": 90000000000009
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_creatives-reference-direct.json",
+      "sha256": "fbc46a3e3dfb9d71331722ed4e28765a14e680c21548a091764035ca43251f9b"
+    },
+    {
+      "label": "offset-second",
+      "request": {
+        "length": 2,
+        "offset": 2,
+        "profile_id": 90000000000009
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_creatives-offset-second.json",
+      "sha256": "7dcdcf1740c2bbfe10204cd35080bab1d7e72eac7e80f5a31491a77ad821908e"
+    },
+    {
+      "label": "token-second",
+      "request": {
+        "length": 2,
+        "profile_id": 90000000000009
+      },
+      "next_token_from": "account-A-profile-only",
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_creatives-token-second.json",
+      "sha256": "26a5a39d5d6da8b279f3ee7beef1b847491d35782dd0b86a3bc785955c80f39b"
+    },
+    {
+      "label": "token-priority-conflicting-offset",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000009
+      },
+      "next_token_from": "account-A-profile-only",
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_creatives-token-priority-conflicting-offset.json",
+      "sha256": "9e219382c4f3c4559c02446cf2f40d28cfec706ea1f2931c21a074043a6be87a"
+    },
+    {
+      "label": "reference-end",
+      "request": {
+        "length": 4,
+        "offset": 0,
+        "profile_id": 90000000000009
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_creatives-reference-end.json",
+      "sha256": "7851a1033910222409e70a75dfb3bcd1578aba0836d2d82e44e1e2b0ad6faf09"
+    }
+  ],
+  "limitations": [
+    "已确认上游分页限制：offset/length与next_token可能重复或遗漏；分页checks保留原未通过结果，本次成功仅指字段核验与产物保存，不表示分页一致性通过。",
+    "本次日常窗口的video_creatives没有非空元素；该标记仅描述本清单，不代表独立补充证据的覆盖范围。",
+    "可选字段省略及已批准空列表沿用SDK默认行为；独立补充证据已覆盖非空video_creatives、subpages和排除ASIN，非空versions仍未观察；视频内部保持不建模、无损保留。"
+  ],
+  "validation": {
+    "schema": "passed",
+    "redaction": "passed",
+    "pagination": "accepted_upstream_limit",
+    "real_nonempty_video_observed": false
+  },
+  "diagnostics": []
+}

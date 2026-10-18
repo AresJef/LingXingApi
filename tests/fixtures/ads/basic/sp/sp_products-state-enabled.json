@@ -1,0 +1,41 @@
+{
+  "source": "local_raw",
+  "endpoint": "ads.SpProducts",
+  "response": {
+    "code": 0,
+    "message": "操作成功",
+    "data": [
+      {
+        "video_details": [],
+        "profile_id": 90000000000009,
+        "campaign_id": 7000000000389,
+        "ad_group_id": 600000000000031,
+        "ad_id": 50000000004,
+        "state": "enabled",
+        "sku": "000aaAA 000DC",
+        "asin": "A00A0AAAB1",
+        "creation_date": 1599466635000,
+        "last_updated_date": 1599466635000,
+        "serving_status": "CAMPAIGN_PAUSED"
+      },
+      {
+        "video_details": [],
+        "profile_id": 90000000000009,
+        "campaign_id": 700000000000115,
+        "ad_group_id": 600000000000134,
+        "ad_id": 500000000546,
+        "state": "enabled",
+        "sku": "000-0A2Z",
+        "asin": "A00A0AAAS2",
+        "creation_date": 1655888375369,
+        "last_updated_date": 1655888375369,
+        "serving_status": "CAMPAIGN_PAUSED"
+      }
+    ],
+    "total": 1041,
+    "next_token": "MTAwMDAwMDAwMDgy",
+    "error_details": [],
+    "request_id": "00000000-0000-0000-0000-000000000027",
+    "response_time": "2001-05-07 07:11:00"
+  }
+}

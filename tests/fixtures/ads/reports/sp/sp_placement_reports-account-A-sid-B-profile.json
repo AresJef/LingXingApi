@@ -1,0 +1,45 @@
+{
+  "source": "local_raw",
+  "endpoint": "ads.SpPlacementReports",
+  "response": {
+    "code": 0,
+    "message": "操作成功",
+    "data": [
+      {
+        "profile_id": 90000000000010,
+        "impressions": 11,
+        "clicks": 0,
+        "cost": 0.0,
+        "report_date": "2026-10-01",
+        "placement_type": "DETAIL PAGE ON-AMAZON",
+        "campaign_id": 700000000000100,
+        "same_orders": 0,
+        "orders": 0,
+        "same_sales": 0.0,
+        "sales": 0.0,
+        "units": 0,
+        "same_units": 0
+      },
+      {
+        "profile_id": 90000000000010,
+        "impressions": 2,
+        "clicks": 0,
+        "cost": 0.0,
+        "report_date": "2026-10-01",
+        "placement_type": "OTHER ON-AMAZON",
+        "campaign_id": 70000000000323,
+        "same_orders": 0,
+        "orders": 0,
+        "same_sales": 0.0,
+        "sales": 0.0,
+        "units": 0,
+        "same_units": 0
+      }
+    ],
+    "total": 1161,
+    "next_token": "MDBhYTAwMDAwMDAwYTBhMGEwMGEwMDAwMDAwMGFhYTI=",
+    "error_details": [],
+    "request_id": "00000000-0000-0000-0000-000000000085",
+    "response_time": "2001-05-07 11:17:00"
+  }
+}

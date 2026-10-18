@@ -1,0 +1,49 @@
+{
+  "source": "local_raw",
+  "endpoint": "ads.SbTargets",
+  "response": {
+    "code": 0,
+    "message": "操作成功",
+    "data": [
+      {
+        "campaign_id": 700000000000000053,
+        "ad_group_id": 600000000000000047,
+        "keyword_id": null,
+        "keyword_text": null,
+        "keyword_bid": null,
+        "keyword_state": null,
+        "match_type": null,
+        "target_id": 300000000000000012,
+        "expression": "[{\"type\": \"asinSameAs\", \"value\": \"A00AA0AAGI\"}]",
+        "target_bid": 1.0,
+        "target_state": "paused",
+        "resolved_expression": "[{\"type\": \"asinSameAs\", \"value\": \"A00AA0AAGI\"}]",
+        "targeting_type": "producttarget",
+        "ads_type": "SB",
+        "profile_id": 90000000000009
+      },
+      {
+        "campaign_id": 700000000000000053,
+        "ad_group_id": 600000000000000047,
+        "keyword_id": null,
+        "keyword_text": null,
+        "keyword_bid": null,
+        "keyword_state": null,
+        "match_type": null,
+        "target_id": 300000000000000013,
+        "expression": "[{\"type\": \"asinSameAs\", \"value\": \"A00A0AAAD0\"}]",
+        "target_bid": 0.5,
+        "target_state": "paused",
+        "resolved_expression": "[{\"type\": \"asinSameAs\", \"value\": \"A00A0AAAD0\"}]",
+        "targeting_type": "producttarget",
+        "ads_type": "SB",
+        "profile_id": 90000000000009
+      }
+    ],
+    "total": 11,
+    "next_token": "MTAwMDAwMDAwMDAwMDAwMDEx",
+    "error_details": [],
+    "request_id": "00000000-0000-0000-0000-0000000001b6",
+    "response_time": "2001-05-07 08:59:00"
+  }
+}

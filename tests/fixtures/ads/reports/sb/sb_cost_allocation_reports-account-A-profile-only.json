@@ -1,0 +1,57 @@
+{
+  "source": "local_raw",
+  "endpoint": "ads.SbCostAllocationReports",
+  "response": {
+    "code": 0,
+    "message": "操作成功",
+    "data": [
+      {
+        "report_date": "2026-10-01",
+        "profile_id": 900000000000003,
+        "campaign_id": 700000000000047,
+        "department_id": 200000000000000001,
+        "ad_group_id": 600000000000196,
+        "transaction_uuid": null,
+        "asin": "A0AA0AA0HK",
+        "sku": "000-0-AAA-AA-00AA-0A0A-AA-ACW",
+        "impressions": 0.3333,
+        "clicks": 0.0,
+        "spends": 0.0,
+        "orders": 0.0,
+        "sales": 0.0,
+        "units_sold": 0.0,
+        "same_orders": 0.0,
+        "same_sales": 0.0,
+        "same_units_sold": 0.0,
+        "divide_asin_md5": "00a0aa0000aa000a0aa0a0a0a00a0003",
+        "percent": 0.3333
+      },
+      {
+        "report_date": "2026-10-01",
+        "profile_id": 900000000000003,
+        "campaign_id": 700000000000047,
+        "department_id": 200000000000000001,
+        "ad_group_id": 600000000000196,
+        "transaction_uuid": null,
+        "asin": "A0AAA00AHL",
+        "sku": "000-0-AAA-AA-00AA-0A0A-AA-ACV",
+        "impressions": 0.3333,
+        "clicks": 0.0,
+        "spends": 0.0,
+        "orders": 0.0,
+        "sales": 0.0,
+        "units_sold": 0.0,
+        "same_orders": 0.0,
+        "same_sales": 0.0,
+        "same_units_sold": 0.0,
+        "divide_asin_md5": "00a00000aa000a00000aaa000a0aaa04",
+        "percent": 0.3333
+      }
+    ],
+    "total": 18,
+    "next_token": "MTAwMDAwMDQw",
+    "error_details": [],
+    "request_id": "00000000-0000-0000-0000-00000000028a",
+    "response_time": "2001-05-07 15:04:00"
+  }
+}

@@ -1,0 +1,127 @@
+{
+  "source": "local_raw",
+  "endpoint": "ads.AdsOperationLogs",
+  "response": {
+    "code": 0,
+    "message": "操作成功",
+    "data": [
+      {
+        "profile_id": 90000000000009,
+        "sponsored_type": "sp",
+        "operate_type": "campaigns",
+        "campaign_id": 700000000000013,
+        "ad_group_id": null,
+        "object_id": 700000000000013,
+        "campaign_name": "000-0AAAAB",
+        "ad_group_name": null,
+        "object_name": "000-0AAAAB",
+        "function_name": "history",
+        "change_type": "update",
+        "operate_before": [
+          {
+            "code": "BUDGET_AMOUNT",
+            "value": "1.0"
+          }
+        ],
+        "operate_after": [
+          {
+            "code": "BUDGET_AMOUNT",
+            "value": "5.0"
+          }
+        ],
+        "user_id": 0,
+        "user_name": "用户用户色",
+        "operate_time": "2026-10-02 00:03:17"
+      },
+      {
+        "profile_id": 90000000000009,
+        "sponsored_type": "sp",
+        "operate_type": "campaigns",
+        "campaign_id": 70000000000268,
+        "ad_group_id": null,
+        "object_id": 70000000000268,
+        "campaign_name": "AA-000AAA-AAABJ",
+        "ad_group_name": null,
+        "object_name": "AA-000AAA-AAABJ",
+        "function_name": "history",
+        "change_type": "update",
+        "operate_before": [
+          {
+            "code": "BUDGET_AMOUNT",
+            "value": "1.0"
+          }
+        ],
+        "operate_after": [
+          {
+            "code": "BUDGET_AMOUNT",
+            "value": "5.0"
+          }
+        ],
+        "user_id": 0,
+        "user_name": "用户用户色",
+        "operate_time": "2026-10-02 00:03:17"
+      },
+      {
+        "profile_id": 90000000000009,
+        "sponsored_type": "sp",
+        "operate_type": "campaigns",
+        "campaign_id": 70000000000298,
+        "ad_group_id": null,
+        "object_id": 70000000000298,
+        "campaign_name": "000-AAA-AAAJ",
+        "ad_group_name": null,
+        "object_name": "000-AAA-AAAJ",
+        "function_name": "history",
+        "change_type": "update",
+        "operate_before": [
+          {
+            "code": "BUDGET_AMOUNT",
+            "value": "1.0"
+          }
+        ],
+        "operate_after": [
+          {
+            "code": "BUDGET_AMOUNT",
+            "value": "5.0"
+          }
+        ],
+        "user_id": 0,
+        "user_name": "用户用户色",
+        "operate_time": "2026-10-02 00:03:17"
+      },
+      {
+        "profile_id": 90000000000009,
+        "sponsored_type": "sp",
+        "operate_type": "campaigns",
+        "campaign_id": 700000000000187,
+        "ad_group_id": null,
+        "object_id": 700000000000187,
+        "campaign_name": "000-0.0-0AH",
+        "ad_group_name": null,
+        "object_name": "000-0.0-0AH",
+        "function_name": "history",
+        "change_type": "update",
+        "operate_before": [
+          {
+            "code": "BUDGET_AMOUNT",
+            "value": "1.0"
+          }
+        ],
+        "operate_after": [
+          {
+            "code": "BUDGET_AMOUNT",
+            "value": "5.0"
+          }
+        ],
+        "user_id": 0,
+        "user_name": "用户用户色",
+        "operate_time": "2026-10-02 00:03:17"
+      }
+    ],
+    "total": 216,
+    "next_token": null,
+    "error_details": [],
+    "request_id": "00000000-0000-0000-0000-000000000055",
+    "response_time": "2001-05-07 16:36:00"
+  }
+}

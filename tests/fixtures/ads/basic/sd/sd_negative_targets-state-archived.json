@@ -1,0 +1,14 @@
+{
+  "source": "local_raw",
+  "endpoint": "ads.SdNegativeTargets",
+  "response": {
+    "code": 0,
+    "message": "操作成功",
+    "data": [],
+    "total": 0,
+    "next_token": "",
+    "error_details": [],
+    "request_id": "00000000-0000-0000-0000-000000000227",
+    "response_time": "2001-05-07 10:50:00"
+  }
+}

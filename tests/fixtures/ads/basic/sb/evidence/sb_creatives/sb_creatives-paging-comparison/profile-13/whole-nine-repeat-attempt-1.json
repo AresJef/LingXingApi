@@ -1,0 +1,339 @@
+{
+  "source": "local_raw",
+  "endpoint": "ads.SbCreatives",
+  "response": {
+    "code": 0,
+    "message": "操作成功",
+    "data": [
+      {
+        "video_creatives": [],
+        "campaign_id": 700000000000576,
+        "ad_group_id": 600000000000230,
+        "creative_id": 20127,
+        "ad_creative_id": 50000000000595,
+        "name": "Aaaa aaaaaa aaa aaaaa 000 aaaaa anc",
+        "state": "enabled",
+        "creation_date": 1670320128678,
+        "last_updated_date": 1715825371868,
+        "profile_id": 900000000000004,
+        "serving_status": "CAMPAIGN_PAUSED",
+        "asin": [
+          "A0AAAA0APM"
+        ],
+        "creative": {
+          "asins": [
+            "A0AAAA0APM"
+          ],
+          "creativeStatus": "PUBLISHED",
+          "creativeVersion": "1",
+          "consentToTranslate": false,
+          "videoAssetIds": [
+            "amzn1.assetlibrary.asset1.0000a000000000aa0aa000aa0a000185:version_v1"
+          ],
+          "type": "VIDEO",
+          "originalVideoAssetIds": [
+            "amzn1.assetlibrary.asset1.0000a000000000aa0aa000aa0a000185:version_v1"
+          ]
+        },
+        "landing_page": {
+          "pageType": "DETAIL_PAGE",
+          "url": "https://aaa.aaaaaa.aaa/aa/A0AAAA0ARZ"
+        },
+        "creative_type": "VIDEO"
+      },
+      {
+        "video_creatives": [],
+        "campaign_id": 70000000000640,
+        "ad_group_id": 60000000001119,
+        "creative_id": 20143,
+        "ad_creative_id": 50000000000620,
+        "name": "Aaaa aaaa aaaaa aaa aaaaa 000 000 aa aaa aaaaaaaanb",
+        "state": "enabled",
+        "creation_date": 1670236524275,
+        "last_updated_date": 1715810101527,
+        "profile_id": 900000000000004,
+        "serving_status": "CAMPAIGN_PAUSED",
+        "asin": [
+          "A0AA00AB5L"
+        ],
+        "creative": {
+          "asins": [
+            "A0AA00AB5L"
+          ],
+          "creativeStatus": "PUBLISHED",
+          "creativeVersion": "1",
+          "consentToTranslate": false,
+          "videoAssetIds": [
+            "amzn1.assetlibrary.asset1.0000a000000000aa0aa000aa0a000185:version_v1"
+          ],
+          "type": "VIDEO",
+          "originalVideoAssetIds": [
+            "amzn1.assetlibrary.asset1.0000a000000000aa0aa000aa0a000185:version_v1"
+          ]
+        },
+        "landing_page": {
+          "pageType": "DETAIL_PAGE",
+          "url": "https://aaa.aaaaaa.aaa/aa/A0AA00AB7Y"
+        },
+        "creative_type": "VIDEO"
+      },
+      {
+        "video_creatives": [],
+        "campaign_id": 700000000000034,
+        "ad_group_id": 600000000000057,
+        "creative_id": 20140,
+        "ad_creative_id": 50000000000621,
+        "name": "000-0A-00AA-0A0A-AA-AAA-A0AA0AAA0C",
+        "state": "enabled",
+        "creation_date": 1670307220756,
+        "last_updated_date": 1715824348485,
+        "profile_id": 900000000000004,
+        "serving_status": "CAMPAIGN_PAUSED",
+        "asin": [
+          "A0AA0AAB5Q"
+        ],
+        "creative": {
+          "asins": [
+            "A0AA0AAB5Q"
+          ],
+          "creativeStatus": "PUBLISHED",
+          "creativeVersion": "1",
+          "consentToTranslate": false,
+          "videoAssetIds": [
+            "amzn1.assetlibrary.asset1.0000a000000000aa0aa000aa0a000185:version_v1"
+          ],
+          "type": "VIDEO",
+          "originalVideoAssetIds": [
+            "amzn1.assetlibrary.asset1.0000a000000000aa0aa000aa0a000185:version_v1"
+          ]
+        },
+        "landing_page": {
+          "pageType": "DETAIL_PAGE",
+          "url": "https://aaa.aaaaaa.aaa/aa/A0AA0AAB8C"
+        },
+        "creative_type": "VIDEO"
+      },
+      {
+        "video_creatives": [],
+        "campaign_id": 70000000000699,
+        "ad_group_id": 600000000000178,
+        "creative_id": 20128,
+        "ad_creative_id": 500000000000010,
+        "name": "广告 示示 - 00/0/0000 00:05:10",
+        "state": "enabled",
+        "creation_date": 1670042091243,
+        "last_updated_date": 1773224901250,
+        "profile_id": 900000000000004,
+        "serving_status": "CAMPAIGN_PAUSED",
+        "asin": [
+          "A0AA0A00PO"
+        ],
+        "creative": {
+          "asins": [
+            "A0AA0A00PO"
+          ],
+          "creativeStatus": "PUBLISHED",
+          "creativeVersion": "1",
+          "consentToTranslate": false,
+          "videoAssetIds": [
+            "amzn1.assetlibrary.asset1.0000a000000000aa0aa000aa0a000185:version_v1"
+          ],
+          "type": "VIDEO",
+          "originalVideoAssetIds": [
+            "amzn1.assetlibrary.asset1.0000a000000000aa0aa000aa0a000185:version_v1"
+          ]
+        },
+        "landing_page": {
+          "pageType": "DETAIL_PAGE",
+          "url": "https://aaa.aaaaaa.aaa/aa/A0AA0A00SA"
+        },
+        "creative_type": "VIDEO"
+      },
+      {
+        "video_creatives": [],
+        "campaign_id": 70000000000851,
+        "ad_group_id": 600000000000322,
+        "creative_id": 20145,
+        "ad_creative_id": 500000000000012,
+        "name": "AA-00AA-0A0A-AAA-AA-A0AAA0AAEJ",
+        "state": "enabled",
+        "creation_date": 1669608002941,
+        "last_updated_date": 1715836699446,
+        "profile_id": 900000000000004,
+        "serving_status": "CAMPAIGN_PAUSED",
+        "asin": [
+          "A0AAA0AAPI"
+        ],
+        "creative": {
+          "asins": [
+            "A0AAA0AAPI"
+          ],
+          "creativeStatus": "PUBLISHED",
+          "creativeVersion": "1",
+          "consentToTranslate": false,
+          "videoAssetIds": [
+            "amzn1.assetlibrary.asset1.0000000a000a0a0000000a0aa000007k:version_v1"
+          ],
+          "type": "VIDEO",
+          "originalVideoAssetIds": [
+            "amzn1.assetlibrary.asset1.0000000a000a0a0000000a0aa000007k:version_v1"
+          ]
+        },
+        "landing_page": {
+          "pageType": "DETAIL_PAGE",
+          "url": "https://aaa.aaaaaa.aaa/aa/A0AAA0AARV"
+        },
+        "creative_type": "VIDEO"
+      },
+      {
+        "video_creatives": [],
+        "campaign_id": 700000000000244,
+        "ad_group_id": 60000000000945,
+        "creative_id": 20136,
+        "ad_creative_id": 500000000000013,
+        "name": "AA-000AA-0A0A-AAA-AA-A0AAAAAA98.",
+        "state": "enabled",
+        "creation_date": 1669356800727,
+        "last_updated_date": 1715841167875,
+        "profile_id": 900000000000004,
+        "serving_status": "CAMPAIGN_PAUSED",
+        "asin": [
+          "A0AAAAAE00"
+        ],
+        "creative": {
+          "asins": [
+            "A0AAAAAE00"
+          ],
+          "creativeStatus": "PUBLISHED",
+          "creativeVersion": "1",
+          "consentToTranslate": false,
+          "videoAssetIds": [
+            "amzn1.assetlibrary.asset1.0000000a000a0a0000000a0aa000007k:version_v1"
+          ],
+          "type": "VIDEO",
+          "originalVideoAssetIds": [
+            "amzn1.assetlibrary.asset1.0000000a000a0a0000000a0aa000007k:version_v1"
+          ]
+        },
+        "landing_page": {
+          "pageType": "DETAIL_PAGE",
+          "url": "https://aaa.aaaaaa.aaa/aa/A0AAAAAE65"
+        },
+        "creative_type": "VIDEO"
+      },
+      {
+        "video_creatives": [],
+        "campaign_id": 700000000000560,
+        "ad_group_id": 600000000000021,
+        "creative_id": 20125,
+        "ad_creative_id": 500000000000017,
+        "name": "AA-00AA-0A0A-AA-AA-A0AAA0AAEW",
+        "state": "enabled",
+        "creation_date": 1669002267113,
+        "last_updated_date": 1715871675993,
+        "profile_id": 900000000000004,
+        "serving_status": "CAMPAIGN_PAUSED",
+        "asin": [
+          "A0AAA0AAPJ"
+        ],
+        "creative": {
+          "asins": [
+            "A0AAA0AAPJ"
+          ],
+          "creativeStatus": "PUBLISHED",
+          "creativeVersion": "1",
+          "consentToTranslate": false,
+          "videoAssetIds": [
+            "amzn1.assetlibrary.asset1.0000000a000a0a0000000a0aa000007k:version_v1"
+          ],
+          "type": "VIDEO",
+          "originalVideoAssetIds": [
+            "amzn1.assetlibrary.asset1.0000000a000a0a0000000a0aa000007k:version_v1"
+          ]
+        },
+        "landing_page": {
+          "pageType": "DETAIL_PAGE",
+          "url": "https://aaa.aaaaaa.aaa/aa/A0AAA0AARW"
+        },
+        "creative_type": "VIDEO"
+      },
+      {
+        "video_creatives": [],
+        "campaign_id": 7000000001085,
+        "ad_group_id": 60000000001093,
+        "creative_id": 20130,
+        "ad_creative_id": 500000000000026,
+        "name": "Aaaa aaaaaa aaa aaaaa 000 and",
+        "state": "enabled",
+        "creation_date": 1670319668385,
+        "last_updated_date": 1715882018743,
+        "profile_id": 900000000000004,
+        "serving_status": "CAMPAIGN_PAUSED",
+        "asin": [
+          "A0AAAA0APM"
+        ],
+        "creative": {
+          "asins": [
+            "A0AAAA0APM"
+          ],
+          "creativeStatus": "PUBLISHED",
+          "creativeVersion": "1",
+          "consentToTranslate": false,
+          "videoAssetIds": [
+            "amzn1.assetlibrary.asset1.0000a000000000aa0aa000aa0a000185:version_v1"
+          ],
+          "type": "VIDEO",
+          "originalVideoAssetIds": [
+            "amzn1.assetlibrary.asset1.0000a000000000aa0aa000aa0a000185:version_v1"
+          ]
+        },
+        "landing_page": {
+          "pageType": "DETAIL_PAGE",
+          "url": "https://aaa.aaaaaa.aaa/aa/A0AAAA0ARZ"
+        },
+        "creative_type": "VIDEO"
+      },
+      {
+        "video_creatives": [],
+        "campaign_id": 700000000000111,
+        "ad_group_id": 60000000000743,
+        "creative_id": 20134,
+        "ad_creative_id": 500000000000040,
+        "name": "000-AA-00AA-0A0A-AAA-00-A0AA0A00AJ",
+        "state": "enabled",
+        "creation_date": 1670058848834,
+        "last_updated_date": 1715862189871,
+        "profile_id": 900000000000004,
+        "serving_status": "CAMPAIGN_PAUSED",
+        "asin": [
+          "A0AA0A00PO"
+        ],
+        "creative": {
+          "asins": [
+            "A0AA0A00PO"
+          ],
+          "creativeStatus": "PUBLISHED",
+          "creativeVersion": "1",
+          "consentToTranslate": false,
+          "videoAssetIds": [
+            "amzn1.assetlibrary.asset1.0000a000000000aa0aa000aa0a000185:version_v1"
+          ],
+          "type": "VIDEO",
+          "originalVideoAssetIds": [
+            "amzn1.assetlibrary.asset1.0000a000000000aa0aa000aa0a000185:version_v1"
+          ]
+        },
+        "landing_page": {
+          "pageType": "DETAIL_PAGE",
+          "url": "https://aaa.aaaaaa.aaa/aa/A0AA0A00SA"
+        },
+        "creative_type": "VIDEO"
+      }
+    ],
+    "total": 113,
+    "next_token": "MTAwMjI=",
+    "error_details": [],
+    "request_id": "00000000-0000-0000-0000-0000000000eb",
+    "response_time": "2001-05-07 10:31:00"
+  }
+}

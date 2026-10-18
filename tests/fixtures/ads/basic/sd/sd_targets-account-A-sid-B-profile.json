@@ -1,0 +1,43 @@
+{
+  "source": "local_raw",
+  "endpoint": "ads.SdTargets",
+  "response": {
+    "code": 0,
+    "message": "操作成功",
+    "data": [
+      {
+        "target_id": 3000000000030,
+        "campaign_id": 700000000000026,
+        "ad_group_id": 600000000000186,
+        "profile_id": 90000000000010,
+        "expression_type": "manual",
+        "expression": "[{\"type\": \"asinSameAs\", \"value\": \"A0A00AA0HR\"}]",
+        "bid": 0.8,
+        "state": "enabled",
+        "creation_date": 1785483537171,
+        "last_updated_date": 1785490658880,
+        "serving_status": "CAMPAIGN_PAUSED",
+        "resolved_expression": "[{\"type\": \"asinSameAs\", \"value\": \"A0A00AA0HR\"}]"
+      },
+      {
+        "target_id": 3000000000038,
+        "campaign_id": 700000000000292,
+        "ad_group_id": 600000000000215,
+        "profile_id": 90000000000010,
+        "expression_type": "manual",
+        "expression": "[{\"type\": \"purchases\", \"value\": [{\"type\": \"exactProduct\"}, {\"type\": \"lookback\", \"value\": \"30\"}]}]",
+        "bid": 0.5,
+        "state": "enabled",
+        "creation_date": 1742615920605,
+        "last_updated_date": 1742615920609,
+        "serving_status": "CAMPAIGN_PAUSED",
+        "resolved_expression": "[{\"type\": \"purchases\", \"value\": [{\"type\": \"exactProduct\"}, {\"type\": \"lookback\", \"value\": \"30\"}]}]"
+      }
+    ],
+    "total": 92,
+    "next_token": "MTAwMDAwMDAwMDA1NQ==",
+    "error_details": [],
+    "request_id": "00000000-0000-0000-0000-000000000168",
+    "response_time": "2001-05-07 10:32:00"
+  }
+}

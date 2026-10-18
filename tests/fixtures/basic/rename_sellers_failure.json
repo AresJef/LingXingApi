@@ -1,0 +1,23 @@
+{
+  "source": "local_raw",
+  "endpoint": "basic.RenameSellers",
+  "response": {
+    "code": 0,
+    "message": "success",
+    "error_details": [],
+    "request_id": "00000000-0000-0000-0000-00000000001C",
+    "response_time": "2001-05-07 06:09:00",
+    "data": {
+      "success_num": 0,
+      "failure_num": 1,
+      "failure_detail": [
+        {
+          "sid": "0",
+          "name": "TEST",
+          "error": "店铺记录不存在"
+        }
+      ]
+    },
+    "total": 0
+  }
+}

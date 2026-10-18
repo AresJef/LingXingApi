@@ -1,0 +1,164 @@
+{
+  "format": "ads-fixtures-v3",
+  "source": "local_raw",
+  "endpoint": "ads.SbCostAllocationReports",
+  "source_sha256": "1d5a8d3b26ddb03781ba1550036588416c05e67ed7c1c2b181865a7c5f8c15c1",
+  "checks": {
+    "identifiers": {
+      "status": "proved",
+      "cases": [
+        {
+          "label": "account-A-profile-only",
+          "status": "proved"
+        },
+        {
+          "label": "account-B-profile-only",
+          "status": "proved"
+        }
+      ]
+    },
+    "offset_concat": {
+      "status": "proved",
+      "complete_data_equal": true
+    },
+    "token_concat": {
+      "status": "proved",
+      "complete_data_equal": true
+    },
+    "token_priority": {
+      "status": "proved",
+      "complete_data_equal": true
+    },
+    "baseline_stability": {
+      "status": "proved",
+      "complete_data_equal": true
+    },
+    "report_date": {
+      "status": "proved"
+    }
+  },
+  "relationships": {
+    "reference": "reference-direct",
+    "end_reference": "reference-end",
+    "offset_pages": [
+      "account-A-profile-only",
+      "offset-second"
+    ],
+    "token_pages": [
+      "account-A-profile-only",
+      "token-second"
+    ],
+    "token_source": "account-A-profile-only",
+    "token_control": "token-second",
+    "token_conflict": "token-priority-conflicting-offset"
+  },
+  "planned_requests": 7,
+  "not_run": [],
+  "samples": [
+    {
+      "label": "account-A-profile-only",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 900000000000003,
+        "report_date": "2026-10-01",
+        "show_detail": 0
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_cost_allocation_reports-account-A-profile-only.json",
+      "sha256": "e41dc0e439354df2074cc1c05babbec46539a79badce8586821ff40d540373e8"
+    },
+    {
+      "label": "account-B-profile-only",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000010,
+        "report_date": "2026-10-01",
+        "show_detail": 0
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_cost_allocation_reports-account-B-profile-only.json",
+      "sha256": "50e87fa27256b01db13abee29e58be948a5adddfbf469e759ccc3a304fde71c6"
+    },
+    {
+      "label": "reference-direct",
+      "request": {
+        "length": 4,
+        "offset": 0,
+        "profile_id": 900000000000003,
+        "report_date": "2026-10-01",
+        "show_detail": 0
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_cost_allocation_reports-reference-direct.json",
+      "sha256": "efcaabd1a16fd1e99044265beecae91fd3c4a17296c9ef163a4489591b981911"
+    },
+    {
+      "label": "offset-second",
+      "request": {
+        "length": 2,
+        "offset": 2,
+        "profile_id": 900000000000003,
+        "report_date": "2026-10-01",
+        "show_detail": 0
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_cost_allocation_reports-offset-second.json",
+      "sha256": "af4df95d737d3f4364cc626815561d3ed0f093b23f9b085df806266e25fe5c73"
+    },
+    {
+      "label": "token-second",
+      "request": {
+        "length": 2,
+        "profile_id": 900000000000003,
+        "report_date": "2026-10-01",
+        "show_detail": 0
+      },
+      "next_token_from": "account-A-profile-only",
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_cost_allocation_reports-token-second.json",
+      "sha256": "0228b50890c53f8207448a952c6bfc0b8f96ccf2b3acdac3319f1eae022750b0"
+    },
+    {
+      "label": "token-priority-conflicting-offset",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 900000000000003,
+        "report_date": "2026-10-01",
+        "show_detail": 0
+      },
+      "next_token_from": "account-A-profile-only",
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_cost_allocation_reports-token-priority-conflicting-offset.json",
+      "sha256": "6683165b745c793ab969cde4199e2daded72101c85acade105fb861369c13e35"
+    },
+    {
+      "label": "reference-end",
+      "request": {
+        "length": 4,
+        "offset": 0,
+        "profile_id": 900000000000003,
+        "report_date": "2026-10-01",
+        "show_detail": 0
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_cost_allocation_reports-reference-end.json",
+      "sha256": "b29d2e50beb9b5c5e89850d6e4ccc0f08e86034d51bee8af9764095df8dcbe64"
+    }
+  ],
+  "diagnostics": []
+}

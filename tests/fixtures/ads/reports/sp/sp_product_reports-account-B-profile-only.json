@@ -1,0 +1,51 @@
+{
+  "source": "local_raw",
+  "endpoint": "ads.SpProductReports",
+  "response": {
+    "code": 0,
+    "message": "操作成功",
+    "data": [
+      {
+        "ad_id": 500000000000163,
+        "asin": "A0AAAA0AIH",
+        "sku": "000-AA-00AA-0D-H",
+        "ad_group_id": 6000000000374,
+        "impressions": 74,
+        "clicks": 0,
+        "cost": 0.0,
+        "report_date": "2026-10-01",
+        "profile_id": 90000000000010,
+        "campaign_id": 70000000000043,
+        "same_orders": 0,
+        "orders": 0,
+        "same_sales": 0.0,
+        "sales": 0.0,
+        "units": 0,
+        "same_units": 0
+      },
+      {
+        "ad_id": 500000000000166,
+        "asin": "A0AAAA00IT",
+        "sku": "000-AA-000/000-ADG",
+        "ad_group_id": 600000000000051,
+        "impressions": 113,
+        "clicks": 1,
+        "cost": 1.89,
+        "report_date": "2026-10-01",
+        "profile_id": 90000000000010,
+        "campaign_id": 70000000000392,
+        "same_orders": 0,
+        "orders": 0,
+        "same_sales": 0.0,
+        "sales": 0.0,
+        "units": 0,
+        "same_units": 0
+      }
+    ],
+    "total": 587,
+    "next_token": "MTAwMDAwMDAwMDAwMDM1",
+    "error_details": [],
+    "request_id": "00000000-0000-0000-0000-0000000000d0",
+    "response_time": "2001-05-07 11:45:00"
+  }
+}

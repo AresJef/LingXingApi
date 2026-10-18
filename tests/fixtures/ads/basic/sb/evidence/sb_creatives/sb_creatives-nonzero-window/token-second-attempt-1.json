@@ -1,0 +1,123 @@
+{
+  "source": "local_raw",
+  "endpoint": "ads.SbCreatives",
+  "response": {
+    "code": 0,
+    "message": "操作成功",
+    "data": [
+      {
+        "video_creatives": [],
+        "campaign_id": 70000000000746,
+        "ad_group_id": 600000000000200,
+        "creative_id": 20279,
+        "ad_creative_id": 500000000000041,
+        "name": "AA 000 000 广告示示合0.3",
+        "state": "enabled",
+        "creation_date": 1676864530672,
+        "last_updated_date": 1761507974880,
+        "profile_id": 90000000000006,
+        "serving_status": "CAMPAIGN_PAUSED",
+        "asin": [
+          "A00AAAA0DS",
+          "A00A0AA04Z",
+          "A000AA00GB"
+        ],
+        "creative": {
+          "brandLogoCrop": {
+            "top": 0,
+            "left": 0,
+            "width": 1181,
+            "height": 1181
+          },
+          "brandName": "AAAB",
+          "customImageAssetId": "amzn1.assetlibrary.asset1.00aaa0000a00aaa0000a000000a000q0:version_v1",
+          "creativeStatus": "PUBLISHED",
+          "creativeVersion": "1",
+          "customImages": [
+            {
+              "assetId": "amzn1.assetlibrary.asset1.00aaa0000a00aaa0000a000000a000q0:version_v1",
+              "url": "https://a.aaaaa-aaaaaa.aaa/aaaaaa/A/aa-aa-000a0a00-0aaa/aa00aaa0-00a0-0a00-000a-000aaa000000.aey",
+              "crop": {
+                "top": 36,
+                "left": 0,
+                "width": 1200,
+                "height": 628
+              }
+            }
+          ],
+          "consentToTranslate": false,
+          "customImageCrop": {
+            "top": 36,
+            "left": 0,
+            "width": 1200,
+            "height": 628
+          },
+          "customImageUrl": "https://a.aaaaa-aaaaaa.aaa/aaaaaa/A/aa-aa-000a0a00-0aaa/aa00aaa0-00a0-0a00-000a-000aaa000000.aey",
+          "type": "PRODUCT_COLLECTION",
+          "asins": [
+            "A00AAAA0DS",
+            "A00A0AA04Z",
+            "A000AA00GB"
+          ],
+          "brandLogoUrl": "https://a.aaaaa-aaaaaa.aaa/aaaaaa/A/aa-aa-000a0a00-0aaa/00a00000-a00a-0aa0-a00a-0000aaa0a0a0.aad",
+          "originalHeadline": "AAAA 000AA 000AA Aaa Aaaaaaado",
+          "brandLogoAssetID": "AAAaAaaAAAa00aAaaaaA:aaaaaaa_a2",
+          "headline": "AAAA 000AA 000AA Aaa Aaaaaaado"
+        },
+        "landing_page": {
+          "pageType": "PRODUCT_LIST",
+          "url": "https://aaa.aaaaaa.aa.aa/aaaaaa/aaaa/0AAA0000-A0AA-000A-00A0-AAAA0000015Y"
+        },
+        "creative_type": "PRODUCT_COLLECTION"
+      },
+      {
+        "video_creatives": [],
+        "campaign_id": 700000000000000154,
+        "ad_group_id": 600000000000000124,
+        "creative_id": 20280,
+        "ad_creative_id": 0,
+        "name": null,
+        "state": "enabled",
+        "creation_date": 1654581410020,
+        "last_updated_date": 1761509870583,
+        "profile_id": 90000000000006,
+        "serving_status": "CAMPAIGN_ARCHIVED",
+        "asin": [
+          "A00A0A00AJ",
+          "A000A0A0I7",
+          "A0000AAAI4"
+        ],
+        "creative": {
+          "asins": [
+            "A00A0A00AJ",
+            "A000A0A0I7",
+            "A0000AAAI4"
+          ],
+          "brandLogoCrop": {
+            "top": 31,
+            "left": 0,
+            "width": 12453,
+            "height": 3516
+          },
+          "brandLogoUrl": "https://a.aaaaa-aaaaaa.aaa/aaaaaa/A/aa-aa-000a0a00-0aaa/0aa000a0-a000-0a0a-a000-0000aa000000.aae",
+          "brandName": "Aaaaaac",
+          "creativeStatus": "PUBLISHED",
+          "creativeVersion": "1",
+          "type": "PRODUCT_COLLECTION",
+          "brandLogoAssetID": "AAA0aaAaAaaaaaAaaaAA:aaaaaaa_a4",
+          "headline": "Aaaaaaa aaaaaaaaaaaaaa 000 000 AA aaa aaaaaaahs"
+        },
+        "landing_page": {
+          "pageType": "PRODUCT_LIST",
+          "url": "https://aaa.aaaaaa.aa.aa/aaaaaa/aaaa/00A0A000-00AA-00AA-0000-0000AA00A15S"
+        },
+        "creative_type": "PRODUCT_COLLECTION"
+      }
+    ],
+    "total": 37,
+    "next_token": "MTAwMzU=",
+    "error_details": [],
+    "request_id": "00000000-0000-0000-0000-00000000008b",
+    "response_time": "2001-05-07 09:24:00"
+  }
+}

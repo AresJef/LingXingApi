@@ -1,0 +1,41 @@
+{
+  "source": "local_raw",
+  "endpoint": "ads.SpKeywords",
+  "response": {
+    "code": 0,
+    "message": "操作成功",
+    "data": [
+      {
+        "profile_id": 90000000000009,
+        "campaign_id": 700000000000180,
+        "ad_group_id": 600000000000028,
+        "keyword_id": 40000000120,
+        "keyword_text": "aaa aaaaa aa0128",
+        "bid": 0.5,
+        "state": "archived",
+        "match_type": "phrase",
+        "creation_date": 1590138420000,
+        "last_updated_date": 1600678472000,
+        "serving_status": "PORTFOLIO_OUT_OF_BUDGET"
+      },
+      {
+        "profile_id": 90000000000009,
+        "campaign_id": 70000000000370,
+        "ad_group_id": 60000000000154,
+        "keyword_id": 4000000000041,
+        "keyword_text": "aa aaaa 0000 ady",
+        "bid": 0.4,
+        "state": "archived",
+        "match_type": "phrase",
+        "creation_date": 1587717255000,
+        "last_updated_date": 1600680640000,
+        "serving_status": "CAMPAIGN_PAUSED"
+      }
+    ],
+    "total": 654,
+    "next_token": "MTAwMDAwMDAwMDAyNg==",
+    "error_details": [],
+    "request_id": "00000000-0000-0000-0000-0000000001d3",
+    "response_time": "2001-05-07 07:27:00"
+  }
+}

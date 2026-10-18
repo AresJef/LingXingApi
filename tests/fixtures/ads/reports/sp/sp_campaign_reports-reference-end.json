@@ -1,0 +1,75 @@
+{
+  "source": "local_raw",
+  "endpoint": "ads.SpCampaignReports",
+  "response": {
+    "code": 0,
+    "message": "操作成功",
+    "data": [
+      {
+        "targeting_type": null,
+        "impressions": 177,
+        "clicks": 1,
+        "cost": 1.5,
+        "report_date": "2026-10-01",
+        "profile_id": 90000000000009,
+        "campaign_id": 70000000000236,
+        "same_orders": 1,
+        "orders": 1,
+        "same_sales": 16.66,
+        "sales": 16.66,
+        "units": 1,
+        "same_units": 1
+      },
+      {
+        "targeting_type": null,
+        "impressions": 42,
+        "clicks": 1,
+        "cost": 1.05,
+        "report_date": "2026-10-01",
+        "profile_id": 90000000000009,
+        "campaign_id": 70000000000271,
+        "same_orders": 0,
+        "orders": 0,
+        "same_sales": 0.0,
+        "sales": 0.0,
+        "units": 0,
+        "same_units": 0
+      },
+      {
+        "targeting_type": null,
+        "impressions": 1106,
+        "clicks": 2,
+        "cost": 2.64,
+        "report_date": "2026-10-01",
+        "profile_id": 90000000000009,
+        "campaign_id": 70000000000343,
+        "same_orders": 2,
+        "orders": 2,
+        "same_sales": 33.32,
+        "sales": 33.32,
+        "units": 2,
+        "same_units": 2
+      },
+      {
+        "targeting_type": null,
+        "impressions": 1,
+        "clicks": 0,
+        "cost": 0.0,
+        "report_date": "2026-10-01",
+        "profile_id": 90000000000009,
+        "campaign_id": 700000000000096,
+        "same_orders": 0,
+        "orders": 0,
+        "same_sales": 0.0,
+        "sales": 0.0,
+        "units": 0,
+        "same_units": 0
+      }
+    ],
+    "total": 33,
+    "next_token": "MTAwMDAwMDAwMDAwMDIw",
+    "error_details": [],
+    "request_id": "00000000-0000-0000-0000-0000000000b5",
+    "response_time": "2001-05-07 11:08:00"
+  }
+}

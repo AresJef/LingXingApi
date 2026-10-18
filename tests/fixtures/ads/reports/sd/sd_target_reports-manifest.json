@@ -1,0 +1,288 @@
+{
+  "format": "ads-fixtures-v3",
+  "source": "local_raw",
+  "endpoint": "ads.SdTargetReports",
+  "source_sha256": "607752536ea37b2ee43d22a5aed964f7c40e51b9d5fe4979583a4145305362e3",
+  "checks": {
+    "identifiers": {
+      "status": "proved",
+      "cases": [
+        {
+          "label": "account-A-profile-only",
+          "status": "proved"
+        },
+        {
+          "label": "account-A-sid-only",
+          "status": "proved"
+        },
+        {
+          "label": "account-A-both",
+          "status": "proved"
+        },
+        {
+          "label": "account-B-profile-only",
+          "status": "proved"
+        },
+        {
+          "label": "account-B-sid-only",
+          "status": "proved"
+        },
+        {
+          "label": "account-B-both",
+          "status": "proved"
+        }
+      ]
+    },
+    "cross_identifier_priority": {
+      "observed": "profile_id",
+      "cases": [
+        {
+          "label": "account-A-sid-B-profile",
+          "observed": "profile_id"
+        },
+        {
+          "label": "account-B-sid-A-profile",
+          "observed": "profile_id"
+        }
+      ],
+      "status": "proved"
+    },
+    "offset_concat": {
+      "status": "proved",
+      "complete_data_equal": true
+    },
+    "token_concat": {
+      "status": "proved",
+      "complete_data_equal": true
+    },
+    "token_priority": {
+      "status": "proved",
+      "complete_data_equal": true
+    },
+    "baseline_stability": {
+      "status": "proved",
+      "complete_data_equal": true
+    },
+    "report_date": {
+      "status": "proved"
+    }
+  },
+  "relationships": {
+    "reference": "reference-direct",
+    "end_reference": "reference-end",
+    "offset_pages": [
+      "account-A-profile-only",
+      "offset-second"
+    ],
+    "token_pages": [
+      "account-A-profile-only",
+      "token-second"
+    ],
+    "token_source": "account-A-profile-only",
+    "token_control": "token-second",
+    "token_conflict": "token-priority-conflicting-offset"
+  },
+  "planned_requests": 13,
+  "not_run": [],
+  "samples": [
+    {
+      "label": "account-A-profile-only",
+      "request": {
+        "length": 1,
+        "offset": 0,
+        "profile_id": 90000000000010,
+        "report_date": "2026-10-01",
+        "show_detail": 0
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sd_target_reports-account-A-profile-only.json",
+      "sha256": "db42c48b06179fdb5d08c37260eccf2d4a2642fd3a1c0dc6305440afd76aaf30"
+    },
+    {
+      "label": "account-A-sid-only",
+      "request": {
+        "length": 1,
+        "offset": 0,
+        "report_date": "2026-10-01",
+        "show_detail": 0,
+        "sid": 10016
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sd_target_reports-account-A-sid-only.json",
+      "sha256": "a5ebbb7064cee4adea2d7137cbee887c06f3fe760451dec7c296706aec361f39"
+    },
+    {
+      "label": "account-A-both",
+      "request": {
+        "length": 1,
+        "offset": 0,
+        "profile_id": 90000000000010,
+        "report_date": "2026-10-01",
+        "show_detail": 0,
+        "sid": 10016
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sd_target_reports-account-A-both.json",
+      "sha256": "e37cc7aa7d1dcce972366c090f76471af89979ccc5a9d45de2577210426c9ff0"
+    },
+    {
+      "label": "account-B-profile-only",
+      "request": {
+        "length": 1,
+        "offset": 0,
+        "profile_id": 9000000000000006,
+        "report_date": "2026-10-01",
+        "show_detail": 0
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sd_target_reports-account-B-profile-only.json",
+      "sha256": "d469d9dcca61f373aaa80d2b32d0ac0a96c3125fd3e3acc1081c3c535e714181"
+    },
+    {
+      "label": "account-B-sid-only",
+      "request": {
+        "length": 1,
+        "offset": 0,
+        "report_date": "2026-10-01",
+        "show_detail": 0,
+        "sid": 1127
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sd_target_reports-account-B-sid-only.json",
+      "sha256": "a6d3293a335f854058d64e036d5cad7955d86c898dd75cc9e180da14b61ae3c6"
+    },
+    {
+      "label": "account-B-both",
+      "request": {
+        "length": 1,
+        "offset": 0,
+        "profile_id": 9000000000000006,
+        "report_date": "2026-10-01",
+        "show_detail": 0,
+        "sid": 1127
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sd_target_reports-account-B-both.json",
+      "sha256": "b7c6e6865a037ca6ea059e3905308d161dcc64b3a00213f336abfe5c9305dc11"
+    },
+    {
+      "label": "account-A-sid-B-profile",
+      "request": {
+        "length": 1,
+        "offset": 0,
+        "profile_id": 9000000000000006,
+        "report_date": "2026-10-01",
+        "show_detail": 0,
+        "sid": 10016
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sd_target_reports-account-A-sid-B-profile.json",
+      "sha256": "e40859c5078960c3889008196967d087806768d2025f294eec978434e4851529"
+    },
+    {
+      "label": "account-B-sid-A-profile",
+      "request": {
+        "length": 1,
+        "offset": 0,
+        "profile_id": 90000000000010,
+        "report_date": "2026-10-01",
+        "show_detail": 0,
+        "sid": 1127
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sd_target_reports-account-B-sid-A-profile.json",
+      "sha256": "6bfce5afb2fac9a956f921b34a983385b9d626c2842f52a9f42a3836297501bf"
+    },
+    {
+      "label": "reference-direct",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000010,
+        "report_date": "2026-10-01",
+        "show_detail": 0
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sd_target_reports-reference-direct.json",
+      "sha256": "edabc2cdf8863ef693bc07b4e6cca76eccf462779b27c5a83881873d1258a941"
+    },
+    {
+      "label": "offset-second",
+      "request": {
+        "length": 1,
+        "offset": 1,
+        "profile_id": 90000000000010,
+        "report_date": "2026-10-01",
+        "show_detail": 0
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sd_target_reports-offset-second.json",
+      "sha256": "ce1e58a80e4caad903d005328374b3b66e0cb8c7b0a13bd8793eaf066b4f68c1"
+    },
+    {
+      "label": "token-second",
+      "request": {
+        "length": 1,
+        "profile_id": 90000000000010,
+        "report_date": "2026-10-01",
+        "show_detail": 0
+      },
+      "next_token_from": "account-A-profile-only",
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sd_target_reports-token-second.json",
+      "sha256": "e1da1747ea05ba6b7bda1515fbd1a6f43c6ab71704dfe77eed47b1a7c90c8935"
+    },
+    {
+      "label": "token-priority-conflicting-offset",
+      "request": {
+        "length": 1,
+        "offset": 0,
+        "profile_id": 90000000000010,
+        "report_date": "2026-10-01",
+        "show_detail": 0
+      },
+      "next_token_from": "account-A-profile-only",
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sd_target_reports-token-priority-conflicting-offset.json",
+      "sha256": "a283d84daf8363463bdea21a0b15a6ad1711f383a42586b24113b97868450510"
+    },
+    {
+      "label": "reference-end",
+      "request": {
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000010,
+        "report_date": "2026-10-01",
+        "show_detail": 0
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sd_target_reports-reference-end.json",
+      "sha256": "7ae5924d417d4303d16e7cd4a3a1448f997c5c6b7c3a8f68a4f653335c3678fc"
+    }
+  ],
+  "diagnostics": []
+}

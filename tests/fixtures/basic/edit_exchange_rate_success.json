@@ -1,0 +1,13 @@
+{
+  "source": "local_raw",
+  "endpoint": "basic.EditExchangeRate",
+  "response": {
+    "code": 0,
+    "message": "success",
+    "error_details": [],
+    "request_id": "00000000000000000000000000000000.0000000000158",
+    "response_time": "2001-05-07 06:10:00",
+    "data": null,
+    "total": 0
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "source": "local_raw",
+  "endpoint": "ads.SbNegativeTargets",
+  "response": {
+    "code": 0,
+    "message": "操作成功",
+    "data": [
+      {
+        "target_id": 300000000000000003,
+        "campaign_id": 700000000000000056,
+        "ad_group_id": 600000000000000044,
+        "profile_id": 900000000000001,
+        "expression_type": null,
+        "expression": "[{\"type\": \"asinSameAs\", \"value\": \"A000A0AA06\"}]",
+        "resolved_expression": "[{\"type\": \"asinSameAs\", \"value\": \"A000A0AA06\"}]",
+        "state": "archived",
+        "creation_date": 1598667375000,
+        "last_updated_date": 1761017402772,
+        "serving_status": null
+      },
+      {
+        "target_id": 300000000000000004,
+        "campaign_id": 700000000000000056,
+        "ad_group_id": 600000000000000044,
+        "profile_id": 900000000000001,
+        "expression_type": null,
+        "expression": "[{\"type\": \"asinSameAs\", \"value\": \"A00A00A0AJ\"}]",
+        "resolved_expression": "[{\"type\": \"asinSameAs\", \"value\": \"A00A00A0AJ\"}]",
+        "state": "archived",
+        "creation_date": 1598667375000,
+        "last_updated_date": 1761014552800,
+        "serving_status": null
+      }
+    ],
+    "total": 34,
+    "next_token": "MTAwMDAwMDAwMDAwMDAwMDE0",
+    "error_details": [],
+    "request_id": "00000000-0000-0000-0000-0000000001ba",
+    "response_time": "2001-05-07 09:36:00"
+  }
+}

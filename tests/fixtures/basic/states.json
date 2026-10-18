@@ -1,0 +1,279 @@
+{
+  "source": "local_raw",
+  "endpoint": "basic.States",
+  "response": {
+    "code": 0,
+    "message": "success",
+    "error_details": [],
+    "request_id": "00000000-0000-0000-0000-0000000000AF",
+    "response_time": "2001-05-07 06:13:00",
+    "data": [
+      {
+        "country_code": "US",
+        "state_or_province_name": "AL-Alabama",
+        "code": "AL"
+      },
+      {
+        "country_code": "US",
+        "state_or_province_name": "AK-Alaska",
+        "code": "AK"
+      },
+      {
+        "country_code": "US",
+        "state_or_province_name": "AZ-Arizona",
+        "code": "AZ"
+      },
+      {
+        "country_code": "US",
+        "state_or_province_name": "AR-Arkansas",
+        "code": "AR"
+      },
+      {
+        "country_code": "US",
+        "state_or_province_name": "CA-California",
+        "code": "CA"
+      },
+      {
+        "country_code": "US",
+        "state_or_province_name": "CO-Colorado",
+        "code": "CO"
+      },
+      {
+        "country_code": "US",
+        "state_or_province_name": "CT-Connecticut",
+        "code": "CT"
+      },
+      {
+        "country_code": "US",
+        "state_or_province_name": "DE-Delaware",
+        "code": "DE"
+      },
+      {
+        "country_code": "US",
+        "state_or_province_name": "DC-District of Columbia",
+        "code": "DC"
+      },
+      {
+        "country_code": "US",
+        "state_or_province_name": "FL-Florida",
+        "code": "FL"
+      },
+      {
+        "country_code": "US",
+        "state_or_province_name": "GA-Georgia",
+        "code": "GA"
+      },
+      {
+        "country_code": "US",
+        "state_or_province_name": "HI-Hawaii",
+        "code": "HI"
+      },
+      {
+        "country_code": "US",
+        "state_or_province_name": "ID-Idaho",
+        "code": "ID"
+      },
+      {
+        "country_code": "US",
+        "state_or_province_name": "IL-Illinois",
+        "code": "IL"
+      },
+      {
+        "country_code": "US",
+        "state_or_province_name": "IN-Indiana",
+        "code": "IN"
+      },
+      {
+        "country_code": "US",
+        "state_or_province_name": "IA-Iowa",
+        "code": "IA"
+      },
+      {
+        "country_code": "US",
+        "state_or_province_name": "KS-Kansas",
+        "code": "KS"
+      },
+      {
+        "country_code": "US",
+        "state_or_province_name": "KY-Kentucky",
+        "code": "KY"
+      },
+      {
+        "country_code": "US",
+        "state_or_province_name": "LA-Louisiana",
+        "code": "LA"
+      },
+      {
+        "country_code": "US",
+        "state_or_province_name": "ME-Maine",
+        "code": "ME"
+      },
+      {
+        "country_code": "US",
+        "state_or_province_name": "MD-Maryland",
+        "code": "MD"
+      },
+      {
+        "country_code": "US",
+        "state_or_province_name": "MA-Massachusetts",
+        "code": "MA"
+      },
+      {
+        "country_code": "US",
+        "state_or_province_name": "MI-Michigan",
+        "code": "MI"
+      },
+      {
+        "country_code": "US",
+        "state_or_province_name": "MN-Minnesota",
+        "code": "MN"
+      },
+      {
+        "country_code": "US",
+        "state_or_province_name": "MS-Mississippi",
+        "code": "MS"
+      },
+      {
+        "country_code": "US",
+        "state_or_province_name": "MO-Missouri",
+        "code": "MO"
+      },
+      {
+        "country_code": "US",
+        "state_or_province_name": "MT-Montana",
+        "code": "MT"
+      },
+      {
+        "country_code": "US",
+        "state_or_province_name": "NE-Nebraska",
+        "code": "NE"
+      },
+      {
+        "country_code": "US",
+        "state_or_province_name": "NV-Nevada",
+        "code": "NV"
+      },
+      {
+        "country_code": "US",
+        "state_or_province_name": "NH-New Hampshire",
+        "code": "NH"
+      },
+      {
+        "country_code": "US",
+        "state_or_province_name": "NJ-New Jersey",
+        "code": "NJ"
+      },
+      {
+        "country_code": "US",
+        "state_or_province_name": "NM-New Mexico",
+        "code": "NM"
+      },
+      {
+        "country_code": "US",
+        "state_or_province_name": "NY-New York",
+        "code": "NY"
+      },
+      {
+        "country_code": "US",
+        "state_or_province_name": "NC-North Carolina",
+        "code": "NC"
+      },
+      {
+        "country_code": "US",
+        "state_or_province_name": "ND-North Dakota",
+        "code": "ND"
+      },
+      {
+        "country_code": "US",
+        "state_or_province_name": "OH-Ohio",
+        "code": "OH"
+      },
+      {
+        "country_code": "US",
+        "state_or_province_name": "OK-Oklahoma",
+        "code": "OK"
+      },
+      {
+        "country_code": "US",
+        "state_or_province_name": "OR-Oregon",
+        "code": "OR"
+      },
+      {
+        "country_code": "US",
+        "state_or_province_name": "PA-Pennsylvania",
+        "code": "PA"
+      },
+      {
+        "country_code": "US",
+        "state_or_province_name": "RI-Rhode Island",
+        "code": "RI"
+      },
+      {
+        "country_code": "US",
+        "state_or_province_name": "SC-South Carolina",
+        "code": "SC"
+      },
+      {
+        "country_code": "US",
+        "state_or_province_name": "SD-South Dakota",
+        "code": "SD"
+      },
+      {
+        "country_code": "US",
+        "state_or_province_name": "TN-Tennessee",
+        "code": "TN"
+      },
+      {
+        "country_code": "US",
+        "state_or_province_name": "TX-Texas",
+        "code": "TX"
+      },
+      {
+        "country_code": "US",
+        "state_or_province_name": "UT-Utah",
+        "code": "UT"
+      },
+      {
+        "country_code": "US",
+        "state_or_province_name": "VT-Vermont",
+        "code": "VT"
+      },
+      {
+        "country_code": "US",
+        "state_or_province_name": "VA-Virginia",
+        "code": "VA"
+      },
+      {
+        "country_code": "US",
+        "state_or_province_name": "WA-Washington",
+        "code": "WA"
+      },
+      {
+        "country_code": "US",
+        "state_or_province_name": "WV-West Virginia",
+        "code": "WV"
+      },
+      {
+        "country_code": "US",
+        "state_or_province_name": "WI-Wisconsin",
+        "code": "WI"
+      },
+      {
+        "country_code": "US",
+        "state_or_province_name": "WY-Wyoming",
+        "code": "WY"
+      },
+      {
+        "country_code": "US",
+        "state_or_province_name": "PR-Puerto Rico",
+        "code": "PR"
+      },
+      {
+        "country_code": "US",
+        "state_or_province_name": "AA-Armed Forces Americas",
+        "code": "AA"
+      }
+    ],
+    "total": 53
+  }
+}

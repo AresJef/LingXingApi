@@ -1,0 +1,198 @@
+{
+  "source": "local_raw",
+  "endpoint": "basic.Marketplaces",
+  "response": {
+    "code": 0,
+    "message": "success",
+    "error_details": [],
+    "request_id": "00000000-0000-0000-0000-0000000001A1",
+    "response_time": "2001-05-07 06:12:00",
+    "data": [
+      {
+        "mid": 1,
+        "region": "NA",
+        "aws_region": "NA",
+        "country": "美国",
+        "code": "US",
+        "marketplace_id": "ATVPDKIKX0DER"
+      },
+      {
+        "mid": 2,
+        "region": "NA",
+        "aws_region": "NA",
+        "country": "加拿大",
+        "code": "CA",
+        "marketplace_id": "A2EUQ1WTGCTBG2"
+      },
+      {
+        "mid": 3,
+        "region": "NA",
+        "aws_region": "NA",
+        "country": "墨西哥",
+        "code": "MX",
+        "marketplace_id": "A1AM78C64UM0Y8"
+      },
+      {
+        "mid": 4,
+        "region": "EU",
+        "aws_region": "EU",
+        "country": "英国",
+        "code": "UK",
+        "marketplace_id": "A1F83G8C2ARO7P"
+      },
+      {
+        "mid": 5,
+        "region": "EU",
+        "aws_region": "EU",
+        "country": "德国",
+        "code": "DE",
+        "marketplace_id": "A1PA6795UKMFR9"
+      },
+      {
+        "mid": 6,
+        "region": "EU",
+        "aws_region": "EU",
+        "country": "法国",
+        "code": "FR",
+        "marketplace_id": "A13V1IB3VIYZZH"
+      },
+      {
+        "mid": 7,
+        "region": "EU",
+        "aws_region": "EU",
+        "country": "意大利",
+        "code": "IT",
+        "marketplace_id": "APJ6JRA9NG5V4"
+      },
+      {
+        "mid": 8,
+        "region": "EU",
+        "aws_region": "EU",
+        "country": "西班牙",
+        "code": "ES",
+        "marketplace_id": "A1RKKUPIHCS9HS"
+      },
+      {
+        "mid": 9,
+        "region": "IN",
+        "aws_region": "EU",
+        "country": "印度",
+        "code": "IN",
+        "marketplace_id": "A21TJRUUN4KGV"
+      },
+      {
+        "mid": 10,
+        "region": "JP",
+        "aws_region": "FE",
+        "country": "日本",
+        "code": "JP",
+        "marketplace_id": "A1VC38T7YXB528"
+      },
+      {
+        "mid": 11,
+        "region": "CN",
+        "aws_region": "",
+        "country": "中国",
+        "code": "CN",
+        "marketplace_id": "AAHKV2X7AFYLW"
+      },
+      {
+        "mid": 12,
+        "region": "AU",
+        "aws_region": "FE",
+        "country": "澳洲",
+        "code": "AU",
+        "marketplace_id": "A39IBJ37TRP1C6"
+      },
+      {
+        "mid": 13,
+        "region": "AE",
+        "aws_region": "EU",
+        "country": "阿联酋",
+        "code": "AE",
+        "marketplace_id": "A2VIGQ35RCS4UG"
+      },
+      {
+        "mid": 14,
+        "region": "SG",
+        "aws_region": "FE",
+        "country": "新加坡",
+        "code": "SG",
+        "marketplace_id": "A19VAU5U5O7RUS"
+      },
+      {
+        "mid": 15,
+        "region": "EU",
+        "aws_region": "EU",
+        "country": "荷兰",
+        "code": "NL",
+        "marketplace_id": "A1805IZSGTT6HS"
+      },
+      {
+        "mid": 16,
+        "region": "SA",
+        "aws_region": "EU",
+        "country": "沙特阿拉伯",
+        "code": "SA",
+        "marketplace_id": "A17E79C6D8DWNP"
+      },
+      {
+        "mid": 17,
+        "region": "NA",
+        "aws_region": "NA",
+        "country": "巴西",
+        "code": "BR",
+        "marketplace_id": "A2Q3Y263D00KWC"
+      },
+      {
+        "mid": 18,
+        "region": "EU",
+        "aws_region": "EU",
+        "country": "瑞典",
+        "code": "SE",
+        "marketplace_id": "A2NODRKZP88ZB9"
+      },
+      {
+        "mid": 19,
+        "region": "EU",
+        "aws_region": "EU",
+        "country": "波兰",
+        "code": "PL",
+        "marketplace_id": "A1C3SOZRARQ6R3"
+      },
+      {
+        "mid": 20,
+        "region": "TR",
+        "aws_region": "EU",
+        "country": "土耳其",
+        "code": "TR",
+        "marketplace_id": "A33AVAJ2PDY3EV"
+      },
+      {
+        "mid": 21,
+        "region": "EU",
+        "aws_region": "EU",
+        "country": "比利时",
+        "code": "BE",
+        "marketplace_id": "AMEN7PMS3EDWL"
+      },
+      {
+        "mid": 22,
+        "region": "EU",
+        "aws_region": "EU",
+        "country": "爱尔兰",
+        "code": "IE",
+        "marketplace_id": "A28R8C7NBKEWEA"
+      },
+      {
+        "mid": 23,
+        "region": "EU",
+        "aws_region": "EU",
+        "country": "埃及",
+        "code": "EG",
+        "marketplace_id": "ARBP9OOSHTCHU"
+      }
+    ],
+    "total": 0
+  }
+}

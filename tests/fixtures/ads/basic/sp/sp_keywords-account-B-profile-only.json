@@ -1,0 +1,41 @@
+{
+  "source": "local_raw",
+  "endpoint": "ads.SpKeywords",
+  "response": {
+    "code": 0,
+    "message": "操作成功",
+    "data": [
+      {
+        "profile_id": 90000000000010,
+        "campaign_id": 700000000000016,
+        "ad_group_id": 600000000000021,
+        "keyword_id": 4000000103,
+        "keyword_text": "aa 000 aaaaaaaaaaaaaaa aaaco",
+        "bid": 1.1,
+        "state": "enabled",
+        "match_type": "phrase",
+        "creation_date": 1792046699665,
+        "last_updated_date": 1792046699665,
+        "serving_status": "TARGETING_CLAUSE_STATUS_LIVE"
+      },
+      {
+        "profile_id": 90000000000010,
+        "campaign_id": 700000000000303,
+        "ad_group_id": 600000000000312,
+        "keyword_id": 40000000084,
+        "keyword_text": "aa aaaaaaaaaaaaaaa 000 aa adt",
+        "bid": 0.4,
+        "state": "enabled",
+        "match_type": "exact",
+        "creation_date": 1725962137313,
+        "last_updated_date": 1725962137330,
+        "serving_status": "PORTFOLIO_OUT_OF_BUDGET"
+      }
+    ],
+    "total": 21142,
+    "next_token": "MTAwMDAwMDAwMzk=",
+    "error_details": [],
+    "request_id": "00000000-0000-0000-0000-00000000025c",
+    "response_time": "2001-05-07 07:22:00"
+  }
+}

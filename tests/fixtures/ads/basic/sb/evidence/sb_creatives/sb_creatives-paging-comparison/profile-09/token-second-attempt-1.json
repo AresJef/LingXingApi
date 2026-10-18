@@ -1,0 +1,153 @@
+{
+  "source": "local_raw",
+  "endpoint": "ads.SbCreatives",
+  "response": {
+    "code": 0,
+    "message": "操作成功",
+    "data": [
+      {
+        "video_creatives": [],
+        "campaign_id": 700000000000000197,
+        "ad_group_id": 600000000000000155,
+        "creative_id": 2814,
+        "ad_creative_id": 0,
+        "name": null,
+        "state": "archived",
+        "creation_date": 1640071568392,
+        "last_updated_date": 1704233334791,
+        "profile_id": 900000000000002,
+        "serving_status": "CAMPAIGN_ARCHIVED",
+        "asin": [
+          "A000A0AB4J",
+          "A0000A00OL",
+          "A0000A0AON"
+        ],
+        "creative": {
+          "asins": [
+            "A000A0AB4J",
+            "A0000A00OL",
+            "A0000A0AON"
+          ],
+          "brandLogoCrop": {
+            "top": 0,
+            "left": 0,
+            "width": 800,
+            "height": 800
+          },
+          "brandLogoUrl": "https://a.aaaaa-aaaaaa.aaa/aaaaaa/A/aa-aa-0a0000aa-0aaa/aaa0a000-0000-00a0-0000-aa0a00000000.aka",
+          "brandName": "Aaaaaaaao",
+          "customImageAssetId": "amzn1.assetlibrary.asset1.0a0aaa0000000000aa0000aa0aa00295:version_v1",
+          "creativeStatus": "PUBLISHED",
+          "creativeVersion": "1",
+          "customImageCrop": {
+            "top": 0,
+            "left": 0,
+            "width": 1200,
+            "height": 628
+          },
+          "customImageUrl": "https://a.aaaaa-aaaaaa.aaa/aaaaaa/A/aa-aa-0a0000aa-0aaa/00000000-000a-0a00-0a00-0a0000000000.aim",
+          "type": "PRODUCT_COLLECTION",
+          "brandLogoAssetID": "amzn1.assetlibrary.asset1.00aa0a000aa00a0a0aa000a00a00a144:version_v1",
+          "headline": "Aaaa aa aaaaaaa aaa aez"
+        },
+        "landing_page": {
+          "pageType": "PRODUCT_LIST",
+          "url": "https://aaa.aaaaaa.aa/aaaaaa/aaaa/0AAA00AA-0000-0A00-0000-0A0000A00B3J"
+        },
+        "creative_type": "PRODUCT_COLLECTION"
+      },
+      {
+        "video_creatives": [],
+        "campaign_id": 700000000000000220,
+        "ad_group_id": 600000000000000101,
+        "creative_id": 2815,
+        "ad_creative_id": 0,
+        "name": null,
+        "state": "archived",
+        "creation_date": 1638512850959,
+        "last_updated_date": 1703804707998,
+        "profile_id": 900000000000002,
+        "serving_status": "CAMPAIGN_ARCHIVED",
+        "asin": [
+          "A00AA0AAKC",
+          "A00AAAA09P",
+          "A00AA0ABA3"
+        ],
+        "creative": {
+          "asins": [
+            "A00AA0AAKC",
+            "A00AAAA09P",
+            "A00AA0ABA3"
+          ],
+          "brandLogoCrop": {
+            "top": 0,
+            "left": 0,
+            "width": 800,
+            "height": 800
+          },
+          "brandLogoUrl": "https://a.aaaaa-aaaaaa.aaa/aaaaaa/A/aa-aa-0a0000aa-0aaa/aaa0a000-0000-00a0-0000-aa0a00000000.aka",
+          "brandName": "Aaaaaaaao",
+          "customImageAssetId": "amzn1.assetlibrary.asset1.0a0aaa0000000000aa0000aa0aa00295:version_v1",
+          "creativeStatus": "PUBLISHED",
+          "creativeVersion": "1",
+          "customImageCrop": {
+            "top": 0,
+            "left": 0,
+            "width": 1200,
+            "height": 628
+          },
+          "customImageUrl": "https://a.aaaaa-aaaaaa.aaa/aaaaaa/A/aa-aa-0a0000aa-0aaa/00000000-000a-0a00-0a00-0a0000000000.aim",
+          "type": "PRODUCT_COLLECTION",
+          "brandLogoAssetID": "amzn1.assetlibrary.asset1.00aa0a000aa00a0a0aa000a00a00a144:version_v1",
+          "headline": "Aaaaaaaaa aaaaaaaa aaa aaaaa aaa aaaaakb"
+        },
+        "landing_page": {
+          "pageType": "PRODUCT_LIST",
+          "url": "https://aaa.aaaaaa.aa/aaaaaa/aaaa/00000000-AAAA-00A0-A00A-0A0000A0013P"
+        },
+        "creative_type": "PRODUCT_COLLECTION"
+      },
+      {
+        "video_creatives": [],
+        "campaign_id": 70000000000368,
+        "ad_group_id": 60000000001097,
+        "creative_id": 2816,
+        "ad_creative_id": 0,
+        "name": null,
+        "state": "archived",
+        "creation_date": 1638851444437,
+        "last_updated_date": 1703710094434,
+        "profile_id": 900000000000002,
+        "serving_status": "CAMPAIGN_ARCHIVED",
+        "asin": [
+          "A00AAAAB0Q"
+        ],
+        "creative": {
+          "asins": [
+            "A00AAAAB0Q"
+          ],
+          "creativeStatus": "PENDING_MODERATION_REVIEW",
+          "creativeVersion": "1",
+          "consentToTranslate": false,
+          "videoAssetIds": [
+            "aaaa0.aaaa.aaaaa0.a00aa000-a0aa-000a-0aa0-aaa0aa0a00ei"
+          ],
+          "type": "VIDEO",
+          "originalVideoAssetIds": [
+            "aaaa0.aaaa.aaaaa0.a00aa000-a0aa-000a-0aa0-aaa0aa0a00ei"
+          ]
+        },
+        "landing_page": {
+          "pageType": "DETAIL_PAGE",
+          "url": "https://aaa.aaaaaa.aa/aa/A00AAAAB1Q"
+        },
+        "creative_type": "VIDEO"
+      }
+    ],
+    "total": 1010,
+    "next_token": "MTEwNw==",
+    "error_details": [],
+    "request_id": "00000000-0000-0000-0000-0000000000ce",
+    "response_time": "2001-05-07 10:17:00"
+  }
+}

@@ -1,0 +1,292 @@
+{
+  "format": "ads-fixtures-v3",
+  "source": "local_raw",
+  "endpoint": "ads.SbTargets",
+  "source_sha256": "7d9824043d01a3d12fa0f37bbff9aa02bee46e4d1b392940f055ed8e50a40254",
+  "checks": {
+    "identifiers": {
+      "status": "proved",
+      "cases": [
+        {
+          "label": "account-A-profile-only",
+          "status": "proved",
+          "rows": 2
+        },
+        {
+          "label": "account-A-sid-only",
+          "status": "proved",
+          "rows": 2
+        },
+        {
+          "label": "account-A-both",
+          "status": "proved",
+          "rows": 2
+        },
+        {
+          "label": "account-B-profile-only",
+          "status": "proved",
+          "rows": 2
+        }
+      ]
+    },
+    "cross_identifier_priority": {
+      "observed": "profile_id",
+      "cases": [
+        {
+          "label": "account-A-sid-B-profile",
+          "observed": "profile_id"
+        },
+        {
+          "label": "account-B-sid-A-profile",
+          "observed": "profile_id"
+        }
+      ],
+      "status": "proved"
+    },
+    "ad_type_SB": {
+      "status": "observed",
+      "rows": 2,
+      "types": [
+        "SB"
+      ]
+    },
+    "ad_type_SBV": {
+      "status": "no_nonempty_sample",
+      "rows": 0,
+      "types": []
+    },
+    "offset_concat": {
+      "status": "proved",
+      "complete_data_equal": true
+    },
+    "token_concat": {
+      "status": "proved",
+      "complete_data_equal": true
+    },
+    "token_priority": {
+      "status": "proved",
+      "complete_data_equal": true
+    },
+    "baseline_stability": {
+      "status": "proved",
+      "complete_data_equal": true
+    }
+  },
+  "relationships": {
+    "reference": "reference-direct",
+    "offset_pages": [
+      "account-A-profile-only",
+      "offset-second"
+    ],
+    "token_pages": [
+      "account-A-profile-only",
+      "token-second"
+    ],
+    "token_source": "account-A-profile-only",
+    "token_control": "token-second",
+    "token_conflict": "token-priority-conflicting-offset",
+    "end_reference": "reference-end"
+  },
+  "planned_requests": 13,
+  "not_run": [],
+  "samples": [
+    {
+      "label": "account-A-profile-only",
+      "request": {
+        "ads_type": "ALL",
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "targeting_type": "producttarget"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_targets-account-A-profile-only.json",
+      "sha256": "a6c9f860c11fd8d5a6bcecd3580c495c4ec7cd2cba291eb7a947d79caa0f4617"
+    },
+    {
+      "label": "account-A-sid-only",
+      "request": {
+        "ads_type": "ALL",
+        "length": 2,
+        "offset": 0,
+        "sid": 1212,
+        "targeting_type": "producttarget"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_targets-account-A-sid-only.json",
+      "sha256": "c7091833af79e5825a4ae871d3bd9c911dbb28fe0c94aa5eda7a5c9cb661ad21"
+    },
+    {
+      "label": "account-A-both",
+      "request": {
+        "ads_type": "ALL",
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "sid": 1212,
+        "targeting_type": "producttarget"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_targets-account-A-both.json",
+      "sha256": "4c561fcd127c60d807acfe87efbc802dda989294e08636536d48e976ef82866a"
+    },
+    {
+      "label": "account-B-profile-only",
+      "request": {
+        "ads_type": "ALL",
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000010,
+        "targeting_type": "producttarget"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_targets-account-B-profile-only.json",
+      "sha256": "2f7490786ff8a2df7aa1596ef61228d001b1a19866a9d13a3b5a7b958c706b18"
+    },
+    {
+      "label": "account-A-sid-B-profile",
+      "request": {
+        "ads_type": "ALL",
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000010,
+        "sid": 1212,
+        "targeting_type": "producttarget"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_targets-account-A-sid-B-profile.json",
+      "sha256": "dc31ed7fd8e2d85d1ab0322a5d29c5c2fdfd2dd322412a391e96e90e024c514d"
+    },
+    {
+      "label": "account-B-sid-A-profile",
+      "request": {
+        "ads_type": "ALL",
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "sid": 10016,
+        "targeting_type": "producttarget"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_targets-account-B-sid-A-profile.json",
+      "sha256": "249cb594d8f157c927e2f29fcb14b08f37b148352d863c1e35ae47d6db89348f"
+    },
+    {
+      "label": "ad-type-SB",
+      "request": {
+        "ads_type": "SB",
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "targeting_type": "producttarget"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_targets-ad-type-SB.json",
+      "sha256": "c627adaafd896b44aeed0c3645b9927c2c544dba98d91116195abb1ddb5b266e"
+    },
+    {
+      "label": "ad-type-SBV",
+      "request": {
+        "ads_type": "SBV",
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "targeting_type": "producttarget"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": "empty_expected",
+      "fixture": "sb_targets-ad-type-SBV.json",
+      "sha256": "bf63c6963fe2de61f93d5e01063174828ea71f01f4f90b13ac415af2a4ffb71b"
+    },
+    {
+      "label": "reference-direct",
+      "request": {
+        "ads_type": "ALL",
+        "length": 4,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "targeting_type": "producttarget"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_targets-reference-direct.json",
+      "sha256": "4e691f3f4dd4b7deeb466c7277c2b72c59d978ebaec7e77c04974375f005a931"
+    },
+    {
+      "label": "offset-second",
+      "request": {
+        "ads_type": "ALL",
+        "length": 2,
+        "offset": 2,
+        "profile_id": 90000000000009,
+        "targeting_type": "producttarget"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_targets-offset-second.json",
+      "sha256": "ba23a86af6397c656411d22f97f7c14569b401e9557dddabe4b9e27023866474"
+    },
+    {
+      "label": "token-second",
+      "request": {
+        "ads_type": "ALL",
+        "length": 2,
+        "profile_id": 90000000000009,
+        "targeting_type": "producttarget"
+      },
+      "next_token_from": "account-A-profile-only",
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_targets-token-second.json",
+      "sha256": "3f260ac2166c9b462ac4a0cb985ae548fab6e9dda733eb57509fe5feac82f5be"
+    },
+    {
+      "label": "token-priority-conflicting-offset",
+      "request": {
+        "ads_type": "ALL",
+        "length": 2,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "targeting_type": "producttarget"
+      },
+      "next_token_from": "account-A-profile-only",
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_targets-token-priority-conflicting-offset.json",
+      "sha256": "088afcd3c817a055527ff9ec39881c0e9b85059fa1159d211d9e38560518645d"
+    },
+    {
+      "label": "reference-end",
+      "request": {
+        "ads_type": "ALL",
+        "length": 4,
+        "offset": 0,
+        "profile_id": 90000000000009,
+        "targeting_type": "producttarget"
+      },
+      "next_token_from": null,
+      "http_status": 200,
+      "scenario": null,
+      "fixture": "sb_targets-reference-end.json",
+      "sha256": "bd8d25b735ec3fe212210dec62f0e28eb0c3513484f6a6992c22aaaddfcb20e9"
+    }
+  ],
+  "diagnostics": []
+}

@@ -1,0 +1,624 @@
+{
+  "format": "basic-business-example-metrics-v1",
+  "scope": "Only business numeric field groups share a real source row; existing identifiers, dimensions and user-approved timestamp examples remain unchanged.",
+  "methods": {
+    "basic.ExchangeRates": {
+      "row_model": "ExchangeRate",
+      "wrapper": "ExchangeRates",
+      "business_fields": [
+        "boc_rate",
+        "user_rate"
+      ],
+      "maximum_positive_metrics": 2,
+      "row": {
+        "values": {
+          "boc_rate": 1.0,
+          "user_rate": 1.0
+        },
+        "wire_values": {
+          "rate_org": "1.0000",
+          "my_rate": "1.0000000000"
+        },
+        "source": {
+          "path": "tools/data_raw/basic/exchange_rates-原始数据.json",
+          "sha256": "97f19a4006c2c5f24240d8bb6a2268396af5cced40bfe7116d479b84543b24c7",
+          "row_index": 0,
+          "endpoint": "basic.ExchangeRates"
+        }
+      },
+      "without_positive_evidence": []
+    },
+    "ads.Portfolios": {
+      "row_model": "Portfolio",
+      "wrapper": "Portfolios",
+      "business_fields": [
+        "budget"
+      ],
+      "maximum_positive_metrics": 1,
+      "row": {
+        "values": {
+          "budget": "{\"amount\": 1.0, \"policy\": \"dateRange\", \"startDate\": \"20260313\", \"currencyCode\": \"GBP\"}"
+        },
+        "wire_values": {
+          "budget": "{\"amount\": 1.0, \"policy\": \"dateRange\", \"startDate\": \"20260313\", \"currencyCode\": \"GBP\"}"
+        },
+        "source": {
+          "path": "tools/data_raw/ads/basic/common/portfolios-account-A-sid-only-原始数据.json",
+          "sha256": "f11df443c326afeb19f7a59eb68d39faabb30a934d17211b50c7b446b3442ade",
+          "row_index": 0,
+          "endpoint": "ads.Portfolios",
+          "manifest": "tools/data_raw/ads/basic/common/portfolios-原始采集清单.json",
+          "manifest_sha256": "60369874648ced82848961fd298c77e3b10a63b39bc3e2280bed28cac7cc2b17"
+        }
+      },
+      "without_positive_evidence": []
+    },
+    "ads.SpCampaigns": {
+      "row_model": "SpCampaign",
+      "wrapper": "SpCampaigns",
+      "business_fields": [
+        "daily_budget",
+        "bidding"
+      ],
+      "maximum_positive_metrics": 3,
+      "row": {
+        "values": {
+          "daily_budget": 6.0,
+          "bidding": "{\"strategy\": \"manual\", \"adjustments\": [{\"predicate\": \"placementRestOfSearch\", \"percentage\": 50}, {\"predicate\": \"placementTop\", \"percentage\": 80}]}"
+        },
+        "wire_values": {
+          "daily_budget": 6.0,
+          "bidding": "{\"strategy\": \"manual\", \"adjustments\": [{\"predicate\": \"placementRestOfSearch\", \"percentage\": 50}, {\"predicate\": \"placementTop\", \"percentage\": 80}]}"
+        },
+        "source": {
+          "path": "tools/data_raw/ads/basic/sp/sp_campaigns-account-B-sid-only-原始数据.json",
+          "sha256": "76ae24967c9764f86cb87c51f9f0f7715564e8064d72887e8afe0591f3ce9986",
+          "row_index": 0,
+          "endpoint": "ads.SpCampaigns",
+          "manifest": "tools/data_raw/ads/basic/sp/sp_campaigns-原始采集清单.json",
+          "manifest_sha256": "4f20b9549f741afd40127ddce46862b3fbd41e7c9997cb5088cd750cef9707e4"
+        }
+      },
+      "without_positive_evidence": []
+    },
+    "ads.SpAdGroups": {
+      "row_model": "SpAdGroup",
+      "wrapper": "SpAdGroups",
+      "business_fields": [
+        "default_bid"
+      ],
+      "maximum_positive_metrics": 1,
+      "row": {
+        "values": {
+          "default_bid": 1.13
+        },
+        "wire_values": {
+          "default_bid": 1.13
+        },
+        "source": {
+          "path": "tools/data_raw/ads/basic/sp/sp_ad_groups-account-A-profile-only-原始数据.json",
+          "sha256": "31a3cd9c8b80246394cd46b0abf81aff417196d45b746b60d0fda6fc25022b64",
+          "row_index": 0,
+          "endpoint": "ads.SpAdGroups",
+          "manifest": "tools/data_raw/ads/basic/sp/sp_ad_groups-原始采集清单.json",
+          "manifest_sha256": "ecbd15ad411a66a9076e3472767d3b68e89e161bcf274fc98b75f26cc23f3dfd"
+        }
+      },
+      "without_positive_evidence": []
+    },
+    "ads.SpKeywords": {
+      "row_model": "SpKeyword",
+      "wrapper": "SpKeywords",
+      "business_fields": [
+        "bid"
+      ],
+      "maximum_positive_metrics": 1,
+      "row": {
+        "values": {
+          "bid": 0.5
+        },
+        "wire_values": {
+          "bid": 0.5
+        },
+        "source": {
+          "path": "tools/data_raw/ads/basic/sp/sp_keywords-account-A-profile-only-原始数据.json",
+          "sha256": "ca6087fade96629d6807770f27846d13672b048482ae985cde97b0dabdfb8b4e",
+          "row_index": 0,
+          "endpoint": "ads.SpKeywords",
+          "manifest": "tools/data_raw/ads/basic/sp/sp_keywords-原始采集清单.json",
+          "manifest_sha256": "35b39763cc60ded21ece7fb2236cc95e4785e2831126c7bcca1c383517e9aa8d"
+        }
+      },
+      "without_positive_evidence": []
+    },
+    "ads.SpTargets": {
+      "row_model": "SpTarget",
+      "wrapper": "SpTargets",
+      "business_fields": [
+        "bid"
+      ],
+      "maximum_positive_metrics": 1,
+      "row": {
+        "values": {
+          "bid": 0.45
+        },
+        "wire_values": {
+          "bid": 0.45
+        },
+        "source": {
+          "path": "tools/data_raw/ads/basic/sp/sp_targets-account-A-profile-only-原始数据.json",
+          "sha256": "2c14b567688da6a6387c17ced6bb24cd67ed85e4653819227299a0b40402e583",
+          "row_index": 0,
+          "endpoint": "ads.SpTargets",
+          "manifest": "tools/data_raw/ads/basic/sp/sp_targets-原始采集清单.json",
+          "manifest_sha256": "81eb616670df398aac72f57f8ea6db5d0454dfb499ddb67ccbfac0b482370134"
+        }
+      },
+      "without_positive_evidence": []
+    },
+    "ads.SbCampaigns": {
+      "row_model": "SbCampaign",
+      "wrapper": "SbCampaigns",
+      "business_fields": [
+        "budget",
+        "bid_multiplier"
+      ],
+      "maximum_positive_metrics": 1,
+      "row": {
+        "values": {
+          "budget": 1.0,
+          "bid_multiplier": 0.0
+        },
+        "wire_values": {
+          "budget": 1.0,
+          "bid_multiplier": null
+        },
+        "source": {
+          "path": "tools/data_raw/ads/basic/sb/evidence/sb_campaigns/account-A-profile-only-attempt-1.json",
+          "sha256": "5b066532b0f871c78e75ef232dbf0166ae146d42bd82eeb8ff6ffae68def9b8a",
+          "row_index": 0,
+          "endpoint": "ads.SbCampaigns",
+          "manifest": "tools/data_raw/ads/basic/sb/evidence/sb_campaigns/manifest.json",
+          "manifest_sha256": "2d19f77c73aa75c6d6ae5db7ad136614754faaceb316aa3254bf8a1e4b347ea4"
+        }
+      },
+      "without_positive_evidence": [
+        "bid_multiplier"
+      ]
+    },
+    "ads.SbKeywords": {
+      "row_model": "SbKeyword",
+      "wrapper": "SbKeywords",
+      "business_fields": [
+        "bid"
+      ],
+      "maximum_positive_metrics": 1,
+      "row": {
+        "values": {
+          "bid": 0.8
+        },
+        "wire_values": {
+          "keyword_bid": 0.8
+        },
+        "source": {
+          "path": "tools/data_raw/ads/basic/sb/evidence/sb_keywords/account-A-profile-only-attempt-1.json",
+          "sha256": "56e54ea914fdec5e79552f1a25bf0fca8f32917302abb480d0bdd0243be5deac",
+          "row_index": 0,
+          "endpoint": "ads.SbKeywords",
+          "manifest": "tools/data_raw/ads/basic/sb/evidence/sb_keywords/manifest.json",
+          "manifest_sha256": "c57c8c825a48ac2b86a32ac6f5c9a4f08af1de222aaeb5fa4952c942f12006d5"
+        }
+      },
+      "without_positive_evidence": []
+    },
+    "ads.SbTargets": {
+      "row_model": "SbTarget",
+      "wrapper": "SbTargets",
+      "business_fields": [
+        "bid"
+      ],
+      "maximum_positive_metrics": 1,
+      "row": {
+        "values": {
+          "bid": 1.0
+        },
+        "wire_values": {
+          "target_bid": 1.0
+        },
+        "source": {
+          "path": "tools/data_raw/ads/basic/sb/evidence/sb_targets/account-A-profile-only-attempt-1.json",
+          "sha256": "e375d06f1b8dcda3bc87c909d167196023558c35e2d991ab031e3588b3fc48a1",
+          "row_index": 0,
+          "endpoint": "ads.SbTargets",
+          "manifest": "tools/data_raw/ads/basic/sb/evidence/sb_targets/manifest.json",
+          "manifest_sha256": "0823d8e633122da0be79ea2844ed95a52549defe710fe6d0badded2c49f16f0c"
+        }
+      },
+      "without_positive_evidence": []
+    },
+    "ads.SdCampaigns": {
+      "row_model": "SdCampaign",
+      "wrapper": "SdCampaigns",
+      "business_fields": [
+        "budget"
+      ],
+      "maximum_positive_metrics": 1,
+      "row": {
+        "values": {
+          "budget": 14.0
+        },
+        "wire_values": {
+          "budget": 14.0
+        },
+        "source": {
+          "path": "tools/data_raw/ads/basic/sd/evidence/sd_campaigns-details/details-A-attempt-1.json",
+          "sha256": "f4680d33828c5cf3797084209452abc12f62f838953d2d730485ba4bfcfae4fc",
+          "row_index": 0,
+          "endpoint": "ads.SdCampaigns",
+          "manifest": "tools/data_raw/ads/basic/sd/evidence/sd_campaigns-details/manifest.json",
+          "manifest_sha256": "94428f7e00b331230d5389db2ecb5aa3f18c197c0d153aa838edbe7b0533a04f"
+        }
+      },
+      "without_positive_evidence": []
+    },
+    "ads.SdAdGroups": {
+      "row_model": "SdAdGroup",
+      "wrapper": "SdAdGroups",
+      "business_fields": [
+        "default_bid"
+      ],
+      "maximum_positive_metrics": 1,
+      "row": {
+        "values": {
+          "default_bid": 0.6
+        },
+        "wire_values": {
+          "default_bid": 0.6
+        },
+        "source": {
+          "path": "tools/data_raw/ads/basic/sd/evidence/sd_ad_groups-discovery/account-A-attempt-1.json",
+          "sha256": "8b3e2c184e3bc13fdb070f17475cab8034721838b0e3bfe956784b02716c5010",
+          "row_index": 0,
+          "endpoint": "ads.SdAdGroups",
+          "manifest": "tools/data_raw/ads/basic/sd/evidence/sd_ad_groups-discovery/manifest.json",
+          "manifest_sha256": "29c6510f25bbd3f3cb02964455254e8bdaf98cba0d3ffb7b8bb9276875f3a101"
+        }
+      },
+      "without_positive_evidence": []
+    },
+    "ads.SdTargets": {
+      "row_model": "SdTarget",
+      "wrapper": "SdTargets",
+      "business_fields": [
+        "bid"
+      ],
+      "maximum_positive_metrics": 1,
+      "row": {
+        "values": {
+          "bid": 0.3
+        },
+        "wire_values": {
+          "bid": 0.3
+        },
+        "source": {
+          "path": "tools/data_raw/ads/basic/sd/evidence/sd_targets-discovery/account-A-attempt-1.json",
+          "sha256": "0e55483d87c50965b011c3cf90115b30cd2cd4932f620ec2633d7acad7e7d0fe",
+          "row_index": 2,
+          "endpoint": "ads.SdTargets",
+          "manifest": "tools/data_raw/ads/basic/sd/evidence/sd_targets-discovery/manifest.json",
+          "manifest_sha256": "883ec4303126f824a3df3b599e1ac7357dd5afdba82149ce82ace405670e13b1"
+        }
+      },
+      "without_positive_evidence": []
+    },
+    "basic.RenameSellers": {
+      "row_model": "RenameSellers",
+      "wrapper": "RenameSellersResult",
+      "business_fields": [
+        "success",
+        "failure"
+      ],
+      "maximum_positive_metrics": 1,
+      "row": {
+        "values": {
+          "success": 0,
+          "failure": 1
+        },
+        "wire_values": {
+          "success_num": 0,
+          "failure_num": 1
+        },
+        "source": {
+          "path": "tools/data_raw/basic/rename_sellers-返回失败-原始数据.json",
+          "sha256": "5a4cff2a1c0cf4aee800d5dbf573836f69e07dd773860a9b32785f76230eeb80",
+          "row_index": 0,
+          "endpoint": "basic.RenameSellers"
+        }
+      },
+      "without_positive_evidence": []
+    }
+  },
+  "fields": {
+    "ExchangeRate.boc_rate": {
+      "endpoint": "basic.ExchangeRates",
+      "model": "ExchangeRate",
+      "field": "boc_rate",
+      "wire": "rate_org",
+      "value": 1.0,
+      "source": {
+        "path": "tools/data_raw/basic/exchange_rates-原始数据.json",
+        "sha256": "97f19a4006c2c5f24240d8bb6a2268396af5cced40bfe7116d479b84543b24c7",
+        "row_index": 0,
+        "endpoint": "basic.ExchangeRates"
+      },
+      "wire_value": "1.0000",
+      "positive_available": true
+    },
+    "ExchangeRate.user_rate": {
+      "endpoint": "basic.ExchangeRates",
+      "model": "ExchangeRate",
+      "field": "user_rate",
+      "wire": "my_rate",
+      "value": 1.0,
+      "source": {
+        "path": "tools/data_raw/basic/exchange_rates-原始数据.json",
+        "sha256": "97f19a4006c2c5f24240d8bb6a2268396af5cced40bfe7116d479b84543b24c7",
+        "row_index": 0,
+        "endpoint": "basic.ExchangeRates"
+      },
+      "wire_value": "1.0000000000",
+      "positive_available": true
+    },
+    "Portfolio.budget": {
+      "endpoint": "ads.Portfolios",
+      "model": "Portfolio",
+      "field": "budget",
+      "wire": "budget",
+      "value": "{\"amount\": 1.0, \"policy\": \"dateRange\", \"startDate\": \"20260313\", \"currencyCode\": \"GBP\"}",
+      "source": {
+        "path": "tools/data_raw/ads/basic/common/portfolios-account-A-sid-only-原始数据.json",
+        "sha256": "f11df443c326afeb19f7a59eb68d39faabb30a934d17211b50c7b446b3442ade",
+        "row_index": 0,
+        "endpoint": "ads.Portfolios",
+        "manifest": "tools/data_raw/ads/basic/common/portfolios-原始采集清单.json",
+        "manifest_sha256": "60369874648ced82848961fd298c77e3b10a63b39bc3e2280bed28cac7cc2b17"
+      },
+      "wire_value": "{\"amount\": 1.0, \"policy\": \"dateRange\", \"startDate\": \"20260313\", \"currencyCode\": \"GBP\"}",
+      "positive_available": true
+    },
+    "SpCampaign.daily_budget": {
+      "endpoint": "ads.SpCampaigns",
+      "model": "SpCampaign",
+      "field": "daily_budget",
+      "wire": "daily_budget",
+      "value": 5.0,
+      "source": {
+        "path": "tools/data_raw/ads/basic/sp/sp_campaigns-account-A-sid-only-原始数据.json",
+        "sha256": "fe038af7e79a0bb06f463acb1660ce5eff10602f9885ff0bb862712e61ccfec4",
+        "row_index": 0,
+        "endpoint": "ads.SpCampaigns",
+        "manifest": "tools/data_raw/ads/basic/sp/sp_campaigns-原始采集清单.json",
+        "manifest_sha256": "4f20b9549f741afd40127ddce46862b3fbd41e7c9997cb5088cd750cef9707e4"
+      },
+      "wire_value": 5.0,
+      "positive_available": true
+    },
+    "SpCampaign.bidding": {
+      "endpoint": "ads.SpCampaigns",
+      "model": "SpCampaign",
+      "field": "bidding",
+      "wire": "bidding",
+      "value": "{\"strategy\": \"manual\", \"adjustments\": [{\"predicate\": \"placementRestOfSearch\", \"percentage\": 50}, {\"predicate\": \"placementTop\", \"percentage\": 80}]}",
+      "source": {
+        "path": "tools/data_raw/ads/basic/sp/sp_campaigns-account-B-sid-only-原始数据.json",
+        "sha256": "76ae24967c9764f86cb87c51f9f0f7715564e8064d72887e8afe0591f3ce9986",
+        "row_index": 0,
+        "endpoint": "ads.SpCampaigns",
+        "manifest": "tools/data_raw/ads/basic/sp/sp_campaigns-原始采集清单.json",
+        "manifest_sha256": "4f20b9549f741afd40127ddce46862b3fbd41e7c9997cb5088cd750cef9707e4"
+      },
+      "wire_value": "{\"strategy\": \"manual\", \"adjustments\": [{\"predicate\": \"placementRestOfSearch\", \"percentage\": 50}, {\"predicate\": \"placementTop\", \"percentage\": 80}]}",
+      "positive_available": true
+    },
+    "SpAdGroup.default_bid": {
+      "endpoint": "ads.SpAdGroups",
+      "model": "SpAdGroup",
+      "field": "default_bid",
+      "wire": "default_bid",
+      "value": 1.13,
+      "source": {
+        "path": "tools/data_raw/ads/basic/sp/sp_ad_groups-account-A-profile-only-原始数据.json",
+        "sha256": "31a3cd9c8b80246394cd46b0abf81aff417196d45b746b60d0fda6fc25022b64",
+        "row_index": 0,
+        "endpoint": "ads.SpAdGroups",
+        "manifest": "tools/data_raw/ads/basic/sp/sp_ad_groups-原始采集清单.json",
+        "manifest_sha256": "ecbd15ad411a66a9076e3472767d3b68e89e161bcf274fc98b75f26cc23f3dfd"
+      },
+      "wire_value": 1.13,
+      "positive_available": true
+    },
+    "SpKeyword.bid": {
+      "endpoint": "ads.SpKeywords",
+      "model": "SpKeyword",
+      "field": "bid",
+      "wire": "bid",
+      "value": 0.5,
+      "source": {
+        "path": "tools/data_raw/ads/basic/sp/sp_keywords-account-A-profile-only-原始数据.json",
+        "sha256": "ca6087fade96629d6807770f27846d13672b048482ae985cde97b0dabdfb8b4e",
+        "row_index": 0,
+        "endpoint": "ads.SpKeywords",
+        "manifest": "tools/data_raw/ads/basic/sp/sp_keywords-原始采集清单.json",
+        "manifest_sha256": "35b39763cc60ded21ece7fb2236cc95e4785e2831126c7bcca1c383517e9aa8d"
+      },
+      "wire_value": 0.5,
+      "positive_available": true
+    },
+    "SpTarget.bid": {
+      "endpoint": "ads.SpTargets",
+      "model": "SpTarget",
+      "field": "bid",
+      "wire": "bid",
+      "value": 0.45,
+      "source": {
+        "path": "tools/data_raw/ads/basic/sp/sp_targets-account-A-profile-only-原始数据.json",
+        "sha256": "2c14b567688da6a6387c17ced6bb24cd67ed85e4653819227299a0b40402e583",
+        "row_index": 0,
+        "endpoint": "ads.SpTargets",
+        "manifest": "tools/data_raw/ads/basic/sp/sp_targets-原始采集清单.json",
+        "manifest_sha256": "81eb616670df398aac72f57f8ea6db5d0454dfb499ddb67ccbfac0b482370134"
+      },
+      "wire_value": 0.45,
+      "positive_available": true
+    },
+    "SbCampaign.budget": {
+      "endpoint": "ads.SbCampaigns",
+      "model": "SbCampaign",
+      "field": "budget",
+      "wire": "budget",
+      "value": 1.0,
+      "source": {
+        "path": "tools/data_raw/ads/basic/sb/evidence/sb_campaigns/account-A-profile-only-attempt-1.json",
+        "sha256": "5b066532b0f871c78e75ef232dbf0166ae146d42bd82eeb8ff6ffae68def9b8a",
+        "row_index": 0,
+        "endpoint": "ads.SbCampaigns",
+        "manifest": "tools/data_raw/ads/basic/sb/evidence/sb_campaigns/manifest.json",
+        "manifest_sha256": "2d19f77c73aa75c6d6ae5db7ad136614754faaceb316aa3254bf8a1e4b347ea4"
+      },
+      "wire_value": 1.0,
+      "positive_available": true
+    },
+    "SbCampaign.bid_multiplier": {
+      "endpoint": "ads.SbCampaigns",
+      "model": "SbCampaign",
+      "field": "bid_multiplier",
+      "wire": "bid_multiplier",
+      "value": 0.0,
+      "source": {
+        "path": "tools/data_raw/ads/basic/sb/evidence/sb_campaigns/account-A-profile-only-attempt-1.json",
+        "sha256": "5b066532b0f871c78e75ef232dbf0166ae146d42bd82eeb8ff6ffae68def9b8a",
+        "row_index": 0,
+        "endpoint": "ads.SbCampaigns",
+        "manifest": "tools/data_raw/ads/basic/sb/evidence/sb_campaigns/manifest.json",
+        "manifest_sha256": "2d19f77c73aa75c6d6ae5db7ad136614754faaceb316aa3254bf8a1e4b347ea4"
+      },
+      "wire_value": null,
+      "positive_available": false
+    },
+    "SbKeyword.bid": {
+      "endpoint": "ads.SbKeywords",
+      "model": "SbKeyword",
+      "field": "bid",
+      "wire": "keyword_bid",
+      "value": 0.8,
+      "source": {
+        "path": "tools/data_raw/ads/basic/sb/evidence/sb_keywords/account-A-profile-only-attempt-1.json",
+        "sha256": "56e54ea914fdec5e79552f1a25bf0fca8f32917302abb480d0bdd0243be5deac",
+        "row_index": 0,
+        "endpoint": "ads.SbKeywords",
+        "manifest": "tools/data_raw/ads/basic/sb/evidence/sb_keywords/manifest.json",
+        "manifest_sha256": "c57c8c825a48ac2b86a32ac6f5c9a4f08af1de222aaeb5fa4952c942f12006d5"
+      },
+      "wire_value": 0.8,
+      "positive_available": true
+    },
+    "SbTarget.bid": {
+      "endpoint": "ads.SbTargets",
+      "model": "SbTarget",
+      "field": "bid",
+      "wire": "target_bid",
+      "value": 1.0,
+      "source": {
+        "path": "tools/data_raw/ads/basic/sb/evidence/sb_targets/account-A-profile-only-attempt-1.json",
+        "sha256": "e375d06f1b8dcda3bc87c909d167196023558c35e2d991ab031e3588b3fc48a1",
+        "row_index": 0,
+        "endpoint": "ads.SbTargets",
+        "manifest": "tools/data_raw/ads/basic/sb/evidence/sb_targets/manifest.json",
+        "manifest_sha256": "0823d8e633122da0be79ea2844ed95a52549defe710fe6d0badded2c49f16f0c"
+      },
+      "wire_value": 1.0,
+      "positive_available": true
+    },
+    "SdCampaign.budget": {
+      "endpoint": "ads.SdCampaigns",
+      "model": "SdCampaign",
+      "field": "budget",
+      "wire": "budget",
+      "value": 14.0,
+      "source": {
+        "path": "tools/data_raw/ads/basic/sd/evidence/sd_campaigns-details/details-A-attempt-1.json",
+        "sha256": "f4680d33828c5cf3797084209452abc12f62f838953d2d730485ba4bfcfae4fc",
+        "row_index": 0,
+        "endpoint": "ads.SdCampaigns",
+        "manifest": "tools/data_raw/ads/basic/sd/evidence/sd_campaigns-details/manifest.json",
+        "manifest_sha256": "94428f7e00b331230d5389db2ecb5aa3f18c197c0d153aa838edbe7b0533a04f"
+      },
+      "wire_value": 14.0,
+      "positive_available": true
+    },
+    "SdAdGroup.default_bid": {
+      "endpoint": "ads.SdAdGroups",
+      "model": "SdAdGroup",
+      "field": "default_bid",
+      "wire": "default_bid",
+      "value": 0.6,
+      "source": {
+        "path": "tools/data_raw/ads/basic/sd/evidence/sd_ad_groups-discovery/account-A-attempt-1.json",
+        "sha256": "8b3e2c184e3bc13fdb070f17475cab8034721838b0e3bfe956784b02716c5010",
+        "row_index": 0,
+        "endpoint": "ads.SdAdGroups",
+        "manifest": "tools/data_raw/ads/basic/sd/evidence/sd_ad_groups-discovery/manifest.json",
+        "manifest_sha256": "29c6510f25bbd3f3cb02964455254e8bdaf98cba0d3ffb7b8bb9276875f3a101"
+      },
+      "wire_value": 0.6,
+      "positive_available": true
+    },
+    "SdTarget.bid": {
+      "endpoint": "ads.SdTargets",
+      "model": "SdTarget",
+      "field": "bid",
+      "wire": "bid",
+      "value": 0.3,
+      "source": {
+        "path": "tools/data_raw/ads/basic/sd/evidence/sd_targets-discovery/account-A-attempt-1.json",
+        "sha256": "0e55483d87c50965b011c3cf90115b30cd2cd4932f620ec2633d7acad7e7d0fe",
+        "row_index": 2,
+        "endpoint": "ads.SdTargets",
+        "manifest": "tools/data_raw/ads/basic/sd/evidence/sd_targets-discovery/manifest.json",
+        "manifest_sha256": "883ec4303126f824a3df3b599e1ac7357dd5afdba82149ce82ace405670e13b1"
+      },
+      "wire_value": 0.3,
+      "positive_available": true
+    },
+    "RenameSellers.success": {
+      "endpoint": "basic.RenameSellers",
+      "model": "RenameSellers",
+      "field": "success",
+      "wire": "success_num",
+      "value": 1,
+      "source": {
+        "path": "tools/data_raw/basic/rename_sellers-返回成功-原始数据.json",
+        "sha256": "dc40751fc5775ef3796e9a579cb4c733f737954667fc0af213e1d0fa75d4c45b",
+        "row_index": 0,
+        "endpoint": "basic.RenameSellers"
+      },
+      "wire_value": 1,
+      "positive_available": true
+    },
+    "RenameSellers.failure": {
+      "endpoint": "basic.RenameSellers",
+      "model": "RenameSellers",
+      "field": "failure",
+      "wire": "failure_num",
+      "value": 1,
+      "source": {
+        "path": "tools/data_raw/basic/rename_sellers-返回失败-原始数据.json",
+        "sha256": "5a4cff2a1c0cf4aee800d5dbf573836f69e07dd773860a9b32785f76230eeb80",
+        "row_index": 0,
+        "endpoint": "basic.RenameSellers"
+      },
+      "wire_value": 1,
+      "positive_available": true
+    }
+  }
+}
