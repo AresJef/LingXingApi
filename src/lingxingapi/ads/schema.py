@@ -2418,7 +2418,7 @@ class SpCampaignHourData(ResponseV1):
 
 
 # . SP Placement Reports
-class SpCampaignReport(BaseModel):
+class SpPlacementReport(BaseModel):
     """SP 广告活动投放位置报告"""
 
     profile_id: int = Field(
@@ -2486,7 +2486,7 @@ class SpCampaignReport(BaseModel):
 class SpPlacementReports(ResponseV1Token):
     """SP 广告活动投放位置报告列表"""
 
-    data: list[SpCampaignReport] = Field(
+    data: list[SpPlacementReport] = Field(
         description="SP 广告活动投放位置报告列表",
         examples=[
             [
@@ -6935,121 +6935,1149 @@ class SdMatchedTargetReports(ResponseV1Token):
 # 报告 - Demand-Side Platform - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # . DSP Reports
 class DspReport(BaseModel):
-    """DSP 报告"""
+    """DSP订单按日报告记录。
 
-    # 亚马逊店铺ID (广告帐号ID)
-    profile_id: int
-    # 广告主ID
-    advertiser_id: int
-    # 广告主名称
-    advertiser_name: str
-    # 订单ID
-    order_id: str
-    # 订单名称
-    order_name: str
-    # 订单开始时间
-    order_start_date: str
-    # 订单结束时间
-    order_end_date: str
-    # 预算 [原字段 'order_budget']
-    budget: float = Field(validation_alias="order_budget")
-    # 广告花费 [原字段 'spends']
-    costs: float = Field(validation_alias="spends")
-    # 总展示次数
-    impressions: int
-    # 可见展示次数
-    viewable_impressions: int
-    # 总点击次数
-    clicks: int
-    # 商品详情页浏览次数 [原字段 'dpv']
-    page_views: int = Field(validation_alias="dpv")
-    # 加购次数 [原字段 'total_add_to_cart']
-    add_to_cart_count: int = Field(validation_alias="total_add_to_cart")
-    # 订单数
-    orders: int
-    # 销量 [原字段 'ad_units']
-    units: int = Field(validation_alias="ad_units")
-    # 销售额
-    sales: float
-    # 币种 [原字段 'order_currency']
-    currency_code: str = Field(validation_alias="order_currency")
+    扩展数值字段缺键、None或空字符串时输出零；各基础字段仍按其必填类型校验。
+    金额、比率和计算指标均解析接口返回值，SDK不重新计算；缺省零不代表接口实际返回了零。
+    """
+
+    profile_id: int = Field(
+        description="DSP账户ID",
+        examples=[90000000000001],
+    )
+    advertiser_id: int = Field(
+        description="DSP广告主ID",
+        examples=[80000000000001],
+    )
+    advertiser_name: str = Field(
+        description="DSP广告主名称",
+        examples=["ADVERTISER-00001"],
+    )
+    order_id: str = Field(
+        description="DSP订单ID",
+        examples=["700000000000001"],
+    )
+    order_name: str = Field(
+        description="DSP订单名称",
+        examples=["ORDER-00001"],
+    )
+    order_start_date: str = Field(
+        description="订单开始日期",
+        examples=["2022-09-13"],
+    )
+    order_end_date: str = Field(
+        description="订单结束日期",
+        examples=["2023-01-01"],
+    )
+    budget: float = Field(
+        description="订单预算 [原字段 'order_budget']",
+        examples=[2715.0],
+        # - - - - - - - - - -
+        validation_alias="order_budget",
+    )
+    costs: float = Field(
+        description="广告花费 [原字段 'spends']",
+        examples=[26.88],
+        # - - - - - - - - - -
+        validation_alias="spends",
+    )
+    impressions: int = Field(
+        description="广告展示次数",
+        examples=[4053],
+    )
+    viewable_impressions: int = Field(
+        description="可见展示次数",
+        examples=[2176],
+    )
+    clicks: int = Field(
+        description="广告点击次数",
+        examples=[3],
+    )
+    page_views: int = Field(
+        description="商品详情页浏览次数 [原字段 'dpv']",
+        examples=[51],
+        # - - - - - - - - - -
+        validation_alias="dpv",
+    )
+    add_to_cart_count: int = Field(
+        description="加购次数 [原字段 'total_add_to_cart']",
+        examples=[22],
+        # - - - - - - - - - -
+        validation_alias="total_add_to_cart",
+    )
+    orders: int = Field(
+        description="订单数",
+        examples=[10],
+    )
+    units: int = Field(
+        description="销量 [原字段 'ad_units']",
+        examples=[11],
+        # - - - - - - - - - -
+        validation_alias="ad_units",
+    )
+    sales: float = Field(
+        description="销售额",
+        examples=[330.59],
+    )
+    currency_code: str = Field(
+        description="币种 [原字段 'order_currency']",
+        examples=["USD"],
+        # - - - - - - - - - -
+        validation_alias="order_currency",
+    )
+    report_date: str = Field(
+        description="报告所属日期，YYYY-MM-DD [原字段 'date']",
+        examples=["2022-10-05"],
+        # - - - - - - - - - -
+        validation_alias="date",
+    )
+    record_id: IntOrNone2Zero = Field(
+        description="报表记录ID [原字段 'id']；缺键、None或空字符串转为0",
+        examples=[700000000000001],
+        # - - - - - - - - - -
+        validation_alias="id",
+        default=0,
+    )
+    view_add_to_watchlist_count_14d: IntOrNone2Zero = Field(
+        description="14天浏览归因的加入观察列表次数 [原字段 'add_to_watchlist_views14d']；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        validation_alias="add_to_watchlist_views14d",
+        default=0,
+    )
+    view_page_views_14d: IntOrNone2Zero = Field(
+        description="14天浏览归因的推广商品详情页浏览次数 [原字段 'dpv_views14d']；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        validation_alias="dpv_views14d",
+        default=0,
+    )
+    total_orders_14d: IntOrNone2Zero = Field(
+        description="14天广告浏览或点击归因的品牌商品总订单数 [原字段 'total_purchases14d']；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        validation_alias="total_purchases14d",
+        default=0,
+    )
+    amazon_platform_fee: FloatOrNone2Zero = Field(
+        description="亚马逊平台费用；缺键、None或空字符串转为0",
+        examples=[0.0],
+        # - - - - - - - - - -
+        default=0.0,
+    )
+    total_add_to_cart_count_14d: IntOrNone2Zero = Field(
+        description="14天广告浏览或点击归因的品牌商品总加购次数 [原字段 'total_add_to_cart14d']；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        validation_alias="total_add_to_cart14d",
+        default=0,
+    )
+    click_page_views_14d: IntOrNone2Zero = Field(
+        description="14天点击归因的推广商品详情页浏览次数 [原字段 'dpv_clicks14d']；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        validation_alias="dpv_clicks14d",
+        default=0,
+    )
+    entity_id: StrOrNone2Blank = Field(
+        description="DSP实体ID，保留接口文本；缺键或None转为空字符串",
+        examples=[""],
+        # - - - - - - - - - -
+        default="",
+    )
+    total_roas_14d: FloatOrNone2Zero = Field(
+        description="14天品牌商品总广告回报率，总销售额 / 广告花费 [原字段 'total_roas14d']；缺键、None或空字符串转为0",
+        examples=[0.0],
+        # - - - - - - - - - -
+        validation_alias="total_roas14d",
+        default=0.0,
+    )
+    total_units_14d: IntOrNone2Zero = Field(
+        description="14天广告浏览或点击归因的品牌商品总销量 [原字段 'total_units_sold14d']；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        validation_alias="total_units_sold14d",
+        default=0,
+    )
+    order_external_id: StrOrNone2Blank = Field(
+        description="DSP广告活动外部ID；缺键或None转为空字符串",
+        examples=[""],
+        # - - - - - - - - - -
+        default="",
+    )
+    page_views_14d: IntOrNone2Zero = Field(
+        description="14天广告浏览或点击归因的推广商品详情页浏览次数 [原字段 'dpv14d']；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        validation_alias="dpv14d",
+        default=0,
+    )
+    total_cost: FloatOrNone2Zero = Field(
+        description="广告总花费，接口保留两位小数；缺键、None或空字符串转为0",
+        examples=[26.88],
+        # - - - - - - - - - -
+        default=0.0,
+    )
+    total_sales_14d: FloatOrNone2Zero = Field(
+        description="14天广告浏览或点击归因的品牌商品总销售额 [原字段 'total_sales14d']；缺键、None或空字符串转为0",
+        examples=[0.0],
+        # - - - - - - - - - -
+        validation_alias="total_sales14d",
+        default=0.0,
+    )
+    click_total_page_views_14d: IntOrNone2Zero = Field(
+        description="14天点击归因的品牌商品详情页总浏览次数 [原字段 'total_detail_page_clicks14d']；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        validation_alias="total_detail_page_clicks14d",
+        default=0,
+    )
+    total_page_views_14d: IntOrNone2Zero = Field(
+        description="14天广告浏览或点击归因的品牌商品详情页总浏览次数 [原字段 'total_detail_page_views14d']；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        validation_alias="total_detail_page_views14d",
+        default=0,
+    )
+    view_total_page_views_14d: IntOrNone2Zero = Field(
+        description="14天浏览归因的品牌商品详情页总浏览次数 [原字段 'total_detail_page_view_views14d']；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        validation_alias="total_detail_page_view_views14d",
+        default=0,
+    )
+    reach: IntOrNone2Zero = Field(
+        description="广告活动开始以来触达的独立用户数；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        default=0,
+    )
+    measurable_impressions: IntOrNone2Zero = Field(
+        description="可衡量的广告展示次数；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        default=0,
+    )
+    frequency_average: FloatOrNone2Zero = Field(
+        description="平均广告展示频率；缺键、None或空字符串转为0",
+        examples=[0.0],
+        # - - - - - - - - - -
+        default=0.0,
+    )
+    gross_clicks: IntOrNone2Zero = Field(
+        description="总点击量 [原字段 'gross_click_throughs']；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        validation_alias="gross_click_throughs",
+        default=0,
+    )
+    gross_impressions: IntOrNone2Zero = Field(
+        description="总展示量；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        default=0,
+    )
+    invalid_clicks: IntOrNone2Zero = Field(
+        description="无效点击量 [原字段 'invalid_click_throughs']；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        validation_alias="invalid_click_throughs",
+        default=0,
+    )
+    invalid_impressions: IntOrNone2Zero = Field(
+        description="无效展示量；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        default=0,
+    )
+    product_review_page_visits: IntOrNone2Zero = Field(
+        description="广告浏览或点击归因的推广商品评论页访问次数；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        default=0,
+    )
+    click_product_review_page_visits: IntOrNone2Zero = Field(
+        description="点击归因的推广商品评论页访问次数 [原字段 'product_review_page_visits_clicks']；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        validation_alias="product_review_page_visits_clicks",
+        default=0,
+    )
+    view_product_review_page_visits: IntOrNone2Zero = Field(
+        description="浏览归因的推广商品评论页访问次数 [原字段 'product_review_page_visits_views']；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        validation_alias="product_review_page_visits_views",
+        default=0,
+    )
+    total_product_review_page_visits: IntOrNone2Zero = Field(
+        description="广告浏览或点击归因的品牌商品评论页总访问次数；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        default=0,
+    )
+    click_total_product_review_page_visits: IntOrNone2Zero = Field(
+        description="点击归因的品牌商品评论页总访问次数 [原字段 'total_product_review_page_visits_clicks']；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        validation_alias="total_product_review_page_visits_clicks",
+        default=0,
+    )
+    view_total_product_review_page_visits: IntOrNone2Zero = Field(
+        description="浏览归因的品牌商品评论页总访问次数 [原字段 'total_product_review_page_visits_views']；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        validation_alias="total_product_review_page_visits_views",
+        default=0,
+    )
+    add_to_list_count: IntOrNone2Zero = Field(
+        description="加入列表的次数 [原字段 'add_to_list']；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        validation_alias="add_to_list",
+        default=0,
+    )
+    click_add_to_list_count: IntOrNone2Zero = Field(
+        description="点击归因的加入列表次数 [原字段 'add_to_list_clicks']；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        validation_alias="add_to_list_clicks",
+        default=0,
+    )
+    view_add_to_list_count: IntOrNone2Zero = Field(
+        description="浏览归因的加入列表次数 [原字段 'add_to_list_views']；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        validation_alias="add_to_list_views",
+        default=0,
+    )
+    total_add_to_list_count: IntOrNone2Zero = Field(
+        description="广告浏览或点击归因的品牌商品加入心愿单、礼品清单或注册计划的总次数 [原字段 'total_add_to_list']；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        validation_alias="total_add_to_list",
+        default=0,
+    )
+    click_total_add_to_list_count: IntOrNone2Zero = Field(
+        description="点击归因的品牌商品加入心愿单、礼品清单或注册计划的总次数 [原字段 'total_add_to_list_clicks']；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        validation_alias="total_add_to_list_clicks",
+        default=0,
+    )
+    view_total_add_to_list_count: IntOrNone2Zero = Field(
+        description="浏览归因的品牌商品加入心愿单、礼品清单或注册计划的总次数 [原字段 'total_add_to_list_views']；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        validation_alias="total_add_to_list_views",
+        default=0,
+    )
+    direct_add_to_cart_count: IntOrNone2Zero = Field(
+        description="广告浏览或点击归因的推广商品加购次数 [原字段 'add_to_cart']；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        validation_alias="add_to_cart",
+        default=0,
+    )
+    click_direct_add_to_cart_count: IntOrNone2Zero = Field(
+        description="点击归因的推广商品加购次数 [原字段 'add_to_cart_clicks']；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        validation_alias="add_to_cart_clicks",
+        default=0,
+    )
+    view_direct_add_to_cart_count: IntOrNone2Zero = Field(
+        description="浏览归因的推广商品加购次数 [原字段 'add_to_cart_views']；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        validation_alias="add_to_cart_views",
+        default=0,
+    )
+    click_add_to_cart_count: IntOrNone2Zero = Field(
+        description="点击归因的品牌商品总加购次数 [原字段 'total_add_to_cart_clicks']；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        validation_alias="total_add_to_cart_clicks",
+        default=0,
+    )
+    view_add_to_cart_count: IntOrNone2Zero = Field(
+        description="浏览归因的品牌商品总加购次数 [原字段 'total_add_to_cart_views']；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        validation_alias="total_add_to_cart_views",
+        default=0,
+    )
+    add_to_shopping_cart_count: IntOrNone2Zero = Field(
+        description="加入商城购物车的次数 [原字段 'add_to_shopping_cart']；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        validation_alias="add_to_shopping_cart",
+        default=0,
+    )
+    click_add_to_shopping_cart_count: IntOrNone2Zero = Field(
+        description="点击归因的加入商城购物车次数 [原字段 'add_to_shopping_cart_clicks']；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        validation_alias="add_to_shopping_cart_clicks",
+        default=0,
+    )
+    view_add_to_shopping_cart_count: IntOrNone2Zero = Field(
+        description="浏览归因的加入商城购物车次数 [原字段 'add_to_shopping_cart_views']；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        validation_alias="add_to_shopping_cart_views",
+        default=0,
+    )
+    add_to_watchlist_count: IntOrNone2Zero = Field(
+        description="加入观察列表的次数 [原字段 'add_to_watchlist']；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        validation_alias="add_to_watchlist",
+        default=0,
+    )
+    click_add_to_watchlist_count: IntOrNone2Zero = Field(
+        description="点击归因的加入观察列表次数 [原字段 'add_to_watchlist_clicks']；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        validation_alias="add_to_watchlist_clicks",
+        default=0,
+    )
+    view_total_orders: IntOrNone2Zero = Field(
+        description="浏览归因的品牌商品总订单数 [原字段 'total_purchases_views']；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        validation_alias="total_purchases_views",
+        default=0,
+    )
+    click_total_orders: IntOrNone2Zero = Field(
+        description="点击归因的品牌商品总订单数 [原字段 'total_purchases_clicks']；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        validation_alias="total_purchases_clicks",
+        default=0,
+    )
+    direct_orders: IntOrNone2Zero = Field(
+        description="广告浏览或点击归因的推广商品直接订单数 [原字段 'purchases']；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        validation_alias="purchases",
+        default=0,
+    )
+    click_direct_orders: IntOrNone2Zero = Field(
+        description="点击归因的推广商品直接订单数 [原字段 'purchases_clicks']；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        validation_alias="purchases_clicks",
+        default=0,
+    )
+    view_direct_orders: IntOrNone2Zero = Field(
+        description="浏览归因的推广商品直接订单数 [原字段 'purchases_views']；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        validation_alias="purchases_views",
+        default=0,
+    )
+    direct_units: IntOrNone2Zero = Field(
+        description="广告浏览或点击归因的推广商品直接销量 [原字段 'units_sold']；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        validation_alias="units_sold",
+        default=0,
+    )
+    roas: FloatOrNone2Zero = Field(
+        description="推广商品广告回报率，直接销售额 / 广告花费；缺键、None或空字符串转为0",
+        examples=[0.0],
+        # - - - - - - - - - -
+        default=0.0,
+    )
+    combined_orders: IntOrNone2Zero = Field(
+        description="广告浏览或点击归因的站内及站外合计订单数 [原字段 'combined_purchases']；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        validation_alias="combined_purchases",
+        default=0,
+    )
+    combined_units: IntOrNone2Zero = Field(
+        description="广告浏览或点击归因的站内及站外合计销量 [原字段 'combined_units_sold']；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        validation_alias="combined_units_sold",
+        default=0,
+    )
+    combined_sales: FloatOrNone2Zero = Field(
+        description="广告浏览或点击归因的站内及站外合计销售额 [原字段 'combined_product_sales']；缺键、None或空字符串转为0",
+        examples=[0.0],
+        # - - - - - - - - - -
+        validation_alias="combined_product_sales",
+        default=0.0,
+    )
+    view_combined_orders: IntOrNone2Zero = Field(
+        description="浏览归因的站内及站外合计订单数 [原字段 'combined_purchases_views']；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        validation_alias="combined_purchases_views",
+        default=0,
+    )
+    click_combined_orders: IntOrNone2Zero = Field(
+        description="点击归因的站内及站外合计订单数 [原字段 'combined_purchases_clicks']；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        validation_alias="combined_purchases_clicks",
+        default=0,
+    )
+    long_term_sales: FloatOrNone2Zero = Field(
+        description="长期销售额；缺键、None或空字符串转为0",
+        examples=[0.0],
+        # - - - - - - - - - -
+        default=0.0,
+    )
+    brand_searches: IntOrNone2Zero = Field(
+        description="与广告精选ASIN对应品牌的搜索次数；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        default=0,
+    )
+    click_brand_searches: IntOrNone2Zero = Field(
+        description="点击归因的品牌搜索次数 [原字段 'brand_searches_clicks']；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        validation_alias="brand_searches_clicks",
+        default=0,
+    )
+    view_brand_searches: IntOrNone2Zero = Field(
+        description="浏览归因的品牌搜索次数 [原字段 'brand_searches_views']；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        validation_alias="brand_searches_views",
+        default=0,
+    )
+    brand_search_rate: FloatOrNone2Zero = Field(
+        description="品牌搜索率，品牌搜索次数 / 展示次数 × 100%；缺键、None或空字符串转为0",
+        examples=[0.0],
+        # - - - - - - - - - -
+        default=0.0,
+    )
+    new_to_brand_orders: IntOrNone2Zero = Field(
+        description="广告浏览或点击归因的品牌新客推广商品直接订单数 [原字段 'new_to_brand_purchases']；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        validation_alias="new_to_brand_purchases",
+        default=0,
+    )
+    view_new_to_brand_orders: IntOrNone2Zero = Field(
+        description="浏览归因的品牌新客推广商品直接订单数 [原字段 'new_to_brand_purchases_views']；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        validation_alias="new_to_brand_purchases_views",
+        default=0,
+    )
+    click_new_to_brand_orders: IntOrNone2Zero = Field(
+        description="点击归因的品牌新客推广商品直接订单数 [原字段 'new_to_brand_purchases_clicks']；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        validation_alias="new_to_brand_purchases_clicks",
+        default=0,
+    )
+    new_to_brand_units: IntOrNone2Zero = Field(
+        description="广告浏览或点击归因的品牌新客推广商品直接销量 [原字段 'new_to_brand_units_sold']；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        validation_alias="new_to_brand_units_sold",
+        default=0,
+    )
+    new_to_brand_sales: FloatOrNone2Zero = Field(
+        description="广告浏览或点击归因的品牌新客推广商品直接销售额 [原字段 'new_to_brand_product_sales']；缺键、None或空字符串转为0",
+        examples=[0.0],
+        # - - - - - - - - - -
+        validation_alias="new_to_brand_product_sales",
+        default=0.0,
+    )
+    new_to_brand_page_views: IntOrNone2Zero = Field(
+        description="广告浏览或点击归因的品牌新客推广商品详情页浏览次数 [原字段 'new_to_brand_detail_page_views']；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        validation_alias="new_to_brand_detail_page_views",
+        default=0,
+    )
+    new_to_brand_page_view_rate: FloatOrNone2Zero = Field(
+        description="品牌新客推广商品详情页浏览率，详情页浏览次数 / 展示次数 × 100% [原字段 'new_to_brand_detail_page_view_rate']；缺键、None或空字符串转为0",
+        examples=[0.0],
+        # - - - - - - - - - -
+        validation_alias="new_to_brand_detail_page_view_rate",
+        default=0.0,
+    )
+    total_new_to_brand_orders: IntOrNone2Zero = Field(
+        description="广告浏览或点击归因的品牌新客品牌商品总订单数 [原字段 'total_new_to_brand_purchases']；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        validation_alias="total_new_to_brand_purchases",
+        default=0,
+    )
+    click_total_new_to_brand_orders: IntOrNone2Zero = Field(
+        description="点击归因的品牌新客品牌商品总订单数 [原字段 'total_new_to_brand_purchases_clicks']；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        validation_alias="total_new_to_brand_purchases_clicks",
+        default=0,
+    )
+    view_total_new_to_brand_orders: IntOrNone2Zero = Field(
+        description="浏览归因的品牌新客品牌商品总订单数 [原字段 'total_new_to_brand_purchases_views']；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        validation_alias="total_new_to_brand_purchases_views",
+        default=0,
+    )
+    total_new_to_brand_units: IntOrNone2Zero = Field(
+        description="广告浏览或点击归因的品牌新客品牌商品总销量 [原字段 'total_new_to_brand_units_sold']；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        validation_alias="total_new_to_brand_units_sold",
+        default=0,
+    )
+    total_new_to_brand_sales: FloatOrNone2Zero = Field(
+        description="广告浏览或点击归因的品牌新客品牌商品总销售额；缺键、None或空字符串转为0",
+        examples=[0.0],
+        # - - - - - - - - - -
+        default=0.0,
+    )
+    total_new_to_brand_order_pct: FloatOrNone2Zero = Field(
+        description="品牌新客总订单占比，品牌新客总订单数 / 总订单数 × 100% [原字段 'total_new_to_brand_purchases_percentage']；缺键、None或空字符串转为0",
+        examples=[0.0],
+        # - - - - - - - - - -
+        validation_alias="total_new_to_brand_purchases_percentage",
+        default=0.0,
+    )
+    total_new_to_brand_page_views: IntOrNone2Zero = Field(
+        description="广告浏览或点击归因的品牌新客品牌商品详情页总浏览次数 [原字段 'total_new_to_brand_dpvs']；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        validation_alias="total_new_to_brand_dpvs",
+        default=0,
+    )
+    agency_fee: FloatOrNone2Zero = Field(
+        description="代理费用；缺键、None或空字符串转为0",
+        examples=[0.0],
+        # - - - - - - - - - -
+        default=0.0,
+    )
+    total_fee: FloatOrNone2Zero = Field(
+        description="总费用；缺键、None或空字符串转为0",
+        examples=[0.0],
+        # - - - - - - - - - -
+        default=0.0,
+    )
+    video_starts: IntOrNone2Zero = Field(
+        description="视频开始播放次数 [原字段 'video_ad_start']；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        validation_alias="video_ad_start",
+        default=0,
+    )
+    video_25pct_views: IntOrNone2Zero = Field(
+        description="视频播放达到25%的次数 [原字段 'video_ad_first_quartile']；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        validation_alias="video_ad_first_quartile",
+        default=0,
+    )
+    video_50pct_views: IntOrNone2Zero = Field(
+        description="视频播放达到50%的次数 [原字段 'video_ad_midpoint']；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        validation_alias="video_ad_midpoint",
+        default=0,
+    )
+    video_75pct_views: IntOrNone2Zero = Field(
+        description="视频播放达到75%的次数 [原字段 'video_ad_third_quartile']；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        validation_alias="video_ad_third_quartile",
+        default=0,
+    )
+    video_100pct_views: IntOrNone2Zero = Field(
+        description="视频播放完成次数 [原字段 'video_ad_complete']；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        validation_alias="video_ad_complete",
+        default=0,
+    )
+    measurable_rate: FloatOrNone2Zero = Field(
+        description="可衡量展示率，measurable_impressions / impressions × 100%，接口保留两位小数；缺键、None或空字符串转为0",
+        examples=[0.0],
+        # - - - - - - - - - -
+        default=0.0,
+    )
+    viewable_rate: FloatOrNone2Zero = Field(
+        description="可见展示率，viewable_impressions / impressions × 100%，接口保留两位小数；缺键、None或空字符串转为0",
+        examples=[0.0],
+        # - - - - - - - - - -
+        default=0.0,
+    )
+    indirect_orders: IntOrNone2Zero = Field(
+        description="间接订单数，接口按total_purchases14d - purchases计算 [原字段 'indirect_purchases']；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        validation_alias="indirect_purchases",
+        default=0,
+    )
+    indirect_units: IntOrNone2Zero = Field(
+        description="间接销量，接口按total_units_sold14d - units_sold计算 [原字段 'indirect_units_sold']；缺键、None或空字符串转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        validation_alias="indirect_units_sold",
+        default=0,
+    )
+    indirect_sales: FloatOrNone2Zero = Field(
+        description="间接销售额，接口按total_sales14d - sales计算并保留两位小数；缺键、None或空字符串转为0",
+        examples=[0.0],
+        # - - - - - - - - - -
+        default=0.0,
+    )
+    total_new_to_brand_order_rate: FloatOrNone2Zero = Field(
+        description="品牌新客总购买率，total_new_to_brand_purchases / impressions × 100%，接口保留两位小数 [原字段 'total_new_to_brand_purchase_rate']；缺键、None或空字符串转为0",
+        examples=[0.0],
+        # - - - - - - - - - -
+        validation_alias="total_new_to_brand_purchase_rate",
+        default=0.0,
+    )
+    new_to_brand_order_pct: FloatOrNone2Zero = Field(
+        description="品牌新客直接订单占比，new_to_brand_purchases / purchases × 100%，接口保留两位小数 [原字段 'new_to_brand_purchases_percentage']；缺键、None或空字符串转为0",
+        examples=[0.0],
+        # - - - - - - - - - -
+        validation_alias="new_to_brand_purchases_percentage",
+        default=0.0,
+    )
+    ctr: FloatOrNone2Zero = Field(
+        description="点击率，接口返回已存储的值并保留两位小数；缺键、None或空字符串转为0",
+        examples=[0.0],
+        # - - - - - - - - - -
+        default=0.0,
+    )
+    ecpm: FloatOrNone2Zero = Field(
+        description="千次展示成本，接口返回已存储的值并保留两位小数；缺键、None或空字符串转为0",
+        examples=[0.0],
+        # - - - - - - - - - -
+        default=0.0,
+    )
+    cpc: FloatOrNone2Zero = Field(
+        description="每次点击成本，接口按total_cost / clicks计算并以HALF_UP保留两位小数；缺少操作数或clicks为0时接口返回0 [原字段 'eCPC']；缺键、None或空字符串转为0",
+        examples=[0.0],
+        # - - - - - - - - - -
+        validation_alias="eCPC",
+        default=0.0,
+    )
+    cost_per_brand_search: FloatOrNone2Zero = Field(
+        description="每次品牌搜索的成本 [原字段 'eCPBrandSearch']；缺键、None或空字符串转为0",
+        examples=[0.0],
+        # - - - - - - - - - -
+        validation_alias="eCPBrandSearch",
+        default=0.0,
+    )
+    combined_roas: FloatOrNone2Zero = Field(
+        description="站内及站外合计广告回报率，综合销售额 / 广告花费 [原字段 'combinedROAS']；缺键、None或空字符串转为0",
+        examples=[0.0],
+        # - - - - - - - - - -
+        validation_alias="combinedROAS",
+        default=0.0,
+    )
+    long_term_roas: FloatOrNone2Zero = Field(
+        description="长期广告回报率 [原字段 'longTermROAS']；缺键、None或空字符串转为0",
+        examples=[0.0],
+        # - - - - - - - - - -
+        validation_alias="longTermROAS",
+        default=0.0,
+    )
+    new_to_brand_roas: FloatOrNone2Zero = Field(
+        description="品牌新客推广商品广告回报率，直接销售额 / 广告花费 [原字段 'newToBrandROAS']；缺键、None或空字符串转为0",
+        examples=[0.0],
+        # - - - - - - - - - -
+        validation_alias="newToBrandROAS",
+        default=0.0,
+    )
+    total_new_to_brand_roas: FloatOrNone2Zero = Field(
+        description="品牌新客品牌商品总广告回报率，总销售额 / 广告花费 [原字段 'totalNewToBrandROAS']；缺键、None或空字符串转为0",
+        examples=[0.0],
+        # - - - - - - - - - -
+        validation_alias="totalNewToBrandROAS",
+        default=0.0,
+    )
+    total_new_to_brand_page_view_rate: FloatOrNone2Zero = Field(
+        description="品牌新客品牌商品详情页总浏览率，总浏览次数 / 展示次数 × 100% [原字段 'totalNewToBrandDPVRate']；缺键、None或空字符串转为0",
+        examples=[0.0],
+        # - - - - - - - - - -
+        validation_alias="totalNewToBrandDPVRate",
+        default=0.0,
+    )
+    third_party_fees: FloatOrNone2Zero = Field(
+        description="第三方费用 [原字段 '3PFees']；缺键、None或空字符串转为0",
+        examples=[0.0],
+        # - - - - - - - - - -
+        validation_alias="3PFees",
+        default=0.0,
+    )
+    total_page_view_rate: FloatOrNone2Zero = Field(
+        description="品牌商品详情页总浏览率，total_detail_page_views14d / impressions × 100%，接口保留两位小数 [原字段 'totalDPVR']；缺键、None或空字符串转为0",
+        examples=[0.0],
+        # - - - - - - - - - -
+        validation_alias="totalDPVR",
+        default=0.0,
+    )
+    product_review_page_visit_rate: FloatOrNone2Zero = Field(
+        description="推广商品评论页访问率，product_review_page_visits / impressions × 100%，接口保留两位小数 [原字段 'PRPVR']；缺键、None或空字符串转为0",
+        examples=[0.0],
+        # - - - - - - - - - -
+        validation_alias="PRPVR",
+        default=0.0,
+    )
+    total_product_review_page_visit_rate: FloatOrNone2Zero = Field(
+        description="品牌商品评论页总访问率，total_product_review_page_visits / impressions × 100%，接口保留两位小数 [原字段 'totalPRPVR']；缺键、None或空字符串转为0",
+        examples=[0.0],
+        # - - - - - - - - - -
+        validation_alias="totalPRPVR",
+        default=0.0,
+    )
+    add_to_cart_rate: FloatOrNone2Zero = Field(
+        description="推广商品加购率，add_to_cart / impressions × 100%，接口保留两位小数 [原字段 'ATCR']；缺键、None或空字符串转为0",
+        examples=[0.0],
+        # - - - - - - - - - -
+        validation_alias="ATCR",
+        default=0.0,
+    )
+    total_add_to_cart_rate: FloatOrNone2Zero = Field(
+        description="品牌商品总加购率，total_add_to_cart14d / impressions × 100%，接口保留两位小数 [原字段 'totalATCR']；缺键、None或空字符串转为0",
+        examples=[0.0],
+        # - - - - - - - - - -
+        validation_alias="totalATCR",
+        default=0.0,
+    )
+    acos: FloatOrNone2Zero = Field(
+        description="广告花费占总销售额的百分比，total_cost / total_sales14d × 100%，接口保留两位小数 [原字段 'ACOS']；缺键、None或空字符串转为0",
+        examples=[0.0],
+        # - - - - - - - - - -
+        validation_alias="ACOS",
+        default=0.0,
+    )
 
 
-class DspReports(ResponseV1):
-    """DSP 报告列表"""
+class DspReports(ResponseV1Token):
+    """DSP订单日报列表，包含下一页游标及记录计数。"""
 
-    data: list[DspReport]
-
+    data: list[DspReport] = Field(
+        description="DSP订单按日报告列表；扩展数值字段缺键、None或空字符串时输出零，SDK不重新计算指标",
+        examples=[
+            [
+                {
+                    "profile_id": 90000000000001,
+                    "advertiser_id": 80000000000001,
+                    "advertiser_name": "ADVERTISER-00001",
+                    "order_id": "700000000000001",
+                    "order_name": "ORDER-00001",
+                    "order_start_date": "2022-09-13",
+                    "order_end_date": "2023-01-01",
+                    "budget": 2715.0,
+                    "costs": 26.88,
+                    "impressions": 4053,
+                    "viewable_impressions": 2176,
+                    "clicks": 3,
+                    "page_views": 51,
+                    "add_to_cart_count": 22,
+                    "orders": 10,
+                    "units": 11,
+                    "sales": 330.59,
+                    "currency_code": "USD",
+                    "report_date": "2022-10-05",
+                    "record_id": 700000000000001,
+                    "view_add_to_watchlist_count_14d": 0,
+                    "view_page_views_14d": 0,
+                    "total_orders_14d": 0,
+                    "amazon_platform_fee": 0.0,
+                    "total_add_to_cart_count_14d": 0,
+                    "click_page_views_14d": 0,
+                    "entity_id": "",
+                    "total_roas_14d": 0.0,
+                    "total_units_14d": 0,
+                    "order_external_id": "",
+                    "page_views_14d": 0,
+                    "total_cost": 26.88,
+                    "total_sales_14d": 0.0,
+                    "click_total_page_views_14d": 0,
+                    "total_page_views_14d": 0,
+                    "view_total_page_views_14d": 0,
+                    "reach": 0,
+                    "measurable_impressions": 0,
+                    "frequency_average": 0.0,
+                    "gross_clicks": 0,
+                    "gross_impressions": 0,
+                    "invalid_clicks": 0,
+                    "invalid_impressions": 0,
+                    "product_review_page_visits": 0,
+                    "click_product_review_page_visits": 0,
+                    "view_product_review_page_visits": 0,
+                    "total_product_review_page_visits": 0,
+                    "click_total_product_review_page_visits": 0,
+                    "view_total_product_review_page_visits": 0,
+                    "add_to_list_count": 0,
+                    "click_add_to_list_count": 0,
+                    "view_add_to_list_count": 0,
+                    "total_add_to_list_count": 0,
+                    "click_total_add_to_list_count": 0,
+                    "view_total_add_to_list_count": 0,
+                    "direct_add_to_cart_count": 0,
+                    "click_direct_add_to_cart_count": 0,
+                    "view_direct_add_to_cart_count": 0,
+                    "click_add_to_cart_count": 0,
+                    "view_add_to_cart_count": 0,
+                    "add_to_shopping_cart_count": 0,
+                    "click_add_to_shopping_cart_count": 0,
+                    "view_add_to_shopping_cart_count": 0,
+                    "add_to_watchlist_count": 0,
+                    "click_add_to_watchlist_count": 0,
+                    "view_total_orders": 0,
+                    "click_total_orders": 0,
+                    "direct_orders": 0,
+                    "click_direct_orders": 0,
+                    "view_direct_orders": 0,
+                    "direct_units": 0,
+                    "roas": 0.0,
+                    "combined_orders": 0,
+                    "combined_units": 0,
+                    "combined_sales": 0.0,
+                    "view_combined_orders": 0,
+                    "click_combined_orders": 0,
+                    "long_term_sales": 0.0,
+                    "brand_searches": 0,
+                    "click_brand_searches": 0,
+                    "view_brand_searches": 0,
+                    "brand_search_rate": 0.0,
+                    "new_to_brand_orders": 0,
+                    "view_new_to_brand_orders": 0,
+                    "click_new_to_brand_orders": 0,
+                    "new_to_brand_units": 0,
+                    "new_to_brand_sales": 0.0,
+                    "new_to_brand_page_views": 0,
+                    "new_to_brand_page_view_rate": 0.0,
+                    "total_new_to_brand_orders": 0,
+                    "click_total_new_to_brand_orders": 0,
+                    "view_total_new_to_brand_orders": 0,
+                    "total_new_to_brand_units": 0,
+                    "total_new_to_brand_sales": 0.0,
+                    "total_new_to_brand_order_pct": 0.0,
+                    "total_new_to_brand_page_views": 0,
+                    "agency_fee": 0.0,
+                    "total_fee": 0.0,
+                    "video_starts": 0,
+                    "video_25pct_views": 0,
+                    "video_50pct_views": 0,
+                    "video_75pct_views": 0,
+                    "video_100pct_views": 0,
+                    "measurable_rate": 0.0,
+                    "viewable_rate": 0.0,
+                    "indirect_orders": 0,
+                    "indirect_units": 0,
+                    "indirect_sales": 0.0,
+                    "total_new_to_brand_order_rate": 0.0,
+                    "new_to_brand_order_pct": 0.0,
+                    "ctr": 0.0,
+                    "ecpm": 0.0,
+                    "cpc": 0.0,
+                    "cost_per_brand_search": 0.0,
+                    "combined_roas": 0.0,
+                    "long_term_roas": 0.0,
+                    "new_to_brand_roas": 0.0,
+                    "total_new_to_brand_roas": 0.0,
+                    "total_new_to_brand_page_view_rate": 0.0,
+                    "third_party_fees": 0.0,
+                    "total_page_view_rate": 0.0,
+                    "product_review_page_visit_rate": 0.0,
+                    "total_product_review_page_visit_rate": 0.0,
+                    "add_to_cart_rate": 0.0,
+                    "total_add_to_cart_rate": 0.0,
+                    "acos": 0.0,
+                },
+            ],
+        ],
+    )
 
 # 报表下载 ----------------------------------------------------------------------------------------------------------------------
 # . Download ABA Report
 class AbaReportUrl(BaseModel):
-    """ABA 报告下载链接"""
+    """指定国家和周起始日期的 ABA 报告下载信息。
 
-    # 国家代码 [原字段 'country']
-    country_code: str = Field(validation_alias="country")
-    # 报告周期
-    report_period: str
-    # 报告开始日期 [原字段 'data_start_time']
-    start_date: str = Field(validation_alias="data_start_time")
-    # 下载链接
-    url: str
+    各字段按字符串保留；下载链接用于另行获取报告文件。
+    """
+
+    country_code: str = Field(
+        description="报告所属国家代码 [原字段 'country']",
+        examples=["US"],
+        # - - - - - - - - - -
+        validation_alias="country",
+    )
+    report_period: str = Field(
+        description="报告周期，周维度为WEEK",
+        examples=["WEEK"],
+    )
+    start_date: str = Field(
+        description="报告周起始日期文本 [原字段 'data_start_time']",
+        examples=["2026-10-04"],
+        # - - - - - - - - - -
+        validation_alias="data_start_time",
+    )
+    url: str = Field(
+        description="报告下载链接；可能含临时签名，使用时应完整保留查询参数",
+        examples=["https://example.com/aba/report"],
+    )
 
 
 class DownloadAbaReport(ResponseV1):
-    """下载 ABA 报告信息"""
+    """ABA 周报告下载信息的成功响应。
 
-    data: AbaReportUrl
+    data为下载信息对象，不包含报告文件内容；response_count和total_count不表示文件中的搜索词记录数。
+    文件不存在等业务错误由SDK请求方法抛出异常。
+    """
+
+    data: AbaReportUrl = Field(
+        description="指定国家和周起始日期的报告下载信息，成功响应中必填",
+        examples=[
+            {
+                "country_code": "US",
+                "report_period": "WEEK",
+                "start_date": "2026-10-04",
+                "url": "https://example.com/aba/report",
+            },
+        ],
+    )
 
 
 # 操作日志 ----------------------------------------------------------------------------------------------------------------------
 class AdsOperation(BaseModel):
     """广告操作"""
 
-    # 操作编码
-    code: str
-    # 操作值
-    value: StrOrNone2Blank
+    code: str = Field(
+        description="操作编码",
+        examples=["IN_BUDGET"],
+    )
+    value: StrOrNone2Blank = Field(
+        description="操作值；None转为空字符串，其他字符串原样保留，不执行JSON解码",
+        examples=["true"],
+    )
 
 
 class AdsOperationLog(BaseModel):
     """广告操作日志"""
 
-    # 亚马逊店铺ID (广告帐号ID)
-    profile_id: int
-    # 广告活动ID
-    campaign_id: int
-    # 广告活动名称
-    campaign_name: str
-    # 广告组ID
-    ad_group_id: IntOrNone2Zero
-    # 广告组名称
-    ad_group_name: StrOrNone2Blank
-    # 广告对象ID [原字段 'object_id']
-    ad_object_id: IntOrNone2Zero = Field(validation_alias="object_id")
-    # 广告对象名称 [原字段 'object_name']
-    ad_object_name: StrOrNone2Blank = Field(validation_alias="object_name")
-    # 广告类型 [原字段 'sponsored_type']
-    ad_type: str = Field(validation_alias="sponsored_type")
-    # 操作用户ID [原字段 'user_id']
-    operator_id: IntOrNone2Zero = Field(validation_alias="user_id")
-    # 操作用户名称 [原字段 'user_name']
-    operator_name: StrOrNone2Blank = Field(validation_alias="user_name")
-    # 操作对象 [原字段 'operate_type']
-    operation_target: StrOrNone2Blank = Field(validation_alias="operate_type")
-    # 操作类型 [原字段 'change_type']
-    operation_type: StrOrNone2Blank = Field(validation_alias="change_type")
-    # 操作来源 [原字段 'function_name']
-    operation_source: StrOrNone2Blank = Field(validation_alias="function_name")
-    # 操作时间 [原字段 'operate_time']
-    operation_time: str = Field(validation_alias="operate_time")
-    # 操作前列表 [原字段 'operate_before']
-    before: list[AdsOperation] = Field(validation_alias="operate_before")
-    # 操作后列表 [原字段 'operate_after']
-    after: list[AdsOperation] = Field(validation_alias="operate_after")
+    profile_id: int = Field(
+        description="亚马逊店铺ID (广告帐号ID)",
+        examples=[90000000000001],
+    )
+    campaign_id: int = Field(
+        description="广告活动ID",
+        examples=[700000000000001],
+    )
+    campaign_name: str = Field(
+        description="广告活动名称",
+        examples=["CAMPAIGN-00001"],
+    )
+    ad_group_id: IntOrNone2Zero = Field(
+        description="广告组ID；None转为0",
+        examples=[0],
+    )
+    ad_group_name: StrOrNone2Blank = Field(
+        description="广告组名称；None转为空字符串",
+        examples=[""],
+    )
+    ad_object_id: IntOrNone2Zero = Field(
+        description="广告对象ID [原字段 'object_id']；对象类型由operation_target指定，None转为0",
+        examples=[700000000000001],
+        # - - - - - - - - - -
+        validation_alias="object_id",
+    )
+    ad_object_name: StrOrNone2Blank = Field(
+        description="广告对象名称 [原字段 'object_name']；None转为空字符串",
+        examples=["CAMPAIGN-00001"],
+        # - - - - - - - - - -
+        validation_alias="object_name",
+    )
+    ad_type: str = Field(
+        description="广告类型 [原字段 'sponsored_type']",
+        examples=["sp"],
+        # - - - - - - - - - -
+        validation_alias="sponsored_type",
+    )
+    operator_id: IntOrNone2Zero = Field(
+        description="操作用户ID [原字段 'user_id']；None转为0",
+        examples=[0],
+        # - - - - - - - - - -
+        validation_alias="user_id",
+    )
+    operator_name: StrOrNone2Blank = Field(
+        description="操作用户名称 [原字段 'user_name']；None转为空字符串",
+        examples=["亚马逊日志"],
+        # - - - - - - - - - -
+        validation_alias="user_name",
+    )
+    operation_target: StrOrNone2Blank = Field(
+        description="操作对象 [原字段 'operate_type']；None转为空字符串",
+        examples=["campaigns"],
+        # - - - - - - - - - -
+        validation_alias="operate_type",
+    )
+    operation_type: StrOrNone2Blank = Field(
+        description="操作类型 [原字段 'change_type']；None转为空字符串",
+        examples=["update"],
+        # - - - - - - - - - -
+        validation_alias="change_type",
+    )
+    operation_source: StrOrNone2Blank = Field(
+        description="操作来源 [原字段 'function_name']；None转为空字符串",
+        examples=["history"],
+        # - - - - - - - - - -
+        validation_alias="function_name",
+    )
+    operation_time: str = Field(
+        description="操作时间 [原字段 'operate_time']；站点时间字符串，不解析时区或转换为UTC",
+        examples=["2026-10-01 10:19:37"],
+        # - - - - - - - - - -
+        validation_alias="operate_time",
+    )
+    before: list[AdsOperation] = Field(
+        description="操作前列表 [原字段 'operate_before']；value保持字符串，不执行JSON解码",
+        examples=[[{"code": "IN_BUDGET", "value": "true"}]],
+        # - - - - - - - - - -
+        validation_alias="operate_before",
+    )
+    after: list[AdsOperation] = Field(
+        description="操作后列表 [原字段 'operate_after']；value保持字符串，不执行JSON解码",
+        examples=[[{"code": "IN_BUDGET", "value": "false"}]],
+        # - - - - - - - - - -
+        validation_alias="operate_after",
+    )
 
 
 class AdsOperationLogs(ResponseV1):
     """广告操作日志"""
 
-    data: list[AdsOperationLog]
+    data: list[AdsOperationLog] = Field(
+        description="广告操作日志列表",
+        examples=[
+            [
+                {
+                    "profile_id": 90000000000001,
+                    "campaign_id": 700000000000001,
+                    "campaign_name": "CAMPAIGN-00001",
+                    "ad_group_id": 0,
+                    "ad_group_name": "",
+                    "ad_object_id": 700000000000001,
+                    "ad_object_name": "CAMPAIGN-00001",
+                    "ad_type": "sp",
+                    "operator_id": 0,
+                    "operator_name": "亚马逊日志",
+                    "operation_target": "campaigns",
+                    "operation_type": "update",
+                    "operation_source": "history",
+                    "operation_time": "2026-10-01 10:19:37",
+                    "before": [{"code": "IN_BUDGET", "value": "true"}],
+                    "after": [{"code": "IN_BUDGET", "value": "false"}],
+                },
+            ],
+        ],
+    )

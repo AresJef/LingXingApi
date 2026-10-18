@@ -114,7 +114,9 @@ class AdsAPI(BaseAPI):
             raise errors.InvalidParametersError(err, url, args) from err
 
         # 发送请求
-        data = await self._request_with_sign("POST", url, body=p.model_dump_params())
+        data = await self._request_with_sign(
+            "POST", url, body=p.model_dump_params(), headers={"X-API-VERSION": "2"}
+        )
         return schema.AdProfiles.model_validate(data)
 
     async def Portfolios(
@@ -212,7 +214,9 @@ class AdsAPI(BaseAPI):
             raise errors.InvalidParametersError(err, url, args) from err
 
         # 发送请求
-        data = await self._request_with_sign("POST", url, body=p.model_dump_params())
+        data = await self._request_with_sign(
+            "POST", url, body=p.model_dump_params(), headers={"X-API-VERSION": "2"}
+        )
         return schema.Portfolios.model_validate(data)
 
     # . 基础数据 - Sponsored Products
@@ -2455,7 +2459,9 @@ class AdsAPI(BaseAPI):
             raise errors.InvalidParametersError(err, url, args) from err
 
         # 发送请求
-        data = await self._request_with_sign("POST", url, body=p.model_dump_params())
+        data = await self._request_with_sign(
+            "POST", url, body=p.model_dump_params(), headers={"X-API-VERSION": "2"}
+        )
         return schema.SpCampaignHourData.model_validate(data)
 
     async def SpPlacementReports(
@@ -2669,7 +2675,9 @@ class AdsAPI(BaseAPI):
             raise errors.InvalidParametersError(err, url, args) from err
 
         # 发送请求
-        data = await self._request_with_sign("POST", url, body=p.model_dump_params())
+        data = await self._request_with_sign(
+            "POST", url, body=p.model_dump_params(), headers={"X-API-VERSION": "2"}
+        )
         return schema.SpPlacementHourData.model_validate(data)
 
     async def SpAdGroupReports(
@@ -2883,7 +2891,9 @@ class AdsAPI(BaseAPI):
             raise errors.InvalidParametersError(err, url, args) from err
 
         # 发送请求
-        data = await self._request_with_sign("POST", url, body=p.model_dump_params())
+        data = await self._request_with_sign(
+            "POST", url, body=p.model_dump_params(), headers={"X-API-VERSION": "2"}
+        )
         return schema.SpAdGroupHourData.model_validate(data)
 
     async def SpProductReports(
@@ -3110,7 +3120,9 @@ class AdsAPI(BaseAPI):
             raise errors.InvalidParametersError(err, url, args) from err
 
         # 发送请求
-        data = await self._request_with_sign("POST", url, body=p.model_dump_params())
+        data = await self._request_with_sign(
+            "POST", url, body=p.model_dump_params(), headers={"X-API-VERSION": "2"}
+        )
         return schema.SpProductHourData.model_validate(data)
 
     async def SpKeywordReports(
@@ -3343,7 +3355,9 @@ class AdsAPI(BaseAPI):
             raise errors.InvalidParametersError(err, url, args) from err
 
         # 发送请求
-        data = await self._request_with_sign("POST", url, body=p.model_dump_params())
+        data = await self._request_with_sign(
+            "POST", url, body=p.model_dump_params(), headers={"X-API-VERSION": "2"}
+        )
         return schema.SpKeywordHourData.model_validate(data)
 
     async def SpKeywordQueryReports(
@@ -3694,7 +3708,9 @@ class AdsAPI(BaseAPI):
             raise errors.InvalidParametersError(err, url, args) from err
 
         # 发送请求
-        data = await self._request_with_sign("POST", url, body=p.model_dump_params())
+        data = await self._request_with_sign(
+            "POST", url, body=p.model_dump_params(), headers={"X-API-VERSION": "2"}
+        )
         return schema.SpTargetHourData.model_validate(data)
 
     async def SpTargetQueryReports(
@@ -3991,7 +4007,9 @@ class AdsAPI(BaseAPI):
             raise errors.InvalidParametersError(err, url, args) from err
 
         # 发送请求
-        data = await self._request_with_sign("POST", url, body=p.model_dump_params())
+        data = await self._request_with_sign(
+            "POST", url, body=p.model_dump_params(), headers={"X-API-VERSION": "2"}
+        )
         return schema.SbCampaignHourData.model_validate(data)
 
     async def SbPlacementReports(
@@ -4174,7 +4192,9 @@ class AdsAPI(BaseAPI):
             raise errors.InvalidParametersError(err, url, args) from err
 
         # 发送请求
-        data = await self._request_with_sign("POST", url, body=p.model_dump_params())
+        data = await self._request_with_sign(
+            "POST", url, body=p.model_dump_params(), headers={"X-API-VERSION": "2"}
+        )
         return schema.SbPlacementHourData.model_validate(data)
 
     async def SbAdGroupReports(
@@ -4354,7 +4374,9 @@ class AdsAPI(BaseAPI):
             raise errors.InvalidParametersError(err, url, args) from err
 
         # 发送请求
-        data = await self._request_with_sign("POST", url, body=p.model_dump_params())
+        data = await self._request_with_sign(
+            "POST", url, body=p.model_dump_params(), headers={"X-API-VERSION": "2"}
+        )
         return schema.SbAdGroupHourData.model_validate(data)
 
     async def SbCreativeReports(
@@ -5050,7 +5072,9 @@ class AdsAPI(BaseAPI):
             raise errors.InvalidParametersError(err, url, args) from err
 
         # 发送请求
-        data = await self._request_with_sign("POST", url, body=p.model_dump_params())
+        data = await self._request_with_sign(
+            "POST", url, body=p.model_dump_params(), headers={"X-API-VERSION": "2"}
+        )
         return schema.SbTargetingHourData.model_validate(data)
 
     async def SbAsinAttributionReports(
@@ -5238,7 +5262,9 @@ class AdsAPI(BaseAPI):
             raise errors.InvalidParametersError(err, url, args) from err
 
         # 发送请求
-        data = await self._request_with_sign("POST", url, body=p.model_dump_params())
+        data = await self._request_with_sign(
+            "POST", url, body=p.model_dump_params(), headers={"X-API-VERSION": "2"}
+        )
         return schema.SbCostAllocationReports.model_validate(data)
 
     # . 报告 - Sponsored Display
@@ -5455,7 +5481,9 @@ class AdsAPI(BaseAPI):
             raise errors.InvalidParametersError(err, url, args) from err
 
         # 发送请求
-        data = await self._request_with_sign("POST", url, body=p.model_dump_params())
+        data = await self._request_with_sign(
+            "POST", url, body=p.model_dump_params(), headers={"X-API-VERSION": "2"}
+        )
         return schema.SdCampaignHourData.model_validate(data)
 
     async def SdAdGroupReports(
@@ -5675,7 +5703,9 @@ class AdsAPI(BaseAPI):
             raise errors.InvalidParametersError(err, url, args) from err
 
         # 发送请求
-        data = await self._request_with_sign("POST", url, body=p.model_dump_params())
+        data = await self._request_with_sign(
+            "POST", url, body=p.model_dump_params(), headers={"X-API-VERSION": "2"}
+        )
         return schema.SdAdGroupHourData.model_validate(data)
 
     async def SdProductReports(
@@ -5908,7 +5938,9 @@ class AdsAPI(BaseAPI):
             raise errors.InvalidParametersError(err, url, args) from err
 
         # 发送请求
-        data = await self._request_with_sign("POST", url, body=p.model_dump_params())
+        data = await self._request_with_sign(
+            "POST", url, body=p.model_dump_params(), headers={"X-API-VERSION": "2"}
+        )
         return schema.SdProductHourData.model_validate(data)
 
     async def SdTargetReports(
@@ -6147,7 +6179,9 @@ class AdsAPI(BaseAPI):
             raise errors.InvalidParametersError(err, url, args) from err
 
         # 发送请求
-        data = await self._request_with_sign("POST", url, body=p.model_dump_params())
+        data = await self._request_with_sign(
+            "POST", url, body=p.model_dump_params(), headers={"X-API-VERSION": "2"}
+        )
         return schema.SdTargetHourData.model_validate(data)
 
     async def SdMatchedTargetReports(
@@ -6278,84 +6312,332 @@ class AdsAPI(BaseAPI):
         self,
         start_date: str | datetime.date | datetime.datetime,
         end_date: str | datetime.date | datetime.datetime,
-        profile_id: int,
+        profile_id: int | None = None,
+        advertiser_id: int | None = None,
         *,
+        next_token: str | None = None,
         offset: int | None = None,
         length: int | None = None,
     ) -> schema.DspReports:
-        """查询 DSP 报告
+        """查询 DSP 订单的按日广告报告。
 
         ## Docs
-        - 新广告 - 报告: [查询DSP报告列表-订单](https://apidoc.lingxing.com/#/docs/newAd/report/dspReportOrderList)
+        领星接口文档: 新广告.[查询DSP报告列表-订单](https://apidoc.lingxing.com/new/api-docs/newAd/report/dspReportOrderList/)
 
-        :param start_date `<'str/date/datetime'>`: 报告开始日期
-        :param end_date `<'str/date/datetime'>`: 报告结束日期
-        :param profile_id `<'int'>`: 亚马逊店铺ID (广告帐号ID), 参数来源 `AdsProfiles.profile_id`
-        :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
-        :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 20)
-        :returns `<'DspReports'>`: 返回查询到的 DSP 报告结果
-        ```python
-        {
-            # 状态码
-            "code": 0,
-            # 提示信息
-            "message": "success",
-            # 错误信息
-            "errors": [],
-            # 请求ID
-            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
-            # 响应时间
-            "response_time": "2025-08-13 19:23:04",
-            # 响应数据量
-            "response_count": 2,
-            # 总数据量
-            "total_count": 2,
-            # 响应数据
-            "data": [
+        接口令牌桶容量为10。日期范围包含起止日，接口要求查询间隔不超过90天；SDK沿用现有日期解析，不额外校验跨度或起止顺序。
+
+        Args:
+            start_date (str | date | datetime): 报告开始日期，包含当日，发送为YYYY-MM-DD。
+            end_date (str | date | datetime): 报告结束日期，包含当日，发送为YYYY-MM-DD。
+            profile_id (int | None): DSP账户ID，来源为AdProfiles.profile_id，默认None并省略；沿用非负整数输入校验，发送为字符串。
+                与advertiser_id至少提供一项；同时提供时接口优先使用advertiser_id。
+            advertiser_id (int | None): 广告主ID，默认None并省略；按非负整数校验并发送为整数。
+            next_token (str | None): 上一页返回的Base64游标，首次请求可省略；默认None并省略，给定字符串去除首尾空白后须非空。
+            offset (int | None): 从0开始的分页偏移量，默认None并省略，接口默认0；显式0保留。
+            length (int | None): 分页长度，默认None并省略，接口默认20；显式0保留。
+
+        Returns:
+            ads.schema.DspReports: DSP订单日报记录、当前页数量、总数量和下一页游标；无数据时游标为空字符串。
+                扩展数值字段缺键、None或空字符串时输出零，零不一定表示接口实际返回了零；基础字段仍按其必填类型校验。
+                金额、比率和计算指标直接解析接口返回值，SDK不重新计算。
+
+        Raises:
+            errors.InvalidParametersError: 日期无法解析、两个标识均未提供，或标识、游标和分页字段校验失败。
+            errors.RequestError: 请求失败或接口返回业务错误。
+            pydantic.ValidationError: 响应缺少必填字段，或字段值无法按模型规则解析。
+
+        Examples:
+            使用DSP账户ID查询订单日报。示例保留官方成功响应的业务指标，标识、名称和请求信息使用示例值；
+            官方示例未提供的扩展数值字段按模型缺省规则显示为零。
+
+            .. code-block:: python
+
+                result = await client.ads.DspReports(
+                    start_date="2022-10-05",
+                    end_date="2022-12-01",
+                    profile_id=90000000000001,
+                    offset=0,
+                    length=20,
+                )
+                print(result.model_dump())
+
+            .. code-block:: python
+
                 {
-                    # 亚马逊店铺ID (广告帐号ID)
-                    "profile_id": 494************,
-                    # 广告主ID
-                    "advertiser_id": 214************,
-                    # 广告主名称
-                    "advertiser_name": "Seller",
-                    # 订单ID
-                    "order_id": 584************,
-                    # 订单名称
-                    "order_name": "Link-In",
-                    # 订单开始时间
-                    "order_start_date": "2022-09-13 00:00:00",
-                    # 订单结束时间
-                    "order_end_date": "2023-01-01 00:00:00",
-                    # 预算 [原字段 'order_budget']
-                    "budget": 2715.00,
-                    # 广告花费 [原字段 'spends']
-                    "costs": 26.88,
-                    # 总展示次数
-                    "impressions": 4053,
-                    # 可见展示次数
-                    "viewable_impressions": 2176,
-                    # 总点击次数
-                    "clicks": 31,
-                    # 商品详情页浏览次数 [原字段 'dpv']
-                    "page_views": 51,
-                    # 加购次数 [原字段 'total_add_to_cart']
-                    "add_to_cart_count": 22,
-                    # 订单数
-                    "orders": 10,
-                    # 成交商品件数 [原字段 'ad_units']
-                    "units": 11,
-                    # 销售额
-                    "sales": 330.59,
-                    # 货币代码 [原字段 'order_currency']
-                    "currency_code": "USD",
-                },
-                ...
-            ],
-            # 分页游标
-            "next_token": "MjgxNTExNTQ0MTc4ODM1",
-        }
-        ```
+                    # 状态码
+                    "code": 0,
+                    # 提示信息
+                    "message": "success",
+                    # 错误信息
+                    "errors": [],
+                    # 请求ID（示例值）
+                    "request_id": "00000000-0000-4000-8000-000000000001",
+                    # 响应时间（示例值）
+                    "response_time": "2001-01-01 00:00:00",
+                    # 当前页记录数量
+                    "response_count": 1,
+                    # 记录总数量
+                    "total_count": 1,
+                    # DSP订单按日报告记录
+                    "data": [
+                        {
+                            # DSP账户ID
+                            "profile_id": 90000000000001,
+                            # DSP广告主ID
+                            "advertiser_id": 80000000000001,
+                            # DSP广告主名称
+                            "advertiser_name": "ADVERTISER-00001",
+                            # DSP订单ID
+                            "order_id": "700000000000001",
+                            # DSP订单名称
+                            "order_name": "ORDER-00001",
+                            # 订单开始日期
+                            "order_start_date": "2022-09-13",
+                            # 订单结束日期
+                            "order_end_date": "2023-01-01",
+                            # 订单预算 [原字段 'order_budget']
+                            "budget": 2715.0,
+                            # 广告花费 [原字段 'spends']
+                            "costs": 26.88,
+                            # 广告展示次数
+                            "impressions": 4053,
+                            # 可见展示次数
+                            "viewable_impressions": 2176,
+                            # 广告点击次数
+                            "clicks": 3,
+                            # 商品详情页浏览次数 [原字段 'dpv']
+                            "page_views": 51,
+                            # 加购次数 [原字段 'total_add_to_cart']
+                            "add_to_cart_count": 22,
+                            # 订单数
+                            "orders": 10,
+                            # 销量 [原字段 'ad_units']
+                            "units": 11,
+                            # 销售额
+                            "sales": 330.59,
+                            # 币种 [原字段 'order_currency']
+                            "currency_code": "USD",
+                            # 报告所属日期，YYYY-MM-DD [原字段 'date']
+                            "report_date": "2022-10-05",
+                            # 报表记录ID [原字段 'id']
+                            "record_id": 700000000000001,
+                            # 14天浏览归因的加入观察列表次数 [原字段 'add_to_watchlist_views14d']
+                            "view_add_to_watchlist_count_14d": 0,
+                            # 14天浏览归因的推广商品详情页浏览次数 [原字段 'dpv_views14d']
+                            "view_page_views_14d": 0,
+                            # 14天广告浏览或点击归因的品牌商品总订单数 [原字段 'total_purchases14d']
+                            "total_orders_14d": 0,
+                            # 亚马逊平台费用
+                            "amazon_platform_fee": 0.0,
+                            # 14天广告浏览或点击归因的品牌商品总加购次数 [原字段 'total_add_to_cart14d']
+                            "total_add_to_cart_count_14d": 0,
+                            # 14天点击归因的推广商品详情页浏览次数 [原字段 'dpv_clicks14d']
+                            "click_page_views_14d": 0,
+                            # DSP实体ID，保留接口文本
+                            "entity_id": "",
+                            # 14天品牌商品总广告回报率，总销售额 / 广告花费 [原字段 'total_roas14d']
+                            "total_roas_14d": 0.0,
+                            # 14天广告浏览或点击归因的品牌商品总销量 [原字段 'total_units_sold14d']
+                            "total_units_14d": 0,
+                            # DSP广告活动外部ID
+                            "order_external_id": "",
+                            # 14天广告浏览或点击归因的推广商品详情页浏览次数 [原字段 'dpv14d']
+                            "page_views_14d": 0,
+                            # 广告总花费，接口保留两位小数
+                            "total_cost": 26.88,
+                            # 14天广告浏览或点击归因的品牌商品总销售额 [原字段 'total_sales14d']
+                            "total_sales_14d": 0.0,
+                            # 14天点击归因的品牌商品详情页总浏览次数 [原字段 'total_detail_page_clicks14d']
+                            "click_total_page_views_14d": 0,
+                            # 14天广告浏览或点击归因的品牌商品详情页总浏览次数 [原字段 'total_detail_page_views14d']
+                            "total_page_views_14d": 0,
+                            # 14天浏览归因的品牌商品详情页总浏览次数 [原字段 'total_detail_page_view_views14d']
+                            "view_total_page_views_14d": 0,
+                            # 广告活动开始以来触达的独立用户数
+                            "reach": 0,
+                            # 可衡量的广告展示次数
+                            "measurable_impressions": 0,
+                            # 平均广告展示频率
+                            "frequency_average": 0.0,
+                            # 总点击量 [原字段 'gross_click_throughs']
+                            "gross_clicks": 0,
+                            # 总展示量
+                            "gross_impressions": 0,
+                            # 无效点击量 [原字段 'invalid_click_throughs']
+                            "invalid_clicks": 0,
+                            # 无效展示量
+                            "invalid_impressions": 0,
+                            # 广告浏览或点击归因的推广商品评论页访问次数
+                            "product_review_page_visits": 0,
+                            # 点击归因的推广商品评论页访问次数 [原字段 'product_review_page_visits_clicks']
+                            "click_product_review_page_visits": 0,
+                            # 浏览归因的推广商品评论页访问次数 [原字段 'product_review_page_visits_views']
+                            "view_product_review_page_visits": 0,
+                            # 广告浏览或点击归因的品牌商品评论页总访问次数
+                            "total_product_review_page_visits": 0,
+                            # 点击归因的品牌商品评论页总访问次数 [原字段 'total_product_review_page_visits_clicks']
+                            "click_total_product_review_page_visits": 0,
+                            # 浏览归因的品牌商品评论页总访问次数 [原字段 'total_product_review_page_visits_views']
+                            "view_total_product_review_page_visits": 0,
+                            # 加入列表的次数 [原字段 'add_to_list']
+                            "add_to_list_count": 0,
+                            # 点击归因的加入列表次数 [原字段 'add_to_list_clicks']
+                            "click_add_to_list_count": 0,
+                            # 浏览归因的加入列表次数 [原字段 'add_to_list_views']
+                            "view_add_to_list_count": 0,
+                            # 广告浏览或点击归因的品牌商品加入心愿单、礼品清单或注册计划的总次数 [原字段 'total_add_to_list']
+                            "total_add_to_list_count": 0,
+                            # 点击归因的品牌商品加入心愿单、礼品清单或注册计划的总次数 [原字段 'total_add_to_list_clicks']
+                            "click_total_add_to_list_count": 0,
+                            # 浏览归因的品牌商品加入心愿单、礼品清单或注册计划的总次数 [原字段 'total_add_to_list_views']
+                            "view_total_add_to_list_count": 0,
+                            # 广告浏览或点击归因的推广商品加购次数 [原字段 'add_to_cart']
+                            "direct_add_to_cart_count": 0,
+                            # 点击归因的推广商品加购次数 [原字段 'add_to_cart_clicks']
+                            "click_direct_add_to_cart_count": 0,
+                            # 浏览归因的推广商品加购次数 [原字段 'add_to_cart_views']
+                            "view_direct_add_to_cart_count": 0,
+                            # 点击归因的品牌商品总加购次数 [原字段 'total_add_to_cart_clicks']
+                            "click_add_to_cart_count": 0,
+                            # 浏览归因的品牌商品总加购次数 [原字段 'total_add_to_cart_views']
+                            "view_add_to_cart_count": 0,
+                            # 加入商城购物车的次数 [原字段 'add_to_shopping_cart']
+                            "add_to_shopping_cart_count": 0,
+                            # 点击归因的加入商城购物车次数 [原字段 'add_to_shopping_cart_clicks']
+                            "click_add_to_shopping_cart_count": 0,
+                            # 浏览归因的加入商城购物车次数 [原字段 'add_to_shopping_cart_views']
+                            "view_add_to_shopping_cart_count": 0,
+                            # 加入观察列表的次数 [原字段 'add_to_watchlist']
+                            "add_to_watchlist_count": 0,
+                            # 点击归因的加入观察列表次数 [原字段 'add_to_watchlist_clicks']
+                            "click_add_to_watchlist_count": 0,
+                            # 浏览归因的品牌商品总订单数 [原字段 'total_purchases_views']
+                            "view_total_orders": 0,
+                            # 点击归因的品牌商品总订单数 [原字段 'total_purchases_clicks']
+                            "click_total_orders": 0,
+                            # 广告浏览或点击归因的推广商品直接订单数 [原字段 'purchases']
+                            "direct_orders": 0,
+                            # 点击归因的推广商品直接订单数 [原字段 'purchases_clicks']
+                            "click_direct_orders": 0,
+                            # 浏览归因的推广商品直接订单数 [原字段 'purchases_views']
+                            "view_direct_orders": 0,
+                            # 广告浏览或点击归因的推广商品直接销量 [原字段 'units_sold']
+                            "direct_units": 0,
+                            # 推广商品广告回报率，直接销售额 / 广告花费
+                            "roas": 0.0,
+                            # 广告浏览或点击归因的站内及站外合计订单数 [原字段 'combined_purchases']
+                            "combined_orders": 0,
+                            # 广告浏览或点击归因的站内及站外合计销量 [原字段 'combined_units_sold']
+                            "combined_units": 0,
+                            # 广告浏览或点击归因的站内及站外合计销售额 [原字段 'combined_product_sales']
+                            "combined_sales": 0.0,
+                            # 浏览归因的站内及站外合计订单数 [原字段 'combined_purchases_views']
+                            "view_combined_orders": 0,
+                            # 点击归因的站内及站外合计订单数 [原字段 'combined_purchases_clicks']
+                            "click_combined_orders": 0,
+                            # 长期销售额
+                            "long_term_sales": 0.0,
+                            # 与广告精选ASIN对应品牌的搜索次数
+                            "brand_searches": 0,
+                            # 点击归因的品牌搜索次数 [原字段 'brand_searches_clicks']
+                            "click_brand_searches": 0,
+                            # 浏览归因的品牌搜索次数 [原字段 'brand_searches_views']
+                            "view_brand_searches": 0,
+                            # 品牌搜索率，品牌搜索次数 / 展示次数 × 100%
+                            "brand_search_rate": 0.0,
+                            # 广告浏览或点击归因的品牌新客推广商品直接订单数 [原字段 'new_to_brand_purchases']
+                            "new_to_brand_orders": 0,
+                            # 浏览归因的品牌新客推广商品直接订单数 [原字段 'new_to_brand_purchases_views']
+                            "view_new_to_brand_orders": 0,
+                            # 点击归因的品牌新客推广商品直接订单数 [原字段 'new_to_brand_purchases_clicks']
+                            "click_new_to_brand_orders": 0,
+                            # 广告浏览或点击归因的品牌新客推广商品直接销量 [原字段 'new_to_brand_units_sold']
+                            "new_to_brand_units": 0,
+                            # 广告浏览或点击归因的品牌新客推广商品直接销售额 [原字段 'new_to_brand_product_sales']
+                            "new_to_brand_sales": 0.0,
+                            # 广告浏览或点击归因的品牌新客推广商品详情页浏览次数 [原字段 'new_to_brand_detail_page_views']
+                            "new_to_brand_page_views": 0,
+                            # 品牌新客推广商品详情页浏览率，详情页浏览次数 / 展示次数 × 100% [原字段 'new_to_brand_detail_page_view_rate']
+                            "new_to_brand_page_view_rate": 0.0,
+                            # 广告浏览或点击归因的品牌新客品牌商品总订单数 [原字段 'total_new_to_brand_purchases']
+                            "total_new_to_brand_orders": 0,
+                            # 点击归因的品牌新客品牌商品总订单数 [原字段 'total_new_to_brand_purchases_clicks']
+                            "click_total_new_to_brand_orders": 0,
+                            # 浏览归因的品牌新客品牌商品总订单数 [原字段 'total_new_to_brand_purchases_views']
+                            "view_total_new_to_brand_orders": 0,
+                            # 广告浏览或点击归因的品牌新客品牌商品总销量 [原字段 'total_new_to_brand_units_sold']
+                            "total_new_to_brand_units": 0,
+                            # 广告浏览或点击归因的品牌新客品牌商品总销售额
+                            "total_new_to_brand_sales": 0.0,
+                            # 品牌新客总订单占比，品牌新客总订单数 / 总订单数 × 100% [原字段 'total_new_to_brand_purchases_percentage']
+                            "total_new_to_brand_order_pct": 0.0,
+                            # 广告浏览或点击归因的品牌新客品牌商品详情页总浏览次数 [原字段 'total_new_to_brand_dpvs']
+                            "total_new_to_brand_page_views": 0,
+                            # 代理费用
+                            "agency_fee": 0.0,
+                            # 总费用
+                            "total_fee": 0.0,
+                            # 视频开始播放次数 [原字段 'video_ad_start']
+                            "video_starts": 0,
+                            # 视频播放达到25%的次数 [原字段 'video_ad_first_quartile']
+                            "video_25pct_views": 0,
+                            # 视频播放达到50%的次数 [原字段 'video_ad_midpoint']
+                            "video_50pct_views": 0,
+                            # 视频播放达到75%的次数 [原字段 'video_ad_third_quartile']
+                            "video_75pct_views": 0,
+                            # 视频播放完成次数 [原字段 'video_ad_complete']
+                            "video_100pct_views": 0,
+                            # 可衡量展示率，measurable_impressions / impressions × 100%，接口保留两位小数
+                            "measurable_rate": 0.0,
+                            # 可见展示率，viewable_impressions / impressions × 100%，接口保留两位小数
+                            "viewable_rate": 0.0,
+                            # 间接订单数，接口按total_purchases14d - purchases计算 [原字段 'indirect_purchases']
+                            "indirect_orders": 0,
+                            # 间接销量，接口按total_units_sold14d - units_sold计算 [原字段 'indirect_units_sold']
+                            "indirect_units": 0,
+                            # 间接销售额，接口按total_sales14d - sales计算并保留两位小数
+                            "indirect_sales": 0.0,
+                            # 品牌新客总购买率，total_new_to_brand_purchases / impressions × 100%，接口保留两位小数 [原字段 'total_new_to_brand_purchase_rate']
+                            "total_new_to_brand_order_rate": 0.0,
+                            # 品牌新客直接订单占比，new_to_brand_purchases / purchases × 100%，接口保留两位小数 [原字段 'new_to_brand_purchases_percentage']
+                            "new_to_brand_order_pct": 0.0,
+                            # 点击率，接口返回已存储的值并保留两位小数
+                            "ctr": 0.0,
+                            # 千次展示成本，接口返回已存储的值并保留两位小数
+                            "ecpm": 0.0,
+                            # 每次点击成本，接口按total_cost / clicks计算并以HALF_UP保留两位小数；缺少操作数或clicks为0时接口返回0 [原字段 'eCPC']
+                            "cpc": 0.0,
+                            # 每次品牌搜索的成本 [原字段 'eCPBrandSearch']
+                            "cost_per_brand_search": 0.0,
+                            # 站内及站外合计广告回报率，综合销售额 / 广告花费 [原字段 'combinedROAS']
+                            "combined_roas": 0.0,
+                            # 长期广告回报率 [原字段 'longTermROAS']
+                            "long_term_roas": 0.0,
+                            # 品牌新客推广商品广告回报率，直接销售额 / 广告花费 [原字段 'newToBrandROAS']
+                            "new_to_brand_roas": 0.0,
+                            # 品牌新客品牌商品总广告回报率，总销售额 / 广告花费 [原字段 'totalNewToBrandROAS']
+                            "total_new_to_brand_roas": 0.0,
+                            # 品牌新客品牌商品详情页总浏览率，总浏览次数 / 展示次数 × 100% [原字段 'totalNewToBrandDPVRate']
+                            "total_new_to_brand_page_view_rate": 0.0,
+                            # 第三方费用 [原字段 '3PFees']
+                            "third_party_fees": 0.0,
+                            # 品牌商品详情页总浏览率，total_detail_page_views14d / impressions × 100%，接口保留两位小数 [原字段 'totalDPVR']
+                            "total_page_view_rate": 0.0,
+                            # 推广商品评论页访问率，product_review_page_visits / impressions × 100%，接口保留两位小数 [原字段 'PRPVR']
+                            "product_review_page_visit_rate": 0.0,
+                            # 品牌商品评论页总访问率，total_product_review_page_visits / impressions × 100%，接口保留两位小数 [原字段 'totalPRPVR']
+                            "total_product_review_page_visit_rate": 0.0,
+                            # 推广商品加购率，add_to_cart / impressions × 100%，接口保留两位小数 [原字段 'ATCR']
+                            "add_to_cart_rate": 0.0,
+                            # 品牌商品总加购率，total_add_to_cart14d / impressions × 100%，接口保留两位小数 [原字段 'totalATCR']
+                            "total_add_to_cart_rate": 0.0,
+                            # 广告花费占总销售额的百分比，total_cost / total_sales14d × 100%，接口保留两位小数 [原字段 'ACOS']
+                            "acos": 0.0,
+                        },
+                    ],
+                    # 当前页最后一条记录ID的Base64游标
+                    "next_token": "NzAwMDAwMDAwMDAwMDAx",
+                }
         """
         url = route.DSP_REPORTS
         # 解析并验证参数
@@ -6363,6 +6645,8 @@ class AdsAPI(BaseAPI):
             "start_date": start_date,
             "end_date": end_date,
             "profile_id": profile_id,
+            "advertiser_id": advertiser_id,
+            "next_token": next_token,
             "offset": offset,
             "length": length,
         }
@@ -6381,48 +6665,67 @@ class AdsAPI(BaseAPI):
         country: str,
         start_date: str | datetime.date | datetime.datetime,
     ) -> schema.DownloadAbaReport:
-        """生成亚马逊 ABA 搜索词报告的下载连接 (周纬度)
+        """按周查询指定国家的亚马逊 ABA 搜索词报告下载信息。
 
         ## Docs
-        - 新广告 - 报表下载: [ABA搜索词报告-按周维度](https://apidoc.lingxing.com/#/docs/newAd/reportDownload/abaReport)
+        领星接口文档: 新广告.[ABA搜索词报告 - 按周维度](https://apidoc.lingxing.com/new/api-docs/newAd/reportDownload/abaReport/)
 
-        ## Notice
-        - 下载的 ABA 报告为 zip 压缩包 (无后缀), 内包含同名 json 文件 (无后缀)
-        - 压缩包内的 json 报告文件普遍很大, 建议使用流式读数据内容
+        Args:
+            country (str): 两字符国家代码，如US；去除首尾空白后发送为country。
+            start_date (str | date | datetime): 用于选择报告周的日期。接口要求周起始日期为周日。
+                SDK将输入转换为当天或之前最近的周日，周日保持不变，例如2026-09-18转为2026-09-13。
+                日期以YYYY-MM-DD发送为data_start_time；接口仅支持最近45天的周日，SDK不额外校验该日期范围。
 
-        :param country `<'str'>`: 国家代码
-        :param start_date `<'str/date/datetime'>`: 报告开始日期, 会自动调整为周日,
-            下载的报告会包含此日期到当前为止所有的 ABA 数据, 一般数据量很大
-        :returns `<'DownloadAbaReport'>`: 返回生成的 ABA 报告下载连接
-        ```python
-        {
-            # 状态码
-            "code": 0,
-            # 提示信息
-            "message": "操作成功",
-            # 错误信息
-            "errors": [],
-            # 请求ID
-            "request_id": "44DAC5AE-7D76-9054-2431-0EF7E357CFE5",
-            # 响应时间
-            "response_time": "2025-08-13 19:23:04",
-            # 响应数据量
-            "response_count": 1,
-            # 总数据量
-            "total_count": 1,
-            # 响应数据
-            "data": {
-                # 国家代码 [原字段 'country']
-                "country_code": "US",
-                # 报告周期
-                "report_period": "WEEK",
-                # 报告开始日期 [原字段 'data_start_time']
-                "start_date": "2025-08-03",
-                # 下载链接
-                "url": "https://dg-reportserviceprd-1254213275.cos.ap-guangzhou.myqcloud.com/****",
-            },
-        }
-        ```
+        Returns:
+            ads.schema.DownloadAbaReport: 国家、周起始日期、报告周期和下载链接；报告文件需通过链接另行下载。
+                response_count和total_count表示下载信息对象的数量，不是文件中的搜索词记录数。
+                下载链接可能含临时签名，使用时应完整保留查询参数。
+
+        Raises:
+            errors.InvalidParametersError: 国家代码不符合两字符规则，或日期无法解析。
+            errors.RequestError: 请求失败或接口返回业务错误，例如文件不存在。
+            pydantic.ValidationError: 成功响应缺少必填下载信息，或字段类型无法解析。
+
+        Examples:
+            查询美国指定周的报告下载信息并查看返回数据。
+
+            .. code-block:: python
+
+                result = await client.ads.DownloadAbaReport(
+                    country="US",
+                    start_date="2026-10-04",
+                )
+                print(result.model_dump())
+
+            .. code-block:: python
+
+                {
+                    # 状态码
+                    "code": 0,
+                    # 提示信息
+                    "message": "操作成功",
+                    # 错误信息
+                    "errors": [],
+                    # 请求ID（示例值）
+                    "request_id": "00000000-0000-4000-8000-000000000001",
+                    # 响应时间（示例值）
+                    "response_time": "2026-10-18 00:00:00",
+                    # 下载信息对象数量
+                    "response_count": 1,
+                    # 下载信息对象总数量
+                    "total_count": 1,
+                    # 报告下载信息
+                    "data": {
+                        # 国家代码 [原字段 'country']
+                        "country_code": "US",
+                        # 报告周期
+                        "report_period": "WEEK",
+                        # 报告周起始日期 [原字段 'data_start_time']
+                        "start_date": "2026-10-04",
+                        # 下载链接（示例地址）
+                        "url": "https://example.com/aba/report",
+                    },
+                }
         """
         url = route.DOWNLOAD_ABA_REPORT
         # 解析并验证参数
@@ -6452,87 +6755,111 @@ class AdsAPI(BaseAPI):
         offset: int | None = None,
         length: int | None = None,
     ) -> schema.AdsOperationLogs:
-        """查询广告操作日志
+        """查询指定店铺和日期范围的广告操作日志。
 
         ## Docs
-        - 新广告: [操作日志(新）](https://apidoc.lingxing.com/#/docs/newAd/apiLogStandard)
+        领星接口文档: 新广告.[操作日志（新）](https://apidoc.lingxing.com/new/api-docs/newAd/apiLogStandard/)
 
-        :param sid `<'int'>`: 领星店铺ID
-        :param start_date `<'str/date/datetime'>`: 操作日志开始日期, 日期间隔不能超过1个月
-        :param end_date `<'str/date/datetime'>`: 操作日志结束日期, 日期间隔不能超过1个月
-        :param ad_type `<'str'>`: 广告类型, 可选值: `"SP"`, `"SB"`, `"SD"`
-        :param operation_target `<'str'>`: 操作对象, 可选值:
+        Args:
+            sid (int): 领星店铺ID，与响应中的广告账号profile_id不同。
+            start_date (str | date | datetime): 操作日志开始日期，输出为YYYY-MM-DD；接口要求查询间隔不超过一个月，模型不额外校验起止顺序或跨度。
+            end_date (str | date | datetime): 操作日志结束日期，输出为YYYY-MM-DD；与start_date的间隔不超过一个月。
+            ad_type (str): 广告类型，接口支持SP、SB、SD；请求时转为小写并使用sponsored_type字段，模型不额外限制枚举。
+            operation_target (str): 操作对象，请求字段为operate_type；campaigns广告活动、adGroups广告组、productAds广告、keywords关键词、negativeKeywords否定关键词、targets商品投放、negativeTargets否定商品投放、profiles预算设置。去除首尾空白后须非空，模型不额外限制枚举。
+            log_source (str): 日志来源，默认all；all包括ERP与亚马逊后台调整，erp仅ERP调整，amazon仅亚马逊后台调整。去除首尾空白后须非空，模型不额外限制枚举。
+            offset (int | None): 从0开始的偏移量，默认None并省略，显式0保留；不保证跨页拼接完整或排序稳定。
+            length (int | None): 分页长度，默认None并省略，接口默认15；显式0保留，模型不额外设置长度上限。
 
-            - `"campaigns"` (广告活动)
-            - `"adGroups"` (广告组)
-            - `"productAds"` (广告)
-            - `"keywords"` (关键词)
-            - `"negativeKeywords"` (否定关键词)
-            - `"targets"` (商品投放)
-            - `"negativeTargets"` (否定商品投放)
-            - `"profiles"` (预算设置)
+        Returns:
+            ads.schema.AdsOperationLogs: 广告操作日志列表；可空整数和文本按模型转为0或空字符串，操作前后value保持字符串，不执行JSON解码，操作时间保持站点时间文本。
 
-        :param log_source `<'str'>`: 日志来源, 默认值 `"all"`, 可选值:
+        Examples:
+            查询广告活动操作日志并查看返回数据。
 
-            - `"erp"` (仅领星ERP的广告调整日志)
-            - `"amazon"` (仅亚马逊后台的广告调整日志)
-            - `"all"` (全部)
+            .. code-block:: python
 
-        :param offset `<'int/None'>`: 分页偏移量, 默认 `None` (使用: 0)
-        :param length `<'int/None'>`: 分页长度, 默认 `None` (使用: 15)
-        :returns `<'AdsOperationLogs'>`: 返回查询到的广告操作日志结果
-        ```python
-        {
-            # 亚马逊店铺ID (广告帐号ID)
-            "profile_id": 494************,
-            # 广告活动ID
-            "campaign_id": 326************,
-            # 广告活动名称
-            "campaign_name": "V9IP",
-            # 广告组ID
-            "ad_group_id": 314************,
-            # 广告组名称
-            "ad_group_name": "广告组 - 8/10/2025 00:44:01.141",
-            # 广告对象ID [原字段 'object_id']
-            "ad_object_id": 314************,
-            # 广告对象名称 [原字段 'object_name']
-            "ad_object_name": "广告组 - 8/10/2025 00:44:01.141",
-            # 广告类型 [原字段 'sponsored_type']
-            "ad_type": "sp",
-            # 操作用户ID [原字段 'user_id']
-            "operator_id": 0,
-            # 操作用户名称 [原字段 'user_name']
-            "operator_name": "亚马逊日志",
-            # 操作对象 [原字段 'operate_type']
-            "operation_target": "adGroups",
-            # 操作类型 [原字段 'change_type']
-            "operation_type": "create",
-            # 操作来源 [原字段 'function_name']
-            "operation_source": "history",
-            # 操作时间 [原字段 'operate_time']
-            "operation_time": "2025-08-09 09:59:08",
-            # 操作前列表 [原字段 'operate_before']
-            "before": [
+                result = await client.ads.AdsOperationLogs(
+                    sid=10105,
+                    start_date="2026-10-01",
+                    end_date="2026-10-16",
+                    ad_type="SP",
+                    operation_target="campaigns",
+                    log_source="all",
+                    offset=0,
+                    length=4,
+                )
+                print(result.model_dump())
+
+            .. code-block:: python
+
                 {
-                    # 操作编码
-                    "code": "STATUS",
-                    # 操作值
-                    "value": "null",
-                },
-                ...
-            ],
-            # 操作后列表 [原字段 'operate_after']
-            "after": [
-                {
-                    # 操作编码
-                    "code": "STATUS",
-                    # 操作值
-                    "value": "CREATED"
-                },
-                ...
-            ],
-        }
-        ```
+                    # 状态码
+                    "code": 0,
+                    # 提示信息
+                    "message": "操作成功",
+                    # 错误信息
+                    "errors": [],
+                    # 请求ID
+                    "request_id": "E9B07821-38F4-4AC6-A08D-438731E8E915",
+                    # 响应时间
+                    "response_time": "2026-10-17 08:00:00",
+                    # 响应数据量
+                    "response_count": 4,
+                    # 总数据量
+                    "total_count": 217,
+                    # 响应数据
+                    "data": [
+                        {
+                            # 亚马逊店铺ID (广告帐号ID)
+                            "profile_id": 90000000000001,
+                            # 广告活动ID
+                            "campaign_id": 700000000000001,
+                            # 广告活动名称
+                            "campaign_name": "CAMPAIGN-00001",
+                            # 广告组ID
+                            "ad_group_id": 0,
+                            # 广告组名称
+                            "ad_group_name": "",
+                            # 广告对象ID [原字段 'object_id']
+                            "ad_object_id": 700000000000001,
+                            # 广告对象名称 [原字段 'object_name']
+                            "ad_object_name": "CAMPAIGN-00001",
+                            # 广告类型 [原字段 'sponsored_type']
+                            "ad_type": "sp",
+                            # 操作用户ID [原字段 'user_id']
+                            "operator_id": 0,
+                            # 操作用户名称 [原字段 'user_name']
+                            "operator_name": "亚马逊日志",
+                            # 操作对象 [原字段 'operate_type']
+                            "operation_target": "campaigns",
+                            # 操作类型 [原字段 'change_type']
+                            "operation_type": "update",
+                            # 操作来源 [原字段 'function_name']
+                            "operation_source": "history",
+                            # 操作时间 [原字段 'operate_time']
+                            "operation_time": "2026-10-01 10:19:37",
+                            # 操作前列表 [原字段 'operate_before']
+                            "before": [
+                                {
+                                    # 操作编码
+                                    "code": "IN_BUDGET",
+                                    # 操作值
+                                    "value": "true",
+                                },
+                            ],
+                            # 操作后列表 [原字段 'operate_after']
+                            "after": [
+                                {
+                                    # 操作编码
+                                    "code": "IN_BUDGET",
+                                    # 操作值
+                                    "value": "false",
+                                },
+                            ],
+                        },
+                        ...,
+                    ],
+                }
         """
         url = route.ADS_OPERATION_LOGS
         # 解析并验证参数
@@ -6552,5 +6879,7 @@ class AdsAPI(BaseAPI):
             raise errors.InvalidParametersError(err, url, args) from err
 
         # 发送请求
-        data = await self._request_with_sign("POST", url, body=p.model_dump_params())
+        data = await self._request_with_sign(
+            "POST", url, body=p.model_dump_params(), headers={"X-API-VERSION": "2"}
+        )
         return schema.AdsOperationLogs.model_validate(data)

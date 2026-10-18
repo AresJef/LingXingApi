@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 from __future__ import annotations
 
+import datetime
 from typing import Optional
-from pydantic import ValidationInfo, Field, field_validator, model_validator
+from pydantic import ValidationInfo, Field, field_serializer, field_validator, model_validator
 from lingxingapi import utils
 from lingxingapi.base.param import Parameter, PageOffestAndLength
 from lingxingapi.fields import NonEmptyStr, CountryCode, NonNegativeInt
@@ -422,19 +423,105 @@ class SbQueryReports(AdReports):
 
 # . DSP Reports
 class DspReports(PageOffestAndLength):
-    """查询 DSP 报告参数"""
+    """查询 DSP 订单日报参数。
 
-    # 开始日期, 双闭区间, 时间间隔最长不超过90天
-    start_date: str
-    # 结束日期, 双闭区间, 时间间隔最长不超过90天
-    end_date: str
-    # 亚马逊店铺ID [广告帐号ID] (AdsProfiles.profile_id)
-    profile_id: NonNegativeInt
+    Args:
+        start_date (str | date | datetime): 报告开始日期，包含当日，输出为YYYY-MM-DD。
+        end_date (str | date | datetime): 报告结束日期，包含当日；接口要求查询间隔不超过90天。
+        profile_id (int | None): DSP账户ID，来源为AdProfiles返回的profile_id；沿用非负整数校验，发送为字符串。
+            与advertiser_id至少提供一项；同时提供时接口优先使用advertiser_id。
+        advertiser_id (int | None): 广告主ID，默认None并省略，发送为非负整数。
+        next_token (str | None): 上一页返回的Base64游标，默认None并省略；给定字符串去除首尾空白后须非空。
+        offset (int | None): 从0开始的分页偏移量，默认None并省略；接口默认0，显式0保留。
+        length (int | None): 分页长度，默认None并省略；接口默认20，显式0保留。
+
+    Raises:
+        pydantic.ValidationError: 日期缺失或无法解析、两个标识均为None，或给定的标识、游标和分页字段不符合校验规则。
+
+    Examples:
+        使用DSP账户ID查询，账号ID在请求字典中输出为字符串。
+
+        >>> DspReports(start_date="2022-10-05", end_date="2022-12-01", profile_id=90000000000001).model_dump_params()
+        {'end_date': '2022-12-01', 'profile_id': '90000000000001', 'start_date': '2022-10-05'}
+
+        也可使用广告主ID，输出请求键按接口协议序列化。
+
+        >>> DspReports(start_date="2022-10-05", end_date="2022-12-01", advertiser_id=80000000000001).model_dump_params()
+        {'dsp_advertiser_id': 80000000000001, 'end_date': '2022-12-01', 'start_date': '2022-10-05'}
+    """
+
+    start_date: str = Field(
+        description="报告开始日期，包含当日，输出为YYYY-MM-DD；接口要求查询间隔不超过90天",
+        examples=["2022-10-05"],
+    )
+    end_date: str = Field(
+        description="报告结束日期，包含当日，输出为YYYY-MM-DD；接口要求查询间隔不超过90天",
+        examples=["2022-12-01"],
+    )
+    profile_id: Optional[NonNegativeInt] = Field(
+        description="DSP账户ID，来源为AdProfiles.profile_id；与advertiser_id至少提供一项，输入按非负整数校验并发送为字符串；同时提供时接口优先使用advertiser_id",
+        examples=[90000000000001],
+        # - - - - - - - - - -
+        default=None,
+    )
+    advertiser_id: Optional[NonNegativeInt] = Field(
+        description="广告主ID；与profile_id至少提供一项，同时提供时接口优先使用此标识；None省略请求键",
+        examples=[80000000000001],
+        # - - - - - - - - - -
+        serialization_alias="dsp_advertiser_id",
+        default=None,
+    )
+    next_token: Optional[NonEmptyStr] = Field(
+        description="上一页最后一条记录ID经Base64编码的分页游标；首次请求可省略，None省略请求键，给定字符串去除首尾空白后须非空",
+        examples=["NzAwMDAwMDAwMDAwMDAx"],
+        # - - - - - - - - - -
+        default=None,
+    )
+
+    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    @model_validator(mode="after")
+    def _validate_identifiers(self) -> DspReports:
+        """要求至少一个账号或广告主标识不是None。
+
+        Returns:
+            DspReports: 当前模型实例，同时保留两个已提供的标识。
+
+        Raises:
+            ValueError: profile_id和advertiser_id均为None。
+        """
+        if self.profile_id is None and self.advertiser_id is None:
+            raise ValueError("profile_id和advertiser_id至少提供一项")
+        return self
+
+    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    @field_serializer("profile_id")
+    def _serialize_profile_id(self, v: int | None) -> str | None:
+        """将已验证的账号ID按接口要求输出为字符串。
+
+        Args:
+            v (int | None): 按既有非负整数规则解析后的账号ID。
+
+        Returns:
+            str | None: 账号ID字符串；未提供时返回None，由请求字典省略。
+        """
+        return None if v is None else str(v)
 
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     @field_validator("start_date", "end_date", mode="before")
     @classmethod
-    def _validate_date(cls, v: str, info: ValidationInfo) -> str:
+    def _validate_date(cls, v: str | datetime.date | datetime.datetime, info: ValidationInfo) -> str:
+        """按既有日期解析规则输出DSP报告日期。
+
+        Args:
+            v (str | date | datetime): 校验前的日期输入。
+            info (ValidationInfo): 正在校验的日期字段，用于错误提示。
+
+        Returns:
+            str: YYYY-MM-DD日期文本；不额外校验起止顺序或90天查询间隔。
+
+        Raises:
+            ValueError: 输入为None或既有日期解析器无法解析输入。
+        """
         dt = utils.validate_datetime(v, False, "DSP报告日期 %s" % info.field_name)
         return "%04d-%02d-%02d" % (dt.year, dt.month, dt.day)
 
@@ -442,57 +529,161 @@ class DspReports(PageOffestAndLength):
 # 报表下载 ----------------------------------------------------------------------------------------------------------------------
 # . Download ABA Report
 class DownloadAbaReport(Parameter):
-    """查询 Amazon ABA 报表下载参数"""
+    """查询指定国家和周起始日期的 ABA 报告下载信息参数。
 
-    # 国家代码
-    country_code: CountryCode = Field(alias="country")
-    # 开始日期, 报表开始日期, 自动会调整为当周周日
-    start_date: str = Field(alias="data_start_time")
+    Args:
+        country_code (str): 两字符国家代码，如US；去除首尾空白，请求别名为country。
+        start_date (str | date | datetime): 周报告起始日期，请求别名为data_start_time，输出为YYYY-MM-DD。
+            以周日为每周起点，归并到输入日期当天或之前最近的周日；接口仅支持最近45天的周日，模型不额外校验该范围。
+
+    Raises:
+        pydantic.ValidationError: 必填参数缺失、国家代码不符合两字符规则，或日期无法解析。
+
+    Examples:
+        使用所选日期生成其所在周的请求参数。
+
+        .. code-block:: python
+
+            parameters = DownloadAbaReport(country_code="US", start_date="2026-09-18")
+            print(parameters.model_dump_params())
+    """
+
+    country_code: CountryCode = Field(
+        description="两字符国家代码，去除首尾空白 [请求字段 'country']",
+        examples=["US"],
+        # - - - - - - - - - -
+        alias="country",
+    )
+    start_date: str = Field(
+        description="周报告起始日期（周日），输出为YYYY-MM-DD；输入转换为当天或之前最近的周日，周日保持不变；接口仅支持最近45天 [请求字段 'data_start_time']",
+        examples=["2026-10-04"],
+        # - - - - - - - - - -
+        alias="data_start_time",
+    )
 
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     @field_validator("start_date", mode="before")
     @classmethod
-    def _validate_start_date(cls, v: str) -> str:
-        dt = utils.validate_datetime(v, False, "ABA报表开始日期").to_sunday()
+    def _validate_start_date(cls, v: str | datetime.date | datetime.datetime) -> str:
+        """按周日为每周起点，将所选日期归并到该周周日并输出年月日。
+
+        Args:
+            v (str | date | datetime): 校验前的日期输入。
+
+        Returns:
+            str: YYYY-MM-DD日期文本；取输入日期当天或之前最近的周日，不校验最近45天范围。
+
+        Raises:
+            ValueError: 输入为None或既有日期解析器无法解析输入。
+        """
+        dt = utils.validate_datetime(v, False, "ABA报表开始日期")
+        # cyTimes的周从周一开始；ABA的周从周日开始。
+        if not dt.is_weekday("Sun"):
+            dt = dt.to_prev_weekday("Sun")
         return "%04d-%02d-%02d" % (dt.year, dt.month, dt.day)
 
 
 # 操作日志 ----------------------------------------------------------------------------------------------------------------------
 # . Ads Operation Logs
 class AdsOperationLogs(PageOffestAndLength):
-    """查询广告操作日志参数"""
+    """查询广告操作日志参数。
 
-    # 领星店铺ID
-    sid: NonNegativeInt
-    # 开始日期, 日期间隔不能超过1个月
-    start_date: str
-    # 结束日期, 日期间隔不能超过1个月
-    end_date: str
-    # 广告类型 ('sp', 'sb', 'sd')
-    ad_type: str = Field(alias="sponsored_type")
-    # 操作对象
-    # - campaigns 广告活动
-    # - adGroups 广告组
-    # - productAds 广告
-    # - keywords 关键词
-    # - negativeKeywords 否定关键词
-    # - targets 商品投放
-    # - negativeTargets 否定商品投放
-    # - profiles 预算设置
-    operation_target: NonEmptyStr = Field(alias="operate_type")
-    # 日志来源
-    log_source: NonEmptyStr
+    日期输出为YYYY-MM-DD，接口要求查询间隔不超过一个月；模型不额外校验起止顺序或跨度。
+    广告类型转为小写，其余文本去除首尾空白；模型不额外限制广告类型、操作对象或来源的枚举。
+    日志来源在本模型中必填，SDK方法默认传入all。分页查询不保证跨页完整性。
+
+    Args:
+        sid (int): 领星店铺ID，沿用非负整数校验，与响应中的广告账号profile_id不同。
+        start_date (str | date | datetime): 操作日志开始日期，输出为YYYY-MM-DD。
+        end_date (str | date | datetime): 操作日志结束日期，输出为YYYY-MM-DD。
+        ad_type (str): 广告类型，接口支持SP、SB、SD；转为小写后使用请求别名sponsored_type。
+        operation_target (str): 操作对象，使用请求别名operate_type；campaigns广告活动、adGroups广告组、productAds广告、keywords关键词、negativeKeywords否定关键词、targets商品投放、negativeTargets否定商品投放、profiles预算设置。去除首尾空白后须非空。
+        log_source (str): 日志来源，all全部、erp仅ERP调整、amazon仅亚马逊后台调整；去除首尾空白后须非空。
+        offset (int | None): 从0开始的偏移量，默认None并省略，显式0保留。
+        length (int | None): 分页长度，默认None并省略；接口默认15，显式0保留，不额外设置长度上限。
+
+    Raises:
+        pydantic.ValidationError: 必填参数缺失、日期无法解析，或参数不符合既有类型及非空、非负校验。
+
+    Examples:
+        将日期、广告类型和请求别名序列化。
+
+        >>> AdsOperationLogs(sid=10105, start_date="2026-10-01", end_date="2026-10-16", ad_type="SP", operation_target="campaigns", log_source="all").model_dump_params()
+        {'end_date': '2026-10-16', 'log_source': 'all', 'operate_type': 'campaigns', 'sid': 10105, 'sponsored_type': 'sp', 'start_date': '2026-10-01'}
+        >>> AdsOperationLogs.model_validate_params({"sid": 10105, "start_date": "2026-10-01", "end_date": "2026-10-16", "sponsored_type": "SP", "operate_type": "campaigns", "log_source": "all", "offset": 0, "length": 4})
+        {'end_date': '2026-10-16', 'length': 4, 'log_source': 'all', 'offset': 0, 'operate_type': 'campaigns', 'sid': 10105, 'sponsored_type': 'sp', 'start_date': '2026-10-01'}
+    """
+
+    sid: NonNegativeInt = Field(
+        description="领星店铺ID",
+        examples=[10105],
+    )
+    start_date: str = Field(
+        description="开始日期, 日期间隔不能超过1个月；输出为YYYY-MM-DD，模型不额外校验起止顺序或跨度",
+        examples=["2026-10-01"],
+    )
+    end_date: str = Field(
+        description="结束日期, 日期间隔不能超过1个月；输出为YYYY-MM-DD，模型不额外校验起止顺序或跨度",
+        examples=["2026-10-16"],
+    )
+    ad_type: str = Field(
+        description="广告类型 ('sp', 'sb', 'sd')；转为小写，模型不额外限制枚举 [请求字段 'sponsored_type']",
+        examples=["SP"],
+        # - - - - - - - - - -
+        alias="sponsored_type",
+    )
+    operation_target: NonEmptyStr = Field(
+        description="操作对象；campaigns广告活动、adGroups广告组、productAds广告、keywords关键词、negativeKeywords否定关键词、targets商品投放、negativeTargets否定商品投放、profiles预算设置；去除首尾空白后须非空，模型不额外限制枚举 [请求字段 'operate_type']",
+        examples=["campaigns"],
+        # - - - - - - - - - -
+        alias="operate_type",
+    )
+    log_source: NonEmptyStr = Field(
+        description="日志来源；all全部、erp仅ERP调整、amazon仅亚马逊后台调整；模型中必填，SDK方法默认all；去除首尾空白后须非空，模型不额外限制枚举",
+        examples=["all"],
+    )
 
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     @field_validator("start_date", "end_date", mode="before")
     @classmethod
     def _validate_date(cls, v: str, info: ValidationInfo) -> str:
+        """按既有日期解析规则输出操作日志日期。
+
+        Args:
+            v (str | date | datetime): 校验前的日期输入。
+            info (ValidationInfo): 正在校验的日期字段信息，用于错误提示。
+
+        Returns:
+            str: 解析结果的年月日，格式为YYYY-MM-DD；不换算时区或校验查询间隔。
+
+        Raises:
+            ValueError: 输入为None或既有日期解析器无法解析输入。
+
+        Examples:
+            >>> AdsOperationLogs(sid=10105, start_date="2026-10-01 12:30:00", end_date="2026-10-16", ad_type="SP", operation_target="campaigns", log_source="all").start_date
+            '2026-10-01'
+        """
         dt = utils.validate_datetime(v, False, "广告操作日志日期 %s" % info.field_name)
         return "%04d-%02d-%02d" % (dt.year, dt.month, dt.day)
 
     @field_validator("ad_type", mode="before")
     @classmethod
     def _validate_ad_type(cls, v) -> str:
+        """将字符串广告类型转为小写。
+
+        Args:
+            v (object): 校验前的广告类型输入。
+
+        Returns:
+            str: 输入字符串的小写形式；不额外限制枚举。
+
+        Raises:
+            ValueError: 输入不是字符串。
+
+        Examples:
+            >>> AdsOperationLogs._validate_ad_type("SP")
+            'sp'
+        """
         if not isinstance(v, str):
             raise ValueError("广告类型必须是字符串")
         return v.lower()
